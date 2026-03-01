@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DylPredict V53 • Reality Check Edition</title>
+    <title>DylPredict V54 • The Safety Valve Edition</title>
     
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -19,6 +19,8 @@
             --yellow: #f0b90b;
             --purple: #8a6de9;
             --orange: #ff9800;
+            --blue: #3b82f6;
+            --pink: #ec4899;
             --text-main: #eaecef;
             --text-dim: #848e9c;
             --glass-opacity: rgba(30, 35, 41, 0.8);
@@ -26,6 +28,8 @@
             --neon-red: 0 0 10px rgba(248, 73, 96, 0.5);
             --neon-yellow: 0 0 10px rgba(240, 185, 11, 0.5);
             --neon-purple: 0 0 10px rgba(138, 109, 233, 0.5);
+            --neon-orange: 0 0 10px rgba(255, 152, 0, 0.5);
+            --neon-blue: 0 0 10px rgba(59, 130, 246, 0.5);
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -128,12 +132,12 @@
 
         .sub-version {
             font-size: 10px;
-            background: rgba(240, 185, 11, 0.15);
+            background: rgba(255, 152, 0, 0.15);
             padding: 2px 8px;
             border-radius: 100px;
             margin-left: 5px;
-            color: var(--yellow);
-            border: 1px solid rgba(240, 185, 11, 0.2);
+            color: var(--orange);
+            border: 1px solid rgba(255, 152, 0, 0.2);
             font-weight: 500;
         }
 
@@ -321,14 +325,25 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .phase-badge.front-run {
+        .phase-badge.nuclear {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            box-shadow: 0 0 25px #f44336;
+            animation: pulseNuclear 1s infinite;
+        }
+
+        .phase-badge.lrr {
             background: linear-gradient(135deg, #ff9800, #f57c00);
             box-shadow: 0 0 25px #ff9800;
         }
 
+        .phase-badge.slam {
+            background: linear-gradient(135deg, #ec4899, #db2777);
+            box-shadow: 0 0 25px #ec4899;
+        }
+
         .phase-badge.pnr {
-            background: linear-gradient(135deg, #f44336, #d32f2f);
-            box-shadow: 0 0 25px #f44336;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            box-shadow: 0 0 25px #3b82f6;
         }
 
         .phase-badge.magnet {
@@ -339,6 +354,11 @@
         @keyframes pulseBadge {
             0%, 100% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        @keyframes pulseNuclear {
+            0%, 100% { transform: scale(1); opacity: 1; background: #f44336; }
+            50% { transform: scale(1.1); opacity: 0.9; background: #ff5722; }
         }
 
         .signal-hero {
@@ -554,6 +574,9 @@
         .red { color: var(--red); text-shadow: 0 0 10px var(--red); }
         .warning { color: var(--yellow); text-shadow: 0 0 10px var(--yellow); }
         .purple { color: var(--purple); text-shadow: 0 0 10px var(--purple); }
+        .orange { color: var(--orange); text-shadow: 0 0 10px var(--orange); }
+        .blue { color: var(--blue); text-shadow: 0 0 10px var(--blue); }
+        .pink { color: var(--pink); text-shadow: 0 0 10px var(--pink); }
 
         .score-display {
             display: flex;
@@ -635,6 +658,14 @@
             color: var(--purple);
         }
 
+        .data-row .val.orange {
+            color: var(--orange);
+        }
+
+        .data-row .val.blue {
+            color: var(--blue);
+        }
+
         .advanced-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -694,16 +725,28 @@
             transform: rotate(10deg);
         }
 
-        .alert-box.front-run {
+        .alert-box.nuclear {
+            border-color: #f44336;
+            border-left-color: #f44336;
+            background: rgba(244, 67, 54, 0.08);
+        }
+
+        .alert-box.lrr {
             border-color: var(--orange);
             border-left-color: var(--orange);
             background: rgba(255, 152, 0, 0.08);
         }
 
+        .alert-box.slam {
+            border-color: var(--pink);
+            border-left-color: var(--pink);
+            background: rgba(236, 72, 153, 0.08);
+        }
+
         .alert-box.pnr {
-            border-color: var(--red);
-            border-left-color: var(--red);
-            background: rgba(244, 67, 54, 0.08);
+            border-color: var(--blue);
+            border-left-color: var(--blue);
+            background: rgba(59, 130, 246, 0.08);
         }
 
         .alert-box.magnet {
@@ -716,12 +759,20 @@
             color: var(--yellow);
         }
 
-        .alert-box.front-run strong {
+        .alert-box.nuclear strong {
+            color: #f44336;
+        }
+
+        .alert-box.lrr strong {
             color: var(--orange);
         }
 
+        .alert-box.slam strong {
+            color: var(--pink);
+        }
+
         .alert-box.pnr strong {
-            color: var(--red);
+            color: var(--blue);
         }
 
         .alert-box.magnet strong {
@@ -784,6 +835,9 @@
         .terminal-output .red { color: var(--red); }
         .terminal-output .yellow { color: var(--yellow); }
         .terminal-output .purple { color: var(--purple); }
+        .terminal-output .orange { color: var(--orange); }
+        .terminal-output .blue { color: var(--blue); }
+        .terminal-output .pink { color: var(--pink); }
 
         .terminal-output .divider {
             border-top: 1px dashed rgba(255, 255, 255, 0.1);
@@ -813,9 +867,9 @@
 
         .features span {
             padding: 4px 12px;
-            background: rgba(138, 109, 233, 0.1);
+            background: rgba(255, 152, 0, 0.1);
             border-radius: 100px;
-            color: var(--purple);
+            color: var(--orange);
         }
 
         .loading-overlay {
@@ -955,7 +1009,7 @@
     <div class="container">
         <header>
             <div class="logo">
-                <h1>DYLPREDICT<span class="version">V53</span><span class="sub-version">REALITY CHECK</span></h1>
+                <h1>DYLPREDICT<span class="version">V54</span><span class="sub-version">SAFETY VALVE</span></h1>
             </div>
             
             <div class="symbol-selector">
@@ -970,6 +1024,7 @@
                         <option value="ARCUSDT">ARCUSDT</option>
                         <option value="SIRENUSDT">SIRENUSDT</option>
                         <option value="PIPPINUSDT">PIPPINUSDT</option>
+                        <option value="KITEUSDT">KITEUSDT</option>
                     </select>
                 </div>
                 <button id="analyzeCustomBtn" class="btn-primary">
@@ -1042,12 +1097,12 @@
                     <span class="val" id="liqTarget">--</span>
                 </div>
                 <div class="data-row">
-                    <span>Weighted Score</span>
-                    <span class="val" id="weightedScore">--</span>
+                    <span>LRR Ratio</span>
+                    <span class="val" id="lrrRatio">--</span>
                 </div>
                 <div class="data-row">
-                    <span>Buy/Sell Ratio</span>
-                    <span class="val" id="buySellRatio">--</span>
+                    <span>AV Status</span>
+                    <span class="val" id="avStatus">--</span>
                 </div>
             </section>
 
@@ -1082,13 +1137,13 @@
         </div>
 
         <div class="footer">
-            <div>DylPredict V53 • REALITY CHECK EDITION • Anti-SIREN & Anti-PIPPIN</div>
+            <div>DylPredict V54 • THE SAFETY VALVE EDITION • Anti-ARC Massacre</div>
             <div class="features">
-                <span>💀 Fuel-Aware PNR</span>
-                <span>🎯 ADD Divergence</span>
-                <span>🧱 RSI Wall</span>
-                <span>🏦 Front-Run Detector</span>
-                <span>📊 OI Velocity</span>
+                <span>🛡️ LRR Trap</span>
+                <span>📈 AV Slam</span>
+                <span>☢️ 90-Rule</span>
+                <span>⛽ Fuel Check</span>
+                <span>🎯 ADD</span>
             </div>
         </div>
     </div>
@@ -1096,7 +1151,7 @@
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner">
             <i class="fas fa-robot"></i>
-            <p>Analyzing with V53 Reality Check...</p>
+            <p>Analyzing with V54 Safety Valve...</p>
         </div>
     </div>
 
@@ -1129,8 +1184,8 @@
             obRatio: document.getElementById('obRatio'),
             rsiValue: document.getElementById('rsiValue'),
             liqTarget: document.getElementById('liqTarget'),
-            weightedScore: document.getElementById('weightedScore'),
-            buySellRatio: document.getElementById('buySellRatio'),
+            lrrRatio: document.getElementById('lrrRatio'),
+            avStatus: document.getElementById('avStatus'),
             marketPhase: document.getElementById('marketPhase'),
             marketPhaseDesc: document.getElementById('marketPhaseDesc'),
             confidenceLevel: document.getElementById('confidenceLevel'),
@@ -1146,7 +1201,7 @@
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('🚀 DylPredict V53 Reality Check Edition Initialized');
+            console.log('🚀 DylPredict V54 Safety Valve Edition Initialized');
             attachEventListeners();
         });
 
@@ -1171,7 +1226,7 @@
             });
 
             elements.batchModeBtn.addEventListener('click', () => {
-                const symbols = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'ARCUSDT', 'SIRENUSDT', 'PIPPINUSDT'];
+                const symbols = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'ARCUSDT', 'SIRENUSDT', 'PIPPINUSDT', 'KITEUSDT'];
                 analyzeBatch(symbols);
             });
         }
@@ -1219,7 +1274,7 @@
             try {
                 console.log(`🔍 Analyzing batch: ${symbols.join(', ')}`);
                 
-                let summary = "📊 BATCH ANALYSIS SUMMARY:\n\n";
+                let summary = "📊 BATCH ANALYSIS SUMMARY - V54 SAFETY VALVE:\n\n";
                 
                 for (const symbol of symbols) {
                     try {
@@ -1228,7 +1283,8 @@
                         
                         if (result.success && result.data) {
                             const data = result.data;
-                            summary += `${symbol}: ${data.opinion || 'NEUTRAL'} (${data.confidence || 'LOW'}) - ${data.market_phase || 'UNKNOWN'}\n`;
+                            const safetyIcon = data.lrr?.is_trap ? '⚠️' : data.av?.is_market_slam ? '💥' : '✓';
+                            summary += `${safetyIcon} ${symbol}: ${data.bias || 'NEUTRAL'} (${data.confidence || 'LOW'}) - ${data.market_phase || 'UNKNOWN'}\n`;
                         } else {
                             summary += `${symbol}: FAILED\n`;
                         }
@@ -1248,34 +1304,48 @@
         }
 
         function updateDisplay(data) {
-            console.log('🔄 Updating display with:', data);
+            console.log('🔄 Updating display with V54 data:', data);
             
+            // Basic info
             elements.mainSymbol.textContent = data.symbol || 'BTCUSDT';
-            elements.headerTime.textContent = data.time || new Date().toLocaleTimeString();
-            elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(2) : data.price || '0.00'}`;
+            elements.headerTime.textContent = data.timestamp || data.time || new Date().toLocaleTimeString();
+            elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}`;
             
-            const bias = data.opinion || data.market_bias || 'NEUTRAL';
+            // Bias and signal
+            const bias = data.bias || data.opinion || 'NEUTRAL';
             elements.opinionMain.textContent = bias;
             elements.signalHero.className = `signal-hero ${bias.toLowerCase()}`;
             
-            elements.phaseBadge.textContent = data.market_phase || 'NEUTRAL';
+            // Phase badge
+            const phase = data.market_phase || 'NEUTRAL';
+            elements.phaseBadge.textContent = phase;
             elements.phaseBadge.className = 'phase-badge';
-            if (data.market_phase?.includes('FRONT')) {
-                elements.phaseBadge.classList.add('front-run');
-            } else if (data.market_phase?.includes('PNR') || data.market_phase?.includes('POINT')) {
+            
+            if (phase.includes('NUCLEAR')) {
+                elements.phaseBadge.classList.add('nuclear');
+            } else if (data.lrr?.is_trap || phase.includes('LRR')) {
+                elements.phaseBadge.classList.add('lrr');
+            } else if (data.av?.is_market_slam || phase.includes('SLAM')) {
+                elements.phaseBadge.classList.add('slam');
+            } else if (phase.includes('PNR')) {
                 elements.phaseBadge.classList.add('pnr');
-            } else if (data.market_phase?.includes('MAGNET') || data.market_phase?.includes('FLASH')) {
+            } else if (phase.includes('MAGNET') || phase.includes('FLASH')) {
                 elements.phaseBadge.classList.add('magnet');
             }
             
-            elements.strategyDisplay.textContent = `STRATEGY: ${data.market_phase || 'NEUTRAL'}`;
-            elements.phaseReason.textContent = data.phase_description || data.reason || '--';
+            // Strategy and reason
+            elements.strategyDisplay.textContent = `STRATEGY: ${phase}`;
+            elements.phaseReason.textContent = data.phase_reason || data.reason || '--';
             
+            // Confidence
             let confidenceWidth = 0;
             let confidenceText = 'CONFIDENCE: --';
             const confidence = data.confidence || 'LOW';
             
-            if (confidence === 'SUPREME') {
+            if (confidence === 'ABSOLUTE') {
+                confidenceWidth = 100;
+                confidenceText = 'CONFIDENCE: ABSOLUTE ☢️☢️☢️';
+            } else if (confidence === 'SUPREME') {
                 confidenceWidth = 95;
                 confidenceText = 'CONFIDENCE: SUPREME 🔥🔥🔥';
             } else if (confidence === 'VERY_HIGH') {
@@ -1295,20 +1365,24 @@
             elements.confidenceFill.style.width = `${confidenceWidth}%`;
             elements.confidenceLabel.textContent = confidenceText;
             
-            elements.biasValue.textContent = data.market_bias || data.opinion || 'NEUTRAL';
-            elements.biasValue.className = `big-value ${(data.market_bias || data.opinion || '').toLowerCase()}`;
-            elements.biasDetail.textContent = data.phase_description || '--';
+            // Market Bias
+            elements.biasValue.textContent = bias;
+            elements.biasValue.className = `big-value ${bias.toLowerCase()}`;
+            elements.biasDetail.textContent = data.phase_reason?.split('.')[0] || '--';
             
-            const weightedScore = data.weighted_score || data.long_score || data.short_score || 0;
-            elements.scoreNum.textContent = typeof weightedScore === 'number' ? weightedScore.toFixed(2) : '0.0';
-            elements.scoreNum.className = `score-num ${weightedScore > 1.5 ? 'green' : weightedScore < -1.5 ? 'red' : ''}`;
-            elements.scoreRatio.textContent = `Ratio: ${(data.score_ratio || 0).toFixed(2)}x`;
+            // Weighted Score
+            const weightedScore = data.weighted_score || 0;
+            elements.scoreNum.textContent = weightedScore.toFixed(2);
+            elements.scoreNum.className = `score-num ${weightedScore > 1 ? 'green' : weightedScore < -1 ? 'red' : ''}`;
+            elements.scoreRatio.textContent = `Score`;
             
-            const tradeFlow = data.buy_sell_ratio || data.trade_flow || 1.0;
+            // Trade Flow
+            const tradeFlow = data.trade_flow || 1.0;
             elements.flowValue.textContent = `${tradeFlow.toFixed(2)}x`;
             elements.flowValue.className = `flow-value ${tradeFlow > 1.5 ? 'green' : tradeFlow < 0.6 ? 'red' : ''}`;
-            elements.flowTrend.textContent = data.flow_trend || data.flow_momentum || 'NEUTRAL';
+            elements.flowTrend.textContent = data.flow_trend || 'NEUTRAL';
             
+            // Details
             elements.obRatio.textContent = `${(data.ob_ratio || 1.0).toFixed(2)}x`;
             elements.obRatio.className = `val ${(data.ob_ratio || 1) > 1.5 ? 'green' : (data.ob_ratio || 1) < 0.6 ? 'red' : ''}`;
             
@@ -1316,45 +1390,54 @@
             elements.rsiValue.textContent = rsi6.toFixed(1);
             elements.rsiValue.className = `val ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}`;
             
-            const longLiq = data.long_liq_distance || 0;
-            const shortLiq = data.short_liq_distance || 0;
+            const longLiq = data.long_liq || 0;
+            const shortLiq = data.short_liq || 0;
             const nearestLiq = longLiq < shortLiq ? `-${longLiq.toFixed(2)}% (Long Liq)` : `+${shortLiq.toFixed(2)}% (Short Liq)`;
             elements.liqTarget.textContent = nearestLiq;
             elements.liqTarget.className = `val ${longLiq < shortLiq ? 'red' : 'green'}`;
             
-            elements.weightedScore.textContent = typeof weightedScore === 'number' ? weightedScore.toFixed(2) : '0.0';
-            elements.weightedScore.className = `val ${weightedScore > 1.5 ? 'green' : weightedScore < -1.5 ? 'red' : ''}`;
+            // V54 Metrics
+            const lrrRatio = data.lrr?.ratio || 0;
+            elements.lrrRatio.textContent = lrrRatio.toFixed(2) + 'x';
+            elements.lrrRatio.className = `val ${lrrRatio > 10 ? 'orange' : ''}`;
             
-            const buySell = data.buy_sell_ratio || data.trade_flow || 1.0;
-            elements.buySellRatio.textContent = `${buySell.toFixed(2)}x`;
-            elements.buySellRatio.className = `val ${buySell > 1.2 ? 'green' : buySell < 0.8 ? 'red' : ''}`;
+            const avStatus = data.av?.status || 'STABLE';
+            elements.avStatus.textContent = avStatus;
+            elements.avStatus.className = `val ${avStatus.includes('BULL') ? 'green' : avStatus.includes('BEAR') ? 'red' : ''}`;
             
-            elements.marketPhase.textContent = data.market_phase || '--';
-            elements.marketPhaseDesc.textContent = data.phase_description || '--';
+            // Advanced metrics
+            elements.marketPhase.textContent = phase;
+            elements.marketPhaseDesc.textContent = data.phase_confidence || '--';
             
-            elements.confidenceLevel.textContent = data.confidence || 'LOW';
-            elements.confidenceLevel.className = data.confidence === 'SUPREME' ? 'green' : 
-                                                 data.confidence === 'HIGH' ? 'warning' : '';
-            elements.confidenceDesc.textContent = `Confidence level`;
+            elements.confidenceLevel.textContent = confidence;
+            elements.confidenceLevel.className = confidence === 'ABSOLUTE' ? 'red' : 
+                                                confidence === 'SUPREME' ? 'green' : 
+                                                confidence === 'HIGH' ? 'warning' : '';
             
             elements.longLiq.textContent = longLiq ? `${longLiq.toFixed(2)}%` : '--';
             elements.longLiq.className = longLiq < 0.5 ? 'red' : '';
-            elements.longLiqDesc.textContent = longLiq < 0.5 ? '⚠️ CRITICAL!' : 'Distance';
+            elements.longLiqDesc.textContent = longLiq < 0.3 ? '☢️ PNR!' : longLiq < 0.5 ? '⚠️ CRITICAL!' : 'Distance';
             
             elements.shortLiq.textContent = shortLiq ? `${shortLiq.toFixed(2)}%` : '--';
             elements.shortLiq.className = shortLiq < 0.5 ? 'green' : '';
-            elements.shortLiqDesc.textContent = shortLiq < 0.5 ? '⚠️ CRITICAL!' : 'Distance';
+            elements.shortLiqDesc.textContent = shortLiq < 0.3 ? '☢️ PNR!' : shortLiq < 0.5 ? '⚠️ CRITICAL!' : 'Distance';
             
+            // Alert Box
             elements.alertMessage.textContent = data.liquidation_alert || data.reason || 'No alert';
             elements.alertBox.className = 'alert-box';
-            if (data.market_phase?.includes('FRONT')) {
-                elements.alertBox.classList.add('front-run');
-            } else if (data.market_phase?.includes('PNR') || data.market_phase?.includes('POINT')) {
+            if (phase.includes('NUCLEAR')) {
+                elements.alertBox.classList.add('nuclear');
+            } else if (data.lrr?.is_trap) {
+                elements.alertBox.classList.add('lrr');
+            } else if (data.av?.is_market_slam) {
+                elements.alertBox.classList.add('slam');
+            } else if (phase.includes('PNR')) {
                 elements.alertBox.classList.add('pnr');
-            } else if (data.market_phase?.includes('MAGNET') || data.market_phase?.includes('FLASH')) {
+            } else if (phase.includes('MAGNET') || phase.includes('FLASH')) {
                 elements.alertBox.classList.add('magnet');
             }
             
+            // Entry ready
             if (data.entry_ready) {
                 elements.phaseBadge.textContent = '✅ READY TO ENTRY!';
             }
@@ -1367,23 +1450,38 @@
             
             elements.terminalOutput.style.display = 'block';
             
-            const longLiq = data.long_liq_distance || 0;
-            const shortLiq = data.short_liq_distance || 0;
-            const tradeFlow = data.buy_sell_ratio || data.trade_flow || 1.0;
+            const longLiq = data.long_liq || 0;
+            const shortLiq = data.short_liq || 0;
+            const tradeFlow = data.trade_flow || 1.0;
             const rsi6 = data.rsi6 || 50;
             const obRatio = data.ob_ratio || 1.0;
-            const weightedScore = data.weighted_score || data.long_score || data.short_score || 0;
+            const weightedScore = data.weighted_score || 0;
+            
+            // V54 metrics
+            const lrrTrap = data.lrr?.is_trap ? 'YES' : 'NO';
+            const lrrRatio = data.lrr?.ratio || 0;
+            const avStatus = data.av?.status || 'STABLE';
+            const avAccel = data.av?.acceleration || 0;
+            const marketSlam = data.av?.is_market_slam ? '💥 YES' : 'NO';
             
             elements.terminalOutput.innerHTML = `
                 <div class="header-line">================================================================================</div>
                 <div class="line"><span class="label">SYMBOL :</span> <span class="value">${data.symbol || '--'}</span></div>
-                <div class="line"><span class="label">TIME   :</span> <span class="value">${data.time || '--'}</span></div>
-                <div class="line"><span class="label">PRICE  :</span> <span class="value">$${typeof data.price === 'number' ? data.price.toFixed(2) : data.price || '0.00'}</span></div>
+                <div class="line"><span class="label">TIME   :</span> <span class="value">${data.timestamp || data.time || '--'}</span></div>
+                <div class="line"><span class="label">PRICE  :</span> <span class="value">$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}</span></div>
                 <div class="header-line">================================================================================</div>
                 
-                <div class="section-title">🔥 REALITY CHECK HIERARCHY V53</div>
-                <div class="line"><span class="label">🎯 PHASE :</span> <span class="value ${data.market_phase?.includes('FRONT') ? 'yellow' : ''}">${data.market_phase || 'NEUTRAL'}</span></div>
-                <div class="line"><span class="label">📌 REASON :</span> <span class="value">${data.phase_description || data.reason || '--'}</span></div>
+                <div class="section-title">🛡️ SAFETY VALVE HIERARCHY V54</div>
+                <div class="line"><span class="label">🎯 PHASE :</span> <span class="value ${data.market_phase?.includes('NUCLEAR') ? 'red' : ''}">${data.market_phase || 'NEUTRAL'}</span></div>
+                <div class="line"><span class="label">📌 REASON :</span> <span class="value">${data.phase_reason || data.reason || '--'}</span></div>
+                
+                <div class="divider"></div>
+                
+                <div class="section-title">🛡️ V54 SAFETY METRICS</div>
+                <div class="line"><span class="label">⚠️ LRR Trap :</span> <span class="value ${lrrTrap === 'YES' ? 'orange' : ''}">${lrrTrap} (Ratio ${lrrRatio}x)</span></div>
+                <div class="line"><span class="label">📈 AV Status :</span> <span class="value ${avStatus.includes('BULL') ? 'green' : avStatus.includes('BEAR') ? 'red' : ''}">${avStatus} (Acc: ${avAccel.toFixed(3)})</span></div>
+                <div class="line"><span class="label">💥 Market Slam :</span> <span class="value ${marketSlam.includes('YES') ? 'pink' : ''}">${marketSlam}</span></div>
+                <div class="line"><span class="label">☢️ 90-Rule :</span> <span class="value">${data.rsi6 > 90 ? 'ACTIVE (FORBID LONG)' : data.rsi6 < 10 ? 'ACTIVE (FORBID SHORT)' : 'INACTIVE'}</span></div>
                 
                 <div class="divider"></div>
                 
@@ -1393,7 +1491,7 @@
                 <div class="line"><span class="label">📊 Trade Flow :</span> <span class="value ${tradeFlow > 1.5 ? 'green' : tradeFlow < 0.6 ? 'red' : ''}">${tradeFlow.toFixed(2)}x</span></div>
                 <div class="line"><span class="label">📈 RSI(6) :</span> <span class="value ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}">${rsi6.toFixed(1)}</span></div>
                 <div class="line"><span class="label">📚 OB Ratio :</span> <span class="value ${obRatio > 1.5 ? 'green' : obRatio < 0.6 ? 'red' : ''}">${obRatio.toFixed(2)}x</span></div>
-                <div class="line"><span class="label">📊 Weighted Score :</span> <span class="value ${weightedScore > 1.5 ? 'green' : weightedScore < 0.5 ? 'red' : ''}">${weightedScore.toFixed(2)}</span></div>
+                <div class="line"><span class="label">📊 Weighted Score :</span> <span class="value ${weightedScore > 1.5 ? 'green' : weightedScore < -1.5 ? 'red' : ''}">${weightedScore.toFixed(2)}</span></div>
                 
                 <div class="divider"></div>
                 
@@ -1405,8 +1503,8 @@
                 <div class="divider"></div>
                 
                 <div class="section-title">🎯 TRADING SIGNAL</div>
-                <div class="line"><span class="label">${data.opinion === 'LONG' ? '🟢' : data.opinion === 'SHORT' ? '🔴' : '⚪'} BIAS :</span> <span class="value ${data.opinion === 'LONG' ? 'green' : data.opinion === 'SHORT' ? 'red' : ''}">${data.opinion || 'NEUTRAL'}</span></div>
-                <div class="line"><span class="label">🔥 CONFIDENCE :</span> <span class="value ${data.confidence === 'SUPREME' ? 'green' : data.confidence === 'HIGH' ? 'yellow' : ''}">${data.confidence || 'LOW'}</span></div>
+                <div class="line"><span class="label">${data.bias === 'LONG' ? '🟢' : data.bias === 'SHORT' ? '🔴' : '⚪'} BIAS :</span> <span class="value ${data.bias === 'LONG' ? 'green' : data.bias === 'SHORT' ? 'red' : ''}">${data.bias || 'NEUTRAL'}</span></div>
+                <div class="line"><span class="label">🔥 CONFIDENCE :</span> <span class="value ${data.confidence === 'ABSOLUTE' ? 'red' : data.confidence === 'SUPREME' ? 'green' : data.confidence === 'HIGH' ? 'yellow' : ''}">${data.confidence || 'LOW'}</span></div>
                 <div class="line"><span class="label">⏳ ENTRY STATUS :</span> <span class="value ${data.entry_ready ? 'green' : ''}">${data.entry_status || 'WAITING'}</span></div>
                 
                 <div class="header-line">================================================================================</div>
@@ -1432,7 +1530,7 @@
         window.dylpredict = {
             analyze: analyzeSymbol,
             batch: analyzeBatch,
-            version: 'V53 Reality Check'
+            version: 'V54 Safety Valve'
         };
     </script>
 </body>
