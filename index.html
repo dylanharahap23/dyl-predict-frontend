@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DylPredict V54 • The Safety Valve Edition</title>
+    <title>DylPredict V58 • The Engine Starter Edition</title>
     
     <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -21,6 +21,7 @@
             --orange: #ff9800;
             --blue: #3b82f6;
             --pink: #ec4899;
+            --cyan: #06b6d4;
             --text-main: #eaecef;
             --text-dim: #848e9c;
             --glass-opacity: rgba(30, 35, 41, 0.8);
@@ -30,6 +31,7 @@
             --neon-purple: 0 0 10px rgba(138, 109, 233, 0.5);
             --neon-orange: 0 0 10px rgba(255, 152, 0, 0.5);
             --neon-blue: 0 0 10px rgba(59, 130, 246, 0.5);
+            --neon-cyan: 0 0 10px rgba(6, 182, 212, 0.5);
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -132,12 +134,12 @@
 
         .sub-version {
             font-size: 10px;
-            background: rgba(255, 152, 0, 0.15);
+            background: rgba(6, 182, 212, 0.15);
             padding: 2px 8px;
             border-radius: 100px;
             margin-left: 5px;
-            color: var(--orange);
-            border: 1px solid rgba(255, 152, 0, 0.2);
+            color: var(--cyan);
+            border: 1px solid rgba(6, 182, 212, 0.2);
             font-weight: 500;
         }
 
@@ -351,6 +353,16 @@
             box-shadow: 0 0 25px var(--green);
         }
 
+        .phase-badge.engine {
+            background: linear-gradient(135deg, var(--cyan), #0891b2);
+            box-shadow: 0 0 25px var(--cyan);
+        }
+
+        .phase-badge.warming {
+            background: linear-gradient(135deg, var(--orange), #ea580c);
+            box-shadow: 0 0 25px var(--orange);
+        }
+
         @keyframes pulseBadge {
             0%, 100% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.05); opacity: 0.9; }
@@ -532,7 +544,7 @@
 
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 12px;
             margin: 10px 0;
         }
@@ -577,6 +589,7 @@
         .orange { color: var(--orange); text-shadow: 0 0 10px var(--orange); }
         .blue { color: var(--blue); text-shadow: 0 0 10px var(--blue); }
         .pink { color: var(--pink); text-shadow: 0 0 10px var(--pink); }
+        .cyan { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
 
         .score-display {
             display: flex;
@@ -664,6 +677,10 @@
 
         .data-row .val.blue {
             color: var(--blue);
+        }
+
+        .data-row .val.cyan {
+            color: var(--cyan);
         }
 
         .advanced-grid {
@@ -755,6 +772,18 @@
             background: rgba(2, 192, 118, 0.08);
         }
 
+        .alert-box.engine {
+            border-color: var(--cyan);
+            border-left-color: var(--cyan);
+            background: rgba(6, 182, 212, 0.08);
+        }
+
+        .alert-box.warming {
+            border-color: var(--orange);
+            border-left-color: var(--orange);
+            background: rgba(255, 152, 0, 0.08);
+        }
+
         .alert-box strong {
             color: var(--yellow);
         }
@@ -777,6 +806,14 @@
 
         .alert-box.magnet strong {
             color: var(--green);
+        }
+
+        .alert-box.engine strong {
+            color: var(--cyan);
+        }
+
+        .alert-box.warming strong {
+            color: var(--orange);
         }
 
         .terminal-output {
@@ -838,6 +875,7 @@
         .terminal-output .orange { color: var(--orange); }
         .terminal-output .blue { color: var(--blue); }
         .terminal-output .pink { color: var(--pink); }
+        .terminal-output .cyan { color: var(--cyan); }
 
         .terminal-output .divider {
             border-top: 1px dashed rgba(255, 255, 255, 0.1);
@@ -867,9 +905,9 @@
 
         .features span {
             padding: 4px 12px;
-            background: rgba(255, 152, 0, 0.1);
+            background: rgba(6, 182, 212, 0.1);
             border-radius: 100px;
-            color: var(--orange);
+            color: var(--cyan);
         }
 
         .loading-overlay {
@@ -951,7 +989,7 @@
             }
 
             .metrics-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .advanced-grid {
@@ -983,6 +1021,10 @@
             .symbol {
                 font-size: 1.5rem;
             }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         ::-webkit-scrollbar {
@@ -1009,7 +1051,7 @@
     <div class="container">
         <header>
             <div class="logo">
-                <h1>DYLPREDICT<span class="version">V54</span><span class="sub-version">SAFETY VALVE</span></h1>
+                <h1>DYLPREDICT<span class="version">V58</span><span class="sub-version">ENGINE STARTER</span></h1>
             </div>
             
             <div class="symbol-selector">
@@ -1025,6 +1067,7 @@
                         <option value="SIRENUSDT">SIRENUSDT</option>
                         <option value="PIPPINUSDT">PIPPINUSDT</option>
                         <option value="KITEUSDT">KITEUSDT</option>
+                        <option value="ALICEUSDT">ALICEUSDT</option>
                     </select>
                 </div>
                 <button id="analyzeCustomBtn" class="btn-primary">
@@ -1068,18 +1111,24 @@
                     <p id="biasDetail">--</p>
                 </div>
 
-                <div class="card" id="weightedScoreCard">
-                    <h3>Weighted Score</h3>
+                <div class="card" id="engineScoreCard">
+                    <h3>Engine Starter</h3>
                     <div class="score-display">
-                        <span class="score-num" id="scoreNum">0.0</span>
-                        <span class="score-sub" id="scoreRatio">--</span>
+                        <span class="score-num" id="engineScore">0</span>
+                        <span class="score-sub" id="engineStatus">INACTIVE</span>
                     </div>
                 </div>
 
-                <div class="card" id="tradeFlowCard">
-                    <h3>Trade Flow</h3>
-                    <div class="flow-value" id="flowValue">0.0x</div>
-                    <div class="trend-badge" id="flowTrend">--</div>
+                <div class="card" id="ttkCard">
+                    <h3>TTK Countdown</h3>
+                    <div class="big-value cyan" id="ttkMinutes">--</div>
+                    <p id="ttkUrgency">--</p>
+                </div>
+
+                <div class="card" id="wmiCard">
+                    <h3>WMI</h3>
+                    <div class="big-value" id="wmiValue">0.0</div>
+                    <p id="wmiDesc">Whale Mass Index</p>
                 </div>
             </div>
 
@@ -1103,6 +1152,14 @@
                 <div class="data-row">
                     <span>AV Status</span>
                     <span class="val" id="avStatus">--</span>
+                </div>
+                <div class="data-row">
+                    <span>OI Δ5m</span>
+                    <span class="val" id="oiDelta">--</span>
+                </div>
+                <div class="data-row">
+                    <span>Fuel Injection</span>
+                    <span class="val" id="fuelStatus">--</span>
                 </div>
             </section>
 
@@ -1130,20 +1187,23 @@
             </div>
 
             <footer class="alert-box" id="alertBox">
-                <strong>⚠️ ALERT:</strong> <span id="alertMessage">Click Analyze to get signal</span>
+                <strong>🚀 ENGINE ALERT:</strong> <span id="alertMessage">Click Analyze to get signal</span>
             </footer>
 
             <div class="terminal-output" id="terminalOutput" style="display: none;"></div>
         </div>
 
         <div class="footer">
-            <div>DylPredict V54 • THE SAFETY VALVE EDITION • Anti-ARC Massacre</div>
+            <div>DylPredict V58 • THE ENGINE STARTER EDITION • Anti-Neutral</div>
             <div class="features">
-                <span>🛡️ LRR Trap</span>
+                <span>🚀 Engine Starter</span>
+                <span>⏱️ TTK Countdown</span>
+                <span>⛽ Fuel Injection</span>
+                <span>🐋 Whale Clustering</span>
+                <span>🧲 Thinning</span>
+                <span>🛡️ LRR</span>
                 <span>📈 AV Slam</span>
                 <span>☢️ 90-Rule</span>
-                <span>⛽ Fuel Check</span>
-                <span>🎯 ADD</span>
             </div>
         </div>
     </div>
@@ -1151,7 +1211,7 @@
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner">
             <i class="fas fa-robot"></i>
-            <p>Analyzing with V54 Safety Valve...</p>
+            <p>Analyzing with V58 Engine Starter...</p>
         </div>
     </div>
 
@@ -1177,15 +1237,19 @@
             confidenceLabel: document.getElementById('confidenceLabel'),
             biasValue: document.getElementById('biasValue'),
             biasDetail: document.getElementById('biasDetail'),
-            scoreNum: document.getElementById('scoreNum'),
-            scoreRatio: document.getElementById('scoreRatio'),
-            flowValue: document.getElementById('flowValue'),
-            flowTrend: document.getElementById('flowTrend'),
+            engineScore: document.getElementById('engineScore'),
+            engineStatus: document.getElementById('engineStatus'),
+            ttkMinutes: document.getElementById('ttkMinutes'),
+            ttkUrgency: document.getElementById('ttkUrgency'),
+            wmiValue: document.getElementById('wmiValue'),
+            wmiDesc: document.getElementById('wmiDesc'),
             obRatio: document.getElementById('obRatio'),
             rsiValue: document.getElementById('rsiValue'),
             liqTarget: document.getElementById('liqTarget'),
             lrrRatio: document.getElementById('lrrRatio'),
             avStatus: document.getElementById('avStatus'),
+            oiDelta: document.getElementById('oiDelta'),
+            fuelStatus: document.getElementById('fuelStatus'),
             marketPhase: document.getElementById('marketPhase'),
             marketPhaseDesc: document.getElementById('marketPhaseDesc'),
             confidenceLevel: document.getElementById('confidenceLevel'),
@@ -1201,7 +1265,7 @@
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('🚀 DylPredict V54 Safety Valve Edition Initialized');
+            console.log('🚀 DylPredict V58 Engine Starter Edition Initialized');
             attachEventListeners();
         });
 
@@ -1226,7 +1290,7 @@
             });
 
             elements.batchModeBtn.addEventListener('click', () => {
-                const symbols = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'ARCUSDT', 'SIRENUSDT', 'PIPPINUSDT', 'KITEUSDT'];
+                const symbols = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'ARCUSDT', 'SIRENUSDT', 'PIPPINUSDT', 'KITEUSDT', 'ALICEUSDT'];
                 analyzeBatch(symbols);
             });
         }
@@ -1235,7 +1299,7 @@
             showLoading();
             
             try {
-                console.log(`🔍 Analyzing ${symbol}...`);
+                console.log(`🔍 Analyzing ${symbol} with V58...`);
                 
                 const timestamp = Date.now();
                 const url = `${API_URL}/analyze/${symbol}?t=${timestamp}`;
@@ -1274,7 +1338,7 @@
             try {
                 console.log(`🔍 Analyzing batch: ${symbols.join(', ')}`);
                 
-                let summary = "📊 BATCH ANALYSIS SUMMARY - V54 SAFETY VALVE:\n\n";
+                let summary = "📊 BATCH ANALYSIS SUMMARY - V58 ENGINE STARTER:\n\n";
                 
                 for (const symbol of symbols) {
                     try {
@@ -1283,8 +1347,9 @@
                         
                         if (result.success && result.data) {
                             const data = result.data;
-                            const safetyIcon = data.lrr?.is_trap ? '⚠️' : data.av?.is_market_slam ? '💥' : '✓';
-                            summary += `${safetyIcon} ${symbol}: ${data.bias || 'NEUTRAL'} (${data.confidence || 'LOW'}) - ${data.market_phase || 'UNKNOWN'}\n`;
+                            const engineIcon = data.starter?.is_starting ? '🚀' : '⏳';
+                            const ttkInfo = data.ttk ? `TTK:${data.ttk.estimated_minutes}m` : '';
+                            summary += `${engineIcon} ${symbol}: ${data.bias || 'NEUTRAL'} (${data.confidence || 'LOW'}) - ${data.market_phase || 'UNKNOWN'} ${ttkInfo}\n`;
                         } else {
                             summary += `${symbol}: FAILED\n`;
                         }
@@ -1304,7 +1369,7 @@
         }
 
         function updateDisplay(data) {
-            console.log('🔄 Updating display with V54 data:', data);
+            console.log('🔄 Updating display with V58 data:', data);
             
             // Basic info
             elements.mainSymbol.textContent = data.symbol || 'BTCUSDT';
@@ -1331,6 +1396,10 @@
                 elements.phaseBadge.classList.add('pnr');
             } else if (phase.includes('MAGNET') || phase.includes('FLASH')) {
                 elements.phaseBadge.classList.add('magnet');
+            } else if (phase.includes('LAUNCH') || phase.includes('ENGINE')) {
+                elements.phaseBadge.classList.add('engine');
+            } else if (phase.includes('WARMING')) {
+                elements.phaseBadge.classList.add('warming');
             }
             
             // Strategy and reason
@@ -1370,17 +1439,25 @@
             elements.biasValue.className = `big-value ${bias.toLowerCase()}`;
             elements.biasDetail.textContent = data.phase_reason?.split('.')[0] || '--';
             
-            // Weighted Score
-            const weightedScore = data.weighted_score || 0;
-            elements.scoreNum.textContent = weightedScore.toFixed(2);
-            elements.scoreNum.className = `score-num ${weightedScore > 1 ? 'green' : weightedScore < -1 ? 'red' : ''}`;
-            elements.scoreRatio.textContent = `Score`;
+            // Engine Starter
+            const engineScore = data.starter?.score || 0;
+            const engineActive = data.starter?.is_starting ? 'ACTIVE' : 'INACTIVE';
+            elements.engineScore.textContent = engineScore;
+            elements.engineScore.className = `score-num ${engineActive === 'ACTIVE' ? 'cyan' : ''}`;
+            elements.engineStatus.textContent = engineActive;
             
-            // Trade Flow
-            const tradeFlow = data.trade_flow || 1.0;
-            elements.flowValue.textContent = `${tradeFlow.toFixed(2)}x`;
-            elements.flowValue.className = `flow-value ${tradeFlow > 1.5 ? 'green' : tradeFlow < 0.6 ? 'red' : ''}`;
-            elements.flowTrend.textContent = data.flow_trend || 'NEUTRAL';
+            // TTK Countdown
+            const ttkMinutes = data.ttk?.estimated_minutes || '--';
+            const ttkUrgency = data.ttk?.urgency || '--';
+            elements.ttkMinutes.textContent = ttkMinutes !== '--' ? ttkMinutes + 'm' : '--';
+            elements.ttkUrgency.textContent = ttkUrgency;
+            elements.ttkUrgency.className = ttkUrgency === 'IMMINENT' ? 'red' : ttkUrgency === 'HIGH' ? 'orange' : '';
+            
+            // WMI
+            const wmi = data.wmi_ratio || 0;
+            elements.wmiValue.textContent = wmi.toFixed(1);
+            elements.wmiValue.className = `big-value ${Math.abs(wmi) > 50 ? 'cyan' : ''}`;
+            elements.wmiDesc.textContent = wmi > 0 ? 'Bull Whale' : wmi < 0 ? 'Bear Whale' : 'Neutral';
             
             // Details
             elements.obRatio.textContent = `${(data.ob_ratio || 1.0).toFixed(2)}x`;
@@ -1396,14 +1473,25 @@
             elements.liqTarget.textContent = nearestLiq;
             elements.liqTarget.className = `val ${longLiq < shortLiq ? 'red' : 'green'}`;
             
-            // V54 Metrics
+            // LRR
             const lrrRatio = data.lrr?.ratio || 0;
             elements.lrrRatio.textContent = lrrRatio.toFixed(2) + 'x';
             elements.lrrRatio.className = `val ${lrrRatio > 10 ? 'orange' : ''}`;
             
+            // AV
             const avStatus = data.av?.status || 'STABLE';
             elements.avStatus.textContent = avStatus;
             elements.avStatus.className = `val ${avStatus.includes('BULL') ? 'green' : avStatus.includes('BEAR') ? 'red' : ''}`;
+            
+            // OI Delta
+            const oiDelta = data.oi_delta_5m || 0;
+            elements.oiDelta.textContent = oiDelta.toFixed(2) + '%';
+            elements.oiDelta.className = `val ${oiDelta > 2 ? 'green' : oiDelta < -2 ? 'red' : ''}`;
+            
+            // Fuel Injection
+            const fuelReady = data.ttk?.fuel_ready || 'NO';
+            elements.fuelStatus.textContent = fuelReady;
+            elements.fuelStatus.className = `val ${fuelReady === 'YES' ? 'green' : ''}`;
             
             // Advanced metrics
             elements.marketPhase.textContent = phase;
@@ -1423,7 +1511,16 @@
             elements.shortLiqDesc.textContent = shortLiq < 0.3 ? '☢️ PNR!' : shortLiq < 0.5 ? '⚠️ CRITICAL!' : 'Distance';
             
             // Alert Box
-            elements.alertMessage.textContent = data.liquidation_alert || data.reason || 'No alert';
+            let alertMsg = data.liquidation_alert || data.reason || 'No alert';
+            if (data.starter?.is_starting) {
+                alertMsg = `🚀 ENGINE STARTED: ${data.starter.reasons[0] || 'Fuel injection detected'}`;
+            } else if (data.ttk?.urgency === 'IMMINENT') {
+                alertMsg = `⏱️ TTK IMMINENT: ${data.ttk.estimated_minutes}m remaining!`;
+            } else if (data.market_phase === 'WARMING_UP') {
+                alertMsg = `🔥 PASSIVE LOADING: OI +${data.oi_delta_5m?.toFixed(1)}%`;
+            }
+            elements.alertMessage.textContent = alertMsg;
+            
             elements.alertBox.className = 'alert-box';
             if (phase.includes('NUCLEAR')) {
                 elements.alertBox.classList.add('nuclear');
@@ -1435,6 +1532,10 @@
                 elements.alertBox.classList.add('pnr');
             } else if (phase.includes('MAGNET') || phase.includes('FLASH')) {
                 elements.alertBox.classList.add('magnet');
+            } else if (data.starter?.is_starting) {
+                elements.alertBox.classList.add('engine');
+            } else if (phase.includes('WARMING')) {
+                elements.alertBox.classList.add('warming');
             }
             
             // Entry ready
@@ -1455,9 +1556,16 @@
             const tradeFlow = data.trade_flow || 1.0;
             const rsi6 = data.rsi6 || 50;
             const obRatio = data.ob_ratio || 1.0;
-            const weightedScore = data.weighted_score || 0;
+            const oiDelta = data.oi_delta_5m || 0;
             
-            // V54 metrics
+            // V58 metrics
+            const engineActive = data.starter?.is_starting ? 'YES' : 'NO';
+            const engineScore = data.starter?.score || 0;
+            const engineReasons = data.starter?.reasons ? data.starter.reasons.join(' | ') : 'None';
+            const ttkMinutes = data.ttk?.estimated_minutes || '--';
+            const ttkUrgency = data.ttk?.urgency || '--';
+            const fuelReady = data.ttk?.fuel_ready || 'NO';
+            const wmi = data.wmi_ratio || 0;
             const lrrTrap = data.lrr?.is_trap ? 'YES' : 'NO';
             const lrrRatio = data.lrr?.ratio || 0;
             const avStatus = data.av?.status || 'STABLE';
@@ -1471,13 +1579,22 @@
                 <div class="line"><span class="label">PRICE  :</span> <span class="value">$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}</span></div>
                 <div class="header-line">================================================================================</div>
                 
-                <div class="section-title">🛡️ SAFETY VALVE HIERARCHY V54</div>
-                <div class="line"><span class="label">🎯 PHASE :</span> <span class="value ${data.market_phase?.includes('NUCLEAR') ? 'red' : ''}">${data.market_phase || 'NEUTRAL'}</span></div>
+                <div class="section-title">🚀 ENGINE STARTER V58</div>
+                <div class="line"><span class="label">🎯 PHASE :</span> <span class="value ${data.market_phase?.includes('NUCLEAR') ? 'red' : data.market_phase?.includes('ENGINE') ? 'cyan' : ''}">${data.market_phase || 'NEUTRAL'}</span></div>
                 <div class="line"><span class="label">📌 REASON :</span> <span class="value">${data.phase_reason || data.reason || '--'}</span></div>
                 
                 <div class="divider"></div>
                 
-                <div class="section-title">🛡️ V54 SAFETY METRICS</div>
+                <div class="section-title">🚀 ENGINE METRICS</div>
+                <div class="line"><span class="label">⚙️ Engine Starter :</span> <span class="value ${engineActive === 'YES' ? 'cyan' : ''}">${engineActive} (Score: ${engineScore})</span></div>
+                <div class="line"><span class="label">📋 Starter Reasons :</span> <span class="value">${engineReasons}</span></div>
+                <div class="line"><span class="label">⏱️ TTK Countdown :</span> <span class="value ${ttkUrgency === 'IMMINENT' ? 'red' : ttkUrgency === 'HIGH' ? 'orange' : ''}">${ttkMinutes} min (${ttkUrgency})</span></div>
+                <div class="line"><span class="label">⛽ Fuel Ready :</span> <span class="value ${fuelReady === 'YES' ? 'green' : ''}">${fuelReady}</span></div>
+                <div class="line"><span class="label">🐋 WMI :</span> <span class="value ${Math.abs(wmi) > 50 ? 'cyan' : ''}">${wmi.toFixed(1)} (${wmi > 0 ? 'Bull Whale' : wmi < 0 ? 'Bear Whale' : 'Neutral'})</span></div>
+                
+                <div class="divider"></div>
+                
+                <div class="section-title">🛡️ SAFETY METRICS</div>
                 <div class="line"><span class="label">⚠️ LRR Trap :</span> <span class="value ${lrrTrap === 'YES' ? 'orange' : ''}">${lrrTrap} (Ratio ${lrrRatio}x)</span></div>
                 <div class="line"><span class="label">📈 AV Status :</span> <span class="value ${avStatus.includes('BULL') ? 'green' : avStatus.includes('BEAR') ? 'red' : ''}">${avStatus} (Acc: ${avAccel.toFixed(3)})</span></div>
                 <div class="line"><span class="label">💥 Market Slam :</span> <span class="value ${marketSlam.includes('YES') ? 'pink' : ''}">${marketSlam}</span></div>
@@ -1491,7 +1608,7 @@
                 <div class="line"><span class="label">📊 Trade Flow :</span> <span class="value ${tradeFlow > 1.5 ? 'green' : tradeFlow < 0.6 ? 'red' : ''}">${tradeFlow.toFixed(2)}x</span></div>
                 <div class="line"><span class="label">📈 RSI(6) :</span> <span class="value ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}">${rsi6.toFixed(1)}</span></div>
                 <div class="line"><span class="label">📚 OB Ratio :</span> <span class="value ${obRatio > 1.5 ? 'green' : obRatio < 0.6 ? 'red' : ''}">${obRatio.toFixed(2)}x</span></div>
-                <div class="line"><span class="label">📊 Weighted Score :</span> <span class="value ${weightedScore > 1.5 ? 'green' : weightedScore < -1.5 ? 'red' : ''}">${weightedScore.toFixed(2)}</span></div>
+                <div class="line"><span class="label">📈 OI Δ5m :</span> <span class="value ${oiDelta > 2 ? 'green' : oiDelta < -2 ? 'red' : ''}">${oiDelta.toFixed(2)}%</span></div>
                 
                 <div class="divider"></div>
                 
@@ -1530,7 +1647,7 @@
         window.dylpredict = {
             analyze: analyzeSymbol,
             batch: analyzeBatch,
-            version: 'V54 Safety Valve'
+            version: 'V58 Engine Starter'
         };
     </script>
 </body>
