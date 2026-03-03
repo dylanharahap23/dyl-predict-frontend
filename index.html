@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DylPredict V65 • The Aggression-Mass Divergence Edition</title>
+    <title>DylPredict V68 • The Gravity Deflector Edition</title>
     
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -23,8 +23,12 @@
             --pink: #ec4899;
             --cyan: #06b6d4;
             --magnet: #a78bfa;
-            --amd: #ff6b6b;        /* Warna untuk AMD (merah untuk spoof detection) */
-            --tdp: #ffd700;          /* Warna untuk TDP (emas untuk god candle) */
+            --amd: #ff6b6b;        /* Warna untuk AMD */
+            --tdp: #ffd700;          /* Warna untuk TDP */
+            --ogd: #00ffff;           /* Warna untuk OGD (Gravity Deflection) - CYAN TERANG */
+            --zas: #ff4444;            /* Warna untuk ZAS (Deadstick) - MERAH GELAP */
+            --avc: #ffaa00;            /* Warna untuk AVC (Absorption Validity) - ORANGE */
+            --ati: #8a6de9;            /* Warna untuk ATI (Temporal Accumulation) - UNGU */
             --text-main: #eaecef;
             --text-dim: #848e9c;
             --glass-opacity: rgba(30, 35, 41, 0.8);
@@ -38,6 +42,10 @@
             --neon-magnet: 0 0 10px rgba(167, 139, 250, 0.5);
             --neon-amd: 0 0 10px rgba(255, 107, 107, 0.5);
             --neon-tdp: 0 0 10px rgba(255, 215, 0, 0.5);
+            --neon-ogd: 0 0 15px rgba(0, 255, 255, 0.7);
+            --neon-zas: 0 0 10px rgba(255, 68, 68, 0.7);
+            --neon-avc: 0 0 10px rgba(255, 170, 0, 0.7);
+            --neon-ati: 0 0 10px rgba(138, 109, 233, 0.7);
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -64,7 +72,7 @@
             right: -20%;
             width: 800px;
             height: 800px;
-            background: radial-gradient(circle, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
             border-radius: 50%;
             filter: blur(100px);
             z-index: -1;
@@ -120,7 +128,7 @@
 
         .logo h1 {
             font-size: 24px;
-            background: linear-gradient(135deg, #fff, var(--amd));
+            background: linear-gradient(135deg, #fff, var(--ogd));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
@@ -129,12 +137,12 @@
 
         .version {
             font-size: 12px;
-            background: rgba(255, 107, 107, 0.2);
+            background: rgba(0, 255, 255, 0.2);
             padding: 4px 10px;
             border-radius: 100px;
             margin-left: 8px;
-            color: var(--amd);
-            border: 1px solid rgba(255, 107, 107, 0.3);
+            color: var(--ogd);
+            border: 1px solid rgba(0, 255, 255, 0.3);
             font-weight: 600;
         }
 
@@ -145,6 +153,51 @@
             border-radius: 100px;
             margin-left: 5px;
             color: var(--purple);
+            border: 1px solid rgba(138, 109, 233, 0.2);
+            font-weight: 500;
+        }
+
+        .ogd-badge {
+            font-size: 10px;
+            background: rgba(0, 255, 255, 0.15);
+            padding: 2px 8px;
+            border-radius: 100px;
+            margin-left: 5px;
+            color: var(--ogd);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            font-weight: 500;
+            animation: pulseOGD 2s infinite;
+        }
+
+        .zas-badge {
+            font-size: 10px;
+            background: rgba(255, 68, 68, 0.15);
+            padding: 2px 8px;
+            border-radius: 100px;
+            margin-left: 5px;
+            color: var(--zas);
+            border: 1px solid rgba(255, 68, 68, 0.2);
+            font-weight: 500;
+        }
+
+        .avc-badge {
+            font-size: 10px;
+            background: rgba(255, 170, 0, 0.15);
+            padding: 2px 8px;
+            border-radius: 100px;
+            margin-left: 5px;
+            color: var(--avc);
+            border: 1px solid rgba(255, 170, 0, 0.2);
+            font-weight: 500;
+        }
+
+        .ati-badge {
+            font-size: 10px;
+            background: rgba(138, 109, 233, 0.15);
+            padding: 2px 8px;
+            border-radius: 100px;
+            margin-left: 5px;
+            color: var(--ati);
             border: 1px solid rgba(138, 109, 233, 0.2);
             font-weight: 500;
         }
@@ -195,6 +248,11 @@
             font-weight: 500;
         }
 
+        @keyframes pulseOGD {
+            0%, 100% { opacity: 0.8; box-shadow: 0 0 5px var(--ogd); }
+            50% { opacity: 1; box-shadow: 0 0 15px var(--ogd); }
+        }
+
         @keyframes pulseAMD {
             0%, 100% { opacity: 0.8; box-shadow: 0 0 5px var(--amd); }
             50% { opacity: 1; box-shadow: 0 0 15px var(--amd); }
@@ -233,8 +291,8 @@
         }
 
         #customSymbolInput:focus {
-            border-color: var(--amd);
-            box-shadow: 0 0 15px rgba(255, 107, 107, 0.2);
+            border-color: var(--ogd);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
         }
 
         #customSymbolInput::placeholder {
@@ -258,7 +316,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--amd), #ff4757);
+            background: linear-gradient(135deg, var(--ogd), #00cccc);
             border: none;
             border-radius: 8px;
             padding: 10px 20px;
@@ -275,7 +333,7 @@
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 25px var(--amd);
+            box-shadow: 0 0 25px var(--ogd);
         }
 
         .btn-secondary {
@@ -293,6 +351,78 @@
         .btn-secondary:hover {
             background: rgba(138, 109, 233, 0.3);
             transform: translateY(-2px);
+        }
+
+        .btn-ogd {
+            background: rgba(0, 255, 255, 0.2);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: var(--ogd);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 14px;
+        }
+
+        .btn-ogd:hover {
+            background: rgba(0, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--ogd);
+        }
+
+        .btn-zas {
+            background: rgba(255, 68, 68, 0.2);
+            border: 1px solid rgba(255, 68, 68, 0.3);
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: var(--zas);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 14px;
+        }
+
+        .btn-zas:hover {
+            background: rgba(255, 68, 68, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--zas);
+        }
+
+        .btn-avc {
+            background: rgba(255, 170, 0, 0.2);
+            border: 1px solid rgba(255, 170, 0, 0.3);
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: var(--avc);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 14px;
+        }
+
+        .btn-avc:hover {
+            background: rgba(255, 170, 0, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--avc);
+        }
+
+        .btn-ati {
+            background: rgba(138, 109, 233, 0.2);
+            border: 1px solid rgba(138, 109, 233, 0.3);
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: var(--ati);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 14px;
+        }
+
+        .btn-ati:hover {
+            background: rgba(138, 109, 233, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--ati);
         }
 
         .btn-amd {
@@ -381,7 +511,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-left: 4px solid var(--amd);
+            border-left: 4px solid var(--ogd);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             transition: var(--transition-smooth);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -390,7 +520,7 @@
 
         .header-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 48px rgba(255, 107, 107, 0.15);
+            box-shadow: 0 12px 48px rgba(0, 255, 255, 0.15);
         }
 
         .symbol-info {
@@ -404,7 +534,7 @@
             font-weight: 800;
             margin: 0;
             letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #fff, var(--amd));
+            background: linear-gradient(135deg, #fff, var(--ogd));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -435,11 +565,11 @@
         }
 
         .price {
-            color: var(--amd);
+            color: var(--ogd);
             font-size: 2rem;
             margin: 0;
             font-weight: 700;
-            text-shadow: var(--neon-amd);
+            text-shadow: var(--neon-ogd);
             letter-spacing: -0.5px;
         }
 
@@ -459,6 +589,27 @@
             animation: pulseBadge 2s infinite;
             z-index: 30;
             border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .phase-badge.ogd {
+            background: linear-gradient(135deg, var(--ogd), #00cccc);
+            box-shadow: 0 0 25px var(--ogd);
+            animation: pulseOGD 1s infinite;
+        }
+
+        .phase-badge.zas {
+            background: linear-gradient(135deg, var(--zas), #cc0000);
+            box-shadow: 0 0 25px var(--zas);
+        }
+
+        .phase-badge.avc {
+            background: linear-gradient(135deg, var(--avc), #cc8800);
+            box-shadow: 0 0 25px var(--avc);
+        }
+
+        .phase-badge.ati {
+            background: linear-gradient(135deg, var(--ati), #6a4fc9);
+            box-shadow: 0 0 25px var(--ati);
         }
 
         .phase-badge.amd {
@@ -553,7 +704,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255, 107, 107, 0.03) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.03) 0%, transparent 70%);
             animation: rotate 30s linear infinite;
             z-index: -1;
         }
@@ -561,6 +712,26 @@
         @keyframes rotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
+        }
+
+        .signal-hero.ogd-active {
+            border-bottom: 5px solid var(--ogd);
+            box-shadow: 0 8px 32px rgba(0, 255, 255, 0.3);
+        }
+
+        .signal-hero.zas-active {
+            border-bottom: 5px solid var(--zas);
+            box-shadow: 0 8px 32px rgba(255, 68, 68, 0.3);
+        }
+
+        .signal-hero.avc-active {
+            border-bottom: 5px solid var(--avc);
+            box-shadow: 0 8px 32px rgba(255, 170, 0, 0.3);
+        }
+
+        .signal-hero.ati-active {
+            border-bottom: 5px solid var(--ati);
+            box-shadow: 0 8px 32px rgba(138, 109, 233, 0.3);
         }
 
         .signal-hero.amd-active {
@@ -600,6 +771,26 @@
 
         .signal-hero.neutral { 
             border-bottom: 5px solid var(--text-dim);
+        }
+
+        .signal-hero.ogd-active .main-opinion {
+            color: var(--ogd);
+            text-shadow: 0 0 30px var(--ogd);
+        }
+
+        .signal-hero.zas-active .main-opinion {
+            color: var(--zas);
+            text-shadow: 0 0 30px var(--zas);
+        }
+
+        .signal-hero.avc-active .main-opinion {
+            color: var(--avc);
+            text-shadow: 0 0 30px var(--avc);
+        }
+
+        .signal-hero.ati-active .main-opinion {
+            color: var(--ati);
+            text-shadow: 0 0 30px var(--ati);
         }
 
         .signal-hero.amd-active .main-opinion {
@@ -645,6 +836,22 @@
             margin-bottom: 5px;
         }
 
+        .ogd-active .main-opinion {
+            animation: glowPulseOGD 2s infinite;
+        }
+
+        .zas-active .main-opinion {
+            animation: glowPulseZAS 2s infinite;
+        }
+
+        .avc-active .main-opinion {
+            animation: glowPulseAVC 2s infinite;
+        }
+
+        .ati-active .main-opinion {
+            animation: glowPulseATI 2s infinite;
+        }
+
         .amd-active .main-opinion {
             animation: glowPulseAMD 2s infinite;
         }
@@ -667,6 +874,26 @@
 
         .lvs-active .main-opinion {
             animation: glowPulseCyan 2s infinite;
+        }
+
+        @keyframes glowPulseOGD {
+            0%, 100% { text-shadow: 0 0 20px var(--ogd); }
+            50% { text-shadow: 0 0 40px var(--ogd); }
+        }
+
+        @keyframes glowPulseZAS {
+            0%, 100% { text-shadow: 0 0 20px var(--zas); }
+            50% { text-shadow: 0 0 40px var(--zas); }
+        }
+
+        @keyframes glowPulseAVC {
+            0%, 100% { text-shadow: 0 0 20px var(--avc); }
+            50% { text-shadow: 0 0 40px var(--avc); }
+        }
+
+        @keyframes glowPulseATI {
+            0%, 100% { text-shadow: 0 0 20px var(--ati); }
+            50% { text-shadow: 0 0 40px var(--ati); }
         }
 
         @keyframes glowPulseAMD {
@@ -745,10 +972,10 @@
         }
 
         .confidence-bar .fill {
-            background: var(--amd);
+            background: var(--ogd);
             height: 100%;
             border-radius: 5px;
-            box-shadow: 0 0 15px var(--amd);
+            box-shadow: 0 0 15px var(--ogd);
             transition: width 0.5s ease;
             position: relative;
             overflow: hidden;
@@ -763,6 +990,26 @@
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             animation: shimmer 2s infinite;
+        }
+
+        .signal-hero.ogd-active .confidence-bar .fill {
+            background: var(--ogd);
+            box-shadow: 0 0 15px var(--ogd);
+        }
+
+        .signal-hero.zas-active .confidence-bar .fill {
+            background: var(--zas);
+            box-shadow: 0 0 15px var(--zas);
+        }
+
+        .signal-hero.avc-active .confidence-bar .fill {
+            background: var(--avc);
+            box-shadow: 0 0 15px var(--avc);
+        }
+
+        .signal-hero.ati-active .confidence-bar .fill {
+            background: var(--ati);
+            box-shadow: 0 0 15px var(--ati);
         }
 
         .signal-hero.amd-active .confidence-bar .fill {
@@ -824,8 +1071,8 @@
 
         .card:hover {
             transform: translateY(-4px);
-            border-color: rgba(255, 107, 107, 0.2);
-            box-shadow: 0 8px 24px rgba(255, 107, 107, 0.15);
+            border-color: rgba(0, 255, 255, 0.2);
+            box-shadow: 0 8px 24px rgba(0, 255, 255, 0.15);
         }
 
         .card h3 {
@@ -855,6 +1102,10 @@
         .magnet { color: var(--magnet); text-shadow: 0 0 10px var(--magnet); }
         .amd { color: var(--amd); text-shadow: 0 0 10px var(--amd); }
         .tdp { color: var(--tdp); text-shadow: 0 0 10px var(--tdp); }
+        .ogd { color: var(--ogd); text-shadow: 0 0 10px var(--ogd); }
+        .zas { color: var(--zas); text-shadow: 0 0 10px var(--zas); }
+        .avc { color: var(--avc); text-shadow: 0 0 10px var(--avc); }
+        .ati { color: var(--ati); text-shadow: 0 0 10px var(--ati); }
 
         .score-display {
             display: flex;
@@ -960,6 +1211,22 @@
             color: var(--tdp);
         }
 
+        .data-row .val.ogd {
+            color: var(--ogd);
+        }
+
+        .data-row .val.zas {
+            color: var(--zas);
+        }
+
+        .data-row .val.avc {
+            color: var(--avc);
+        }
+
+        .data-row .val.ati {
+            color: var(--ati);
+        }
+
         .advanced-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -991,6 +1258,42 @@
         .advanced-card .desc {
             font-size: 0.75rem;
             color: var(--text-dim);
+        }
+
+        .ogd-card {
+            border-left: 3px solid var(--ogd);
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .ogd-card .value {
+            color: var(--ogd);
+        }
+
+        .zas-card {
+            border-left: 3px solid var(--zas);
+            background: rgba(255, 68, 68, 0.05);
+        }
+
+        .zas-card .value {
+            color: var(--zas);
+        }
+
+        .avc-card {
+            border-left: 3px solid var(--avc);
+            background: rgba(255, 170, 0, 0.05);
+        }
+
+        .avc-card .value {
+            color: var(--avc);
+        }
+
+        .ati-card {
+            border-left: 3px solid var(--ati);
+            background: rgba(138, 109, 233, 0.05);
+        }
+
+        .ati-card .value {
+            color: var(--ati);
         }
 
         .amd-card {
@@ -1053,6 +1356,46 @@
             font-size: 40px;
             opacity: 0.1;
             transform: rotate(10deg);
+        }
+
+        .alert-box.ogd-alert {
+            border-color: var(--ogd);
+            border-left-color: var(--ogd);
+            background: rgba(0, 255, 255, 0.08);
+        }
+
+        .alert-box.ogd-alert::before {
+            content: '🔄';
+        }
+
+        .alert-box.zas-alert {
+            border-color: var(--zas);
+            border-left-color: var(--zas);
+            background: rgba(255, 68, 68, 0.08);
+        }
+
+        .alert-box.zas-alert::before {
+            content: '💀';
+        }
+
+        .alert-box.avc-alert {
+            border-color: var(--avc);
+            border-left-color: var(--avc);
+            background: rgba(255, 170, 0, 0.08);
+        }
+
+        .alert-box.avc-alert::before {
+            content: '🪤';
+        }
+
+        .alert-box.ati-alert {
+            border-color: var(--ati);
+            border-left-color: var(--ati);
+            background: rgba(138, 109, 233, 0.08);
+        }
+
+        .alert-box.ati-alert::before {
+            content: '🐋';
         }
 
         .alert-box.amd-alert {
@@ -1147,6 +1490,22 @@
             color: var(--yellow);
         }
 
+        .alert-box.ogd-alert strong {
+            color: var(--ogd);
+        }
+
+        .alert-box.zas-alert strong {
+            color: var(--zas);
+        }
+
+        .alert-box.avc-alert strong {
+            color: var(--avc);
+        }
+
+        .alert-box.ati-alert strong {
+            color: var(--ati);
+        }
+
         .alert-box.amd-alert strong {
             color: var(--amd);
         }
@@ -1211,7 +1570,7 @@
         }
 
         .terminal-output .header-line {
-            color: var(--amd);
+            color: var(--ogd);
             font-weight: 700;
             margin: 10px 0;
             text-align: center;
@@ -1226,6 +1585,26 @@
             letter-spacing: 1px;
             border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
             padding-bottom: 5px;
+        }
+
+        .terminal-output .ogd-section {
+            color: var(--ogd);
+            border-bottom-color: var(--ogd);
+        }
+
+        .terminal-output .zas-section {
+            color: var(--zas);
+            border-bottom-color: var(--zas);
+        }
+
+        .terminal-output .avc-section {
+            color: var(--avc);
+            border-bottom-color: var(--avc);
+        }
+
+        .terminal-output .ati-section {
+            color: var(--ati);
+            border-bottom-color: var(--ati);
         }
 
         .terminal-output .amd-section {
@@ -1283,6 +1662,10 @@
         .terminal-output .magnet { color: var(--magnet); }
         .terminal-output .amd { color: var(--amd); }
         .terminal-output .tdp { color: var(--tdp); }
+        .terminal-output .ogd { color: var(--ogd); }
+        .terminal-output .zas { color: var(--zas); }
+        .terminal-output .avc { color: var(--avc); }
+        .terminal-output .ati { color: var(--ati); }
 
         .terminal-output .divider {
             border-top: 1px dashed rgba(255, 255, 255, 0.1);
@@ -1312,9 +1695,34 @@
 
         .features span {
             padding: 4px 12px;
-            background: rgba(255, 107, 107, 0.1);
+            background: rgba(0, 255, 255, 0.1);
             border-radius: 100px;
-            color: var(--amd);
+            color: var(--ogd);
+        }
+
+        .features .ogd-feature {
+            background: rgba(0, 255, 255, 0.2);
+            color: var(--ogd);
+            font-weight: 600;
+            animation: pulseOGD 2s infinite;
+        }
+
+        .features .zas-feature {
+            background: rgba(255, 68, 68, 0.2);
+            color: var(--zas);
+            font-weight: 600;
+        }
+
+        .features .avc-feature {
+            background: rgba(255, 170, 0, 0.2);
+            color: var(--avc);
+            font-weight: 600;
+        }
+
+        .features .ati-feature {
+            background: rgba(138, 109, 233, 0.2);
+            color: var(--ati);
+            font-weight: 600;
         }
 
         .features .amd-feature {
@@ -1363,10 +1771,10 @@
 
         .loading-spinner i {
             font-size: 48px;
-            color: var(--amd);
+            color: var(--ogd);
             margin-bottom: 20px;
             animation: spin 1s linear infinite;
-            text-shadow: 0 0 20px var(--amd);
+            text-shadow: 0 0 20px var(--ogd);
         }
 
         .loading-spinner p {
@@ -1398,7 +1806,7 @@
                 flex-direction: column;
             }
 
-            #customSymbolInput, .glass-select, .btn-primary, .btn-secondary, .btn-amd, .btn-tdp, .btn-magnet, .btn-ghost {
+            #customSymbolInput, .glass-select, .btn-primary, .btn-secondary, .btn-ogd, .btn-zas, .btn-avc, .btn-ati, .btn-amd, .btn-tdp, .btn-magnet, .btn-ghost {
                 width: 100%;
             }
 
@@ -1470,13 +1878,13 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--amd);
+            background: var(--ogd);
             border-radius: 3px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #ff4757;
-            box-shadow: 0 0 10px var(--amd);
+            background: #00cccc;
+            box-shadow: 0 0 10px var(--ogd);
         }
     </style>
 </head>
@@ -1484,25 +1892,25 @@
     <div class="container">
         <header>
             <div class="logo">
-                <h1>DYLPREDICT<span class="version">V65</span><span class="sub-version">AMD + TDP</span><span class="amd-badge">🎭 AMD</span><span class="tdp-badge">☢️ TDP</span><span class="mwr-badge">🧲 MWR</span><span class="lvs-badge">👻 LVS</span></h1>
+                <h1>DYLPREDICT<span class="version">V68</span><span class="sub-version">OGD+ZAS+AVC+ATI</span><span class="ogd-badge">🔄 OGD</span><span class="zas-badge">💀 ZAS</span><span class="avc-badge">🪤 AVC</span><span class="ati-badge">🐋 ATI</span><span class="amd-badge">🎭 AMD</span><span class="tdp-badge">☢️ TDP</span><span class="mwr-badge">🧲 MWR</span><span class="lvs-badge">👻 LVS</span></h1>
             </div>
             
             <div class="symbol-selector">
                 <div class="input-controls">
-                    <input type="text" id="customSymbolInput" placeholder="Symbol" value="ROBOUSDT">
+                    <input type="text" id="customSymbolInput" placeholder="Symbol" value="PIPPINUSDT">
                     <select id="symbolSelect" class="glass-select">
                         <option value="BTCUSDT">BTCUSDT</option>
                         <option value="ETHUSDT">ETHUSDT</option>
                         <option value="BNBUSDT">BNBUSDT</option>
                         <option value="SOLUSDT">SOLUSDT</option>
                         <option value="DOGEUSDT">DOGEUSDT</option>
-                        <option value="ARCUSDT">ARCUSDT</option>
-                        <option value="SAHARAUSDT">SAHARAUSDT</option>
-                        <option value="SIRENUSDT">SIRENUSDT</option>
+                        <option value="PIPPINUSDT" selected>PIPPINUSDT</option>
                         <option value="POWERUSDT">POWERUSDT</option>
-                        <option value="ROBOUSDT" selected>ROBOUSDT</option>
+                        <option value="SAHARAUSDT">SAHARAUSDT</option>
+                        <option value="ROBOUSDT">ROBOUSDT</option>
                         <option value="PHAUSDT">PHAUSDT</option>
-                        <option value="PIPPINUSDT">PIPPINUSDT</option>
+                        <option value="SIRENUSDT">SIRENUSDT</option>
+                        <option value="ARCUSDT">ARCUSDT</option>
                         <option value="KITEUSDT">KITEUSDT</option>
                         <option value="ALICEUSDT">ALICEUSDT</option>
                     </select>
@@ -1510,6 +1918,22 @@
                 <button id="analyzeCustomBtn" class="btn-primary">
                     <i class="fas fa-chart-line"></i>
                     Analyze
+                </button>
+                <button id="ogdModeBtn" class="btn-ogd">
+                    <i class="fas fa-sync-alt"></i>
+                    OGD Scan
+                </button>
+                <button id="zasModeBtn" class="btn-zas">
+                    <i class="fas fa-skull"></i>
+                    ZAS Scan
+                </button>
+                <button id="avcModeBtn" class="btn-avc">
+                    <i class="fas fa-trap"></i>
+                    AVC Scan
+                </button>
+                <button id="atiModeBtn" class="btn-ati">
+                    <i class="fas fa-whale"></i>
+                    ATI Scan
                 </button>
                 <button id="amdModeBtn" class="btn-amd">
                     <i class="fas fa-mask"></i>
@@ -1538,7 +1962,7 @@
             <div class="header-card">
                 <div class="phase-badge" id="phaseBadge">NEUTRAL</div>
                 <div class="symbol-info">
-                    <h1 class="symbol" id="mainSymbol">ROBOUSDT</h1>
+                    <h1 class="symbol" id="mainSymbol">PIPPINUSDT</h1>
                     <span class="timestamp" id="headerTime">--:--:--.---</span>
                 </div>
                 <div class="price-section">
@@ -1562,6 +1986,38 @@
                     <h3>Market Bias</h3>
                     <div class="big-value" id="biasValue">--</div>
                     <p id="biasDetail">--</p>
+                </div>
+
+                <div class="card" id="ogdCard">
+                    <h3>OGD Gravity <span class="ogd-badge" style="margin-left: 5px;">🔄</span></h3>
+                    <div class="score-display">
+                        <span class="score-num ogd" id="ogdStatus">INACTIVE</span>
+                        <span class="score-sub" id="ogdType">--</span>
+                    </div>
+                </div>
+
+                <div class="card" id="zasCard">
+                    <h3>ZAS Deadstick <span class="zas-badge" style="margin-left: 5px;">💀</span></h3>
+                    <div class="score-display">
+                        <span class="score-num zas" id="zasStatus">INACTIVE</span>
+                        <span class="score-sub" id="zasType">--</span>
+                    </div>
+                </div>
+
+                <div class="card" id="avcCard">
+                    <h3>AVC Validity <span class="avc-badge" style="margin-left: 5px;">🪤</span></h3>
+                    <div class="score-display">
+                        <span class="score-num avc" id="avcStatus">INACTIVE</span>
+                        <span class="score-sub" id="avcType">--</span>
+                    </div>
+                </div>
+
+                <div class="card" id="atiCard">
+                    <h3>ATI Accumulation <span class="ati-badge" style="margin-left: 5px;">🐋</span></h3>
+                    <div class="score-display">
+                        <span class="score-num ati" id="atiStatus">INACTIVE</span>
+                        <span class="score-sub" id="atiType">--</span>
+                    </div>
                 </div>
 
                 <div class="card" id="amdCard">
@@ -1659,6 +2115,26 @@
             </section>
 
             <div class="advanced-grid" id="advancedMetrics">
+                <div class="advanced-card ogd-card" id="ogdDetailCard">
+                    <h4>🔄 Gravity Deflection (OGD)</h4>
+                    <div class="value" id="ogdDetail">--</div>
+                    <div class="desc" id="ogdDesc">--</div>
+                </div>
+                <div class="advanced-card zas-card" id="zasDetailCard">
+                    <h4>💀 Zero Aggression Slaughter</h4>
+                    <div class="value" id="zasDetail">--</div>
+                    <div class="desc" id="zasDesc">--</div>
+                </div>
+                <div class="advanced-card avc-card" id="avcDetailCard">
+                    <h4>🪤 Absorption Validity Check</h4>
+                    <div class="value" id="avcDetail">--</div>
+                    <div class="desc" id="avcDesc">--</div>
+                </div>
+                <div class="advanced-card ati-card" id="atiDetailCard">
+                    <h4>🐋 Temporal Accumulation</h4>
+                    <div class="value" id="atiDetail">--</div>
+                    <div class="desc" id="atiDesc">--</div>
+                </div>
                 <div class="advanced-card amd-card" id="amdDetailCard">
                     <h4>🎭 Aggression-Mass Divergence</h4>
                     <div class="value" id="amdDetail">--</div>
@@ -1712,15 +2188,19 @@
             </div>
 
             <footer class="alert-box" id="alertBox">
-                <strong>🎭 AMD ALERT:</strong> <span id="alertMessage">Click Analyze to get signal</span>
+                <strong>🔄 OGD ALERT:</strong> <span id="alertMessage">Click Analyze to get signal</span>
             </footer>
 
             <div class="terminal-output" id="terminalOutput" style="display: none;"></div>
         </div>
 
         <div class="footer">
-            <div>DylPredict V65 • THE AGGRESSION-MASS DIVERGENCE EDITION • AMD + TDP + MWR + LVS</div>
+            <div>DylPredict V68 • THE GRAVITY DEFLECTOR EDITION • OGD + ZAS + AVC + ATI + AMD + TDP + MWR + LVS</div>
             <div class="features">
+                <span class="ogd-feature">🔄 OGD Gravity</span>
+                <span class="zas-feature">💀 ZAS Deadstick</span>
+                <span class="avc-feature">🪤 AVC Validity</span>
+                <span class="ati-feature">🐋 ATI Accumulation</span>
                 <span class="amd-feature">🎭 AMD Spoof</span>
                 <span class="tdp-feature">☢️ TDP Particle</span>
                 <span class="mwr-feature">🧲 MWR Magnet</span>
@@ -1738,8 +2218,8 @@
 
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner">
-            <i class="fas fa-mask"></i>
-            <p>AMD Scanner Active - Detecting WMI Spoofing...</p>
+            <i class="fas fa-sync-alt fa-spin"></i>
+            <p>OGD Scanner Active - Detecting Gravity Deflection...</p>
         </div>
     </div>
 
@@ -1751,6 +2231,10 @@
         const elements = {
             symbolSelect: document.getElementById('symbolSelect'),
             analyzeCustomBtn: document.getElementById('analyzeCustomBtn'),
+            ogdModeBtn: document.getElementById('ogdModeBtn'),
+            zasModeBtn: document.getElementById('zasModeBtn'),
+            avcModeBtn: document.getElementById('avcModeBtn'),
+            atiModeBtn: document.getElementById('atiModeBtn'),
             amdModeBtn: document.getElementById('amdModeBtn'),
             tdpModeBtn: document.getElementById('tdpModeBtn'),
             magnetModeBtn: document.getElementById('magnetModeBtn'),
@@ -1769,6 +2253,14 @@
             confidenceLabel: document.getElementById('confidenceLabel'),
             biasValue: document.getElementById('biasValue'),
             biasDetail: document.getElementById('biasDetail'),
+            ogdStatus: document.getElementById('ogdStatus'),
+            ogdType: document.getElementById('ogdType'),
+            zasStatus: document.getElementById('zasStatus'),
+            zasType: document.getElementById('zasType'),
+            avcStatus: document.getElementById('avcStatus'),
+            avcType: document.getElementById('avcType'),
+            atiStatus: document.getElementById('atiStatus'),
+            atiType: document.getElementById('atiType'),
             amdStatus: document.getElementById('amdStatus'),
             amdType: document.getElementById('amdType'),
             tdpStatus: document.getElementById('tdpStatus'),
@@ -1802,6 +2294,14 @@
             longLiqDesc: document.getElementById('longLiqDesc'),
             shortLiq: document.getElementById('shortLiq'),
             shortLiqDesc: document.getElementById('shortLiqDesc'),
+            ogdDetail: document.getElementById('ogdDetail'),
+            ogdDesc: document.getElementById('ogdDesc'),
+            zasDetail: document.getElementById('zasDetail'),
+            zasDesc: document.getElementById('zasDesc'),
+            avcDetail: document.getElementById('avcDetail'),
+            avcDesc: document.getElementById('avcDesc'),
+            atiDetail: document.getElementById('atiDetail'),
+            atiDesc: document.getElementById('atiDesc'),
             amdDetail: document.getElementById('amdDetail'),
             amdDesc: document.getElementById('amdDesc'),
             tdpDetail: document.getElementById('tdpDetail'),
@@ -1816,18 +2316,22 @@
             alertMessage: document.getElementById('alertMessage'),
             phaseBadge: document.getElementById('phaseBadge'),
             terminalOutput: document.getElementById('terminalOutput'),
+            ogdDetailCard: document.getElementById('ogdDetailCard'),
+            zasDetailCard: document.getElementById('zasDetailCard'),
+            avcDetailCard: document.getElementById('avcDetailCard'),
+            atiDetailCard: document.getElementById('atiDetailCard'),
             amdDetailCard: document.getElementById('amdDetailCard'),
             tdpDetailCard: document.getElementById('tdpDetailCard')
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('🎭 DylPredict V65 Aggression-Mass Divergence Edition Initialized');
+            console.log('🔄 DylPredict V68 Gravity Deflector Edition Initialized');
             console.log('📡 API URL:', API_URL);
             attachEventListeners();
             
-            // Auto-analyze ROBOUSDT on load (classic AMD spoof example)
+            // Auto-analyze PIPPINUSDT on load (classic OGD example)
             setTimeout(() => {
-                analyzeSymbol('ROBOUSDT');
+                analyzeSymbol('PIPPINUSDT');
             }, 500);
         });
 
@@ -1837,7 +2341,43 @@
                 if (symbol) {
                     analyzeSymbol(symbol);
                 } else {
-                    alert('❌ Masukkan symbol coin! Contoh: ROBOUSDT');
+                    alert('❌ Masukkan symbol coin! Contoh: PIPPINUSDT');
+                }
+            });
+
+            elements.ogdModeBtn.addEventListener('click', () => {
+                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
+                if (symbol) {
+                    ogdScan(symbol);
+                } else {
+                    alert('❌ Masukkan symbol untuk OGD scan!');
+                }
+            });
+
+            elements.zasModeBtn.addEventListener('click', () => {
+                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
+                if (symbol) {
+                    zasScan(symbol);
+                } else {
+                    alert('❌ Masukkan symbol untuk ZAS scan!');
+                }
+            });
+
+            elements.avcModeBtn.addEventListener('click', () => {
+                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
+                if (symbol) {
+                    avcScan(symbol);
+                } else {
+                    alert('❌ Masukkan symbol untuk AVC scan!');
+                }
+            });
+
+            elements.atiModeBtn.addEventListener('click', () => {
+                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
+                if (symbol) {
+                    atiScan(symbol);
+                } else {
+                    alert('❌ Masukkan symbol untuk ATI scan!');
                 }
             });
 
@@ -1888,16 +2428,16 @@
             });
 
             elements.batchModeBtn.addEventListener('click', () => {
-                const symbols = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'ROBOUSDT', 'PHAUSDT', 'SAHARAUSDT', 'SIRENUSDT', 'POWERUSDT'];
+                const symbols = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'PIPPINUSDT', 'POWERUSDT', 'SAHARAUSDT', 'ROBOUSDT', 'PHAUSDT', 'SIRENUSDT', 'ARCUSDT'];
                 analyzeBatch(symbols);
             });
         }
 
         async function analyzeSymbol(symbol) {
-            showLoading('Analyzing with V65 Aggression-Mass Divergence...');
+            showLoading('Analyzing with V68 Gravity Deflector...');
             
             try {
-                console.log(`🎭 Analyzing ${symbol} with V65 AMD + TDP...`);
+                console.log(`🔄 Analyzing ${symbol} with V68 OGD + ZAS + AVC + ATI...`);
                 
                 const timestamp = Date.now();
                 const url = `${API_URL}/analyze/${symbol}?t=${timestamp}`;
@@ -1925,6 +2465,158 @@
             } catch (error) {
                 console.error('❌ Analysis Failed:', error);
                 showError(error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function ogdScan(symbol) {
+            showLoading('🔄 OGD SCAN ACTIVE - Detecting Gravity Deflection...');
+            
+            try {
+                console.log(`🔄 OGD scanning ${symbol} for gravity deflection...`);
+                
+                const timestamp = Date.now();
+                const url = `${API_URL}/ogd/${symbol}?t=${timestamp}`;
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Cache-Control': 'no-cache'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    updateOgdDisplay(result.data);
+                } else {
+                    // Fallback to regular analyze
+                    analyzeSymbol(symbol);
+                }
+                
+            } catch (error) {
+                console.error('❌ OGD Scan Failed:', error);
+                analyzeSymbol(symbol); // Fallback
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function zasScan(symbol) {
+            showLoading('💀 ZAS SCAN ACTIVE - Hunting for Deadstick...');
+            
+            try {
+                console.log(`💀 ZAS scanning ${symbol} for zero aggression...`);
+                
+                const timestamp = Date.now();
+                const url = `${API_URL}/zas/${symbol}?t=${timestamp}`;
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Cache-Control': 'no-cache'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    updateZasDisplay(result.data);
+                } else {
+                    // Fallback to regular analyze
+                    analyzeSymbol(symbol);
+                }
+                
+            } catch (error) {
+                console.error('❌ ZAS Scan Failed:', error);
+                analyzeSymbol(symbol); // Fallback
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function avcScan(symbol) {
+            showLoading('🪤 AVC SCAN ACTIVE - Validating Absorption...');
+            
+            try {
+                console.log(`🪤 AVC scanning ${symbol} for exit liquidity...`);
+                
+                const timestamp = Date.now();
+                const url = `${API_URL}/avc/${symbol}?t=${timestamp}`;
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Cache-Control': 'no-cache'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    updateAvcDisplay(result.data);
+                } else {
+                    // Fallback to regular analyze
+                    analyzeSymbol(symbol);
+                }
+                
+            } catch (error) {
+                console.error('❌ AVC Scan Failed:', error);
+                analyzeSymbol(symbol); // Fallback
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function atiScan(symbol) {
+            showLoading('🐋 ATI SCAN ACTIVE - Detecting Whale Accumulation...');
+            
+            try {
+                console.log(`🐋 ATI scanning ${symbol} for temporal accumulation...`);
+                
+                const timestamp = Date.now();
+                const url = `${API_URL}/ati/${symbol}?t=${timestamp}`;
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Cache-Control': 'no-cache'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    updateAtiDisplay(result.data);
+                } else {
+                    // Fallback to regular analyze
+                    analyzeSymbol(symbol);
+                }
+                
+            } catch (error) {
+                console.error('❌ ATI Scan Failed:', error);
+                analyzeSymbol(symbol); // Fallback
             } finally {
                 hideLoading();
             }
@@ -2083,12 +2775,16 @@
         }
 
         async function analyzeBatch(symbols) {
-            showLoading('Batch scanning with AMD + TDP + MWR + LVS...');
+            showLoading('Batch scanning with OGD + ZAS + AVC + ATI + AMD + TDP...');
             
             try {
-                console.log(`🎭 Batch scanning: ${symbols.join(', ')}`);
+                console.log(`🔄 Batch scanning: ${symbols.join(', ')}`);
                 
-                let summary = "🎭 AMD + TDP SCAN SUMMARY - V65 AGGRESSION-MASS DIVERGENCE:\n\n";
+                let summary = "🔄 OGD + ZAS + AVC + ATI + AMD + TDP SCAN SUMMARY - V68 GRAVITY DEFLECTOR:\n\n";
+                let ogdCount = 0;
+                let zasCount = 0;
+                let avcCount = 0;
+                let atiCount = 0;
                 let amdCount = 0;
                 let tdpCount = 0;
                 let magnetCount = 0;
@@ -2101,22 +2797,46 @@
                         
                         if (result.success && result.data) {
                             const data = result.data;
-                            const isAmd = data.amd?.is_spoof && data.amd?.confidence === 'SUPREME' ? '🎭 AMD!' : '      ';
+                            const isOgd = data.ogd?.is_deflected ? '🔄 OGD!' : '      ';
+                            const isZas = data.zas?.is_dead ? '💀 ZAS!' : '      ';
+                            const isAvc = data.avc?.is_trap ? '🪤 AVC!' : '      ';
+                            const isAti = data.ati?.is_accumulating ? '🐋 ATI!' : '      ';
+                            const isAmd = data.amd?.is_spoof ? '🎭 AMD!' : '      ';
                             const isTdp = data.tdp?.is_active ? '☢️ TDP!' : '      ';
                             const isMagnet = data.mwr?.is_magnet ? '🧲 MAGNET!' : '      ';
                             const isGhost = data.lvs?.is_suction ? '👻 GHOST!' : '      ';
+                            const ogdType = data.ogd?.bias || '';
+                            const zasType = data.zas?.bias || '';
+                            const avcType = data.avc?.trap_type || '';
+                            const atiType = data.ati?.bias || '';
                             const amdType = data.amd?.action || '';
                             const tdpBias = data.tdp?.bias || '';
                             const magnetType = data.mwr?.magnet_type || '';
                             const ghostType = data.lvs?.suction_type || '';
                             const engineIcon = data.starter?.is_starting ? '🚀' : '⏳';
                             
+                            if (data.ogd?.is_deflected) ogdCount++;
+                            if (data.zas?.is_dead) zasCount++;
+                            if (data.avc?.is_trap) avcCount++;
+                            if (data.ati?.is_accumulating) atiCount++;
                             if (data.amd?.is_spoof) amdCount++;
                             if (data.tdp?.is_active) tdpCount++;
                             if (data.mwr?.is_magnet) magnetCount++;
                             if (data.lvs?.is_suction) ghostCount++;
                             
-                            summary += `${isAmd} ${isTdp} ${isMagnet} ${isGhost} ${engineIcon} ${symbol}: ${data.bias || 'NEUTRAL'} (${data.confidence || 'LOW'})\n`;
+                            summary += `${isOgd} ${isZas} ${isAvc} ${isAti} ${isAmd} ${isTdp} ${isMagnet} ${isGhost} ${engineIcon} ${symbol}: ${data.bias || 'NEUTRAL'} (${data.confidence || 'LOW'})\n`;
+                            if (data.ogd?.is_deflected) {
+                                summary += `      └─ 🔄 ${data.ogd.reason}\n`;
+                            }
+                            if (data.zas?.is_dead) {
+                                summary += `      └─ 💀 ${data.zas.reason}\n`;
+                            }
+                            if (data.avc?.is_trap) {
+                                summary += `      └─ 🪤 ${data.avc.reason}\n`;
+                            }
+                            if (data.ati?.is_accumulating) {
+                                summary += `      └─ 🐋 ${data.ati.reason}\n`;
+                            }
                             if (data.amd?.is_spoof) {
                                 summary += `      └─ 🎭 ${data.amd.reason}\n`;
                             }
@@ -2137,6 +2857,10 @@
                     }
                 }
                 
+                summary += `\n🔄 OGD Gravity Deflections: ${ogdCount}`;
+                summary += `\n💀 ZAS Deadsticks Found: ${zasCount}`;
+                summary += `\n🪤 AVC Exit Traps Found: ${avcCount}`;
+                summary += `\n🐋 ATI Accumulations Found: ${atiCount}`;
                 summary += `\n🎭 AMD Spoofs Found: ${amdCount}`;
                 summary += `\n☢️ TDP Particles Found: ${tdpCount}`;
                 summary += `\n🧲 Magnet Walls Found: ${magnetCount}`;
@@ -2152,10 +2876,10 @@
         }
 
         function updateDisplay(data) {
-            console.log('🔄 Updating display with V65 data:', data);
+            console.log('🔄 Updating display with V68 data:', data);
             
             // Basic info
-            elements.mainSymbol.textContent = data.symbol || 'ROBOUSDT';
+            elements.mainSymbol.textContent = data.symbol || 'PIPPINUSDT';
             elements.headerTime.textContent = data.timestamp || data.time || new Date().toLocaleTimeString();
             elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}`;
             
@@ -2163,13 +2887,25 @@
             const bias = data.bias || data.opinion || 'NEUTRAL';
             elements.opinionMain.textContent = bias;
             
-            // Check for AMD, TDP, MWR, LVS
+            // Check for OGD, ZAS, AVC, ATI, AMD, TDP, MWR, LVS
+            const ogdActive = data.ogd?.is_deflected && data.ogd?.confidence in ['SUPREME', 'HIGH'];
+            const zasActive = data.zas?.is_dead && data.zas?.confidence in ['ABSOLUTE', 'SUPREME'];
+            const avcActive = data.avc?.is_trap && data.avc?.confidence === 'SUPREME';
+            const atiActive = data.ati?.is_accumulating && data.ati?.confidence in ['SUPREME', 'ABSOLUTE'];
             const amdActive = data.amd?.is_spoof && data.amd?.confidence === 'SUPREME';
             const tdpActive = data.tdp?.is_active || false;
             const mwrActive = data.mwr?.is_magnet || false;
             const lvsActive = data.lvs?.is_suction || false;
             
-            if (amdActive) {
+            if (ogdActive) {
+                elements.signalHero.className = 'signal-hero ogd-active';
+            } else if (zasActive) {
+                elements.signalHero.className = 'signal-hero zas-active';
+            } else if (avcActive) {
+                elements.signalHero.className = 'signal-hero avc-active';
+            } else if (atiActive) {
+                elements.signalHero.className = 'signal-hero ati-active';
+            } else if (amdActive) {
                 elements.signalHero.className = 'signal-hero amd-active';
             } else if (tdpActive) {
                 elements.signalHero.className = 'signal-hero tdp-active';
@@ -2183,7 +2919,19 @@
             
             // Phase badge
             const phase = data.market_phase || 'NEUTRAL';
-            if (amdActive) {
+            if (ogdActive) {
+                elements.phaseBadge.textContent = `🔄 OGD ${data.ogd?.bias || 'DEFLECTION'}`;
+                elements.phaseBadge.className = 'phase-badge ogd';
+            } else if (zasActive) {
+                elements.phaseBadge.textContent = `💀 ZAS ${data.zas?.bias || 'DEADSTICK'}`;
+                elements.phaseBadge.className = 'phase-badge zas';
+            } else if (avcActive) {
+                elements.phaseBadge.textContent = `🪤 ${data.avc?.trap_type || 'EXIT TRAP'}`;
+                elements.phaseBadge.className = 'phase-badge avc';
+            } else if (atiActive) {
+                elements.phaseBadge.textContent = `🐋 ATI ${data.ati?.bias || 'ACCUMULATION'}`;
+                elements.phaseBadge.className = 'phase-badge ati';
+            } else if (amdActive) {
                 elements.phaseBadge.textContent = `🎭 AMD ${data.amd?.action?.replace('FORCE_', '') || 'SPOOF'}`;
                 elements.phaseBadge.className = 'phase-badge amd';
             } else if (tdpActive) {
@@ -2219,8 +2967,12 @@
             }
             
             // Strategy and reason
-            let strategy = 'AGGRESSION-MASS DIVERGENCE';
-            if (amdActive) strategy = 'AMD SPOOF DETECTOR';
+            let strategy = 'GRAVITY DEFLECTOR';
+            if (ogdActive) strategy = 'OGD GRAVITY DEFLECTION';
+            else if (zasActive) strategy = 'ZAS DEADSTICK SLAUGHTER';
+            else if (avcActive) strategy = 'AVC EXIT LIQUIDITY TRAP';
+            else if (atiActive) strategy = 'ATI TEMPORAL ACCUMULATION';
+            else if (amdActive) strategy = 'AMD SPOOF DETECTOR';
             else if (tdpActive) strategy = 'THE DYL PARTICLE';
             else if (mwrActive) strategy = 'MAGNET WALL REVERSAL';
             else if (lvsActive) strategy = 'GHOST WHISPERER';
@@ -2261,6 +3013,46 @@
             elements.biasValue.textContent = bias;
             elements.biasValue.className = `big-value ${bias.toLowerCase()}`;
             elements.biasDetail.textContent = data.phase_reason?.split('.')[0] || '--';
+            
+            // OGD Status
+            elements.ogdStatus.textContent = ogdActive ? 'ACTIVE' : 'INACTIVE';
+            elements.ogdStatus.className = `score-num ${ogdActive ? 'ogd' : ''}`;
+            elements.ogdType.textContent = data.ogd?.bias || 'No deflection';
+            
+            // OGD Detail Card
+            elements.ogdDetail.textContent = ogdActive ? data.ogd?.bias : 'NO DEFLECTION';
+            elements.ogdDetail.className = `value ${ogdActive ? 'ogd' : ''}`;
+            elements.ogdDesc.textContent = ogdActive ? (data.ogd?.reason || 'Gravity deflection detected') : 'No gravity deflection';
+            
+            // ZAS Status
+            elements.zasStatus.textContent = zasActive ? 'ACTIVE' : 'INACTIVE';
+            elements.zasStatus.className = `score-num ${zasActive ? 'zas' : ''}`;
+            elements.zasType.textContent = data.zas?.bias || 'No deadstick';
+            
+            // ZAS Detail Card
+            elements.zasDetail.textContent = zasActive ? data.zas?.bias : 'NO DEADSTICK';
+            elements.zasDetail.className = `value ${zasActive ? 'zas' : ''}`;
+            elements.zasDesc.textContent = zasActive ? (data.zas?.reason || 'Deadstick detected') : 'No zero aggression';
+            
+            // AVC Status
+            elements.avcStatus.textContent = avcActive ? 'ACTIVE' : 'INACTIVE';
+            elements.avcStatus.className = `score-num ${avcActive ? 'avc' : ''}`;
+            elements.avcType.textContent = data.avc?.trap_type || 'No trap';
+            
+            // AVC Detail Card
+            elements.avcDetail.textContent = avcActive ? data.avc?.trap_type : 'NO TRAP';
+            elements.avcDetail.className = `value ${avcActive ? 'avc' : ''}`;
+            elements.avcDesc.textContent = avcActive ? (data.avc?.reason || 'Exit liquidity trap') : 'No absorption trap';
+            
+            // ATI Status
+            elements.atiStatus.textContent = atiActive ? 'ACTIVE' : 'INACTIVE';
+            elements.atiStatus.className = `score-num ${atiActive ? 'ati' : ''}`;
+            elements.atiType.textContent = data.ati?.bias || 'No accumulation';
+            
+            // ATI Detail Card
+            elements.atiDetail.textContent = atiActive ? `${data.ati?.bias} (${data.ati?.accumulation_minutes || 0}m)` : 'NO ACCUMULATION';
+            elements.atiDetail.className = `value ${atiActive ? 'ati' : ''}`;
+            elements.atiDesc.textContent = atiActive ? (data.ati?.reason || 'Temporal accumulation') : 'No whale loading';
             
             // AMD Status
             elements.amdStatus.textContent = amdActive ? 'ACTIVE' : 'INACTIVE';
@@ -2340,7 +3132,7 @@
             elements.rsiValue.className = `val ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}`;
             
             elements.aggRatio.textContent = `${(data.aggressive_ratio || 1.0).toFixed(2)}x`;
-            elements.aggRatio.className = `val ${(data.aggressive_ratio || 1) < 0.3 ? 'amd' : (data.aggressive_ratio || 1) > 2 ? 'warning' : ''}`;
+            elements.aggRatio.className = `val ${(data.aggressive_ratio || 1) < 0.3 ? 'zas' : (data.aggressive_ratio || 1) > 2 ? 'warning' : ''}`;
             
             elements.tradeFlow.textContent = `${(data.trade_flow || 1.0).toFixed(2)}x`;
             elements.tradeFlow.className = `val ${(data.trade_flow || 1) < 0.5 ? 'cyan' : (data.trade_flow || 1) > 2 ? 'warning' : ''}`;
@@ -2395,7 +3187,19 @@
             
             // Alert Box
             let alertMsg = data.liquidation_alert || data.reason || 'No alert';
-            if (amdActive) {
+            if (ogdActive) {
+                alertMsg = `🔄 OGD DEFLECTION: ${data.ogd?.reason || 'Gravity reversal detected - LONG bias!'}`;
+                elements.alertBox.className = 'alert-box ogd-alert';
+            } else if (zasActive) {
+                alertMsg = `💀 ZAS DEADSTICK: ${data.zas?.reason || 'Zero aggression detected - SHORT bias!'}`;
+                elements.alertBox.className = 'alert-box zas-alert';
+            } else if (avcActive) {
+                alertMsg = `🪤 AVC EXIT TRAP: ${data.avc?.reason || 'Exit liquidity detected - SHORT bias!'}`;
+                elements.alertBox.className = 'alert-box avc-alert';
+            } else if (atiActive) {
+                alertMsg = `🐋 ATI ACCUMULATION: ${data.ati?.reason || 'Whale patience loading - LONG bias!'}`;
+                elements.alertBox.className = 'alert-box ati-alert';
+            } else if (amdActive) {
                 alertMsg = `🎭 AMD SPOOF: ${data.amd?.reason || 'WMI Bullish Palsu - Target Short!'}`;
                 elements.alertBox.className = 'alert-box amd-alert';
             } else if (tdpActive) {
@@ -2436,6 +3240,90 @@
             }
             
             showTerminalOutput(data);
+        }
+
+        function updateOgdDisplay(data) {
+            // Special display for OGD scan results
+            if (data.ogd && data.ogd.is_deflected) {
+                elements.alertBox.className = 'alert-box ogd-alert';
+                elements.alertMessage.textContent = `🔄 OGD DEFLECTION: ${data.ogd.reason}`;
+                elements.phaseBadge.textContent = `🔄 ${data.ogd.bias}`;
+                elements.phaseBadge.classList.add('ogd');
+                
+                // Highlight OGD card
+                elements.ogdDetail.textContent = data.ogd.bias;
+                elements.ogdDetail.className = 'value ogd';
+                elements.ogdDesc.textContent = data.ogd.reason;
+                elements.ogdStatus.textContent = 'ACTIVE';
+                elements.ogdStatus.className = 'score-num ogd';
+                elements.ogdType.textContent = data.ogd.bias;
+            }
+            
+            // Update regular display with the data
+            updateDisplay(data);
+        }
+
+        function updateZasDisplay(data) {
+            // Special display for ZAS scan results
+            if (data.zas && data.zas.is_dead) {
+                elements.alertBox.className = 'alert-box zas-alert';
+                elements.alertMessage.textContent = `💀 ZAS DEADSTICK: ${data.zas.reason}`;
+                elements.phaseBadge.textContent = `💀 ${data.zas.bias}`;
+                elements.phaseBadge.classList.add('zas');
+                
+                // Highlight ZAS card
+                elements.zasDetail.textContent = data.zas.bias;
+                elements.zasDetail.className = 'value zas';
+                elements.zasDesc.textContent = data.zas.reason;
+                elements.zasStatus.textContent = 'ACTIVE';
+                elements.zasStatus.className = 'score-num zas';
+                elements.zasType.textContent = data.zas.bias;
+            }
+            
+            // Update regular display with the data
+            updateDisplay(data);
+        }
+
+        function updateAvcDisplay(data) {
+            // Special display for AVC scan results
+            if (data.avc && data.avc.is_trap) {
+                elements.alertBox.className = 'alert-box avc-alert';
+                elements.alertMessage.textContent = `🪤 AVC TRAP: ${data.avc.reason}`;
+                elements.phaseBadge.textContent = `🪤 ${data.avc.trap_type}`;
+                elements.phaseBadge.classList.add('avc');
+                
+                // Highlight AVC card
+                elements.avcDetail.textContent = data.avc.trap_type;
+                elements.avcDetail.className = 'value avc';
+                elements.avcDesc.textContent = data.avc.reason;
+                elements.avcStatus.textContent = 'ACTIVE';
+                elements.avcStatus.className = 'score-num avc';
+                elements.avcType.textContent = data.avc.trap_type;
+            }
+            
+            // Update regular display with the data
+            updateDisplay(data);
+        }
+
+        function updateAtiDisplay(data) {
+            // Special display for ATI scan results
+            if (data.ati && data.ati.is_accumulating) {
+                elements.alertBox.className = 'alert-box ati-alert';
+                elements.alertMessage.textContent = `🐋 ATI ACCUMULATION: ${data.ati.reason}`;
+                elements.phaseBadge.textContent = `🐋 ${data.ati.bias}`;
+                elements.phaseBadge.classList.add('ati');
+                
+                // Highlight ATI card
+                elements.atiDetail.textContent = `${data.ati.bias} (${data.ati.accumulation_minutes || 0}m)`;
+                elements.atiDetail.className = 'value ati';
+                elements.atiDesc.textContent = data.ati.reason;
+                elements.atiStatus.textContent = 'ACTIVE';
+                elements.atiStatus.className = 'score-num ati';
+                elements.atiType.textContent = data.ati.bias;
+            }
+            
+            // Update regular display with the data
+            updateDisplay(data);
         }
 
         function updateAmdDisplay(data) {
@@ -2535,7 +3423,19 @@
             const obRatio = data.ob_ratio || 1.0;
             const oiDelta = data.oi_delta_5m || 0;
             
-            // V65 metrics
+            // V68 metrics
+            const ogdActive = data.ogd?.is_deflected ? 'YES' : 'NO';
+            const ogdBias = data.ogd?.bias || 'NONE';
+            const ogdReason = data.ogd?.reason || 'No deflection';
+            const zasActive = data.zas?.is_dead ? 'YES' : 'NO';
+            const zasBias = data.zas?.bias || 'NONE';
+            const zasReason = data.zas?.reason || 'No deadstick';
+            const avcActive = data.avc?.is_trap ? 'YES' : 'NO';
+            const avcType = data.avc?.trap_type || 'NONE';
+            const avcReason = data.avc?.reason || 'No trap';
+            const atiActive = data.ati?.is_accumulating ? 'YES' : 'NO';
+            const atiBias = data.ati?.bias || 'NONE';
+            const atiReason = data.ati?.reason || 'No accumulation';
             const amdActive = data.amd?.is_spoof ? 'YES' : 'NO';
             const amdAction = data.amd?.action || 'NONE';
             const amdReason = data.amd?.reason || 'No divergence';
@@ -2574,6 +3474,30 @@
                 <div class="line"><span class="label">TIME   :</span> <span class="value">${data.timestamp || data.time || '--'}</span></div>
                 <div class="line"><span class="label">PRICE  :</span> <span class="value">$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}</span></div>
                 <div class="header-line">================================================================================</div>
+                
+                <div class="section-title ogd-section">🔄 V68 GRAVITY DEFLECTION</div>
+                <div class="line"><span class="label">🔄 OGD Active :</span> <span class="value ${ogdActive === 'YES' ? 'ogd' : ''}">${ogdActive} (${ogdBias})</span></div>
+                <div class="line"><span class="label">📋 OGD Reason :</span> <span class="value ogd">${ogdReason}</span></div>
+                
+                <div class="divider"></div>
+                
+                <div class="section-title zas-section">💀 V67 ZERO AGGRESSION SLAUGHTER</div>
+                <div class="line"><span class="label">💀 ZAS Active :</span> <span class="value ${zasActive === 'YES' ? 'zas' : ''}">${zasActive} (${zasBias})</span></div>
+                <div class="line"><span class="label">📋 ZAS Reason :</span> <span class="value zas">${zasReason}</span></div>
+                
+                <div class="divider"></div>
+                
+                <div class="section-title avc-section">🪤 V67 ABSORPTION VALIDITY CHECK</div>
+                <div class="line"><span class="label">🪤 AVC Active :</span> <span class="value ${avcActive === 'YES' ? 'avc' : ''}">${avcActive} (${avcType})</span></div>
+                <div class="line"><span class="label">📋 AVC Reason :</span> <span class="value avc">${avcReason}</span></div>
+                
+                <div class="divider"></div>
+                
+                <div class="section-title ati-section">🐋 V66 TEMPORAL ACCUMULATION INDEX</div>
+                <div class="line"><span class="label">🐋 ATI Active :</span> <span class="value ${atiActive === 'YES' ? 'ati' : ''}">${atiActive} (${atiBias})</span></div>
+                <div class="line"><span class="label">📋 ATI Reason :</span> <span class="value ati">${atiReason}</span></div>
+                
+                <div class="divider"></div>
                 
                 <div class="section-title amd-section">🎭 V65 AGGRESSION-MASS DIVERGENCE</div>
                 <div class="line"><span class="label">🎭 AMD Active :</span> <span class="value ${amdActive === 'YES' ? 'amd' : ''}">${amdActive} (${amdAction})</span></div>
@@ -2628,7 +3552,7 @@
                 <div class="line"><span class="label">🎯 Long Liq :</span> <span class="value ${longLiq < 0.5 ? 'red' : ''}">${longLiq.toFixed(2)}%</span></div>
                 <div class="line"><span class="label">🎯 Short Liq :</span> <span class="value ${shortLiq < 0.5 ? 'green' : ''}">${shortLiq.toFixed(2)}%</span></div>
                 <div class="line"><span class="label">📊 Trade Flow :</span> <span class="value ${tradeFlow > 1.5 ? 'green' : tradeFlow < 0.6 ? 'cyan' : ''}">${tradeFlow.toFixed(2)}x</span></div>
-                <div class="line"><span class="label">⚔️ Aggressive Ratio :</span> <span class="value ${aggressiveRatio > 1.5 ? 'green' : aggressiveRatio < 0.5 ? 'amd' : ''}">${aggressiveRatio.toFixed(2)}x</span></div>
+                <div class="line"><span class="label">⚔️ Aggressive Ratio :</span> <span class="value ${aggressiveRatio > 1.5 ? 'green' : aggressiveRatio < 0.5 ? 'zas' : ''}">${aggressiveRatio.toFixed(2)}x</span></div>
                 <div class="line"><span class="label">📈 RSI(6) :</span> <span class="value ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}">${rsi6.toFixed(1)}</span></div>
                 <div class="line"><span class="label">📚 OB Ratio :</span> <span class="value ${obRatio > 1.5 ? 'green' : obRatio < 0.6 ? 'red' : ''}">${obRatio.toFixed(2)}x</span></div>
                 <div class="line"><span class="label">📈 OI Δ5m :</span> <span class="value ${oiDelta > 2 ? 'green' : oiDelta < -2 ? 'red' : ''}">${oiDelta.toFixed(2)}%</span></div>
@@ -2643,17 +3567,17 @@
                 <div class="divider"></div>
                 
                 <div class="section-title">🎯 TRADING SIGNAL</div>
-                <div class="line"><span class="label">${amdActive ? '🎭' : tdpActive ? '☢️' : mwrActive ? '🧲' : lvsActive ? '👻' : data.bias === 'LONG' ? '🟢' : data.bias === 'SHORT' ? '🔴' : '⚪'} BIAS :</span> <span class="value ${amdActive ? 'amd' : tdpActive ? 'tdp' : mwrActive ? 'magnet' : lvsActive ? 'cyan' : data.bias === 'LONG' ? 'green' : data.bias === 'SHORT' ? 'red' : ''}">${data.bias || 'NEUTRAL'} ${amdActive ? '(AMD MODE)' : tdpActive ? '(TDP MODE)' : mwrActive ? '(MAGNET MODE)' : lvsActive ? '(GHOST MODE)' : ''}</span></div>
+                <div class="line"><span class="label">${ogdActive ? '🔄' : zasActive ? '💀' : avcActive ? '🪤' : atiActive ? '🐋' : amdActive ? '🎭' : tdpActive ? '☢️' : mwrActive ? '🧲' : lvsActive ? '👻' : data.bias === 'LONG' ? '🟢' : data.bias === 'SHORT' ? '🔴' : '⚪'} BIAS :</span> <span class="value ${ogdActive ? 'ogd' : zasActive ? 'zas' : avcActive ? 'avc' : atiActive ? 'ati' : amdActive ? 'amd' : tdpActive ? 'tdp' : mwrActive ? 'magnet' : lvsActive ? 'cyan' : data.bias === 'LONG' ? 'green' : data.bias === 'SHORT' ? 'red' : ''}">${data.bias || 'NEUTRAL'} ${ogdActive ? '(OGD MODE)' : zasActive ? '(ZAS MODE)' : avcActive ? '(AVC MODE)' : atiActive ? '(ATI MODE)' : amdActive ? '(AMD MODE)' : tdpActive ? '(TDP MODE)' : mwrActive ? '(MAGNET MODE)' : lvsActive ? '(GHOST MODE)' : ''}</span></div>
                 <div class="line"><span class="label">🔥 CONFIDENCE :</span> <span class="value ${data.confidence === 'ABSOLUTE' ? 'red' : data.confidence === 'SUPREME' ? 'green' : data.confidence === 'HIGH' ? 'yellow' : ''}">${data.confidence || 'LOW'}</span></div>
                 <div class="line"><span class="label">⏳ ENTRY STATUS :</span> <span class="value ${data.entry_ready ? 'green' : ''}">${data.entry_status || 'WAITING'}</span></div>
                 
                 <div class="header-line">================================================================================</div>
-                <div class="line"><span class="value ${amdActive ? 'amd' : tdpActive ? 'tdp' : mwrActive ? 'magnet' : lvsActive ? 'cyan' : ''}">${amdActive ? data.amd?.reason : tdpActive ? data.tdp?.reason : mwrActive ? data.mwr?.reason : lvsActive ? data.lvs?.reason : data.liquidation_alert || data.reason || 'No analysis reason'}</span></div>
+                <div class="line"><span class="value ${ogdActive ? 'ogd' : zasActive ? 'zas' : avcActive ? 'avc' : atiActive ? 'ati' : amdActive ? 'amd' : tdpActive ? 'tdp' : mwrActive ? 'magnet' : lvsActive ? 'cyan' : ''}">${ogdActive ? data.ogd?.reason : zasActive ? data.zas?.reason : avcActive ? data.avc?.reason : atiActive ? data.ati?.reason : amdActive ? data.amd?.reason : tdpActive ? data.tdp?.reason : mwrActive ? data.mwr?.reason : lvsActive ? data.lvs?.reason : data.liquidation_alert || data.reason || 'No analysis reason'}</span></div>
                 <div class="header-line">================================================================================</div>
             `;
         }
 
-        function showLoading(message = 'Analyzing with V65 Aggression-Mass Divergence...') {
+        function showLoading(message = 'Analyzing with V68 Gravity Deflector...') {
             elements.loadingOverlay.style.display = 'flex';
             document.querySelector('.loading-spinner p').textContent = message;
         }
@@ -2670,12 +3594,16 @@
 
         window.dylpredict = {
             analyze: analyzeSymbol,
+            ogdScan: ogdScan,
+            zasScan: zasScan,
+            avcScan: avcScan,
+            atiScan: atiScan,
             amdScan: amdScan,
             tdpScan: tdpScan,
             magnetScan: magnetScan,
             ghostScan: ghostScan,
             batch: analyzeBatch,
-            version: 'V65 Aggression-Mass Divergence'
+            version: 'V68 Gravity Deflector'
         };
     </script>
 </body>
