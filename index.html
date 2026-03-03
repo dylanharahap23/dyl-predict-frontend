@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DylPredict V61 • The Ghost Whisperer Edition</title>
+    <title>DylPredict V62 • The Magnet Wall Reversal Edition</title>
     
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -22,6 +22,7 @@
             --blue: #3b82f6;
             --pink: #ec4899;
             --cyan: #06b6d4;
+            --magnet: #a78bfa;
             --text-main: #eaecef;
             --text-dim: #848e9c;
             --glass-opacity: rgba(30, 35, 41, 0.8);
@@ -32,6 +33,7 @@
             --neon-orange: 0 0 10px rgba(255, 152, 0, 0.5);
             --neon-blue: 0 0 10px rgba(59, 130, 246, 0.5);
             --neon-cyan: 0 0 10px rgba(6, 182, 212, 0.5);
+            --neon-magnet: 0 0 10px rgba(167, 139, 250, 0.5);
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -58,7 +60,7 @@
             right: -20%;
             width: 800px;
             height: 800px;
-            background: radial-gradient(circle, rgba(2, 192, 118, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(167, 139, 250, 0.1) 0%, transparent 70%);
             border-radius: 50%;
             filter: blur(100px);
             z-index: -1;
@@ -114,7 +116,7 @@
 
         .logo h1 {
             font-size: 24px;
-            background: linear-gradient(135deg, #fff, var(--green));
+            background: linear-gradient(135deg, #fff, var(--magnet));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
@@ -123,12 +125,12 @@
 
         .version {
             font-size: 12px;
-            background: rgba(2, 192, 118, 0.2);
+            background: rgba(167, 139, 250, 0.2);
             padding: 4px 10px;
             border-radius: 100px;
             margin-left: 8px;
-            color: var(--green);
-            border: 1px solid rgba(2, 192, 118, 0.3);
+            color: var(--magnet);
+            border: 1px solid rgba(167, 139, 250, 0.3);
             font-weight: 600;
         }
 
@@ -143,6 +145,18 @@
             font-weight: 500;
         }
 
+        .mwr-badge {
+            font-size: 10px;
+            background: rgba(167, 139, 250, 0.15);
+            padding: 2px 8px;
+            border-radius: 100px;
+            margin-left: 5px;
+            color: var(--magnet);
+            border: 1px solid rgba(167, 139, 250, 0.2);
+            font-weight: 500;
+            animation: pulseMWR 2s infinite;
+        }
+
         .lvs-badge {
             font-size: 10px;
             background: rgba(6, 182, 212, 0.15);
@@ -152,12 +166,11 @@
             color: var(--cyan);
             border: 1px solid rgba(6, 182, 212, 0.2);
             font-weight: 500;
-            animation: pulseLVS 2s infinite;
         }
 
-        @keyframes pulseLVS {
-            0%, 100% { opacity: 0.8; box-shadow: 0 0 5px var(--cyan); }
-            50% { opacity: 1; box-shadow: 0 0 15px var(--cyan); }
+        @keyframes pulseMWR {
+            0%, 100% { opacity: 0.8; box-shadow: 0 0 5px var(--magnet); }
+            50% { opacity: 1; box-shadow: 0 0 15px var(--magnet); }
         }
 
         .symbol-selector {
@@ -188,8 +201,8 @@
         }
 
         #customSymbolInput:focus {
-            border-color: var(--green);
-            box-shadow: 0 0 15px rgba(2, 192, 118, 0.2);
+            border-color: var(--magnet);
+            box-shadow: 0 0 15px rgba(167, 139, 250, 0.2);
         }
 
         #customSymbolInput::placeholder {
@@ -213,7 +226,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--green), #00a35c);
+            background: linear-gradient(135deg, var(--magnet), #8b5cf6);
             border: none;
             border-radius: 8px;
             padding: 10px 20px;
@@ -230,7 +243,7 @@
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 25px var(--green);
+            box-shadow: 0 0 25px var(--magnet);
         }
 
         .btn-secondary {
@@ -248,6 +261,24 @@
         .btn-secondary:hover {
             background: rgba(138, 109, 233, 0.3);
             transform: translateY(-2px);
+        }
+
+        .btn-magnet {
+            background: rgba(167, 139, 250, 0.2);
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: var(--magnet);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 14px;
+        }
+
+        .btn-magnet:hover {
+            background: rgba(167, 139, 250, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--magnet);
         }
 
         .btn-ghost {
@@ -282,7 +313,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-left: 4px solid var(--green);
+            border-left: 4px solid var(--magnet);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             transition: var(--transition-smooth);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -291,7 +322,7 @@
 
         .header-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 48px rgba(2, 192, 118, 0.15);
+            box-shadow: 0 12px 48px rgba(167, 139, 250, 0.15);
         }
 
         .symbol-info {
@@ -305,7 +336,7 @@
             font-weight: 800;
             margin: 0;
             letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #fff, var(--green));
+            background: linear-gradient(135deg, #fff, var(--magnet));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -336,11 +367,11 @@
         }
 
         .price {
-            color: var(--green);
+            color: var(--magnet);
             font-size: 2rem;
             margin: 0;
             font-weight: 700;
-            text-shadow: var(--neon-green);
+            text-shadow: var(--neon-magnet);
             letter-spacing: -0.5px;
         }
 
@@ -362,10 +393,15 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
+        .phase-badge.mwr {
+            background: linear-gradient(135deg, var(--magnet), #8b5cf6);
+            box-shadow: 0 0 25px var(--magnet);
+            animation: pulseMWR 1s infinite;
+        }
+
         .phase-badge.lvs {
             background: linear-gradient(135deg, var(--cyan), #0891b2);
             box-shadow: 0 0 25px var(--cyan);
-            animation: pulseLVS 1s infinite;
         }
 
         .phase-badge.nuclear {
@@ -438,7 +474,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(2, 192, 118, 0.03) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(167, 139, 250, 0.03) 0%, transparent 70%);
             animation: rotate 30s linear infinite;
             z-index: -1;
         }
@@ -446,6 +482,11 @@
         @keyframes rotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
+        }
+
+        .signal-hero.mwr-active {
+            border-bottom: 5px solid var(--magnet);
+            box-shadow: 0 8px 32px rgba(167, 139, 250, 0.3);
         }
 
         .signal-hero.lvs-active {
@@ -470,6 +511,11 @@
 
         .signal-hero.neutral { 
             border-bottom: 5px solid var(--text-dim);
+        }
+
+        .signal-hero.mwr-active .main-opinion {
+            color: var(--magnet);
+            text-shadow: 0 0 30px var(--magnet);
         }
 
         .signal-hero.lvs-active .main-opinion {
@@ -500,6 +546,10 @@
             margin-bottom: 5px;
         }
 
+        .mwr-active .main-opinion {
+            animation: glowPulseMWR 2s infinite;
+        }
+
         .bullish .main-opinion {
             animation: glowPulse 3s infinite;
         }
@@ -510,6 +560,11 @@
 
         .lvs-active .main-opinion {
             animation: glowPulseCyan 2s infinite;
+        }
+
+        @keyframes glowPulseMWR {
+            0%, 100% { text-shadow: 0 0 20px var(--magnet); }
+            50% { text-shadow: 0 0 40px var(--magnet); }
         }
 
         @keyframes glowPulse {
@@ -573,10 +628,10 @@
         }
 
         .confidence-bar .fill {
-            background: var(--green);
+            background: var(--magnet);
             height: 100%;
             border-radius: 5px;
-            box-shadow: 0 0 15px var(--green);
+            box-shadow: 0 0 15px var(--magnet);
             transition: width 0.5s ease;
             position: relative;
             overflow: hidden;
@@ -591,6 +646,11 @@
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             animation: shimmer 2s infinite;
+        }
+
+        .signal-hero.bullish .confidence-bar .fill {
+            background: var(--green);
+            box-shadow: 0 0 15px var(--green);
         }
 
         .signal-hero.bearish .confidence-bar .fill {
@@ -632,8 +692,8 @@
 
         .card:hover {
             transform: translateY(-4px);
-            border-color: rgba(2, 192, 118, 0.2);
-            box-shadow: 0 8px 24px rgba(2, 192, 118, 0.15);
+            border-color: rgba(167, 139, 250, 0.2);
+            box-shadow: 0 8px 24px rgba(167, 139, 250, 0.15);
         }
 
         .card h3 {
@@ -660,6 +720,7 @@
         .blue { color: var(--blue); text-shadow: 0 0 10px var(--blue); }
         .pink { color: var(--pink); text-shadow: 0 0 10px var(--pink); }
         .cyan { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
+        .magnet { color: var(--magnet); text-shadow: 0 0 10px var(--magnet); }
 
         .score-display {
             display: flex;
@@ -670,7 +731,7 @@
         .score-num {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--green);
+            color: var(--magnet);
         }
 
         .score-sub {
@@ -753,6 +814,10 @@
             color: var(--cyan);
         }
 
+        .data-row .val.magnet {
+            color: var(--magnet);
+        }
+
         .advanced-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -784,6 +849,15 @@
         .advanced-card .desc {
             font-size: 0.75rem;
             color: var(--text-dim);
+        }
+
+        .mwr-card {
+            border-left: 3px solid var(--magnet);
+            background: rgba(167, 139, 250, 0.05);
+        }
+
+        .mwr-card .value {
+            color: var(--magnet);
         }
 
         .lvs-card {
@@ -819,6 +893,16 @@
             font-size: 40px;
             opacity: 0.1;
             transform: rotate(10deg);
+        }
+
+        .alert-box.mwr-alert {
+            border-color: var(--magnet);
+            border-left-color: var(--magnet);
+            background: rgba(167, 139, 250, 0.08);
+        }
+
+        .alert-box.mwr-alert::before {
+            content: '🧲';
         }
 
         .alert-box.lvs-alert {
@@ -883,6 +967,10 @@
             color: var(--yellow);
         }
 
+        .alert-box.mwr-alert strong {
+            color: var(--magnet);
+        }
+
         .alert-box.lvs-alert strong {
             color: var(--cyan);
         }
@@ -935,7 +1023,7 @@
         }
 
         .terminal-output .header-line {
-            color: var(--green);
+            color: var(--magnet);
             font-weight: 700;
             margin: 10px 0;
             text-align: center;
@@ -950,6 +1038,11 @@
             letter-spacing: 1px;
             border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
             padding-bottom: 5px;
+        }
+
+        .terminal-output .mwr-section {
+            color: var(--magnet);
+            border-bottom-color: var(--magnet);
         }
 
         .terminal-output .lvs-section {
@@ -989,6 +1082,7 @@
         .terminal-output .blue { color: var(--blue); }
         .terminal-output .pink { color: var(--pink); }
         .terminal-output .cyan { color: var(--cyan); }
+        .terminal-output .magnet { color: var(--magnet); }
 
         .terminal-output .divider {
             border-top: 1px dashed rgba(255, 255, 255, 0.1);
@@ -1018,16 +1112,22 @@
 
         .features span {
             padding: 4px 12px;
-            background: rgba(6, 182, 212, 0.1);
+            background: rgba(167, 139, 250, 0.1);
             border-radius: 100px;
-            color: var(--cyan);
+            color: var(--magnet);
+        }
+
+        .features .mwr-feature {
+            background: rgba(167, 139, 250, 0.2);
+            color: var(--magnet);
+            font-weight: 600;
+            animation: pulseMWR 2s infinite;
         }
 
         .features .lvs-feature {
             background: rgba(6, 182, 212, 0.2);
             color: var(--cyan);
             font-weight: 600;
-            animation: pulseLVS 2s infinite;
         }
 
         .loading-overlay {
@@ -1050,10 +1150,10 @@
 
         .loading-spinner i {
             font-size: 48px;
-            color: var(--green);
+            color: var(--magnet);
             margin-bottom: 20px;
             animation: spin 1s linear infinite;
-            text-shadow: 0 0 20px var(--green);
+            text-shadow: 0 0 20px var(--magnet);
         }
 
         .loading-spinner p {
@@ -1085,7 +1185,7 @@
                 flex-direction: column;
             }
 
-            #customSymbolInput, .glass-select, .btn-primary, .btn-secondary, .btn-ghost {
+            #customSymbolInput, .glass-select, .btn-primary, .btn-secondary, .btn-magnet, .btn-ghost {
                 width: 100%;
             }
 
@@ -1157,13 +1257,13 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--green);
+            background: var(--magnet);
             border-radius: 3px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #00a35c;
-            box-shadow: 0 0 10px var(--green);
+            background: #8b5cf6;
+            box-shadow: 0 0 10px var(--magnet);
         }
     </style>
 </head>
@@ -1171,12 +1271,12 @@
     <div class="container">
         <header>
             <div class="logo">
-                <h1>DYLPREDICT<span class="version">V61</span><span class="sub-version">GHOST WHISPERER</span><span class="lvs-badge">LVS</span></h1>
+                <h1>DYLPREDICT<span class="version">V62</span><span class="sub-version">MAGNET WALL</span><span class="mwr-badge">🧲 MWR</span><span class="lvs-badge">👻 LVS</span></h1>
             </div>
             
             <div class="symbol-selector">
                 <div class="input-controls">
-                    <input type="text" id="customSymbolInput" placeholder="Symbol" value="SIRENUSDT">
+                    <input type="text" id="customSymbolInput" placeholder="Symbol" value="SAHARAUSDT">
                     <select id="symbolSelect" class="glass-select">
                         <option value="BTCUSDT">BTCUSDT</option>
                         <option value="ETHUSDT">ETHUSDT</option>
@@ -1184,7 +1284,8 @@
                         <option value="SOLUSDT">SOLUSDT</option>
                         <option value="DOGEUSDT">DOGEUSDT</option>
                         <option value="ARCUSDT">ARCUSDT</option>
-                        <option value="SIRENUSDT" selected>SIRENUSDT</option>
+                        <option value="SAHARAUSDT" selected>SAHARAUSDT</option>
+                        <option value="SIRENUSDT">SIRENUSDT</option>
                         <option value="POWERUSDT">POWERUSDT</option>
                         <option value="PIPPINUSDT">PIPPINUSDT</option>
                         <option value="KITEUSDT">KITEUSDT</option>
@@ -1194,6 +1295,10 @@
                 <button id="analyzeCustomBtn" class="btn-primary">
                     <i class="fas fa-chart-line"></i>
                     Analyze
+                </button>
+                <button id="magnetModeBtn" class="btn-magnet">
+                    <i class="fas fa-magnet"></i>
+                    Magnet Scan
                 </button>
                 <button id="ghostModeBtn" class="btn-ghost">
                     <i class="fas fa-ghost"></i>
@@ -1210,7 +1315,7 @@
             <div class="header-card">
                 <div class="phase-badge" id="phaseBadge">NEUTRAL</div>
                 <div class="symbol-info">
-                    <h1 class="symbol" id="mainSymbol">SIRENUSDT</h1>
+                    <h1 class="symbol" id="mainSymbol">SAHARAUSDT</h1>
                     <span class="timestamp" id="headerTime">--:--:--.---</span>
                 </div>
                 <div class="price-section">
@@ -1234,6 +1339,14 @@
                     <h3>Market Bias</h3>
                     <div class="big-value" id="biasValue">--</div>
                     <p id="biasDetail">--</p>
+                </div>
+
+                <div class="card" id="mwrCard">
+                    <h3>MWR Magnet <span class="mwr-badge" style="margin-left: 5px;">🧲</span></h3>
+                    <div class="score-display">
+                        <span class="score-num magnet" id="mwrStatus">INACTIVE</span>
+                        <span class="score-sub" id="mwrType">--</span>
+                    </div>
                 </div>
 
                 <div class="card" id="lvsCard">
@@ -1300,9 +1413,18 @@
                     <span>DTD Trap</span>
                     <span class="val" id="dtdStatus">--</span>
                 </div>
+                <div class="data-row">
+                    <span>ODD Status</span>
+                    <span class="val" id="oddStatus">--</span>
+                </div>
             </section>
 
             <div class="advanced-grid" id="advancedMetrics">
+                <div class="advanced-card mwr-card" id="mwrDetailCard">
+                    <h4>🧲 Magnet Wall Reversal</h4>
+                    <div class="value" id="mwrDetail">--</div>
+                    <div class="desc" id="mwrDesc">--</div>
+                </div>
                 <div class="advanced-card lvs-card" id="lvsDetailCard">
                     <h4>👻 Low-Volume Suction</h4>
                     <div class="value" id="lvsDetail">--</div>
@@ -1333,24 +1455,30 @@
                     <div class="value" id="shortLiq">--</div>
                     <div class="desc" id="shortLiqDesc">Distance</div>
                 </div>
+                <div class="advanced-card">
+                    <h4>ODD Analysis</h4>
+                    <div class="value" id="oddValue">--</div>
+                    <div class="desc" id="oddDesc">--</div>
+                </div>
             </div>
 
             <footer class="alert-box" id="alertBox">
-                <strong>👻 GHOST ALERT:</strong> <span id="alertMessage">Click Analyze to get signal</span>
+                <strong>🧲 MAGNET ALERT:</strong> <span id="alertMessage">Click Analyze to get signal</span>
             </footer>
 
             <div class="terminal-output" id="terminalOutput" style="display: none;"></div>
         </div>
 
         <div class="footer">
-            <div>DylPredict V61 • THE GHOST WHISPERER EDITION • Low-Volume Suction (LVS)</div>
+            <div>DylPredict V62 • THE MAGNET WALL REVERSAL EDITION • MWR + LVS + SILENT DRIVE</div>
             <div class="features">
+                <span class="mwr-feature">🧲 MWR Magnet</span>
                 <span class="lvs-feature">👻 LVS Suction</span>
                 <span>🛡️ DTD Trap</span>
                 <span>💨 Vacuum</span>
-                <span>🚀 Engine Starter</span>
+                <span>🚀 Engine</span>
                 <span>⏱️ TTK</span>
-                <span>⛽ Fuel Inj</span>
+                <span>⛽ Silent Drive</span>
                 <span>🐋 WMI</span>
                 <span>☢️ 90-Rule</span>
             </div>
@@ -1359,8 +1487,8 @@
 
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner">
-            <i class="fas fa-ghost"></i>
-            <p>Ghost Scanner Active - Analyzing for Low-Volume Suction...</p>
+            <i class="fas fa-magnet"></i>
+            <p>Magnet Wall Scanner Active - Detecting Fake Ceilings...</p>
         </div>
     </div>
 
@@ -1372,6 +1500,7 @@
         const elements = {
             symbolSelect: document.getElementById('symbolSelect'),
             analyzeCustomBtn: document.getElementById('analyzeCustomBtn'),
+            magnetModeBtn: document.getElementById('magnetModeBtn'),
             ghostModeBtn: document.getElementById('ghostModeBtn'),
             batchModeBtn: document.getElementById('batchModeBtn'),
             customSymbolInput: document.getElementById('customSymbolInput'),
@@ -1387,6 +1516,8 @@
             confidenceLabel: document.getElementById('confidenceLabel'),
             biasValue: document.getElementById('biasValue'),
             biasDetail: document.getElementById('biasDetail'),
+            mwrStatus: document.getElementById('mwrStatus'),
+            mwrType: document.getElementById('mwrType'),
             lvsStatus: document.getElementById('lvsStatus'),
             lvsType: document.getElementById('lvsType'),
             engineScore: document.getElementById('engineScore'),
@@ -1403,6 +1534,7 @@
             oiDelta: document.getElementById('oiDelta'),
             fuelStatus: document.getElementById('fuelStatus'),
             dtdStatus: document.getElementById('dtdStatus'),
+            oddStatus: document.getElementById('oddStatus'),
             marketPhase: document.getElementById('marketPhase'),
             marketPhaseDesc: document.getElementById('marketPhaseDesc'),
             wmiValue: document.getElementById('wmiValue'),
@@ -1413,23 +1545,27 @@
             longLiqDesc: document.getElementById('longLiqDesc'),
             shortLiq: document.getElementById('shortLiq'),
             shortLiqDesc: document.getElementById('shortLiqDesc'),
+            mwrDetail: document.getElementById('mwrDetail'),
+            mwrDesc: document.getElementById('mwrDesc'),
             lvsDetail: document.getElementById('lvsDetail'),
             lvsDesc: document.getElementById('lvsDesc'),
+            oddValue: document.getElementById('oddValue'),
+            oddDesc: document.getElementById('oddDesc'),
             alertBox: document.getElementById('alertBox'),
             alertMessage: document.getElementById('alertMessage'),
             phaseBadge: document.getElementById('phaseBadge'),
             terminalOutput: document.getElementById('terminalOutput'),
-            lvsDetailCard: document.getElementById('lvsDetailCard')
+            mwrDetailCard: document.getElementById('mwrDetailCard')
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('👻 DylPredict V61 Ghost Whisperer Edition Initialized');
+            console.log('🧲 DylPredict V62 Magnet Wall Reversal Edition Initialized');
             console.log('📡 API URL:', API_URL);
             attachEventListeners();
             
-            // Auto-analyze SIRENUSDT on load (classic ghost example)
+            // Auto-analyze SAHARAUSDT on load (classic magnet example)
             setTimeout(() => {
-                analyzeSymbol('SIRENUSDT');
+                analyzeSymbol('SAHARAUSDT');
             }, 500);
         });
 
@@ -1439,7 +1575,16 @@
                 if (symbol) {
                     analyzeSymbol(symbol);
                 } else {
-                    alert('❌ Masukkan symbol coin! Contoh: SIRENUSDT');
+                    alert('❌ Masukkan symbol coin! Contoh: SAHARAUSDT');
+                }
+            });
+
+            elements.magnetModeBtn.addEventListener('click', () => {
+                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
+                if (symbol) {
+                    magnetScan(symbol);
+                } else {
+                    alert('❌ Masukkan symbol untuk magnet scan!');
                 }
             });
 
@@ -1463,16 +1608,16 @@
             });
 
             elements.batchModeBtn.addEventListener('click', () => {
-                const symbols = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'SIRENUSDT', 'POWERUSDT', 'PIPPINUSDT', 'KITEUSDT', 'ALICEUSDT'];
+                const symbols = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'SAHARAUSDT', 'SIRENUSDT', 'POWERUSDT', 'PIPPINUSDT', 'KITEUSDT'];
                 analyzeBatch(symbols);
             });
         }
 
         async function analyzeSymbol(symbol) {
-            showLoading('Analyzing with V61 Ghost Whisperer...');
+            showLoading('Analyzing with V62 Magnet Wall Reversal...');
             
             try {
-                console.log(`👻 Analyzing ${symbol} with V61 Ghost Whisperer...`);
+                console.log(`🧲 Analyzing ${symbol} with V62 Magnet Wall Reversal...`);
                 
                 const timestamp = Date.now();
                 const url = `${API_URL}/analyze/${symbol}?t=${timestamp}`;
@@ -1500,6 +1645,44 @@
             } catch (error) {
                 console.error('❌ Analysis Failed:', error);
                 showError(error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function magnetScan(symbol) {
+            showLoading('🧲 MAGNET SCAN ACTIVE - Hunting for Fake Ceilings...');
+            
+            try {
+                console.log(`🧲 Magnet scanning ${symbol} for MWR...`);
+                
+                const timestamp = Date.now();
+                const url = `${API_URL}/magnet/${symbol}?t=${timestamp}`;
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Cache-Control': 'no-cache'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    updateMagnetDisplay(result.data);
+                } else {
+                    // Fallback to regular analyze
+                    analyzeSymbol(symbol);
+                }
+                
+            } catch (error) {
+                console.error('❌ Magnet Scan Failed:', error);
+                analyzeSymbol(symbol); // Fallback
             } finally {
                 hideLoading();
             }
@@ -1544,12 +1727,13 @@
         }
 
         async function analyzeBatch(symbols) {
-            showLoading('Batch scanning for ghost markets...');
+            showLoading('Batch scanning for magnet walls & ghost markets...');
             
             try {
-                console.log(`👻 Batch scanning: ${symbols.join(', ')}`);
+                console.log(`🧲 Batch scanning: ${symbols.join(', ')}`);
                 
-                let summary = "👻 GHOST SCAN SUMMARY - V61 GHOST WHISPERER:\n\n";
+                let summary = "🧲 MAGNET & GHOST SCAN SUMMARY - V62 MAGNET WALL:\n\n";
+                let magnetCount = 0;
                 let ghostCount = 0;
                 
                 for (const symbol of symbols) {
@@ -1559,15 +1743,21 @@
                         
                         if (result.success && result.data) {
                             const data = result.data;
-                            const isGhost = data.lvs?.is_suction ? '👻 GHOST!' : '     ';
+                            const isMagnet = data.mwr?.is_magnet ? '🧲 MAGNET!' : '      ';
+                            const isGhost = data.lvs?.is_suction ? '👻 GHOST!' : '      ';
+                            const magnetType = data.mwr?.magnet_type || '';
                             const ghostType = data.lvs?.suction_type || '';
                             const engineIcon = data.starter?.is_starting ? '🚀' : '⏳';
                             
+                            if (data.mwr?.is_magnet) magnetCount++;
                             if (data.lvs?.is_suction) ghostCount++;
                             
-                            summary += `${isGhost} ${engineIcon} ${symbol}: ${data.bias || 'NEUTRAL'} (${data.confidence || 'LOW'})\n`;
+                            summary += `${isMagnet} ${isGhost} ${engineIcon} ${symbol}: ${data.bias || 'NEUTRAL'} (${data.confidence || 'LOW'})\n`;
+                            if (data.mwr?.is_magnet) {
+                                summary += `      └─ 🧲 ${data.mwr.reason}\n`;
+                            }
                             if (data.lvs?.is_suction) {
-                                summary += `      └─ ${data.lvs.reason}\n`;
+                                summary += `      └─ 👻 ${data.lvs.reason}\n`;
                             }
                         } else {
                             summary += `${symbol}: FAILED\n`;
@@ -1577,6 +1767,7 @@
                     }
                 }
                 
+                summary += `\n🧲 Magnet Walls Found: ${magnetCount}`;
                 summary += `\n👻 Ghost Markets Found: ${ghostCount}`;
                 alert(summary);
                 
@@ -1589,10 +1780,10 @@
         }
 
         function updateDisplay(data) {
-            console.log('🔄 Updating display with V61 data:', data);
+            console.log('🔄 Updating display with V62 data:', data);
             
             // Basic info
-            elements.mainSymbol.textContent = data.symbol || 'SIRENUSDT';
+            elements.mainSymbol.textContent = data.symbol || 'SAHARAUSDT';
             elements.headerTime.textContent = data.timestamp || data.time || new Date().toLocaleTimeString();
             elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}`;
             
@@ -1600,37 +1791,51 @@
             const bias = data.bias || data.opinion || 'NEUTRAL';
             elements.opinionMain.textContent = bias;
             
-            // Check for LVS
+            // Check for MWR and LVS
+            const mwrActive = data.mwr?.is_magnet || false;
             const lvsActive = data.lvs?.is_suction || false;
-            elements.signalHero.className = `signal-hero ${lvsActive ? 'lvs-active' : bias.toLowerCase()}`;
+            
+            if (mwrActive) {
+                elements.signalHero.className = 'signal-hero mwr-active';
+            } else if (lvsActive) {
+                elements.signalHero.className = 'signal-hero lvs-active';
+            } else {
+                elements.signalHero.className = `signal-hero ${bias.toLowerCase()}`;
+            }
             
             // Phase badge
             const phase = data.market_phase || 'NEUTRAL';
-            elements.phaseBadge.textContent = lvsActive ? `👻 ${data.lvs?.suction_type || 'GHOST'}` : phase;
-            elements.phaseBadge.className = 'phase-badge';
-            
-            if (lvsActive) {
-                elements.phaseBadge.classList.add('lvs');
-            } else if (phase.includes('NUCLEAR')) {
-                elements.phaseBadge.classList.add('nuclear');
-            } else if (data.dtd?.is_trap) {
-                elements.phaseBadge.classList.add('dtd');
-            } else if (data.lrr?.is_trap || phase.includes('LRR')) {
-                elements.phaseBadge.classList.add('lrr');
-            } else if (data.av?.is_market_slam || phase.includes('SLAM')) {
-                elements.phaseBadge.classList.add('slam');
-            } else if (phase.includes('PNR')) {
-                elements.phaseBadge.classList.add('pnr');
-            } else if (phase.includes('MAGNET') || phase.includes('FLASH')) {
-                elements.phaseBadge.classList.add('magnet');
-            } else if (phase.includes('LAUNCH') || phase.includes('ENGINE')) {
-                elements.phaseBadge.classList.add('engine');
-            } else if (phase.includes('WARMING')) {
-                elements.phaseBadge.classList.add('warming');
+            if (mwrActive) {
+                elements.phaseBadge.textContent = `🧲 ${data.mwr?.magnet_type || 'MAGNET'}`;
+                elements.phaseBadge.className = 'phase-badge mwr';
+            } else if (lvsActive) {
+                elements.phaseBadge.textContent = `👻 ${data.lvs?.suction_type || 'GHOST'}`;
+                elements.phaseBadge.className = 'phase-badge lvs';
+            } else {
+                elements.phaseBadge.textContent = phase;
+                elements.phaseBadge.className = 'phase-badge';
+                
+                if (phase.includes('NUCLEAR')) {
+                    elements.phaseBadge.classList.add('nuclear');
+                } else if (data.dtd?.is_trap) {
+                    elements.phaseBadge.classList.add('dtd');
+                } else if (data.lrr?.is_trap || phase.includes('LRR')) {
+                    elements.phaseBadge.classList.add('lrr');
+                } else if (data.av?.is_market_slam || phase.includes('SLAM')) {
+                    elements.phaseBadge.classList.add('slam');
+                } else if (phase.includes('PNR')) {
+                    elements.phaseBadge.classList.add('pnr');
+                } else if (phase.includes('MAGNET') || phase.includes('FLASH')) {
+                    elements.phaseBadge.classList.add('magnet');
+                } else if (phase.includes('LAUNCH') || phase.includes('ENGINE')) {
+                    elements.phaseBadge.classList.add('engine');
+                } else if (phase.includes('WARMING')) {
+                    elements.phaseBadge.classList.add('warming');
+                }
             }
             
             // Strategy and reason
-            elements.strategyDisplay.textContent = `STRATEGY: ${lvsActive ? 'GHOST WHISPERER' : phase}`;
+            elements.strategyDisplay.textContent = `STRATEGY: ${mwrActive ? 'MAGNET WALL REVERSAL' : lvsActive ? 'GHOST WHISPERER' : phase}`;
             elements.phaseReason.textContent = data.phase_reason || data.reason || '--';
             
             // Confidence
@@ -1666,6 +1871,16 @@
             elements.biasValue.className = `big-value ${bias.toLowerCase()}`;
             elements.biasDetail.textContent = data.phase_reason?.split('.')[0] || '--';
             
+            // MWR Status
+            elements.mwrStatus.textContent = mwrActive ? 'ACTIVE' : 'INACTIVE';
+            elements.mwrStatus.className = `score-num ${mwrActive ? 'magnet' : ''}`;
+            elements.mwrType.textContent = data.mwr?.magnet_type || 'No magnet';
+            
+            // MWR Detail Card
+            elements.mwrDetail.textContent = mwrActive ? data.mwr?.magnet_type : 'NO MAGNET';
+            elements.mwrDetail.className = `value ${mwrActive ? 'magnet' : ''}`;
+            elements.mwrDesc.textContent = mwrActive ? (data.mwr?.reason || 'Magnet wall detected') : 'No fake ceiling detected';
+            
             // LVS Status
             elements.lvsStatus.textContent = lvsActive ? 'ACTIVE' : 'INACTIVE';
             elements.lvsStatus.className = `score-num ${lvsActive ? 'cyan' : ''}`;
@@ -1695,6 +1910,15 @@
             elements.wmiValue.textContent = wmi.toFixed(1);
             elements.wmiValue.className = `big-value ${Math.abs(wmi) > 50 ? 'cyan' : ''}`;
             elements.wmiDesc.textContent = wmi > 0 ? 'Bull Whale (Short Liq)' : wmi < 0 ? 'Bear Whale (Long Liq)' : 'Neutral';
+            
+            // ODD Status
+            const oddStatus = data.odd?.status || 'NORMAL';
+            elements.oddStatus.textContent = oddStatus;
+            elements.oddStatus.className = `val ${oddStatus.includes('HEAVY') ? 'magnet' : oddStatus.includes('THINNING') ? 'green' : ''}`;
+            
+            elements.oddValue.textContent = oddStatus;
+            elements.oddValue.className = oddStatus.includes('HEAVY') ? 'magnet' : '';
+            elements.oddDesc.textContent = data.odd?.reason || 'Normal orderbook';
             
             // Details
             elements.obRatio.textContent = `${(data.ob_ratio || 1.0).toFixed(2)}x`;
@@ -1760,7 +1984,10 @@
             
             // Alert Box
             let alertMsg = data.liquidation_alert || data.reason || 'No alert';
-            if (lvsActive) {
+            if (mwrActive) {
+                alertMsg = `🧲 MAGNET WALL: ${data.mwr?.reason || 'Fake Ceiling Detected - Target Long!'}`;
+                elements.alertBox.className = 'alert-box mwr-alert';
+            } else if (lvsActive) {
                 alertMsg = `👻 GHOST WHISPERER: ${data.lvs?.reason || 'Low-Volume Suction Detected!'}`;
                 elements.alertBox.className = 'alert-box lvs-alert';
             } else if (data.dtd?.is_trap) {
@@ -1792,6 +2019,27 @@
             }
             
             showTerminalOutput(data);
+        }
+
+        function updateMagnetDisplay(data) {
+            // Special display for magnet scan results
+            if (data.mwr && data.mwr.is_magnet) {
+                elements.alertBox.className = 'alert-box mwr-alert';
+                elements.alertMessage.textContent = `🧲 MAGNET WALL: ${data.mwr.reason}`;
+                elements.phaseBadge.textContent = `🧲 ${data.mwr.magnet_type}`;
+                elements.phaseBadge.classList.add('mwr');
+                
+                // Highlight MWR card
+                elements.mwrDetail.textContent = data.mwr.magnet_type;
+                elements.mwrDetail.className = 'value magnet';
+                elements.mwrDesc.textContent = data.mwr.reason;
+                elements.mwrStatus.textContent = 'ACTIVE';
+                elements.mwrStatus.className = 'score-num magnet';
+                elements.mwrType.textContent = data.mwr.magnet_type;
+            }
+            
+            // Update regular display with the data
+            updateDisplay(data);
         }
 
         function updateGhostDisplay(data) {
@@ -1828,7 +2076,10 @@
             const obRatio = data.ob_ratio || 1.0;
             const oiDelta = data.oi_delta_5m || 0;
             
-            // V61 metrics
+            // V62 metrics
+            const mwrActive = data.mwr?.is_magnet ? 'YES' : 'NO';
+            const mwrType = data.mwr?.magnet_type || 'NONE';
+            const mwrReason = data.mwr?.reason || 'No magnet';
             const lvsActive = data.lvs?.is_suction ? 'YES' : 'NO';
             const lvsType = data.lvs?.suction_type || 'NONE';
             const lvsReason = data.lvs?.reason || 'No suction';
@@ -1847,6 +2098,10 @@
             const avStatus = data.av?.status || 'STABLE';
             const avAccel = data.av?.acceleration || 0;
             const marketSlam = data.av?.is_market_slam ? '💥 YES' : 'NO';
+            const oddStatus = data.odd?.status || 'NORMAL';
+            const oddReason = data.odd?.reason || 'Normal orderbook';
+            const bidVolume = data.odd?.bid_volume_near || 0;
+            const askVolume = data.odd?.ask_volume_near || 0;
             
             elements.terminalOutput.innerHTML = `
                 <div class="header-line">================================================================================</div>
@@ -1855,11 +2110,21 @@
                 <div class="line"><span class="label">PRICE  :</span> <span class="value">$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}</span></div>
                 <div class="header-line">================================================================================</div>
                 
+                <div class="section-title mwr-section">🧲 V62 MAGNET WALL REVERSAL</div>
+                <div class="line"><span class="label">🧲 MWR Active :</span> <span class="value ${mwrActive === 'YES' ? 'magnet' : ''}">${mwrActive} (${mwrType})</span></div>
+                <div class="line"><span class="label">📋 MWR Reason :</span> <span class="value magnet">${mwrReason}</span></div>
+                <div class="line"><span class="label">📊 ODD Status :</span> <span class="value ${oddStatus.includes('HEAVY') ? 'magnet' : oddStatus.includes('THINNING') ? 'green' : ''}">${oddStatus}</span></div>
+                <div class="line"><span class="label">📊 ODD Reason :</span> <span class="value">${oddReason}</span></div>
+                <div class="line"><span class="label">📊 Bid Volume :</span> <span class="value">${bidVolume}</span></div>
+                <div class="line"><span class="label">📊 Ask Volume :</span> <span class="value">${askVolume}</span></div>
+                <div class="line"><span class="label">🎯 PHASE :</span> <span class="value ${mwrActive === 'YES' ? 'magnet' : data.market_phase?.includes('NUCLEAR') ? 'red' : ''}">${data.market_phase || 'NEUTRAL'}</span></div>
+                <div class="line"><span class="label">📌 REASON :</span> <span class="value">${data.phase_reason || data.reason || '--'}</span></div>
+                
+                <div class="divider"></div>
+                
                 <div class="section-title lvs-section">👻 V61 GHOST WHISPERER</div>
                 <div class="line"><span class="label">👻 LVS Active :</span> <span class="value ${lvsActive === 'YES' ? 'cyan' : ''}">${lvsActive} (${lvsType})</span></div>
                 <div class="line"><span class="label">📋 LVS Reason :</span> <span class="value cyan">${lvsReason}</span></div>
-                <div class="line"><span class="label">🎯 PHASE :</span> <span class="value ${lvsActive === 'YES' ? 'cyan' : data.market_phase?.includes('NUCLEAR') ? 'red' : data.market_phase?.includes('ENGINE') ? 'cyan' : ''}">${data.market_phase || 'NEUTRAL'}</span></div>
-                <div class="line"><span class="label">📌 REASON :</span> <span class="value">${data.phase_reason || data.reason || '--'}</span></div>
                 
                 <div class="divider"></div>
                 
@@ -1905,17 +2170,17 @@
                 <div class="divider"></div>
                 
                 <div class="section-title">🎯 TRADING SIGNAL</div>
-                <div class="line"><span class="label">${lvsActive ? '👻' : data.bias === 'LONG' ? '🟢' : data.bias === 'SHORT' ? '🔴' : '⚪'} BIAS :</span> <span class="value ${lvsActive ? 'cyan' : data.bias === 'LONG' ? 'green' : data.bias === 'SHORT' ? 'red' : ''}">${data.bias || 'NEUTRAL'} ${lvsActive ? '(GHOST MODE)' : ''}</span></div>
+                <div class="line"><span class="label">${mwrActive ? '🧲' : lvsActive ? '👻' : data.bias === 'LONG' ? '🟢' : data.bias === 'SHORT' ? '🔴' : '⚪'} BIAS :</span> <span class="value ${mwrActive ? 'magnet' : lvsActive ? 'cyan' : data.bias === 'LONG' ? 'green' : data.bias === 'SHORT' ? 'red' : ''}">${data.bias || 'NEUTRAL'} ${mwrActive ? '(MAGNET MODE)' : lvsActive ? '(GHOST MODE)' : ''}</span></div>
                 <div class="line"><span class="label">🔥 CONFIDENCE :</span> <span class="value ${data.confidence === 'ABSOLUTE' ? 'red' : data.confidence === 'SUPREME' ? 'green' : data.confidence === 'HIGH' ? 'yellow' : ''}">${data.confidence || 'LOW'}</span></div>
                 <div class="line"><span class="label">⏳ ENTRY STATUS :</span> <span class="value ${data.entry_ready ? 'green' : ''}">${data.entry_status || 'WAITING'}</span></div>
                 
                 <div class="header-line">================================================================================</div>
-                <div class="line"><span class="value ${lvsActive ? 'cyan' : ''}">${lvsActive ? data.lvs?.reason : data.liquidation_alert || data.reason || 'No analysis reason'}</span></div>
+                <div class="line"><span class="value ${mwrActive ? 'magnet' : lvsActive ? 'cyan' : ''}">${mwrActive ? data.mwr?.reason : lvsActive ? data.lvs?.reason : data.liquidation_alert || data.reason || 'No analysis reason'}</span></div>
                 <div class="header-line">================================================================================</div>
             `;
         }
 
-        function showLoading(message = 'Analyzing with V61 Ghost Whisperer...') {
+        function showLoading(message = 'Analyzing with V62 Magnet Wall Reversal...') {
             elements.loadingOverlay.style.display = 'flex';
             document.querySelector('.loading-spinner p').textContent = message;
         }
@@ -1932,9 +2197,10 @@
 
         window.dylpredict = {
             analyze: analyzeSymbol,
+            magnetScan: magnetScan,
             ghostScan: ghostScan,
             batch: analyzeBatch,
-            version: 'V61 Ghost Whisperer'
+            version: 'V62 Magnet Wall Reversal'
         };
     </script>
 </body>
