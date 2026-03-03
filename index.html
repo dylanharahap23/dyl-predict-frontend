@@ -23,29 +23,15 @@
             --pink: #ec4899;
             --cyan: #06b6d4;
             --magnet: #a78bfa;
-            --amd: #ff6b6b;        /* Warna untuk AMD */
-            --tdp: #ffd700;          /* Warna untuk TDP */
-            --ogd: #00ffff;           /* Warna untuk OGD (Gravity Deflection) - CYAN TERANG */
-            --zas: #ff4444;            /* Warna untuk ZAS (Deadstick) - MERAH GELAP */
-            --avc: #ffaa00;            /* Warna untuk AVC (Absorption Validity) - ORANGE */
-            --ati: #8a6de9;            /* Warna untuk ATI (Temporal Accumulation) - UNGU */
+            --amd: #ff6b6b;
+            --tdp: #ffd700;
+            --ogd: #00ffff;
+            --zas: #ff4444;
+            --avc: #ffaa00;
+            --ati: #8a6de9;
             --text-main: #eaecef;
             --text-dim: #848e9c;
             --glass-opacity: rgba(30, 35, 41, 0.8);
-            --neon-green: 0 0 10px rgba(2, 192, 118, 0.5);
-            --neon-red: 0 0 10px rgba(248, 73, 96, 0.5);
-            --neon-yellow: 0 0 10px rgba(240, 185, 11, 0.5);
-            --neon-purple: 0 0 10px rgba(138, 109, 233, 0.5);
-            --neon-orange: 0 0 10px rgba(255, 152, 0, 0.5);
-            --neon-blue: 0 0 10px rgba(59, 130, 246, 0.5);
-            --neon-cyan: 0 0 10px rgba(6, 182, 212, 0.5);
-            --neon-magnet: 0 0 10px rgba(167, 139, 250, 0.5);
-            --neon-amd: 0 0 10px rgba(255, 107, 107, 0.5);
-            --neon-tdp: 0 0 10px rgba(255, 215, 0, 0.5);
-            --neon-ogd: 0 0 15px rgba(0, 255, 255, 0.7);
-            --neon-zas: 0 0 10px rgba(255, 68, 68, 0.7);
-            --neon-avc: 0 0 10px rgba(255, 170, 0, 0.7);
-            --neon-ati: 0 0 10px rgba(138, 109, 233, 0.7);
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -63,44 +49,6 @@
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            right: -20%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            filter: blur(100px);
-            z-index: -1;
-            animation: floatGlow 15s ease-in-out infinite;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: -50%;
-            left: -20%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            filter: blur(100px);
-            z-index: -1;
-            animation: floatGlow2 20s ease-in-out infinite;
-        }
-
-        @keyframes floatGlow {
-            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-            50% { transform: translate(-30px, 30px) scale(1.2); opacity: 0.6; }
-        }
-
-        @keyframes floatGlow2 {
-            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
-            50% { transform: translate(30px, -30px) scale(1.3); opacity: 0.5; }
         }
 
         .container {
@@ -133,6 +81,10 @@
             -webkit-text-fill-color: transparent;
             font-weight: 800;
             letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         .version {
@@ -140,127 +92,70 @@
             background: rgba(0, 255, 255, 0.2);
             padding: 4px 10px;
             border-radius: 100px;
-            margin-left: 8px;
             color: var(--ogd);
             border: 1px solid rgba(0, 255, 255, 0.3);
             font-weight: 600;
         }
 
-        .sub-version {
+        .badge-container {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
             font-size: 10px;
-            background: rgba(138, 109, 233, 0.15);
             padding: 2px 8px;
             border-radius: 100px;
-            margin-left: 5px;
-            color: var(--purple);
-            border: 1px solid rgba(138, 109, 233, 0.2);
             font-weight: 500;
         }
 
-        .ogd-badge {
-            font-size: 10px;
+        .badge.ogd {
             background: rgba(0, 255, 255, 0.15);
-            padding: 2px 8px;
-            border-radius: 100px;
-            margin-left: 5px;
             color: var(--ogd);
             border: 1px solid rgba(0, 255, 255, 0.2);
-            font-weight: 500;
-            animation: pulseOGD 2s infinite;
         }
 
-        .zas-badge {
-            font-size: 10px;
+        .badge.zas {
             background: rgba(255, 68, 68, 0.15);
-            padding: 2px 8px;
-            border-radius: 100px;
-            margin-left: 5px;
             color: var(--zas);
             border: 1px solid rgba(255, 68, 68, 0.2);
-            font-weight: 500;
         }
 
-        .avc-badge {
-            font-size: 10px;
+        .badge.avc {
             background: rgba(255, 170, 0, 0.15);
-            padding: 2px 8px;
-            border-radius: 100px;
-            margin-left: 5px;
             color: var(--avc);
             border: 1px solid rgba(255, 170, 0, 0.2);
-            font-weight: 500;
         }
 
-        .ati-badge {
-            font-size: 10px;
+        .badge.ati {
             background: rgba(138, 109, 233, 0.15);
-            padding: 2px 8px;
-            border-radius: 100px;
-            margin-left: 5px;
             color: var(--ati);
             border: 1px solid rgba(138, 109, 233, 0.2);
-            font-weight: 500;
         }
 
-        .amd-badge {
-            font-size: 10px;
+        .badge.amd {
             background: rgba(255, 107, 107, 0.15);
-            padding: 2px 8px;
-            border-radius: 100px;
-            margin-left: 5px;
             color: var(--amd);
             border: 1px solid rgba(255, 107, 107, 0.2);
-            font-weight: 500;
-            animation: pulseAMD 2s infinite;
         }
 
-        .tdp-badge {
-            font-size: 10px;
+        .badge.tdp {
             background: rgba(255, 215, 0, 0.15);
-            padding: 2px 8px;
-            border-radius: 100px;
-            margin-left: 5px;
             color: var(--tdp);
             border: 1px solid rgba(255, 215, 0, 0.2);
-            font-weight: 500;
-            animation: pulseTDP 2s infinite;
         }
 
-        .mwr-badge {
-            font-size: 10px;
+        .badge.mwr {
             background: rgba(167, 139, 250, 0.15);
-            padding: 2px 8px;
-            border-radius: 100px;
-            margin-left: 5px;
             color: var(--magnet);
             border: 1px solid rgba(167, 139, 250, 0.2);
-            font-weight: 500;
         }
 
-        .lvs-badge {
-            font-size: 10px;
+        .badge.lvs {
             background: rgba(6, 182, 212, 0.15);
-            padding: 2px 8px;
-            border-radius: 100px;
-            margin-left: 5px;
             color: var(--cyan);
             border: 1px solid rgba(6, 182, 212, 0.2);
-            font-weight: 500;
-        }
-
-        @keyframes pulseOGD {
-            0%, 100% { opacity: 0.8; box-shadow: 0 0 5px var(--ogd); }
-            50% { opacity: 1; box-shadow: 0 0 15px var(--ogd); }
-        }
-
-        @keyframes pulseAMD {
-            0%, 100% { opacity: 0.8; box-shadow: 0 0 5px var(--amd); }
-            50% { opacity: 1; box-shadow: 0 0 15px var(--amd); }
-        }
-
-        @keyframes pulseTDP {
-            0%, 100% { opacity: 0.8; box-shadow: 0 0 5px var(--tdp); }
-            50% { opacity: 1; box-shadow: 0 0 15px var(--tdp); }
         }
 
         .symbol-selector {
@@ -336,167 +231,6 @@
             box-shadow: 0 0 25px var(--ogd);
         }
 
-        .btn-secondary {
-            background: rgba(138, 109, 233, 0.2);
-            border: 1px solid rgba(138, 109, 233, 0.3);
-            border-radius: 8px;
-            padding: 10px 20px;
-            color: var(--purple);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            font-size: 14px;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(138, 109, 233, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .btn-ogd {
-            background: rgba(0, 255, 255, 0.2);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            border-radius: 8px;
-            padding: 10px 20px;
-            color: var(--ogd);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            font-size: 14px;
-        }
-
-        .btn-ogd:hover {
-            background: rgba(0, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px var(--ogd);
-        }
-
-        .btn-zas {
-            background: rgba(255, 68, 68, 0.2);
-            border: 1px solid rgba(255, 68, 68, 0.3);
-            border-radius: 8px;
-            padding: 10px 20px;
-            color: var(--zas);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            font-size: 14px;
-        }
-
-        .btn-zas:hover {
-            background: rgba(255, 68, 68, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px var(--zas);
-        }
-
-        .btn-avc {
-            background: rgba(255, 170, 0, 0.2);
-            border: 1px solid rgba(255, 170, 0, 0.3);
-            border-radius: 8px;
-            padding: 10px 20px;
-            color: var(--avc);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            font-size: 14px;
-        }
-
-        .btn-avc:hover {
-            background: rgba(255, 170, 0, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px var(--avc);
-        }
-
-        .btn-ati {
-            background: rgba(138, 109, 233, 0.2);
-            border: 1px solid rgba(138, 109, 233, 0.3);
-            border-radius: 8px;
-            padding: 10px 20px;
-            color: var(--ati);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            font-size: 14px;
-        }
-
-        .btn-ati:hover {
-            background: rgba(138, 109, 233, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px var(--ati);
-        }
-
-        .btn-amd {
-            background: rgba(255, 107, 107, 0.2);
-            border: 1px solid rgba(255, 107, 107, 0.3);
-            border-radius: 8px;
-            padding: 10px 20px;
-            color: var(--amd);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            font-size: 14px;
-        }
-
-        .btn-amd:hover {
-            background: rgba(255, 107, 107, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px var(--amd);
-        }
-
-        .btn-tdp {
-            background: rgba(255, 215, 0, 0.2);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 8px;
-            padding: 10px 20px;
-            color: var(--tdp);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            font-size: 14px;
-        }
-
-        .btn-tdp:hover {
-            background: rgba(255, 215, 0, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px var(--tdp);
-        }
-
-        .btn-magnet {
-            background: rgba(167, 139, 250, 0.2);
-            border: 1px solid rgba(167, 139, 250, 0.3);
-            border-radius: 8px;
-            padding: 10px 20px;
-            color: var(--magnet);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            font-size: 14px;
-        }
-
-        .btn-magnet:hover {
-            background: rgba(167, 139, 250, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px var(--magnet);
-        }
-
-        .btn-ghost {
-            background: rgba(6, 182, 212, 0.2);
-            border: 1px solid rgba(6, 182, 212, 0.3);
-            border-radius: 8px;
-            padding: 10px 20px;
-            color: var(--cyan);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            font-size: 14px;
-        }
-
-        .btn-ghost:hover {
-            background: rgba(6, 182, 212, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px var(--cyan);
-        }
-
         .dashboard-container {
             display: flex;
             flex-direction: column;
@@ -516,11 +250,6 @@
             transition: var(--transition-smooth);
             border: 1px solid rgba(255, 255, 255, 0.05);
             position: relative;
-        }
-
-        .header-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 48px rgba(0, 255, 255, 0.15);
         }
 
         .symbol-info {
@@ -569,7 +298,6 @@
             font-size: 2rem;
             margin: 0;
             font-weight: 700;
-            text-shadow: var(--neon-ogd);
             letter-spacing: -0.5px;
         }
 
@@ -585,104 +313,44 @@
             border-radius: 100px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            box-shadow: 0 0 25px var(--purple);
-            animation: pulseBadge 2s infinite;
             z-index: 30;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .phase-badge.ogd {
             background: linear-gradient(135deg, var(--ogd), #00cccc);
-            box-shadow: 0 0 25px var(--ogd);
-            animation: pulseOGD 1s infinite;
         }
 
         .phase-badge.zas {
             background: linear-gradient(135deg, var(--zas), #cc0000);
-            box-shadow: 0 0 25px var(--zas);
         }
 
         .phase-badge.avc {
             background: linear-gradient(135deg, var(--avc), #cc8800);
-            box-shadow: 0 0 25px var(--avc);
         }
 
         .phase-badge.ati {
             background: linear-gradient(135deg, var(--ati), #6a4fc9);
-            box-shadow: 0 0 25px var(--ati);
         }
 
         .phase-badge.amd {
             background: linear-gradient(135deg, var(--amd), #ff4757);
-            box-shadow: 0 0 25px var(--amd);
-            animation: pulseAMD 1s infinite;
         }
 
         .phase-badge.tdp {
             background: linear-gradient(135deg, var(--tdp), #ffaa00);
-            box-shadow: 0 0 25px var(--tdp);
-            animation: pulseTDP 1s infinite;
         }
 
         .phase-badge.mwr {
             background: linear-gradient(135deg, var(--magnet), #8b5cf6);
-            box-shadow: 0 0 25px var(--magnet);
         }
 
         .phase-badge.lvs {
             background: linear-gradient(135deg, var(--cyan), #0891b2);
-            box-shadow: 0 0 25px var(--cyan);
         }
 
         .phase-badge.nuclear {
             background: linear-gradient(135deg, #f44336, #d32f2f);
-            box-shadow: 0 0 25px #f44336;
-            animation: pulseNuclear 1s infinite;
-        }
-
-        .phase-badge.dtd {
-            background: linear-gradient(135deg, var(--purple), #6a4fc9);
-            box-shadow: 0 0 25px var(--purple);
-        }
-
-        .phase-badge.lrr {
-            background: linear-gradient(135deg, #ff9800, #f57c00);
-            box-shadow: 0 0 25px #ff9800;
-        }
-
-        .phase-badge.slam {
-            background: linear-gradient(135deg, #ec4899, #db2777);
-            box-shadow: 0 0 25px #ec4899;
-        }
-
-        .phase-badge.pnr {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            box-shadow: 0 0 25px #3b82f6;
-        }
-
-        .phase-badge.magnet {
-            background: linear-gradient(135deg, var(--green), #00a35c);
-            box-shadow: 0 0 25px var(--green);
-        }
-
-        .phase-badge.engine {
-            background: linear-gradient(135deg, var(--cyan), #0891b2);
-            box-shadow: 0 0 25px var(--cyan);
-        }
-
-        .phase-badge.warming {
-            background: linear-gradient(135deg, var(--orange), #ea580c);
-            box-shadow: 0 0 25px var(--orange);
-        }
-
-        @keyframes pulseBadge {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.9; }
-        }
-
-        @keyframes pulseNuclear {
-            0%, 100% { transform: scale(1); opacity: 1; background: #f44336; }
-            50% { transform: scale(1.1); opacity: 0.9; background: #ff5722; }
         }
 
         .signal-hero {
@@ -697,135 +365,48 @@
             overflow: hidden;
         }
 
-        .signal-hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 255, 255, 0.03) 0%, transparent 70%);
-            animation: rotate 30s linear infinite;
-            z-index: -1;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
         .signal-hero.ogd-active {
             border-bottom: 5px solid var(--ogd);
-            box-shadow: 0 8px 32px rgba(0, 255, 255, 0.3);
         }
 
         .signal-hero.zas-active {
             border-bottom: 5px solid var(--zas);
-            box-shadow: 0 8px 32px rgba(255, 68, 68, 0.3);
         }
 
         .signal-hero.avc-active {
             border-bottom: 5px solid var(--avc);
-            box-shadow: 0 8px 32px rgba(255, 170, 0, 0.3);
         }
 
         .signal-hero.ati-active {
             border-bottom: 5px solid var(--ati);
-            box-shadow: 0 8px 32px rgba(138, 109, 233, 0.3);
         }
 
         .signal-hero.amd-active {
             border-bottom: 5px solid var(--amd);
-            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
         }
 
         .signal-hero.tdp-active {
             border-bottom: 5px solid var(--tdp);
-            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.3);
         }
 
         .signal-hero.mwr-active {
             border-bottom: 5px solid var(--magnet);
-            box-shadow: 0 8px 32px rgba(167, 139, 250, 0.3);
         }
 
         .signal-hero.lvs-active {
             border-bottom: 5px solid var(--cyan);
-            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.3);
         }
 
         .signal-hero.bullish { 
             border-bottom: 5px solid var(--green);
-            box-shadow: 0 8px 32px rgba(2, 192, 118, 0.15);
         }
 
         .signal-hero.bearish { 
             border-bottom: 5px solid var(--red);
-            box-shadow: 0 8px 32px rgba(248, 73, 96, 0.15);
         }
 
         .signal-hero.pending { 
             border-bottom: 5px solid var(--yellow);
-            box-shadow: 0 8px 32px rgba(240, 185, 11, 0.15);
-        }
-
-        .signal-hero.neutral { 
-            border-bottom: 5px solid var(--text-dim);
-        }
-
-        .signal-hero.ogd-active .main-opinion {
-            color: var(--ogd);
-            text-shadow: 0 0 30px var(--ogd);
-        }
-
-        .signal-hero.zas-active .main-opinion {
-            color: var(--zas);
-            text-shadow: 0 0 30px var(--zas);
-        }
-
-        .signal-hero.avc-active .main-opinion {
-            color: var(--avc);
-            text-shadow: 0 0 30px var(--avc);
-        }
-
-        .signal-hero.ati-active .main-opinion {
-            color: var(--ati);
-            text-shadow: 0 0 30px var(--ati);
-        }
-
-        .signal-hero.amd-active .main-opinion {
-            color: var(--amd);
-            text-shadow: 0 0 30px var(--amd);
-        }
-
-        .signal-hero.tdp-active .main-opinion {
-            color: var(--tdp);
-            text-shadow: 0 0 30px var(--tdp);
-        }
-
-        .signal-hero.mwr-active .main-opinion {
-            color: var(--magnet);
-            text-shadow: 0 0 30px var(--magnet);
-        }
-
-        .signal-hero.lvs-active .main-opinion {
-            color: var(--cyan);
-            text-shadow: 0 0 30px var(--cyan);
-        }
-
-        .signal-hero.bullish .main-opinion {
-            color: var(--green);
-            text-shadow: 0 0 30px var(--green);
-        }
-
-        .signal-hero.bearish .main-opinion {
-            color: var(--red);
-            text-shadow: 0 0 30px var(--red);
-        }
-
-        .signal-hero.pending .main-opinion {
-            color: var(--yellow);
-            text-shadow: 0 0 30px var(--yellow);
         }
 
         .main-opinion {
@@ -836,94 +417,44 @@
             margin-bottom: 5px;
         }
 
-        .ogd-active .main-opinion {
-            animation: glowPulseOGD 2s infinite;
+        .signal-hero.ogd-active .main-opinion {
+            color: var(--ogd);
         }
 
-        .zas-active .main-opinion {
-            animation: glowPulseZAS 2s infinite;
+        .signal-hero.zas-active .main-opinion {
+            color: var(--zas);
         }
 
-        .avc-active .main-opinion {
-            animation: glowPulseAVC 2s infinite;
+        .signal-hero.avc-active .main-opinion {
+            color: var(--avc);
         }
 
-        .ati-active .main-opinion {
-            animation: glowPulseATI 2s infinite;
+        .signal-hero.ati-active .main-opinion {
+            color: var(--ati);
         }
 
-        .amd-active .main-opinion {
-            animation: glowPulseAMD 2s infinite;
+        .signal-hero.amd-active .main-opinion {
+            color: var(--amd);
         }
 
-        .tdp-active .main-opinion {
-            animation: glowPulseTDP 2s infinite;
+        .signal-hero.tdp-active .main-opinion {
+            color: var(--tdp);
         }
 
-        .mwr-active .main-opinion {
-            animation: glowPulseMWR 2s infinite;
+        .signal-hero.mwr-active .main-opinion {
+            color: var(--magnet);
         }
 
-        .bullish .main-opinion {
-            animation: glowPulse 3s infinite;
+        .signal-hero.lvs-active .main-opinion {
+            color: var(--cyan);
         }
 
-        .bearish .main-opinion {
-            animation: glowPulseRed 3s infinite;
+        .signal-hero.bullish .main-opinion {
+            color: var(--green);
         }
 
-        .lvs-active .main-opinion {
-            animation: glowPulseCyan 2s infinite;
-        }
-
-        @keyframes glowPulseOGD {
-            0%, 100% { text-shadow: 0 0 20px var(--ogd); }
-            50% { text-shadow: 0 0 40px var(--ogd); }
-        }
-
-        @keyframes glowPulseZAS {
-            0%, 100% { text-shadow: 0 0 20px var(--zas); }
-            50% { text-shadow: 0 0 40px var(--zas); }
-        }
-
-        @keyframes glowPulseAVC {
-            0%, 100% { text-shadow: 0 0 20px var(--avc); }
-            50% { text-shadow: 0 0 40px var(--avc); }
-        }
-
-        @keyframes glowPulseATI {
-            0%, 100% { text-shadow: 0 0 20px var(--ati); }
-            50% { text-shadow: 0 0 40px var(--ati); }
-        }
-
-        @keyframes glowPulseAMD {
-            0%, 100% { text-shadow: 0 0 20px var(--amd); }
-            50% { text-shadow: 0 0 40px var(--amd); }
-        }
-
-        @keyframes glowPulseTDP {
-            0%, 100% { text-shadow: 0 0 20px var(--tdp); }
-            50% { text-shadow: 0 0 40px var(--tdp); }
-        }
-
-        @keyframes glowPulseMWR {
-            0%, 100% { text-shadow: 0 0 20px var(--magnet); }
-            50% { text-shadow: 0 0 40px var(--magnet); }
-        }
-
-        @keyframes glowPulse {
-            0%, 100% { text-shadow: 0 0 20px var(--green); }
-            50% { text-shadow: 0 0 40px var(--green); }
-        }
-
-        @keyframes glowPulseRed {
-            0%, 100% { text-shadow: 0 0 20px var(--red); }
-            50% { text-shadow: 0 0 40px var(--red); }
-        }
-
-        @keyframes glowPulseCyan {
-            0%, 100% { text-shadow: 0 0 20px var(--cyan); }
-            50% { text-shadow: 0 0 50px var(--cyan); }
+        .signal-hero.bearish .main-opinion {
+            color: var(--red);
         }
 
         .strategy-name {
@@ -967,7 +498,6 @@
             height: 10px;
             border-radius: 5px;
             overflow: hidden;
-            backdrop-filter: blur(2px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -975,80 +505,7 @@
             background: var(--ogd);
             height: 100%;
             border-radius: 5px;
-            box-shadow: 0 0 15px var(--ogd);
             transition: width 0.5s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .confidence-bar .fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        .signal-hero.ogd-active .confidence-bar .fill {
-            background: var(--ogd);
-            box-shadow: 0 0 15px var(--ogd);
-        }
-
-        .signal-hero.zas-active .confidence-bar .fill {
-            background: var(--zas);
-            box-shadow: 0 0 15px var(--zas);
-        }
-
-        .signal-hero.avc-active .confidence-bar .fill {
-            background: var(--avc);
-            box-shadow: 0 0 15px var(--avc);
-        }
-
-        .signal-hero.ati-active .confidence-bar .fill {
-            background: var(--ati);
-            box-shadow: 0 0 15px var(--ati);
-        }
-
-        .signal-hero.amd-active .confidence-bar .fill {
-            background: var(--amd);
-            box-shadow: 0 0 15px var(--amd);
-        }
-
-        .signal-hero.tdp-active .confidence-bar .fill {
-            background: var(--tdp);
-            box-shadow: 0 0 15px var(--tdp);
-        }
-
-        .signal-hero.mwr-active .confidence-bar .fill {
-            background: var(--magnet);
-            box-shadow: 0 0 15px var(--magnet);
-        }
-
-        .signal-hero.bullish .confidence-bar .fill {
-            background: var(--green);
-            box-shadow: 0 0 15px var(--green);
-        }
-
-        .signal-hero.bearish .confidence-bar .fill {
-            background: var(--red);
-            box-shadow: 0 0 15px var(--red);
-        }
-
-        .signal-hero.pending .confidence-bar .fill {
-            background: var(--yellow);
-            box-shadow: 0 0 15px var(--yellow);
-        }
-
-        .signal-hero.lvs-active .confidence-bar .fill {
-            background: var(--cyan);
-            box-shadow: 0 0 15px var(--cyan);
-        }
-
-        @keyframes shimmer {
-            100% { left: 100%; }
         }
 
         .metrics-grid {
@@ -1069,12 +526,6 @@
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         }
 
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(0, 255, 255, 0.2);
-            box-shadow: 0 8px 24px rgba(0, 255, 255, 0.15);
-        }
-
         .card h3 {
             font-size: 0.7rem;
             color: var(--text-dim);
@@ -1091,21 +542,20 @@
             margin-bottom: 8px;
         }
 
-        .green { color: var(--green); text-shadow: 0 0 10px var(--green); }
-        .red { color: var(--red); text-shadow: 0 0 10px var(--red); }
-        .warning { color: var(--yellow); text-shadow: 0 0 10px var(--yellow); }
-        .purple { color: var(--purple); text-shadow: 0 0 10px var(--purple); }
-        .orange { color: var(--orange); text-shadow: 0 0 10px var(--orange); }
-        .blue { color: var(--blue); text-shadow: 0 0 10px var(--blue); }
-        .pink { color: var(--pink); text-shadow: 0 0 10px var(--pink); }
-        .cyan { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
-        .magnet { color: var(--magnet); text-shadow: 0 0 10px var(--magnet); }
-        .amd { color: var(--amd); text-shadow: 0 0 10px var(--amd); }
-        .tdp { color: var(--tdp); text-shadow: 0 0 10px var(--tdp); }
-        .ogd { color: var(--ogd); text-shadow: 0 0 10px var(--ogd); }
-        .zas { color: var(--zas); text-shadow: 0 0 10px var(--zas); }
-        .avc { color: var(--avc); text-shadow: 0 0 10px var(--avc); }
-        .ati { color: var(--ati); text-shadow: 0 0 10px var(--ati); }
+        .green { color: var(--green); }
+        .red { color: var(--red); }
+        .warning { color: var(--yellow); }
+        .purple { color: var(--purple); }
+        .orange { color: var(--orange); }
+        .blue { color: var(--blue); }
+        .cyan { color: var(--cyan); }
+        .magnet { color: var(--magnet); }
+        .amd { color: var(--amd); }
+        .tdp { color: var(--tdp); }
+        .ogd { color: var(--ogd); }
+        .zas { color: var(--zas); }
+        .avc { color: var(--avc); }
+        .ati { color: var(--ati); }
 
         .score-display {
             display: flex;
@@ -1116,29 +566,11 @@
         .score-num {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--magnet);
         }
 
         .score-sub {
             font-size: 0.7rem;
             color: var(--text-dim);
-        }
-
-        .flow-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--green);
-            margin-bottom: 5px;
-        }
-
-        .trend-badge {
-            font-size: 0.7rem;
-            padding: 4px 10px;
-            background: rgba(2, 192, 118, 0.15);
-            border-radius: 100px;
-            display: inline-block;
-            color: var(--green);
-            border: 1px solid rgba(2, 192, 118, 0.3);
         }
 
         .details-section {
@@ -1187,44 +619,8 @@
             color: var(--purple);
         }
 
-        .data-row .val.orange {
-            color: var(--orange);
-        }
-
-        .data-row .val.blue {
-            color: var(--blue);
-        }
-
         .data-row .val.cyan {
             color: var(--cyan);
-        }
-
-        .data-row .val.magnet {
-            color: var(--magnet);
-        }
-
-        .data-row .val.amd {
-            color: var(--amd);
-        }
-
-        .data-row .val.tdp {
-            color: var(--tdp);
-        }
-
-        .data-row .val.ogd {
-            color: var(--ogd);
-        }
-
-        .data-row .val.zas {
-            color: var(--zas);
-        }
-
-        .data-row .val.avc {
-            color: var(--avc);
-        }
-
-        .data-row .val.ati {
-            color: var(--ati);
         }
 
         .advanced-grid {
@@ -1260,416 +656,60 @@
             color: var(--text-dim);
         }
 
-        .ogd-card {
-            border-left: 3px solid var(--ogd);
-            background: rgba(0, 255, 255, 0.05);
-        }
-
-        .ogd-card .value {
-            color: var(--ogd);
-        }
-
-        .zas-card {
-            border-left: 3px solid var(--zas);
-            background: rgba(255, 68, 68, 0.05);
-        }
-
-        .zas-card .value {
-            color: var(--zas);
-        }
-
-        .avc-card {
-            border-left: 3px solid var(--avc);
-            background: rgba(255, 170, 0, 0.05);
-        }
-
-        .avc-card .value {
-            color: var(--avc);
-        }
-
-        .ati-card {
-            border-left: 3px solid var(--ati);
-            background: rgba(138, 109, 233, 0.05);
-        }
-
-        .ati-card .value {
-            color: var(--ati);
-        }
-
-        .amd-card {
-            border-left: 3px solid var(--amd);
-            background: rgba(255, 107, 107, 0.05);
-        }
-
-        .amd-card .value {
-            color: var(--amd);
-        }
-
-        .tdp-card {
-            border-left: 3px solid var(--tdp);
-            background: rgba(255, 215, 0, 0.05);
-        }
-
-        .tdp-card .value {
-            color: var(--tdp);
-        }
-
-        .mwr-card {
-            border-left: 3px solid var(--magnet);
-            background: rgba(167, 139, 250, 0.05);
-        }
-
-        .mwr-card .value {
-            color: var(--magnet);
-        }
-
-        .lvs-card {
-            border-left: 3px solid var(--cyan);
-            background: rgba(6, 182, 212, 0.05);
-        }
-
-        .lvs-card .value {
-            color: var(--cyan);
-        }
-
         .alert-box {
             background: rgba(240, 185, 11, 0.08);
-            backdrop-filter: blur(5px);
             border: 1px dashed var(--yellow);
             padding: 18px;
             border-radius: 16px;
             font-size: 0.9rem;
             line-height: 1.5;
             color: var(--text-main);
-            box-shadow: 0 4px 16px rgba(240, 185, 11, 0.1);
             margin: 15px 0;
-            position: relative;
-            overflow: hidden;
             border-left: 4px solid var(--yellow);
-        }
-
-        .alert-box::before {
-            content: '⚠️';
-            position: absolute;
-            right: 15px;
-            bottom: 5px;
-            font-size: 40px;
-            opacity: 0.1;
-            transform: rotate(10deg);
         }
 
         .alert-box.ogd-alert {
             border-color: var(--ogd);
             border-left-color: var(--ogd);
-            background: rgba(0, 255, 255, 0.08);
-        }
-
-        .alert-box.ogd-alert::before {
-            content: '🔄';
         }
 
         .alert-box.zas-alert {
             border-color: var(--zas);
             border-left-color: var(--zas);
-            background: rgba(255, 68, 68, 0.08);
-        }
-
-        .alert-box.zas-alert::before {
-            content: '💀';
         }
 
         .alert-box.avc-alert {
             border-color: var(--avc);
             border-left-color: var(--avc);
-            background: rgba(255, 170, 0, 0.08);
-        }
-
-        .alert-box.avc-alert::before {
-            content: '🪤';
         }
 
         .alert-box.ati-alert {
             border-color: var(--ati);
             border-left-color: var(--ati);
-            background: rgba(138, 109, 233, 0.08);
-        }
-
-        .alert-box.ati-alert::before {
-            content: '🐋';
         }
 
         .alert-box.amd-alert {
             border-color: var(--amd);
             border-left-color: var(--amd);
-            background: rgba(255, 107, 107, 0.08);
-        }
-
-        .alert-box.amd-alert::before {
-            content: '🎭';
         }
 
         .alert-box.tdp-alert {
             border-color: var(--tdp);
             border-left-color: var(--tdp);
-            background: rgba(255, 215, 0, 0.08);
-        }
-
-        .alert-box.tdp-alert::before {
-            content: '☢️';
         }
 
         .alert-box.mwr-alert {
             border-color: var(--magnet);
             border-left-color: var(--magnet);
-            background: rgba(167, 139, 250, 0.08);
-        }
-
-        .alert-box.mwr-alert::before {
-            content: '🧲';
         }
 
         .alert-box.lvs-alert {
             border-color: var(--cyan);
             border-left-color: var(--cyan);
-            background: rgba(6, 182, 212, 0.08);
-        }
-
-        .alert-box.lvs-alert::before {
-            content: '👻';
-        }
-
-        .alert-box.nuclear {
-            border-color: #f44336;
-            border-left-color: #f44336;
-            background: rgba(244, 67, 54, 0.08);
-        }
-
-        .alert-box.dtd-alert {
-            border-color: var(--purple);
-            border-left-color: var(--purple);
-            background: rgba(138, 109, 233, 0.08);
-        }
-
-        .alert-box.lrr {
-            border-color: var(--orange);
-            border-left-color: var(--orange);
-            background: rgba(255, 152, 0, 0.08);
-        }
-
-        .alert-box.slam {
-            border-color: var(--pink);
-            border-left-color: var(--pink);
-            background: rgba(236, 72, 153, 0.08);
-        }
-
-        .alert-box.pnr {
-            border-color: var(--blue);
-            border-left-color: var(--blue);
-            background: rgba(59, 130, 246, 0.08);
-        }
-
-        .alert-box.magnet {
-            border-color: var(--green);
-            border-left-color: var(--green);
-            background: rgba(2, 192, 118, 0.08);
-        }
-
-        .alert-box.engine {
-            border-color: var(--cyan);
-            border-left-color: var(--cyan);
-            background: rgba(6, 182, 212, 0.08);
-        }
-
-        .alert-box.warming {
-            border-color: var(--orange);
-            border-left-color: var(--orange);
-            background: rgba(255, 152, 0, 0.08);
         }
 
         .alert-box strong {
             color: var(--yellow);
-        }
-
-        .alert-box.ogd-alert strong {
-            color: var(--ogd);
-        }
-
-        .alert-box.zas-alert strong {
-            color: var(--zas);
-        }
-
-        .alert-box.avc-alert strong {
-            color: var(--avc);
-        }
-
-        .alert-box.ati-alert strong {
-            color: var(--ati);
-        }
-
-        .alert-box.amd-alert strong {
-            color: var(--amd);
-        }
-
-        .alert-box.tdp-alert strong {
-            color: var(--tdp);
-        }
-
-        .alert-box.mwr-alert strong {
-            color: var(--magnet);
-        }
-
-        .alert-box.lvs-alert strong {
-            color: var(--cyan);
-        }
-
-        .alert-box.nuclear strong {
-            color: #f44336;
-        }
-
-        .alert-box.dtd-alert strong {
-            color: var(--purple);
-        }
-
-        .alert-box.lrr strong {
-            color: var(--orange);
-        }
-
-        .alert-box.slam strong {
-            color: var(--pink);
-        }
-
-        .alert-box.pnr strong {
-            color: var(--blue);
-        }
-
-        .alert-box.magnet strong {
-            color: var(--green);
-        }
-
-        .alert-box.engine strong {
-            color: var(--cyan);
-        }
-
-        .alert-box.warming strong {
-            color: var(--orange);
-        }
-
-        .terminal-output {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-            border-radius: 16px;
-            padding: 20px;
-            margin-top: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
-            line-height: 1.6;
-            color: #e0e0e0;
-            max-height: 500px;
-            overflow-y: auto;
-        }
-
-        .terminal-output .header-line {
-            color: var(--ogd);
-            font-weight: 700;
-            margin: 10px 0;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-
-        .terminal-output .section-title {
-            color: var(--yellow);
-            font-weight: 700;
-            margin: 15px 0 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
-            padding-bottom: 5px;
-        }
-
-        .terminal-output .ogd-section {
-            color: var(--ogd);
-            border-bottom-color: var(--ogd);
-        }
-
-        .terminal-output .zas-section {
-            color: var(--zas);
-            border-bottom-color: var(--zas);
-        }
-
-        .terminal-output .avc-section {
-            color: var(--avc);
-            border-bottom-color: var(--avc);
-        }
-
-        .terminal-output .ati-section {
-            color: var(--ati);
-            border-bottom-color: var(--ati);
-        }
-
-        .terminal-output .amd-section {
-            color: var(--amd);
-            border-bottom-color: var(--amd);
-        }
-
-        .terminal-output .tdp-section {
-            color: var(--tdp);
-            border-bottom-color: var(--tdp);
-        }
-
-        .terminal-output .mwr-section {
-            color: var(--magnet);
-            border-bottom-color: var(--magnet);
-        }
-
-        .terminal-output .lvs-section {
-            color: var(--cyan);
-            border-bottom-color: var(--cyan);
-        }
-
-        .terminal-output .dtd-section {
-            color: var(--purple);
-            border-bottom-color: var(--purple);
-        }
-
-        .terminal-output .line {
-            margin: 5px 0;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .terminal-output .label {
-            color: var(--text-dim);
-            width: 200px;
-        }
-
-        .terminal-output .value {
-            font-weight: 600;
-        }
-
-        .terminal-output .indent {
-            margin-left: 20px;
-        }
-
-        .terminal-output .green { color: var(--green); }
-        .terminal-output .red { color: var(--red); }
-        .terminal-output .yellow { color: var(--yellow); }
-        .terminal-output .purple { color: var(--purple); }
-        .terminal-output .orange { color: var(--orange); }
-        .terminal-output .blue { color: var(--blue); }
-        .terminal-output .pink { color: var(--pink); }
-        .terminal-output .cyan { color: var(--cyan); }
-        .terminal-output .magnet { color: var(--magnet); }
-        .terminal-output .amd { color: var(--amd); }
-        .terminal-output .tdp { color: var(--tdp); }
-        .terminal-output .ogd { color: var(--ogd); }
-        .terminal-output .zas { color: var(--zas); }
-        .terminal-output .avc { color: var(--avc); }
-        .terminal-output .ati { color: var(--ati); }
-
-        .terminal-output .divider {
-            border-top: 1px dashed rgba(255, 255, 255, 0.1);
-            margin: 20px 0;
         }
 
         .footer {
@@ -1677,78 +717,10 @@
             margin-top: 30px;
             padding: 20px;
             background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(5px);
             border-radius: 12px;
             font-size: 0.8rem;
             color: var(--text-dim);
             border: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 10px;
-            font-size: 0.75rem;
-        }
-
-        .features span {
-            padding: 4px 12px;
-            background: rgba(0, 255, 255, 0.1);
-            border-radius: 100px;
-            color: var(--ogd);
-        }
-
-        .features .ogd-feature {
-            background: rgba(0, 255, 255, 0.2);
-            color: var(--ogd);
-            font-weight: 600;
-            animation: pulseOGD 2s infinite;
-        }
-
-        .features .zas-feature {
-            background: rgba(255, 68, 68, 0.2);
-            color: var(--zas);
-            font-weight: 600;
-        }
-
-        .features .avc-feature {
-            background: rgba(255, 170, 0, 0.2);
-            color: var(--avc);
-            font-weight: 600;
-        }
-
-        .features .ati-feature {
-            background: rgba(138, 109, 233, 0.2);
-            color: var(--ati);
-            font-weight: 600;
-        }
-
-        .features .amd-feature {
-            background: rgba(255, 107, 107, 0.2);
-            color: var(--amd);
-            font-weight: 600;
-            animation: pulseAMD 2s infinite;
-        }
-
-        .features .tdp-feature {
-            background: rgba(255, 215, 0, 0.2);
-            color: var(--tdp);
-            font-weight: 600;
-            animation: pulseTDP 2s infinite;
-        }
-
-        .features .mwr-feature {
-            background: rgba(167, 139, 250, 0.2);
-            color: var(--magnet);
-            font-weight: 600;
-        }
-
-        .features .lvs-feature {
-            background: rgba(6, 182, 212, 0.2);
-            color: var(--cyan);
-            font-weight: 600;
         }
 
         .loading-overlay {
@@ -1774,7 +746,6 @@
             color: var(--ogd);
             margin-bottom: 20px;
             animation: spin 1s linear infinite;
-            text-shadow: 0 0 20px var(--ogd);
         }
 
         .loading-spinner p {
@@ -1806,7 +777,7 @@
                 flex-direction: column;
             }
 
-            #customSymbolInput, .glass-select, .btn-primary, .btn-secondary, .btn-ogd, .btn-zas, .btn-avc, .btn-ati, .btn-amd, .btn-tdp, .btn-magnet, .btn-ghost {
+            #customSymbolInput, .glass-select, .btn-primary {
                 width: 100%;
             }
 
@@ -1843,11 +814,6 @@
                 font-size: 0.7rem;
                 padding: 4px 15px;
             }
-
-            .terminal-output .label {
-                width: 100%;
-                margin-bottom: 4px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -1881,18 +847,24 @@
             background: var(--ogd);
             border-radius: 3px;
         }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00cccc;
-            box-shadow: 0 0 10px var(--ogd);
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <div class="logo">
-                <h1>DYLPREDICT<span class="version">V68</span><span class="sub-version">OGD+ZAS+AVC+ATI</span><span class="ogd-badge">🔄 OGD</span><span class="zas-badge">💀 ZAS</span><span class="avc-badge">🪤 AVC</span><span class="ati-badge">🐋 ATI</span><span class="amd-badge">🎭 AMD</span><span class="tdp-badge">☢️ TDP</span><span class="mwr-badge">🧲 MWR</span><span class="lvs-badge">👻 LVS</span></h1>
+                <h1>
+                    DYLPREDICT
+                    <span class="version">V68</span>
+                    <span class="badge ogd">OGD</span>
+                    <span class="badge zas">ZAS</span>
+                    <span class="badge avc">AVC</span>
+                    <span class="badge ati">ATI</span>
+                    <span class="badge amd">AMD</span>
+                    <span class="badge tdp">TDP</span>
+                    <span class="badge mwr">MWR</span>
+                    <span class="badge lvs">LVS</span>
+                </h1>
             </div>
             
             <div class="symbol-selector">
@@ -1911,49 +883,11 @@
                         <option value="PHAUSDT">PHAUSDT</option>
                         <option value="SIRENUSDT">SIRENUSDT</option>
                         <option value="ARCUSDT">ARCUSDT</option>
-                        <option value="KITEUSDT">KITEUSDT</option>
-                        <option value="ALICEUSDT">ALICEUSDT</option>
                     </select>
                 </div>
                 <button id="analyzeCustomBtn" class="btn-primary">
                     <i class="fas fa-chart-line"></i>
                     Analyze
-                </button>
-                <button id="ogdModeBtn" class="btn-ogd">
-                    <i class="fas fa-sync-alt"></i>
-                    OGD Scan
-                </button>
-                <button id="zasModeBtn" class="btn-zas">
-                    <i class="fas fa-skull"></i>
-                    ZAS Scan
-                </button>
-                <button id="avcModeBtn" class="btn-avc">
-                    <i class="fas fa-trap"></i>
-                    AVC Scan
-                </button>
-                <button id="atiModeBtn" class="btn-ati">
-                    <i class="fas fa-whale"></i>
-                    ATI Scan
-                </button>
-                <button id="amdModeBtn" class="btn-amd">
-                    <i class="fas fa-mask"></i>
-                    AMD Scan
-                </button>
-                <button id="tdpModeBtn" class="btn-tdp">
-                    <i class="fas fa-crown"></i>
-                    TDP Scan
-                </button>
-                <button id="magnetModeBtn" class="btn-magnet">
-                    <i class="fas fa-magnet"></i>
-                    Magnet
-                </button>
-                <button id="ghostModeBtn" class="btn-ghost">
-                    <i class="fas fa-ghost"></i>
-                    Ghost
-                </button>
-                <button id="batchModeBtn" class="btn-secondary">
-                    <i class="fas fa-layer-group"></i>
-                    Batch
                 </button>
             </div>
         </header>
@@ -1982,244 +916,72 @@
             </section>
 
             <div class="metrics-grid">
-                <div class="card" id="marketBiasCard">
+                <div class="card">
                     <h3>Market Bias</h3>
                     <div class="big-value" id="biasValue">--</div>
-                    <p id="biasDetail">--</p>
                 </div>
 
-                <div class="card" id="ogdCard">
-                    <h3>OGD Gravity <span class="ogd-badge" style="margin-left: 5px;">🔄</span></h3>
-                    <div class="score-display">
-                        <span class="score-num ogd" id="ogdStatus">INACTIVE</span>
-                        <span class="score-sub" id="ogdType">--</span>
-                    </div>
+                <div class="card">
+                    <h3>RSI (6)</h3>
+                    <div class="big-value" id="rsiValue">--</div>
                 </div>
 
-                <div class="card" id="zasCard">
-                    <h3>ZAS Deadstick <span class="zas-badge" style="margin-left: 5px;">💀</span></h3>
-                    <div class="score-display">
-                        <span class="score-num zas" id="zasStatus">INACTIVE</span>
-                        <span class="score-sub" id="zasType">--</span>
-                    </div>
+                <div class="card">
+                    <h3>Trade Flow</h3>
+                    <div class="big-value" id="tradeFlow">--</div>
                 </div>
 
-                <div class="card" id="avcCard">
-                    <h3>AVC Validity <span class="avc-badge" style="margin-left: 5px;">🪤</span></h3>
-                    <div class="score-display">
-                        <span class="score-num avc" id="avcStatus">INACTIVE</span>
-                        <span class="score-sub" id="avcType">--</span>
-                    </div>
-                </div>
-
-                <div class="card" id="atiCard">
-                    <h3>ATI Accumulation <span class="ati-badge" style="margin-left: 5px;">🐋</span></h3>
-                    <div class="score-display">
-                        <span class="score-num ati" id="atiStatus">INACTIVE</span>
-                        <span class="score-sub" id="atiType">--</span>
-                    </div>
-                </div>
-
-                <div class="card" id="amdCard">
-                    <h3>AMD Spoof <span class="amd-badge" style="margin-left: 5px;">🎭</span></h3>
-                    <div class="score-display">
-                        <span class="score-num amd" id="amdStatus">INACTIVE</span>
-                        <span class="score-sub" id="amdType">--</span>
-                    </div>
-                </div>
-
-                <div class="card" id="tdpCard">
-                    <h3>TDP Particle <span class="tdp-badge" style="margin-left: 5px;">☢️</span></h3>
-                    <div class="score-display">
-                        <span class="score-num tdp" id="tdpStatus">INACTIVE</span>
-                        <span class="score-sub" id="tdpType">--</span>
-                    </div>
-                </div>
-
-                <div class="card" id="mwrCard">
-                    <h3>MWR Magnet <span class="mwr-badge" style="margin-left: 5px;">🧲</span></h3>
-                    <div class="score-display">
-                        <span class="score-num magnet" id="mwrStatus">INACTIVE</span>
-                        <span class="score-sub" id="mwrType">--</span>
-                    </div>
-                </div>
-
-                <div class="card" id="lvsCard">
-                    <h3>LVS Suction <span class="lvs-badge" style="margin-left: 5px;">👻</span></h3>
-                    <div class="score-display">
-                        <span class="score-num cyan" id="lvsStatus">INACTIVE</span>
-                        <span class="score-sub" id="lvsType">--</span>
-                    </div>
-                </div>
-
-                <div class="card" id="engineScoreCard">
-                    <h3>Engine Starter</h3>
-                    <div class="score-display">
-                        <span class="score-num" id="engineScore">0</span>
-                        <span class="score-sub" id="engineStatus">INACTIVE</span>
-                    </div>
-                </div>
-
-                <div class="card" id="ttkCard">
-                    <h3>TTK Countdown</h3>
-                    <div class="big-value cyan" id="ttkMinutes">--</div>
-                    <p id="ttkUrgency">--</p>
+                <div class="card">
+                    <h3>OI Δ5m</h3>
+                    <div class="big-value" id="oiDelta">--</div>
                 </div>
             </div>
 
-            <section class="details-section" id="detailsSection">
+            <section class="details-section">
                 <div class="data-row">
                     <span>Orderbook Ratio</span>
                     <span class="val" id="obRatio">--</span>
-                </div>
-                <div class="data-row">
-                    <span>RSI (6)</span>
-                    <span class="val" id="rsiValue">--</span>
                 </div>
                 <div class="data-row">
                     <span>Aggressive Ratio</span>
                     <span class="val" id="aggRatio">--</span>
                 </div>
                 <div class="data-row">
-                    <span>Trade Flow</span>
-                    <span class="val" id="tradeFlow">--</span>
-                </div>
-                <div class="data-row">
                     <span>Liquidation Target</span>
                     <span class="val" id="liqTarget">--</span>
                 </div>
                 <div class="data-row">
-                    <span>LRR Ratio</span>
-                    <span class="val" id="lrrRatio">--</span>
+                    <span>WMI</span>
+                    <span class="val" id="wmiValue">--</span>
                 </div>
                 <div class="data-row">
-                    <span>AV Status</span>
-                    <span class="val" id="avStatus">--</span>
+                    <span>Long Liq</span>
+                    <span class="val" id="longLiq">--</span>
                 </div>
                 <div class="data-row">
-                    <span>OI Δ5m</span>
-                    <span class="val" id="oiDelta">--</span>
+                    <span>Short Liq</span>
+                    <span class="val" id="shortLiq">--</span>
                 </div>
                 <div class="data-row">
-                    <span>Fuel Injection</span>
-                    <span class="val" id="fuelStatus">--</span>
-                </div>
-                <div class="data-row">
-                    <span>DTD Trap</span>
-                    <span class="val" id="dtdStatus">--</span>
-                </div>
-                <div class="data-row">
-                    <span>ODD Status</span>
-                    <span class="val" id="oddStatus">--</span>
+                    <span>TTK</span>
+                    <span class="val" id="ttkMinutes">--</span>
                 </div>
             </section>
 
-            <div class="advanced-grid" id="advancedMetrics">
-                <div class="advanced-card ogd-card" id="ogdDetailCard">
-                    <h4>🔄 Gravity Deflection (OGD)</h4>
-                    <div class="value" id="ogdDetail">--</div>
-                    <div class="desc" id="ogdDesc">--</div>
-                </div>
-                <div class="advanced-card zas-card" id="zasDetailCard">
-                    <h4>💀 Zero Aggression Slaughter</h4>
-                    <div class="value" id="zasDetail">--</div>
-                    <div class="desc" id="zasDesc">--</div>
-                </div>
-                <div class="advanced-card avc-card" id="avcDetailCard">
-                    <h4>🪤 Absorption Validity Check</h4>
-                    <div class="value" id="avcDetail">--</div>
-                    <div class="desc" id="avcDesc">--</div>
-                </div>
-                <div class="advanced-card ati-card" id="atiDetailCard">
-                    <h4>🐋 Temporal Accumulation</h4>
-                    <div class="value" id="atiDetail">--</div>
-                    <div class="desc" id="atiDesc">--</div>
-                </div>
-                <div class="advanced-card amd-card" id="amdDetailCard">
-                    <h4>🎭 Aggression-Mass Divergence</h4>
-                    <div class="value" id="amdDetail">--</div>
-                    <div class="desc" id="amdDesc">--</div>
-                </div>
-                <div class="advanced-card tdp-card" id="tdpDetailCard">
-                    <h4>☢️ The DYL Particle</h4>
-                    <div class="value" id="tdpDetail">--</div>
-                    <div class="desc" id="tdpDesc">--</div>
-                </div>
-                <div class="advanced-card mwr-card" id="mwrDetailCard">
-                    <h4>🧲 Magnet Wall Reversal</h4>
-                    <div class="value" id="mwrDetail">--</div>
-                    <div class="desc" id="mwrDesc">--</div>
-                </div>
-                <div class="advanced-card lvs-card" id="lvsDetailCard">
-                    <h4>👻 Low-Volume Suction</h4>
-                    <div class="value" id="lvsDetail">--</div>
-                    <div class="desc" id="lvsDesc">--</div>
-                </div>
-                <div class="advanced-card">
-                    <h4>Market Phase</h4>
-                    <div class="value" id="marketPhase">--</div>
-                    <div class="desc" id="marketPhaseDesc">--</div>
-                </div>
-                <div class="advanced-card">
-                    <h4>WMI (Whale Mass)</h4>
-                    <div class="value" id="wmiValue">0.0</div>
-                    <div class="desc" id="wmiDesc">Neutral</div>
-                </div>
-                <div class="advanced-card">
-                    <h4>Confidence</h4>
-                    <div class="value" id="confidenceLevel">--</div>
-                    <div class="desc" id="confidenceDesc">--</div>
-                </div>
-                <div class="advanced-card">
-                    <h4>Long Liq</h4>
-                    <div class="value" id="longLiq">--</div>
-                    <div class="desc" id="longLiqDesc">Distance</div>
-                </div>
-                <div class="advanced-card">
-                    <h4>Short Liq</h4>
-                    <div class="value" id="shortLiq">--</div>
-                    <div class="desc" id="shortLiqDesc">Distance</div>
-                </div>
-                <div class="advanced-card">
-                    <h4>ODD Analysis</h4>
-                    <div class="value" id="oddValue">--</div>
-                    <div class="desc" id="oddDesc">--</div>
-                </div>
-            </div>
-
             <footer class="alert-box" id="alertBox">
-                <strong>🔄 OGD ALERT:</strong> <span id="alertMessage">Click Analyze to get signal</span>
+                <strong>ALERT:</strong> <span id="alertMessage">Click Analyze to get signal</span>
             </footer>
-
-            <div class="terminal-output" id="terminalOutput" style="display: none;"></div>
         </div>
 
         <div class="footer">
-            <div>DylPredict V68 • THE GRAVITY DEFLECTOR EDITION • OGD + ZAS + AVC + ATI + AMD + TDP + MWR + LVS</div>
-            <div class="features">
-                <span class="ogd-feature">🔄 OGD Gravity</span>
-                <span class="zas-feature">💀 ZAS Deadstick</span>
-                <span class="avc-feature">🪤 AVC Validity</span>
-                <span class="ati-feature">🐋 ATI Accumulation</span>
-                <span class="amd-feature">🎭 AMD Spoof</span>
-                <span class="tdp-feature">☢️ TDP Particle</span>
-                <span class="mwr-feature">🧲 MWR Magnet</span>
-                <span class="lvs-feature">👻 LVS Suction</span>
-                <span>🛡️ DTD Trap</span>
-                <span>💨 Vacuum</span>
-                <span>🚀 Engine</span>
-                <span>⏱️ TTK</span>
-                <span>⛽ Silent Drive</span>
-                <span>🐋 WMI</span>
-                <span>☢️ 90-Rule</span>
-            </div>
+            DylPredict V68 • The Gravity Deflector Edition
         </div>
     </div>
 
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner">
             <i class="fas fa-sync-alt fa-spin"></i>
-            <p>OGD Scanner Active - Detecting Gravity Deflection...</p>
+            <p>Analyzing...</p>
         </div>
     </div>
 
@@ -2231,15 +993,6 @@
         const elements = {
             symbolSelect: document.getElementById('symbolSelect'),
             analyzeCustomBtn: document.getElementById('analyzeCustomBtn'),
-            ogdModeBtn: document.getElementById('ogdModeBtn'),
-            zasModeBtn: document.getElementById('zasModeBtn'),
-            avcModeBtn: document.getElementById('avcModeBtn'),
-            atiModeBtn: document.getElementById('atiModeBtn'),
-            amdModeBtn: document.getElementById('amdModeBtn'),
-            tdpModeBtn: document.getElementById('tdpModeBtn'),
-            magnetModeBtn: document.getElementById('magnetModeBtn'),
-            ghostModeBtn: document.getElementById('ghostModeBtn'),
-            batchModeBtn: document.getElementById('batchModeBtn'),
             customSymbolInput: document.getElementById('customSymbolInput'),
             loadingOverlay: document.getElementById('loadingOverlay'),
             mainSymbol: document.getElementById('mainSymbol'),
@@ -2252,84 +1005,23 @@
             confidenceFill: document.getElementById('confidenceFill'),
             confidenceLabel: document.getElementById('confidenceLabel'),
             biasValue: document.getElementById('biasValue'),
-            biasDetail: document.getElementById('biasDetail'),
-            ogdStatus: document.getElementById('ogdStatus'),
-            ogdType: document.getElementById('ogdType'),
-            zasStatus: document.getElementById('zasStatus'),
-            zasType: document.getElementById('zasType'),
-            avcStatus: document.getElementById('avcStatus'),
-            avcType: document.getElementById('avcType'),
-            atiStatus: document.getElementById('atiStatus'),
-            atiType: document.getElementById('atiType'),
-            amdStatus: document.getElementById('amdStatus'),
-            amdType: document.getElementById('amdType'),
-            tdpStatus: document.getElementById('tdpStatus'),
-            tdpType: document.getElementById('tdpType'),
-            mwrStatus: document.getElementById('mwrStatus'),
-            mwrType: document.getElementById('mwrType'),
-            lvsStatus: document.getElementById('lvsStatus'),
-            lvsType: document.getElementById('lvsType'),
-            engineScore: document.getElementById('engineScore'),
-            engineStatus: document.getElementById('engineStatus'),
-            ttkMinutes: document.getElementById('ttkMinutes'),
-            ttkUrgency: document.getElementById('ttkUrgency'),
-            obRatio: document.getElementById('obRatio'),
             rsiValue: document.getElementById('rsiValue'),
-            aggRatio: document.getElementById('aggRatio'),
             tradeFlow: document.getElementById('tradeFlow'),
-            liqTarget: document.getElementById('liqTarget'),
-            lrrRatio: document.getElementById('lrrRatio'),
-            avStatus: document.getElementById('avStatus'),
             oiDelta: document.getElementById('oiDelta'),
-            fuelStatus: document.getElementById('fuelStatus'),
-            dtdStatus: document.getElementById('dtdStatus'),
-            oddStatus: document.getElementById('oddStatus'),
-            marketPhase: document.getElementById('marketPhase'),
-            marketPhaseDesc: document.getElementById('marketPhaseDesc'),
+            obRatio: document.getElementById('obRatio'),
+            aggRatio: document.getElementById('aggRatio'),
+            liqTarget: document.getElementById('liqTarget'),
             wmiValue: document.getElementById('wmiValue'),
-            wmiDesc: document.getElementById('wmiDesc'),
-            confidenceLevel: document.getElementById('confidenceLevel'),
-            confidenceDesc: document.getElementById('confidenceDesc'),
             longLiq: document.getElementById('longLiq'),
-            longLiqDesc: document.getElementById('longLiqDesc'),
             shortLiq: document.getElementById('shortLiq'),
-            shortLiqDesc: document.getElementById('shortLiqDesc'),
-            ogdDetail: document.getElementById('ogdDetail'),
-            ogdDesc: document.getElementById('ogdDesc'),
-            zasDetail: document.getElementById('zasDetail'),
-            zasDesc: document.getElementById('zasDesc'),
-            avcDetail: document.getElementById('avcDetail'),
-            avcDesc: document.getElementById('avcDesc'),
-            atiDetail: document.getElementById('atiDetail'),
-            atiDesc: document.getElementById('atiDesc'),
-            amdDetail: document.getElementById('amdDetail'),
-            amdDesc: document.getElementById('amdDesc'),
-            tdpDetail: document.getElementById('tdpDetail'),
-            tdpDesc: document.getElementById('tdpDesc'),
-            mwrDetail: document.getElementById('mwrDetail'),
-            mwrDesc: document.getElementById('mwrDesc'),
-            lvsDetail: document.getElementById('lvsDetail'),
-            lvsDesc: document.getElementById('lvsDesc'),
-            oddValue: document.getElementById('oddValue'),
-            oddDesc: document.getElementById('oddDesc'),
+            ttkMinutes: document.getElementById('ttkMinutes'),
             alertBox: document.getElementById('alertBox'),
             alertMessage: document.getElementById('alertMessage'),
-            phaseBadge: document.getElementById('phaseBadge'),
-            terminalOutput: document.getElementById('terminalOutput'),
-            ogdDetailCard: document.getElementById('ogdDetailCard'),
-            zasDetailCard: document.getElementById('zasDetailCard'),
-            avcDetailCard: document.getElementById('avcDetailCard'),
-            atiDetailCard: document.getElementById('atiDetailCard'),
-            amdDetailCard: document.getElementById('amdDetailCard'),
-            tdpDetailCard: document.getElementById('tdpDetailCard')
+            phaseBadge: document.getElementById('phaseBadge')
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('🔄 DylPredict V68 Gravity Deflector Edition Initialized');
-            console.log('📡 API URL:', API_URL);
             attachEventListeners();
-            
-            // Auto-analyze PIPPINUSDT on load (classic OGD example)
             setTimeout(() => {
                 analyzeSymbol('PIPPINUSDT');
             }, 500);
@@ -2341,79 +1033,7 @@
                 if (symbol) {
                     analyzeSymbol(symbol);
                 } else {
-                    alert('❌ Masukkan symbol coin! Contoh: PIPPINUSDT');
-                }
-            });
-
-            elements.ogdModeBtn.addEventListener('click', () => {
-                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
-                if (symbol) {
-                    ogdScan(symbol);
-                } else {
-                    alert('❌ Masukkan symbol untuk OGD scan!');
-                }
-            });
-
-            elements.zasModeBtn.addEventListener('click', () => {
-                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
-                if (symbol) {
-                    zasScan(symbol);
-                } else {
-                    alert('❌ Masukkan symbol untuk ZAS scan!');
-                }
-            });
-
-            elements.avcModeBtn.addEventListener('click', () => {
-                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
-                if (symbol) {
-                    avcScan(symbol);
-                } else {
-                    alert('❌ Masukkan symbol untuk AVC scan!');
-                }
-            });
-
-            elements.atiModeBtn.addEventListener('click', () => {
-                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
-                if (symbol) {
-                    atiScan(symbol);
-                } else {
-                    alert('❌ Masukkan symbol untuk ATI scan!');
-                }
-            });
-
-            elements.amdModeBtn.addEventListener('click', () => {
-                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
-                if (symbol) {
-                    amdScan(symbol);
-                } else {
-                    alert('❌ Masukkan symbol untuk AMD scan!');
-                }
-            });
-
-            elements.tdpModeBtn.addEventListener('click', () => {
-                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
-                if (symbol) {
-                    tdpScan(symbol);
-                } else {
-                    alert('❌ Masukkan symbol untuk TDP scan!');
-                }
-            });
-
-            elements.magnetModeBtn.addEventListener('click', () => {
-                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
-                if (symbol) {
-                    magnetScan(symbol);
-                } else {
-                    alert('❌ Masukkan symbol untuk magnet scan!');
-                }
-            });
-
-            elements.ghostModeBtn.addEventListener('click', () => {
-                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
-                if (symbol) {
-                    ghostScan(symbol);
-                } else {
-                    alert('❌ Masukkan symbol untuk ghost scan!');
+                    alert('Please enter a symbol!');
                 }
             });
 
@@ -2426,19 +1046,12 @@
             elements.symbolSelect.addEventListener('change', (e) => {
                 elements.customSymbolInput.value = e.target.value;
             });
-
-            elements.batchModeBtn.addEventListener('click', () => {
-                const symbols = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'PIPPINUSDT', 'POWERUSDT', 'SAHARAUSDT', 'ROBOUSDT', 'PHAUSDT', 'SIRENUSDT', 'ARCUSDT'];
-                analyzeBatch(symbols);
-            });
         }
 
         async function analyzeSymbol(symbol) {
-            showLoading('Analyzing with V68 Gravity Deflector...');
+            showLoading();
             
             try {
-                console.log(`🔄 Analyzing ${symbol} with V68 OGD + ZAS + AVC + ATI...`);
-                
                 const timestamp = Date.now();
                 const url = `${API_URL}/analyze/${symbol}?t=${timestamp}`;
                 
@@ -2463,412 +1076,7 @@
                 }
                 
             } catch (error) {
-                console.error('❌ Analysis Failed:', error);
-                showError(error.message);
-            } finally {
-                hideLoading();
-            }
-        }
-
-        async function ogdScan(symbol) {
-            showLoading('🔄 OGD SCAN ACTIVE - Detecting Gravity Deflection...');
-            
-            try {
-                console.log(`🔄 OGD scanning ${symbol} for gravity deflection...`);
-                
-                const timestamp = Date.now();
-                const url = `${API_URL}/ogd/${symbol}?t=${timestamp}`;
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache'
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.success && result.data) {
-                    updateOgdDisplay(result.data);
-                } else {
-                    // Fallback to regular analyze
-                    analyzeSymbol(symbol);
-                }
-                
-            } catch (error) {
-                console.error('❌ OGD Scan Failed:', error);
-                analyzeSymbol(symbol); // Fallback
-            } finally {
-                hideLoading();
-            }
-        }
-
-        async function zasScan(symbol) {
-            showLoading('💀 ZAS SCAN ACTIVE - Hunting for Deadstick...');
-            
-            try {
-                console.log(`💀 ZAS scanning ${symbol} for zero aggression...`);
-                
-                const timestamp = Date.now();
-                const url = `${API_URL}/zas/${symbol}?t=${timestamp}`;
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache'
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.success && result.data) {
-                    updateZasDisplay(result.data);
-                } else {
-                    // Fallback to regular analyze
-                    analyzeSymbol(symbol);
-                }
-                
-            } catch (error) {
-                console.error('❌ ZAS Scan Failed:', error);
-                analyzeSymbol(symbol); // Fallback
-            } finally {
-                hideLoading();
-            }
-        }
-
-        async function avcScan(symbol) {
-            showLoading('🪤 AVC SCAN ACTIVE - Validating Absorption...');
-            
-            try {
-                console.log(`🪤 AVC scanning ${symbol} for exit liquidity...`);
-                
-                const timestamp = Date.now();
-                const url = `${API_URL}/avc/${symbol}?t=${timestamp}`;
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache'
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.success && result.data) {
-                    updateAvcDisplay(result.data);
-                } else {
-                    // Fallback to regular analyze
-                    analyzeSymbol(symbol);
-                }
-                
-            } catch (error) {
-                console.error('❌ AVC Scan Failed:', error);
-                analyzeSymbol(symbol); // Fallback
-            } finally {
-                hideLoading();
-            }
-        }
-
-        async function atiScan(symbol) {
-            showLoading('🐋 ATI SCAN ACTIVE - Detecting Whale Accumulation...');
-            
-            try {
-                console.log(`🐋 ATI scanning ${symbol} for temporal accumulation...`);
-                
-                const timestamp = Date.now();
-                const url = `${API_URL}/ati/${symbol}?t=${timestamp}`;
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache'
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.success && result.data) {
-                    updateAtiDisplay(result.data);
-                } else {
-                    // Fallback to regular analyze
-                    analyzeSymbol(symbol);
-                }
-                
-            } catch (error) {
-                console.error('❌ ATI Scan Failed:', error);
-                analyzeSymbol(symbol); // Fallback
-            } finally {
-                hideLoading();
-            }
-        }
-
-        async function amdScan(symbol) {
-            showLoading('🎭 AMD SCAN ACTIVE - Hunting for WMI Spoofing...');
-            
-            try {
-                console.log(`🎭 AMD scanning ${symbol} for spoof detection...`);
-                
-                const timestamp = Date.now();
-                const url = `${API_URL}/amd/${symbol}?t=${timestamp}`;
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache'
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.success && result.data) {
-                    updateAmdDisplay(result.data);
-                } else {
-                    // Fallback to regular analyze
-                    analyzeSymbol(symbol);
-                }
-                
-            } catch (error) {
-                console.error('❌ AMD Scan Failed:', error);
-                analyzeSymbol(symbol); // Fallback
-            } finally {
-                hideLoading();
-            }
-        }
-
-        async function tdpScan(symbol) {
-            showLoading('☢️ TDP SCAN ACTIVE - Looking for God Candle...');
-            
-            try {
-                console.log(`☢️ TDP scanning ${symbol} for DYL Particle...`);
-                
-                const timestamp = Date.now();
-                const url = `${API_URL}/tdp/${symbol}?t=${timestamp}`;
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache'
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.success && result.data) {
-                    updateTdpDisplay(result.data);
-                } else {
-                    // Fallback to regular analyze
-                    analyzeSymbol(symbol);
-                }
-                
-            } catch (error) {
-                console.error('❌ TDP Scan Failed:', error);
-                analyzeSymbol(symbol); // Fallback
-            } finally {
-                hideLoading();
-            }
-        }
-
-        async function magnetScan(symbol) {
-            showLoading('🧲 MAGNET SCAN ACTIVE - Hunting for Fake Ceilings...');
-            
-            try {
-                console.log(`🧲 Magnet scanning ${symbol} for MWR...`);
-                
-                const timestamp = Date.now();
-                const url = `${API_URL}/magnet/${symbol}?t=${timestamp}`;
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache'
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.success && result.data) {
-                    updateMagnetDisplay(result.data);
-                } else {
-                    // Fallback to regular analyze
-                    analyzeSymbol(symbol);
-                }
-                
-            } catch (error) {
-                console.error('❌ Magnet Scan Failed:', error);
-                analyzeSymbol(symbol); // Fallback
-            } finally {
-                hideLoading();
-            }
-        }
-
-        async function ghostScan(symbol) {
-            showLoading('👻 GHOST SCAN ACTIVE - Hunting for Low-Volume Suction...');
-            
-            try {
-                console.log(`👻 Ghost scanning ${symbol} for LVS...`);
-                
-                const timestamp = Date.now();
-                const url = `${API_URL}/ghost/${symbol}?t=${timestamp}`;
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache'
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.success && result.data) {
-                    updateGhostDisplay(result.data);
-                } else {
-                    // Fallback to regular analyze
-                    analyzeSymbol(symbol);
-                }
-                
-            } catch (error) {
-                console.error('❌ Ghost Scan Failed:', error);
-                analyzeSymbol(symbol); // Fallback
-            } finally {
-                hideLoading();
-            }
-        }
-
-        async function analyzeBatch(symbols) {
-            showLoading('Batch scanning with OGD + ZAS + AVC + ATI + AMD + TDP...');
-            
-            try {
-                console.log(`🔄 Batch scanning: ${symbols.join(', ')}`);
-                
-                let summary = "🔄 OGD + ZAS + AVC + ATI + AMD + TDP SCAN SUMMARY - V68 GRAVITY DEFLECTOR:\n\n";
-                let ogdCount = 0;
-                let zasCount = 0;
-                let avcCount = 0;
-                let atiCount = 0;
-                let amdCount = 0;
-                let tdpCount = 0;
-                let magnetCount = 0;
-                let ghostCount = 0;
-                
-                for (const symbol of symbols) {
-                    try {
-                        const response = await fetch(`${API_URL}/analyze/${symbol}?t=${Date.now()}`);
-                        const result = await response.json();
-                        
-                        if (result.success && result.data) {
-                            const data = result.data;
-                            const isOgd = data.ogd?.is_deflected ? '🔄 OGD!' : '      ';
-                            const isZas = data.zas?.is_dead ? '💀 ZAS!' : '      ';
-                            const isAvc = data.avc?.is_trap ? '🪤 AVC!' : '      ';
-                            const isAti = data.ati?.is_accumulating ? '🐋 ATI!' : '      ';
-                            const isAmd = data.amd?.is_spoof ? '🎭 AMD!' : '      ';
-                            const isTdp = data.tdp?.is_active ? '☢️ TDP!' : '      ';
-                            const isMagnet = data.mwr?.is_magnet ? '🧲 MAGNET!' : '      ';
-                            const isGhost = data.lvs?.is_suction ? '👻 GHOST!' : '      ';
-                            const ogdType = data.ogd?.bias || '';
-                            const zasType = data.zas?.bias || '';
-                            const avcType = data.avc?.trap_type || '';
-                            const atiType = data.ati?.bias || '';
-                            const amdType = data.amd?.action || '';
-                            const tdpBias = data.tdp?.bias || '';
-                            const magnetType = data.mwr?.magnet_type || '';
-                            const ghostType = data.lvs?.suction_type || '';
-                            const engineIcon = data.starter?.is_starting ? '🚀' : '⏳';
-                            
-                            if (data.ogd?.is_deflected) ogdCount++;
-                            if (data.zas?.is_dead) zasCount++;
-                            if (data.avc?.is_trap) avcCount++;
-                            if (data.ati?.is_accumulating) atiCount++;
-                            if (data.amd?.is_spoof) amdCount++;
-                            if (data.tdp?.is_active) tdpCount++;
-                            if (data.mwr?.is_magnet) magnetCount++;
-                            if (data.lvs?.is_suction) ghostCount++;
-                            
-                            summary += `${isOgd} ${isZas} ${isAvc} ${isAti} ${isAmd} ${isTdp} ${isMagnet} ${isGhost} ${engineIcon} ${symbol}: ${data.bias || 'NEUTRAL'} (${data.confidence || 'LOW'})\n`;
-                            if (data.ogd?.is_deflected) {
-                                summary += `      └─ 🔄 ${data.ogd.reason}\n`;
-                            }
-                            if (data.zas?.is_dead) {
-                                summary += `      └─ 💀 ${data.zas.reason}\n`;
-                            }
-                            if (data.avc?.is_trap) {
-                                summary += `      └─ 🪤 ${data.avc.reason}\n`;
-                            }
-                            if (data.ati?.is_accumulating) {
-                                summary += `      └─ 🐋 ${data.ati.reason}\n`;
-                            }
-                            if (data.amd?.is_spoof) {
-                                summary += `      └─ 🎭 ${data.amd.reason}\n`;
-                            }
-                            if (data.tdp?.is_active) {
-                                summary += `      └─ ☢️ ${data.tdp.reason}\n`;
-                            }
-                            if (data.mwr?.is_magnet) {
-                                summary += `      └─ 🧲 ${data.mwr.reason}\n`;
-                            }
-                            if (data.lvs?.is_suction) {
-                                summary += `      └─ 👻 ${data.lvs.reason}\n`;
-                            }
-                        } else {
-                            summary += `${symbol}: FAILED\n`;
-                        }
-                    } catch (e) {
-                        summary += `${symbol}: ERROR\n`;
-                    }
-                }
-                
-                summary += `\n🔄 OGD Gravity Deflections: ${ogdCount}`;
-                summary += `\n💀 ZAS Deadsticks Found: ${zasCount}`;
-                summary += `\n🪤 AVC Exit Traps Found: ${avcCount}`;
-                summary += `\n🐋 ATI Accumulations Found: ${atiCount}`;
-                summary += `\n🎭 AMD Spoofs Found: ${amdCount}`;
-                summary += `\n☢️ TDP Particles Found: ${tdpCount}`;
-                summary += `\n🧲 Magnet Walls Found: ${magnetCount}`;
-                summary += `\n👻 Ghost Markets Found: ${ghostCount}`;
-                alert(summary);
-                
-            } catch (error) {
-                console.error('❌ Batch Analysis Failed:', error);
+                console.error('Analysis Failed:', error);
                 showError(error.message);
             } finally {
                 hideLoading();
@@ -2876,26 +1084,21 @@
         }
 
         function updateDisplay(data) {
-            console.log('🔄 Updating display with V68 data:', data);
-            
-            // Basic info
             elements.mainSymbol.textContent = data.symbol || 'PIPPINUSDT';
-            elements.headerTime.textContent = data.timestamp || data.time || new Date().toLocaleTimeString();
+            elements.headerTime.textContent = data.timestamp || new Date().toLocaleTimeString();
             elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}`;
             
-            // Bias and signal
-            const bias = data.bias || data.opinion || 'NEUTRAL';
+            const bias = data.bias || 'NEUTRAL';
             elements.opinionMain.textContent = bias;
             
-            // Check for OGD, ZAS, AVC, ATI, AMD, TDP, MWR, LVS
-            const ogdActive = data.ogd?.is_deflected && data.ogd?.confidence in ['SUPREME', 'HIGH'];
-            const zasActive = data.zas?.is_dead && data.zas?.confidence in ['ABSOLUTE', 'SUPREME'];
-            const avcActive = data.avc?.is_trap && data.avc?.confidence === 'SUPREME';
-            const atiActive = data.ati?.is_accumulating && data.ati?.confidence in ['SUPREME', 'ABSOLUTE'];
-            const amdActive = data.amd?.is_spoof && data.amd?.confidence === 'SUPREME';
-            const tdpActive = data.tdp?.is_active || false;
-            const mwrActive = data.mwr?.is_magnet || false;
-            const lvsActive = data.lvs?.is_suction || false;
+            const ogdActive = data.ogd?.is_deflected;
+            const zasActive = data.zas?.is_dead;
+            const avcActive = data.avc?.is_trap;
+            const atiActive = data.ati?.is_accumulating;
+            const amdActive = data.amd?.is_spoof;
+            const tdpActive = data.tdp?.is_active;
+            const mwrActive = data.mwr?.is_magnet;
+            const lvsActive = data.lvs?.is_suction;
             
             if (ogdActive) {
                 elements.signalHero.className = 'signal-hero ogd-active';
@@ -2917,90 +1120,55 @@
                 elements.signalHero.className = `signal-hero ${bias.toLowerCase()}`;
             }
             
-            // Phase badge
             const phase = data.market_phase || 'NEUTRAL';
             if (ogdActive) {
-                elements.phaseBadge.textContent = `🔄 OGD ${data.ogd?.bias || 'DEFLECTION'}`;
+                elements.phaseBadge.textContent = `OGD ${data.ogd?.bias || 'DEFLECTION'}`;
                 elements.phaseBadge.className = 'phase-badge ogd';
             } else if (zasActive) {
-                elements.phaseBadge.textContent = `💀 ZAS ${data.zas?.bias || 'DEADSTICK'}`;
+                elements.phaseBadge.textContent = `ZAS ${data.zas?.bias || 'DEADSTICK'}`;
                 elements.phaseBadge.className = 'phase-badge zas';
             } else if (avcActive) {
-                elements.phaseBadge.textContent = `🪤 ${data.avc?.trap_type || 'EXIT TRAP'}`;
+                elements.phaseBadge.textContent = `AVC ${data.avc?.trap_type || 'TRAP'}`;
                 elements.phaseBadge.className = 'phase-badge avc';
             } else if (atiActive) {
-                elements.phaseBadge.textContent = `🐋 ATI ${data.ati?.bias || 'ACCUMULATION'}`;
+                elements.phaseBadge.textContent = `ATI ${data.ati?.bias || 'ACCUMULATION'}`;
                 elements.phaseBadge.className = 'phase-badge ati';
             } else if (amdActive) {
-                elements.phaseBadge.textContent = `🎭 AMD ${data.amd?.action?.replace('FORCE_', '') || 'SPOOF'}`;
+                elements.phaseBadge.textContent = `AMD ${data.amd?.action || 'SPOOF'}`;
                 elements.phaseBadge.className = 'phase-badge amd';
             } else if (tdpActive) {
-                elements.phaseBadge.textContent = `☢️ TDP ${data.tdp?.bias || 'ACTIVE'}`;
+                elements.phaseBadge.textContent = `TDP ${data.tdp?.bias || 'ACTIVE'}`;
                 elements.phaseBadge.className = 'phase-badge tdp';
             } else if (mwrActive) {
-                elements.phaseBadge.textContent = `🧲 ${data.mwr?.magnet_type || 'MAGNET'}`;
+                elements.phaseBadge.textContent = `MWR ${data.mwr?.magnet_type || 'MAGNET'}`;
                 elements.phaseBadge.className = 'phase-badge mwr';
             } else if (lvsActive) {
-                elements.phaseBadge.textContent = `👻 ${data.lvs?.suction_type || 'GHOST'}`;
+                elements.phaseBadge.textContent = `LVS ${data.lvs?.suction_type || 'GHOST'}`;
                 elements.phaseBadge.className = 'phase-badge lvs';
             } else {
                 elements.phaseBadge.textContent = phase;
                 elements.phaseBadge.className = 'phase-badge';
-                
-                if (phase.includes('NUCLEAR')) {
-                    elements.phaseBadge.classList.add('nuclear');
-                } else if (data.dtd?.is_trap) {
-                    elements.phaseBadge.classList.add('dtd');
-                } else if (data.lrr?.is_trap || phase.includes('LRR')) {
-                    elements.phaseBadge.classList.add('lrr');
-                } else if (data.av?.is_market_slam || phase.includes('SLAM')) {
-                    elements.phaseBadge.classList.add('slam');
-                } else if (phase.includes('PNR')) {
-                    elements.phaseBadge.classList.add('pnr');
-                } else if (phase.includes('MAGNET') || phase.includes('FLASH')) {
-                    elements.phaseBadge.classList.add('magnet');
-                } else if (phase.includes('LAUNCH') || phase.includes('ENGINE')) {
-                    elements.phaseBadge.classList.add('engine');
-                } else if (phase.includes('WARMING')) {
-                    elements.phaseBadge.classList.add('warming');
-                }
             }
             
-            // Strategy and reason
-            let strategy = 'GRAVITY DEFLECTOR';
-            if (ogdActive) strategy = 'OGD GRAVITY DEFLECTION';
-            else if (zasActive) strategy = 'ZAS DEADSTICK SLAUGHTER';
-            else if (avcActive) strategy = 'AVC EXIT LIQUIDITY TRAP';
-            else if (atiActive) strategy = 'ATI TEMPORAL ACCUMULATION';
-            else if (amdActive) strategy = 'AMD SPOOF DETECTOR';
-            else if (tdpActive) strategy = 'THE DYL PARTICLE';
-            else if (mwrActive) strategy = 'MAGNET WALL REVERSAL';
-            else if (lvsActive) strategy = 'GHOST WHISPERER';
-            else strategy = phase;
-            
-            elements.strategyDisplay.textContent = `STRATEGY: ${strategy}`;
+            elements.strategyDisplay.textContent = `STRATEGY: ${phase}`;
             elements.phaseReason.textContent = data.phase_reason || data.reason || '--';
             
-            // Confidence
             let confidenceWidth = 0;
             let confidenceText = 'CONFIDENCE: --';
             const confidence = data.confidence || 'LOW';
             
             if (confidence === 'ABSOLUTE') {
                 confidenceWidth = 100;
-                confidenceText = 'CONFIDENCE: ABSOLUTE ☢️☢️☢️';
+                confidenceText = 'CONFIDENCE: ABSOLUTE';
             } else if (confidence === 'SUPREME') {
                 confidenceWidth = 95;
-                confidenceText = 'CONFIDENCE: SUPREME 🔥🔥🔥';
-            } else if (confidence === 'VERY_HIGH') {
-                confidenceWidth = 90;
-                confidenceText = 'CONFIDENCE: VERY HIGH 🔥🔥🔥';
+                confidenceText = 'CONFIDENCE: SUPREME';
             } else if (confidence === 'HIGH') {
                 confidenceWidth = 75;
-                confidenceText = 'CONFIDENCE: HIGH 🔥🔥';
+                confidenceText = 'CONFIDENCE: HIGH';
             } else if (confidence === 'MEDIUM') {
                 confidenceWidth = 50;
-                confidenceText = 'CONFIDENCE: MEDIUM 🔥';
+                confidenceText = 'CONFIDENCE: MEDIUM';
             } else if (confidence === 'LOW') {
                 confidenceWidth = 25;
                 confidenceText = 'CONFIDENCE: LOW';
@@ -3009,133 +1177,25 @@
             elements.confidenceFill.style.width = `${confidenceWidth}%`;
             elements.confidenceLabel.textContent = confidenceText;
             
-            // Market Bias
             elements.biasValue.textContent = bias;
             elements.biasValue.className = `big-value ${bias.toLowerCase()}`;
-            elements.biasDetail.textContent = data.phase_reason?.split('.')[0] || '--';
-            
-            // OGD Status
-            elements.ogdStatus.textContent = ogdActive ? 'ACTIVE' : 'INACTIVE';
-            elements.ogdStatus.className = `score-num ${ogdActive ? 'ogd' : ''}`;
-            elements.ogdType.textContent = data.ogd?.bias || 'No deflection';
-            
-            // OGD Detail Card
-            elements.ogdDetail.textContent = ogdActive ? data.ogd?.bias : 'NO DEFLECTION';
-            elements.ogdDetail.className = `value ${ogdActive ? 'ogd' : ''}`;
-            elements.ogdDesc.textContent = ogdActive ? (data.ogd?.reason || 'Gravity deflection detected') : 'No gravity deflection';
-            
-            // ZAS Status
-            elements.zasStatus.textContent = zasActive ? 'ACTIVE' : 'INACTIVE';
-            elements.zasStatus.className = `score-num ${zasActive ? 'zas' : ''}`;
-            elements.zasType.textContent = data.zas?.bias || 'No deadstick';
-            
-            // ZAS Detail Card
-            elements.zasDetail.textContent = zasActive ? data.zas?.bias : 'NO DEADSTICK';
-            elements.zasDetail.className = `value ${zasActive ? 'zas' : ''}`;
-            elements.zasDesc.textContent = zasActive ? (data.zas?.reason || 'Deadstick detected') : 'No zero aggression';
-            
-            // AVC Status
-            elements.avcStatus.textContent = avcActive ? 'ACTIVE' : 'INACTIVE';
-            elements.avcStatus.className = `score-num ${avcActive ? 'avc' : ''}`;
-            elements.avcType.textContent = data.avc?.trap_type || 'No trap';
-            
-            // AVC Detail Card
-            elements.avcDetail.textContent = avcActive ? data.avc?.trap_type : 'NO TRAP';
-            elements.avcDetail.className = `value ${avcActive ? 'avc' : ''}`;
-            elements.avcDesc.textContent = avcActive ? (data.avc?.reason || 'Exit liquidity trap') : 'No absorption trap';
-            
-            // ATI Status
-            elements.atiStatus.textContent = atiActive ? 'ACTIVE' : 'INACTIVE';
-            elements.atiStatus.className = `score-num ${atiActive ? 'ati' : ''}`;
-            elements.atiType.textContent = data.ati?.bias || 'No accumulation';
-            
-            // ATI Detail Card
-            elements.atiDetail.textContent = atiActive ? `${data.ati?.bias} (${data.ati?.accumulation_minutes || 0}m)` : 'NO ACCUMULATION';
-            elements.atiDetail.className = `value ${atiActive ? 'ati' : ''}`;
-            elements.atiDesc.textContent = atiActive ? (data.ati?.reason || 'Temporal accumulation') : 'No whale loading';
-            
-            // AMD Status
-            elements.amdStatus.textContent = amdActive ? 'ACTIVE' : 'INACTIVE';
-            elements.amdStatus.className = `score-num ${amdActive ? 'amd' : ''}`;
-            elements.amdType.textContent = data.amd?.action || 'No spoof';
-            
-            // AMD Detail Card
-            elements.amdDetail.textContent = amdActive ? data.amd?.action : 'NO SPOOF';
-            elements.amdDetail.className = `value ${amdActive ? 'amd' : ''}`;
-            elements.amdDesc.textContent = amdActive ? (data.amd?.reason || 'Spoof detected') : 'No aggression-mass divergence';
-            
-            // TDP Status
-            elements.tdpStatus.textContent = tdpActive ? 'ACTIVE' : 'INACTIVE';
-            elements.tdpStatus.className = `score-num ${tdpActive ? 'tdp' : ''}`;
-            elements.tdpType.textContent = tdpActive ? data.tdp?.bias : 'No particle';
-            
-            // TDP Detail Card
-            elements.tdpDetail.textContent = tdpActive ? `${data.tdp?.bias} CANDLE` : 'NO PARTICLE';
-            elements.tdpDetail.className = `value ${tdpActive ? 'tdp' : ''}`;
-            elements.tdpDesc.textContent = tdpActive ? (data.tdp?.reason || 'God candle detected') : 'OI < 5% or WMI < 90';
-            
-            // MWR Status
-            elements.mwrStatus.textContent = mwrActive ? 'ACTIVE' : 'INACTIVE';
-            elements.mwrStatus.className = `score-num ${mwrActive ? 'magnet' : ''}`;
-            elements.mwrType.textContent = data.mwr?.magnet_type || 'No magnet';
-            
-            // MWR Detail Card
-            elements.mwrDetail.textContent = mwrActive ? data.mwr?.magnet_type : 'NO MAGNET';
-            elements.mwrDetail.className = `value ${mwrActive ? 'magnet' : ''}`;
-            elements.mwrDesc.textContent = mwrActive ? (data.mwr?.reason || 'Magnet wall detected') : 'No fake ceiling detected';
-            
-            // LVS Status
-            elements.lvsStatus.textContent = lvsActive ? 'ACTIVE' : 'INACTIVE';
-            elements.lvsStatus.className = `score-num ${lvsActive ? 'cyan' : ''}`;
-            elements.lvsType.textContent = data.lvs?.suction_type || 'No suction';
-            
-            // LVS Detail Card
-            elements.lvsDetail.textContent = lvsActive ? data.lvs?.suction_type : 'NO GHOST';
-            elements.lvsDetail.className = `value ${lvsActive ? 'cyan' : ''}`;
-            elements.lvsDesc.textContent = lvsActive ? (data.lvs?.reason || 'Ghost market detected') : 'No low-volume suction';
-            
-            // Engine Starter
-            const engineScore = data.starter?.score || 0;
-            const engineActive = data.starter?.is_starting ? 'ACTIVE' : 'INACTIVE';
-            elements.engineScore.textContent = engineScore;
-            elements.engineScore.className = `score-num ${engineActive === 'ACTIVE' ? 'cyan' : ''}`;
-            elements.engineStatus.textContent = engineActive;
-            
-            // TTK Countdown
-            const ttkMinutes = data.ttk?.estimated_minutes || '--';
-            const ttkUrgency = data.ttk?.urgency || '--';
-            elements.ttkMinutes.textContent = ttkMinutes !== '--' ? ttkMinutes + 'm' : '--';
-            elements.ttkUrgency.textContent = ttkUrgency;
-            elements.ttkUrgency.className = ttkUrgency === 'IMMINENT' ? 'red' : ttkUrgency === 'HIGH' ? 'orange' : '';
-            
-            // WMI
-            const wmi = data.wmi_ratio || 0;
-            elements.wmiValue.textContent = wmi.toFixed(1);
-            elements.wmiValue.className = `big-value ${Math.abs(wmi) > 50 ? 'cyan' : ''}`;
-            elements.wmiDesc.textContent = wmi > 0 ? 'Bull Whale (Short Liq)' : wmi < 0 ? 'Bear Whale (Long Liq)' : 'Neutral';
-            
-            // ODD Status
-            const oddStatus = data.odd?.status || 'NORMAL';
-            elements.oddStatus.textContent = oddStatus;
-            elements.oddStatus.className = `val ${oddStatus.includes('HEAVY') ? 'magnet' : oddStatus.includes('THINNING') ? 'green' : ''}`;
-            
-            elements.oddValue.textContent = oddStatus;
-            elements.oddValue.className = oddStatus.includes('HEAVY') ? 'magnet' : '';
-            elements.oddDesc.textContent = data.odd?.reason || 'Normal orderbook';
-            
-            // Details
-            elements.obRatio.textContent = `${(data.ob_ratio || 1.0).toFixed(2)}x`;
-            elements.obRatio.className = `val ${(data.ob_ratio || 1) > 1.5 ? 'green' : (data.ob_ratio || 1) < 0.6 ? 'red' : ''}`;
             
             const rsi6 = data.rsi6 || 50;
             elements.rsiValue.textContent = rsi6.toFixed(1);
-            elements.rsiValue.className = `val ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}`;
+            elements.rsiValue.className = `big-value ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}`;
+            
+            elements.tradeFlow.textContent = `${(data.trade_flow || 1.0).toFixed(2)}x`;
+            elements.tradeFlow.className = `big-value ${(data.trade_flow || 1) < 0.5 ? 'cyan' : (data.trade_flow || 1) > 2 ? 'warning' : ''}`;
+            
+            const oiDelta = data.oi_delta_5m || 0;
+            elements.oiDelta.textContent = oiDelta.toFixed(2) + '%';
+            elements.oiDelta.className = `big-value ${oiDelta > 2 ? 'green' : oiDelta < -2 ? 'red' : ''}`;
+            
+            elements.obRatio.textContent = `${(data.ob_ratio || 1.0).toFixed(2)}x`;
+            elements.obRatio.className = `val ${(data.ob_ratio || 1) > 1.5 ? 'green' : (data.ob_ratio || 1) < 0.6 ? 'red' : ''}`;
             
             elements.aggRatio.textContent = `${(data.aggressive_ratio || 1.0).toFixed(2)}x`;
             elements.aggRatio.className = `val ${(data.aggressive_ratio || 1) < 0.3 ? 'zas' : (data.aggressive_ratio || 1) > 2 ? 'warning' : ''}`;
-            
-            elements.tradeFlow.textContent = `${(data.trade_flow || 1.0).toFixed(2)}x`;
-            elements.tradeFlow.className = `val ${(data.trade_flow || 1) < 0.5 ? 'cyan' : (data.trade_flow || 1) > 2 ? 'warning' : ''}`;
             
             const longLiq = data.long_liq || 0;
             const shortLiq = data.short_liq || 0;
@@ -3143,443 +1203,52 @@
             elements.liqTarget.textContent = nearestLiq;
             elements.liqTarget.className = `val ${longLiq < shortLiq ? 'red' : 'green'}`;
             
-            // LRR
-            const lrrRatio = data.lrr?.ratio || 0;
-            elements.lrrRatio.textContent = lrrRatio.toFixed(2) + 'x';
-            elements.lrrRatio.className = `val ${lrrRatio > 10 ? 'orange' : ''}`;
-            
-            // AV
-            const avStatus = data.av?.status || 'STABLE';
-            elements.avStatus.textContent = avStatus;
-            elements.avStatus.className = `val ${avStatus.includes('BULL') ? 'green' : avStatus.includes('BEAR') ? 'red' : ''}`;
-            
-            // OI Delta
-            const oiDelta = data.oi_delta_5m || 0;
-            elements.oiDelta.textContent = oiDelta.toFixed(2) + '%';
-            elements.oiDelta.className = `val ${oiDelta > 2 ? 'green' : oiDelta < -2 ? 'red' : ''}`;
-            
-            // Fuel Injection
-            const fuelReady = data.ttk?.fuel_ready || 'NO';
-            elements.fuelStatus.textContent = fuelReady;
-            elements.fuelStatus.className = `val ${fuelReady === 'YES' ? 'green' : ''}`;
-            
-            // DTD Status
-            const dtdActive = data.dtd?.is_trap ? 'ACTIVE' : 'INACTIVE';
-            elements.dtdStatus.textContent = dtdActive;
-            elements.dtdStatus.className = `val ${dtdActive === 'ACTIVE' ? 'purple' : ''}`;
-            
-            // Advanced metrics
-            elements.marketPhase.textContent = phase;
-            elements.marketPhaseDesc.textContent = data.phase_confidence || '--';
-            
-            elements.confidenceLevel.textContent = confidence;
-            elements.confidenceLevel.className = confidence === 'ABSOLUTE' ? 'red' : 
-                                                confidence === 'SUPREME' ? 'green' : 
-                                                confidence === 'HIGH' ? 'warning' : '';
+            const wmi = data.wmi_ratio || 0;
+            elements.wmiValue.textContent = wmi.toFixed(1);
+            elements.wmiValue.className = `val ${Math.abs(wmi) > 50 ? 'cyan' : ''}`;
             
             elements.longLiq.textContent = longLiq ? `${longLiq.toFixed(2)}%` : '--';
             elements.longLiq.className = longLiq < 0.5 ? 'red' : '';
-            elements.longLiqDesc.textContent = longLiq < 0.3 ? '☢️ PNR!' : longLiq < 0.5 ? '⚠️ CRITICAL!' : 'Distance';
             
             elements.shortLiq.textContent = shortLiq ? `${shortLiq.toFixed(2)}%` : '--';
             elements.shortLiq.className = shortLiq < 0.5 ? 'green' : '';
-            elements.shortLiqDesc.textContent = shortLiq < 0.3 ? '☢️ PNR!' : shortLiq < 0.5 ? '⚠️ CRITICAL!' : 'Distance';
             
-            // Alert Box
+            const ttk = data.ttk?.estimated_minutes || '--';
+            elements.ttkMinutes.textContent = ttk !== '--' ? ttk + 'm' : '--';
+            
             let alertMsg = data.liquidation_alert || data.reason || 'No alert';
             if (ogdActive) {
-                alertMsg = `🔄 OGD DEFLECTION: ${data.ogd?.reason || 'Gravity reversal detected - LONG bias!'}`;
+                alertMsg = `OGD: ${data.ogd?.reason || 'Gravity deflection'}`;
                 elements.alertBox.className = 'alert-box ogd-alert';
             } else if (zasActive) {
-                alertMsg = `💀 ZAS DEADSTICK: ${data.zas?.reason || 'Zero aggression detected - SHORT bias!'}`;
+                alertMsg = `ZAS: ${data.zas?.reason || 'Deadstick detected'}`;
                 elements.alertBox.className = 'alert-box zas-alert';
             } else if (avcActive) {
-                alertMsg = `🪤 AVC EXIT TRAP: ${data.avc?.reason || 'Exit liquidity detected - SHORT bias!'}`;
+                alertMsg = `AVC: ${data.avc?.reason || 'Exit liquidity trap'}`;
                 elements.alertBox.className = 'alert-box avc-alert';
             } else if (atiActive) {
-                alertMsg = `🐋 ATI ACCUMULATION: ${data.ati?.reason || 'Whale patience loading - LONG bias!'}`;
+                alertMsg = `ATI: ${data.ati?.reason || 'Whale accumulation'}`;
                 elements.alertBox.className = 'alert-box ati-alert';
             } else if (amdActive) {
-                alertMsg = `🎭 AMD SPOOF: ${data.amd?.reason || 'WMI Bullish Palsu - Target Short!'}`;
+                alertMsg = `AMD: ${data.amd?.reason || 'Spoof detected'}`;
                 elements.alertBox.className = 'alert-box amd-alert';
             } else if (tdpActive) {
-                alertMsg = `☢️ TDP ACTIVE: ${data.tdp?.reason || 'God Candle Detected - Absolute Bias!'}`;
+                alertMsg = `TDP: ${data.tdp?.reason || 'God candle'}`;
                 elements.alertBox.className = 'alert-box tdp-alert';
             } else if (mwrActive) {
-                alertMsg = `🧲 MAGNET WALL: ${data.mwr?.reason || 'Fake Ceiling Detected - Target Long!'}`;
+                alertMsg = `MWR: ${data.mwr?.reason || 'Magnet wall'}`;
                 elements.alertBox.className = 'alert-box mwr-alert';
             } else if (lvsActive) {
-                alertMsg = `👻 GHOST WHISPERER: ${data.lvs?.reason || 'Low-Volume Suction Detected!'}`;
+                alertMsg = `LVS: ${data.lvs?.reason || 'Ghost market'}`;
                 elements.alertBox.className = 'alert-box lvs-alert';
-            } else if (data.dtd?.is_trap) {
-                alertMsg = `🛡️ DTD ACTIVE: ${data.dtd?.reason || 'Divergence Trap Detected!'}`;
-                elements.alertBox.className = 'alert-box dtd-alert';
-            } else if (data.starter?.is_starting) {
-                alertMsg = `🚀 ENGINE STARTED: ${data.starter.reasons[0] || 'Fuel injection detected'}`;
-                elements.alertBox.className = 'alert-box engine';
-            } else if (data.ttk?.urgency === 'IMMINENT') {
-                alertMsg = `⏱️ TTK IMMINENT: ${data.ttk.estimated_minutes}m remaining!`;
-                elements.alertBox.className = 'alert-box';
-            } else if (data.market_phase === 'WARMING_UP') {
-                alertMsg = `🔥 PASSIVE LOADING: OI +${data.oi_delta_5m?.toFixed(1)}%`;
-                elements.alertBox.className = 'alert-box warming';
-            } else if (phase.includes('NUCLEAR')) {
-                elements.alertBox.className = 'alert-box nuclear';
-            } else if (data.lrr?.is_trap) {
-                elements.alertBox.className = 'alert-box lrr';
-            } else if (data.av?.is_market_slam) {
-                elements.alertBox.className = 'alert-box slam';
             } else {
                 elements.alertBox.className = 'alert-box';
             }
             elements.alertMessage.textContent = alertMsg;
-            
-            // Entry ready
-            if (data.entry_ready) {
-                elements.phaseBadge.textContent = '✅ READY TO ENTRY!';
-            }
-            
-            showTerminalOutput(data);
         }
 
-        function updateOgdDisplay(data) {
-            // Special display for OGD scan results
-            if (data.ogd && data.ogd.is_deflected) {
-                elements.alertBox.className = 'alert-box ogd-alert';
-                elements.alertMessage.textContent = `🔄 OGD DEFLECTION: ${data.ogd.reason}`;
-                elements.phaseBadge.textContent = `🔄 ${data.ogd.bias}`;
-                elements.phaseBadge.classList.add('ogd');
-                
-                // Highlight OGD card
-                elements.ogdDetail.textContent = data.ogd.bias;
-                elements.ogdDetail.className = 'value ogd';
-                elements.ogdDesc.textContent = data.ogd.reason;
-                elements.ogdStatus.textContent = 'ACTIVE';
-                elements.ogdStatus.className = 'score-num ogd';
-                elements.ogdType.textContent = data.ogd.bias;
-            }
-            
-            // Update regular display with the data
-            updateDisplay(data);
-        }
-
-        function updateZasDisplay(data) {
-            // Special display for ZAS scan results
-            if (data.zas && data.zas.is_dead) {
-                elements.alertBox.className = 'alert-box zas-alert';
-                elements.alertMessage.textContent = `💀 ZAS DEADSTICK: ${data.zas.reason}`;
-                elements.phaseBadge.textContent = `💀 ${data.zas.bias}`;
-                elements.phaseBadge.classList.add('zas');
-                
-                // Highlight ZAS card
-                elements.zasDetail.textContent = data.zas.bias;
-                elements.zasDetail.className = 'value zas';
-                elements.zasDesc.textContent = data.zas.reason;
-                elements.zasStatus.textContent = 'ACTIVE';
-                elements.zasStatus.className = 'score-num zas';
-                elements.zasType.textContent = data.zas.bias;
-            }
-            
-            // Update regular display with the data
-            updateDisplay(data);
-        }
-
-        function updateAvcDisplay(data) {
-            // Special display for AVC scan results
-            if (data.avc && data.avc.is_trap) {
-                elements.alertBox.className = 'alert-box avc-alert';
-                elements.alertMessage.textContent = `🪤 AVC TRAP: ${data.avc.reason}`;
-                elements.phaseBadge.textContent = `🪤 ${data.avc.trap_type}`;
-                elements.phaseBadge.classList.add('avc');
-                
-                // Highlight AVC card
-                elements.avcDetail.textContent = data.avc.trap_type;
-                elements.avcDetail.className = 'value avc';
-                elements.avcDesc.textContent = data.avc.reason;
-                elements.avcStatus.textContent = 'ACTIVE';
-                elements.avcStatus.className = 'score-num avc';
-                elements.avcType.textContent = data.avc.trap_type;
-            }
-            
-            // Update regular display with the data
-            updateDisplay(data);
-        }
-
-        function updateAtiDisplay(data) {
-            // Special display for ATI scan results
-            if (data.ati && data.ati.is_accumulating) {
-                elements.alertBox.className = 'alert-box ati-alert';
-                elements.alertMessage.textContent = `🐋 ATI ACCUMULATION: ${data.ati.reason}`;
-                elements.phaseBadge.textContent = `🐋 ${data.ati.bias}`;
-                elements.phaseBadge.classList.add('ati');
-                
-                // Highlight ATI card
-                elements.atiDetail.textContent = `${data.ati.bias} (${data.ati.accumulation_minutes || 0}m)`;
-                elements.atiDetail.className = 'value ati';
-                elements.atiDesc.textContent = data.ati.reason;
-                elements.atiStatus.textContent = 'ACTIVE';
-                elements.atiStatus.className = 'score-num ati';
-                elements.atiType.textContent = data.ati.bias;
-            }
-            
-            // Update regular display with the data
-            updateDisplay(data);
-        }
-
-        function updateAmdDisplay(data) {
-            // Special display for AMD scan results
-            if (data.amd && data.amd.is_spoof) {
-                elements.alertBox.className = 'alert-box amd-alert';
-                elements.alertMessage.textContent = `🎭 AMD SPOOF: ${data.amd.reason}`;
-                elements.phaseBadge.textContent = `🎭 ${data.amd.action}`;
-                elements.phaseBadge.classList.add('amd');
-                
-                // Highlight AMD card
-                elements.amdDetail.textContent = data.amd.action;
-                elements.amdDetail.className = 'value amd';
-                elements.amdDesc.textContent = data.amd.reason;
-                elements.amdStatus.textContent = 'ACTIVE';
-                elements.amdStatus.className = 'score-num amd';
-                elements.amdType.textContent = data.amd.action;
-            }
-            
-            // Update regular display with the data
-            updateDisplay(data);
-        }
-
-        function updateTdpDisplay(data) {
-            // Special display for TDP scan results
-            if (data.tdp && data.tdp.is_active) {
-                elements.alertBox.className = 'alert-box tdp-alert';
-                elements.alertMessage.textContent = `☢️ TDP ACTIVE: ${data.tdp.reason}`;
-                elements.phaseBadge.textContent = `☢️ TDP ${data.tdp.bias}`;
-                elements.phaseBadge.classList.add('tdp');
-                
-                // Highlight TDP card
-                elements.tdpDetail.textContent = `${data.tdp.bias} CANDLE`;
-                elements.tdpDetail.className = 'value tdp';
-                elements.tdpDesc.textContent = data.tdp.reason;
-                elements.tdpStatus.textContent = 'ACTIVE';
-                elements.tdpStatus.className = 'score-num tdp';
-                elements.tdpType.textContent = data.tdp.bias;
-            }
-            
-            // Update regular display with the data
-            updateDisplay(data);
-        }
-
-        function updateMagnetDisplay(data) {
-            // Special display for magnet scan results
-            if (data.mwr && data.mwr.is_magnet) {
-                elements.alertBox.className = 'alert-box mwr-alert';
-                elements.alertMessage.textContent = `🧲 MAGNET WALL: ${data.mwr.reason}`;
-                elements.phaseBadge.textContent = `🧲 ${data.mwr.magnet_type}`;
-                elements.phaseBadge.classList.add('mwr');
-                
-                // Highlight MWR card
-                elements.mwrDetail.textContent = data.mwr.magnet_type;
-                elements.mwrDetail.className = 'value magnet';
-                elements.mwrDesc.textContent = data.mwr.reason;
-                elements.mwrStatus.textContent = 'ACTIVE';
-                elements.mwrStatus.className = 'score-num magnet';
-                elements.mwrType.textContent = data.mwr.magnet_type;
-            }
-            
-            // Update regular display with the data
-            updateDisplay(data);
-        }
-
-        function updateGhostDisplay(data) {
-            // Special display for ghost scan results
-            if (data.lvs && data.lvs.is_suction) {
-                elements.alertBox.className = 'alert-box lvs-alert';
-                elements.alertMessage.textContent = `👻 GHOST MARKET: ${data.lvs.reason}`;
-                elements.phaseBadge.textContent = `👻 ${data.lvs.suction_type}`;
-                elements.phaseBadge.classList.add('lvs');
-                
-                // Highlight LVS card
-                elements.lvsDetail.textContent = data.lvs.suction_type;
-                elements.lvsDetail.className = 'value cyan';
-                elements.lvsDesc.textContent = data.lvs.reason;
-                elements.lvsStatus.textContent = 'ACTIVE';
-                elements.lvsStatus.className = 'score-num cyan';
-                elements.lvsType.textContent = data.lvs.suction_type;
-            }
-            
-            // Update regular display with the data
-            updateDisplay(data);
-        }
-
-        function showTerminalOutput(data) {
-            if (!elements.terminalOutput) return;
-            
-            elements.terminalOutput.style.display = 'block';
-            
-            const longLiq = data.long_liq || 0;
-            const shortLiq = data.short_liq || 0;
-            const tradeFlow = data.trade_flow || 1.0;
-            const aggressiveRatio = data.aggressive_ratio || 1.0;
-            const rsi6 = data.rsi6 || 50;
-            const obRatio = data.ob_ratio || 1.0;
-            const oiDelta = data.oi_delta_5m || 0;
-            
-            // V68 metrics
-            const ogdActive = data.ogd?.is_deflected ? 'YES' : 'NO';
-            const ogdBias = data.ogd?.bias || 'NONE';
-            const ogdReason = data.ogd?.reason || 'No deflection';
-            const zasActive = data.zas?.is_dead ? 'YES' : 'NO';
-            const zasBias = data.zas?.bias || 'NONE';
-            const zasReason = data.zas?.reason || 'No deadstick';
-            const avcActive = data.avc?.is_trap ? 'YES' : 'NO';
-            const avcType = data.avc?.trap_type || 'NONE';
-            const avcReason = data.avc?.reason || 'No trap';
-            const atiActive = data.ati?.is_accumulating ? 'YES' : 'NO';
-            const atiBias = data.ati?.bias || 'NONE';
-            const atiReason = data.ati?.reason || 'No accumulation';
-            const amdActive = data.amd?.is_spoof ? 'YES' : 'NO';
-            const amdAction = data.amd?.action || 'NONE';
-            const amdReason = data.amd?.reason || 'No divergence';
-            const tdpActive = data.tdp?.is_active ? 'YES' : 'NO';
-            const tdpBias = data.tdp?.bias || 'NONE';
-            const tdpReason = data.tdp?.reason || 'No particle';
-            const mwrActive = data.mwr?.is_magnet ? 'YES' : 'NO';
-            const mwrType = data.mwr?.magnet_type || 'NONE';
-            const mwrReason = data.mwr?.reason || 'No magnet';
-            const lvsActive = data.lvs?.is_suction ? 'YES' : 'NO';
-            const lvsType = data.lvs?.suction_type || 'NONE';
-            const lvsReason = data.lvs?.reason || 'No suction';
-            const dtdActive = data.dtd?.is_trap ? 'YES' : 'NO';
-            const dtdType = data.dtd?.trap_type || 'NONE';
-            const dtdReason = data.dtd?.reason || 'No trap';
-            const engineActive = data.starter?.is_starting ? 'YES' : 'NO';
-            const engineScore = data.starter?.score || 0;
-            const engineReasons = data.starter?.reasons ? data.starter.reasons.join(' | ') : 'None';
-            const ttkMinutes = data.ttk?.estimated_minutes || '--';
-            const ttkUrgency = data.ttk?.urgency || '--';
-            const fuelReady = data.ttk?.fuel_ready || 'NO';
-            const wmi = data.wmi_ratio || 0;
-            const lrrTrap = data.lrr?.is_trap ? 'YES' : 'NO';
-            const lrrRatio = data.lrr?.ratio || 0;
-            const avStatus = data.av?.status || 'STABLE';
-            const avAccel = data.av?.acceleration || 0;
-            const marketSlam = data.av?.is_market_slam ? '💥 YES' : 'NO';
-            const oddStatus = data.odd?.status || 'NORMAL';
-            const oddReason = data.odd?.reason || 'Normal orderbook';
-            const bidVolume = data.odd?.bid_volume_near || 0;
-            const askVolume = data.odd?.ask_volume_near || 0;
-            
-            elements.terminalOutput.innerHTML = `
-                <div class="header-line">================================================================================</div>
-                <div class="line"><span class="label">SYMBOL :</span> <span class="value">${data.symbol || '--'}</span></div>
-                <div class="line"><span class="label">TIME   :</span> <span class="value">${data.timestamp || data.time || '--'}</span></div>
-                <div class="line"><span class="label">PRICE  :</span> <span class="value">$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}</span></div>
-                <div class="header-line">================================================================================</div>
-                
-                <div class="section-title ogd-section">🔄 V68 GRAVITY DEFLECTION</div>
-                <div class="line"><span class="label">🔄 OGD Active :</span> <span class="value ${ogdActive === 'YES' ? 'ogd' : ''}">${ogdActive} (${ogdBias})</span></div>
-                <div class="line"><span class="label">📋 OGD Reason :</span> <span class="value ogd">${ogdReason}</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title zas-section">💀 V67 ZERO AGGRESSION SLAUGHTER</div>
-                <div class="line"><span class="label">💀 ZAS Active :</span> <span class="value ${zasActive === 'YES' ? 'zas' : ''}">${zasActive} (${zasBias})</span></div>
-                <div class="line"><span class="label">📋 ZAS Reason :</span> <span class="value zas">${zasReason}</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title avc-section">🪤 V67 ABSORPTION VALIDITY CHECK</div>
-                <div class="line"><span class="label">🪤 AVC Active :</span> <span class="value ${avcActive === 'YES' ? 'avc' : ''}">${avcActive} (${avcType})</span></div>
-                <div class="line"><span class="label">📋 AVC Reason :</span> <span class="value avc">${avcReason}</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title ati-section">🐋 V66 TEMPORAL ACCUMULATION INDEX</div>
-                <div class="line"><span class="label">🐋 ATI Active :</span> <span class="value ${atiActive === 'YES' ? 'ati' : ''}">${atiActive} (${atiBias})</span></div>
-                <div class="line"><span class="label">📋 ATI Reason :</span> <span class="value ati">${atiReason}</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title amd-section">🎭 V65 AGGRESSION-MASS DIVERGENCE</div>
-                <div class="line"><span class="label">🎭 AMD Active :</span> <span class="value ${amdActive === 'YES' ? 'amd' : ''}">${amdActive} (${amdAction})</span></div>
-                <div class="line"><span class="label">📋 AMD Reason :</span> <span class="value amd">${amdReason}</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title tdp-section">☢️ V64 THE DYL PARTICLE</div>
-                <div class="line"><span class="label">☢️ TDP Active :</span> <span class="value ${tdpActive === 'YES' ? 'tdp' : ''}">${tdpActive} (${tdpBias})</span></div>
-                <div class="line"><span class="label">📋 TDP Reason :</span> <span class="value tdp">${tdpReason}</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title mwr-section">🧲 V62 MAGNET WALL REVERSAL</div>
-                <div class="line"><span class="label">🧲 MWR Active :</span> <span class="value ${mwrActive === 'YES' ? 'magnet' : ''}">${mwrActive} (${mwrType})</span></div>
-                <div class="line"><span class="label">📋 MWR Reason :</span> <span class="value magnet">${mwrReason}</span></div>
-                <div class="line"><span class="label">📊 ODD Status :</span> <span class="value ${oddStatus.includes('HEAVY') ? 'magnet' : oddStatus.includes('THINNING') ? 'green' : ''}">${oddStatus}</span></div>
-                <div class="line"><span class="label">📊 ODD Reason :</span> <span class="value">${oddReason}</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title lvs-section">👻 V61 GHOST WHISPERER</div>
-                <div class="line"><span class="label">👻 LVS Active :</span> <span class="value ${lvsActive === 'YES' ? 'cyan' : ''}">${lvsActive} (${lvsType})</span></div>
-                <div class="line"><span class="label">📋 LVS Reason :</span> <span class="value cyan">${lvsReason}</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title dtd-section">🛡️ V60 DIVERGENCE TRAP</div>
-                <div class="line"><span class="label">🛡️ DTD Active :</span> <span class="value ${dtdActive === 'YES' ? 'purple' : ''}">${dtdActive} (${dtdType})</span></div>
-                <div class="line"><span class="label">📋 DTD Reason :</span> <span class="value purple">${dtdReason}</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title">🚀 ENGINE METRICS</div>
-                <div class="line"><span class="label">⚙️ Engine Starter :</span> <span class="value ${engineActive === 'YES' ? 'cyan' : ''}">${engineActive} (Score: ${engineScore})</span></div>
-                <div class="line"><span class="label">📋 Starter Reasons :</span> <span class="value">${engineReasons}</span></div>
-                <div class="line"><span class="label">⏱️ TTK Countdown :</span> <span class="value ${ttkUrgency === 'IMMINENT' ? 'red' : ttkUrgency === 'HIGH' ? 'orange' : ''}">${ttkMinutes} min (${ttkUrgency})</span></div>
-                <div class="line"><span class="label">⛽ Fuel Ready :</span> <span class="value ${fuelReady === 'YES' ? 'green' : ''}">${fuelReady}</span></div>
-                <div class="line"><span class="label">🐋 WMI :</span> <span class="value ${Math.abs(wmi) > 50 ? 'cyan' : ''}">${wmi.toFixed(1)} (${wmi > 0 ? 'Bull Whale' : wmi < 0 ? 'Bear Whale' : 'Neutral'})</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title">🛡️ SAFETY METRICS</div>
-                <div class="line"><span class="label">⚠️ LRR Trap :</span> <span class="value ${lrrTrap === 'YES' ? 'orange' : ''}">${lrrTrap} (Ratio ${lrrRatio}x)</span></div>
-                <div class="line"><span class="label">📈 AV Status :</span> <span class="value ${avStatus.includes('BULL') ? 'green' : avStatus.includes('BEAR') ? 'red' : ''}">${avStatus} (Acc: ${avAccel.toFixed(3)})</span></div>
-                <div class="line"><span class="label">💥 Market Slam :</span> <span class="value ${marketSlam.includes('YES') ? 'pink' : ''}">${marketSlam}</span></div>
-                <div class="line"><span class="label">☢️ 90-Rule :</span> <span class="value">${data.rsi6 > 90 ? 'ACTIVE (FORBID LONG)' : data.rsi6 < 10 ? 'ACTIVE (FORBID SHORT)' : 'INACTIVE'}</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title">📊 KEY METRICS</div>
-                <div class="line"><span class="label">🎯 Long Liq :</span> <span class="value ${longLiq < 0.5 ? 'red' : ''}">${longLiq.toFixed(2)}%</span></div>
-                <div class="line"><span class="label">🎯 Short Liq :</span> <span class="value ${shortLiq < 0.5 ? 'green' : ''}">${shortLiq.toFixed(2)}%</span></div>
-                <div class="line"><span class="label">📊 Trade Flow :</span> <span class="value ${tradeFlow > 1.5 ? 'green' : tradeFlow < 0.6 ? 'cyan' : ''}">${tradeFlow.toFixed(2)}x</span></div>
-                <div class="line"><span class="label">⚔️ Aggressive Ratio :</span> <span class="value ${aggressiveRatio > 1.5 ? 'green' : aggressiveRatio < 0.5 ? 'zas' : ''}">${aggressiveRatio.toFixed(2)}x</span></div>
-                <div class="line"><span class="label">📈 RSI(6) :</span> <span class="value ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}">${rsi6.toFixed(1)}</span></div>
-                <div class="line"><span class="label">📚 OB Ratio :</span> <span class="value ${obRatio > 1.5 ? 'green' : obRatio < 0.6 ? 'red' : ''}">${obRatio.toFixed(2)}x</span></div>
-                <div class="line"><span class="label">📈 OI Δ5m :</span> <span class="value ${oiDelta > 2 ? 'green' : oiDelta < -2 ? 'red' : ''}">${oiDelta.toFixed(2)}%</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title">🧠 ADVANCED ANALYSIS</div>
-                <div class="line"><span class="label">📈 Confidence :</span> <span class="value">${data.confidence || 'LOW'}</span></div>
-                <div class="line"><span class="label">🎯 Nearest Liq :</span> <span class="value">${data.nearest_liquidity || '--'}</span></div>
-                <div class="line"><span class="label">📊 5m Change :</span> <span class="value ${(data.change_5m || 0) > 0 ? 'green' : 'red'}">${(data.change_5m || 0).toFixed(2)}%</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title">🎯 TRADING SIGNAL</div>
-                <div class="line"><span class="label">${ogdActive ? '🔄' : zasActive ? '💀' : avcActive ? '🪤' : atiActive ? '🐋' : amdActive ? '🎭' : tdpActive ? '☢️' : mwrActive ? '🧲' : lvsActive ? '👻' : data.bias === 'LONG' ? '🟢' : data.bias === 'SHORT' ? '🔴' : '⚪'} BIAS :</span> <span class="value ${ogdActive ? 'ogd' : zasActive ? 'zas' : avcActive ? 'avc' : atiActive ? 'ati' : amdActive ? 'amd' : tdpActive ? 'tdp' : mwrActive ? 'magnet' : lvsActive ? 'cyan' : data.bias === 'LONG' ? 'green' : data.bias === 'SHORT' ? 'red' : ''}">${data.bias || 'NEUTRAL'} ${ogdActive ? '(OGD MODE)' : zasActive ? '(ZAS MODE)' : avcActive ? '(AVC MODE)' : atiActive ? '(ATI MODE)' : amdActive ? '(AMD MODE)' : tdpActive ? '(TDP MODE)' : mwrActive ? '(MAGNET MODE)' : lvsActive ? '(GHOST MODE)' : ''}</span></div>
-                <div class="line"><span class="label">🔥 CONFIDENCE :</span> <span class="value ${data.confidence === 'ABSOLUTE' ? 'red' : data.confidence === 'SUPREME' ? 'green' : data.confidence === 'HIGH' ? 'yellow' : ''}">${data.confidence || 'LOW'}</span></div>
-                <div class="line"><span class="label">⏳ ENTRY STATUS :</span> <span class="value ${data.entry_ready ? 'green' : ''}">${data.entry_status || 'WAITING'}</span></div>
-                
-                <div class="header-line">================================================================================</div>
-                <div class="line"><span class="value ${ogdActive ? 'ogd' : zasActive ? 'zas' : avcActive ? 'avc' : atiActive ? 'ati' : amdActive ? 'amd' : tdpActive ? 'tdp' : mwrActive ? 'magnet' : lvsActive ? 'cyan' : ''}">${ogdActive ? data.ogd?.reason : zasActive ? data.zas?.reason : avcActive ? data.avc?.reason : atiActive ? data.ati?.reason : amdActive ? data.amd?.reason : tdpActive ? data.tdp?.reason : mwrActive ? data.mwr?.reason : lvsActive ? data.lvs?.reason : data.liquidation_alert || data.reason || 'No analysis reason'}</span></div>
-                <div class="header-line">================================================================================</div>
-            `;
-        }
-
-        function showLoading(message = 'Analyzing with V68 Gravity Deflector...') {
+        function showLoading() {
             elements.loadingOverlay.style.display = 'flex';
-            document.querySelector('.loading-spinner p').textContent = message;
         }
 
         function hideLoading() {
@@ -3587,24 +1256,9 @@
         }
 
         function showError(message) {
-            console.error('❌', message);
-            elements.alertMessage.textContent = `❌ ERROR: ${message}`;
+            elements.alertMessage.textContent = `ERROR: ${message}`;
             elements.alertBox.className = 'alert-box nuclear';
         }
-
-        window.dylpredict = {
-            analyze: analyzeSymbol,
-            ogdScan: ogdScan,
-            zasScan: zasScan,
-            avcScan: avcScan,
-            atiScan: atiScan,
-            amdScan: amdScan,
-            tdpScan: tdpScan,
-            magnetScan: magnetScan,
-            ghostScan: ghostScan,
-            batch: analyzeBatch,
-            version: 'V68 Gravity Deflector'
-        };
     </script>
 </body>
 </html>
