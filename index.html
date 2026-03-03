@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DylPredict V58 • The Engine Starter Edition</title>
+    <title>DylPredict V61 • The Ghost Whisperer Edition</title>
     
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -134,6 +134,17 @@
 
         .sub-version {
             font-size: 10px;
+            background: rgba(138, 109, 233, 0.15);
+            padding: 2px 8px;
+            border-radius: 100px;
+            margin-left: 5px;
+            color: var(--purple);
+            border: 1px solid rgba(138, 109, 233, 0.2);
+            font-weight: 500;
+        }
+
+        .lvs-badge {
+            font-size: 10px;
             background: rgba(6, 182, 212, 0.15);
             padding: 2px 8px;
             border-radius: 100px;
@@ -141,6 +152,12 @@
             color: var(--cyan);
             border: 1px solid rgba(6, 182, 212, 0.2);
             font-weight: 500;
+            animation: pulseLVS 2s infinite;
+        }
+
+        @keyframes pulseLVS {
+            0%, 100% { opacity: 0.8; box-shadow: 0 0 5px var(--cyan); }
+            50% { opacity: 1; box-shadow: 0 0 15px var(--cyan); }
         }
 
         .symbol-selector {
@@ -231,6 +248,24 @@
         .btn-secondary:hover {
             background: rgba(138, 109, 233, 0.3);
             transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            background: rgba(6, 182, 212, 0.2);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: var(--cyan);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 14px;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(6, 182, 212, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--cyan);
         }
 
         .dashboard-container {
@@ -327,10 +362,21 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
+        .phase-badge.lvs {
+            background: linear-gradient(135deg, var(--cyan), #0891b2);
+            box-shadow: 0 0 25px var(--cyan);
+            animation: pulseLVS 1s infinite;
+        }
+
         .phase-badge.nuclear {
             background: linear-gradient(135deg, #f44336, #d32f2f);
             box-shadow: 0 0 25px #f44336;
             animation: pulseNuclear 1s infinite;
+        }
+
+        .phase-badge.dtd {
+            background: linear-gradient(135deg, var(--purple), #6a4fc9);
+            box-shadow: 0 0 25px var(--purple);
         }
 
         .phase-badge.lrr {
@@ -402,6 +448,11 @@
             to { transform: rotate(360deg); }
         }
 
+        .signal-hero.lvs-active {
+            border-bottom: 5px solid var(--cyan);
+            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.3);
+        }
+
         .signal-hero.bullish { 
             border-bottom: 5px solid var(--green);
             box-shadow: 0 8px 32px rgba(2, 192, 118, 0.15);
@@ -419,6 +470,11 @@
 
         .signal-hero.neutral { 
             border-bottom: 5px solid var(--text-dim);
+        }
+
+        .signal-hero.lvs-active .main-opinion {
+            color: var(--cyan);
+            text-shadow: 0 0 30px var(--cyan);
         }
 
         .signal-hero.bullish .main-opinion {
@@ -452,6 +508,10 @@
             animation: glowPulseRed 3s infinite;
         }
 
+        .lvs-active .main-opinion {
+            animation: glowPulseCyan 2s infinite;
+        }
+
         @keyframes glowPulse {
             0%, 100% { text-shadow: 0 0 20px var(--green); }
             50% { text-shadow: 0 0 40px var(--green); }
@@ -460,6 +520,11 @@
         @keyframes glowPulseRed {
             0%, 100% { text-shadow: 0 0 20px var(--red); }
             50% { text-shadow: 0 0 40px var(--red); }
+        }
+
+        @keyframes glowPulseCyan {
+            0%, 100% { text-shadow: 0 0 20px var(--cyan); }
+            50% { text-shadow: 0 0 50px var(--cyan); }
         }
 
         .strategy-name {
@@ -536,6 +601,11 @@
         .signal-hero.pending .confidence-bar .fill {
             background: var(--yellow);
             box-shadow: 0 0 15px var(--yellow);
+        }
+
+        .signal-hero.lvs-active .confidence-bar .fill {
+            background: var(--cyan);
+            box-shadow: 0 0 15px var(--cyan);
         }
 
         @keyframes shimmer {
@@ -716,6 +786,15 @@
             color: var(--text-dim);
         }
 
+        .lvs-card {
+            border-left: 3px solid var(--cyan);
+            background: rgba(6, 182, 212, 0.05);
+        }
+
+        .lvs-card .value {
+            color: var(--cyan);
+        }
+
         .alert-box {
             background: rgba(240, 185, 11, 0.08);
             backdrop-filter: blur(5px);
@@ -742,10 +821,26 @@
             transform: rotate(10deg);
         }
 
+        .alert-box.lvs-alert {
+            border-color: var(--cyan);
+            border-left-color: var(--cyan);
+            background: rgba(6, 182, 212, 0.08);
+        }
+
+        .alert-box.lvs-alert::before {
+            content: '👻';
+        }
+
         .alert-box.nuclear {
             border-color: #f44336;
             border-left-color: #f44336;
             background: rgba(244, 67, 54, 0.08);
+        }
+
+        .alert-box.dtd-alert {
+            border-color: var(--purple);
+            border-left-color: var(--purple);
+            background: rgba(138, 109, 233, 0.08);
         }
 
         .alert-box.lrr {
@@ -788,8 +883,16 @@
             color: var(--yellow);
         }
 
+        .alert-box.lvs-alert strong {
+            color: var(--cyan);
+        }
+
         .alert-box.nuclear strong {
             color: #f44336;
+        }
+
+        .alert-box.dtd-alert strong {
+            color: var(--purple);
         }
 
         .alert-box.lrr strong {
@@ -847,6 +950,16 @@
             letter-spacing: 1px;
             border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
             padding-bottom: 5px;
+        }
+
+        .terminal-output .lvs-section {
+            color: var(--cyan);
+            border-bottom-color: var(--cyan);
+        }
+
+        .terminal-output .dtd-section {
+            color: var(--purple);
+            border-bottom-color: var(--purple);
         }
 
         .terminal-output .line {
@@ -910,6 +1023,13 @@
             color: var(--cyan);
         }
 
+        .features .lvs-feature {
+            background: rgba(6, 182, 212, 0.2);
+            color: var(--cyan);
+            font-weight: 600;
+            animation: pulseLVS 2s infinite;
+        }
+
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -965,7 +1085,7 @@
                 flex-direction: column;
             }
 
-            #customSymbolInput, .glass-select, .btn-primary {
+            #customSymbolInput, .glass-select, .btn-primary, .btn-secondary, .btn-ghost {
                 width: 100%;
             }
 
@@ -1051,12 +1171,12 @@
     <div class="container">
         <header>
             <div class="logo">
-                <h1>DYLPREDICT<span class="version">V58</span><span class="sub-version">ENGINE STARTER</span></h1>
+                <h1>DYLPREDICT<span class="version">V61</span><span class="sub-version">GHOST WHISPERER</span><span class="lvs-badge">LVS</span></h1>
             </div>
             
             <div class="symbol-selector">
                 <div class="input-controls">
-                    <input type="text" id="customSymbolInput" placeholder="Symbol" value="BTCUSDT">
+                    <input type="text" id="customSymbolInput" placeholder="Symbol" value="SIRENUSDT">
                     <select id="symbolSelect" class="glass-select">
                         <option value="BTCUSDT">BTCUSDT</option>
                         <option value="ETHUSDT">ETHUSDT</option>
@@ -1064,7 +1184,8 @@
                         <option value="SOLUSDT">SOLUSDT</option>
                         <option value="DOGEUSDT">DOGEUSDT</option>
                         <option value="ARCUSDT">ARCUSDT</option>
-                        <option value="SIRENUSDT">SIRENUSDT</option>
+                        <option value="SIRENUSDT" selected>SIRENUSDT</option>
+                        <option value="POWERUSDT">POWERUSDT</option>
                         <option value="PIPPINUSDT">PIPPINUSDT</option>
                         <option value="KITEUSDT">KITEUSDT</option>
                         <option value="ALICEUSDT">ALICEUSDT</option>
@@ -1073,6 +1194,10 @@
                 <button id="analyzeCustomBtn" class="btn-primary">
                     <i class="fas fa-chart-line"></i>
                     Analyze
+                </button>
+                <button id="ghostModeBtn" class="btn-ghost">
+                    <i class="fas fa-ghost"></i>
+                    Ghost Scan
                 </button>
                 <button id="batchModeBtn" class="btn-secondary">
                     <i class="fas fa-layer-group"></i>
@@ -1085,7 +1210,7 @@
             <div class="header-card">
                 <div class="phase-badge" id="phaseBadge">NEUTRAL</div>
                 <div class="symbol-info">
-                    <h1 class="symbol" id="mainSymbol">BTCUSDT</h1>
+                    <h1 class="symbol" id="mainSymbol">SIRENUSDT</h1>
                     <span class="timestamp" id="headerTime">--:--:--.---</span>
                 </div>
                 <div class="price-section">
@@ -1111,6 +1236,14 @@
                     <p id="biasDetail">--</p>
                 </div>
 
+                <div class="card" id="lvsCard">
+                    <h3>LVS Suction <span class="lvs-badge" style="margin-left: 5px;">👻</span></h3>
+                    <div class="score-display">
+                        <span class="score-num cyan" id="lvsStatus">INACTIVE</span>
+                        <span class="score-sub" id="lvsType">--</span>
+                    </div>
+                </div>
+
                 <div class="card" id="engineScoreCard">
                     <h3>Engine Starter</h3>
                     <div class="score-display">
@@ -1124,12 +1257,6 @@
                     <div class="big-value cyan" id="ttkMinutes">--</div>
                     <p id="ttkUrgency">--</p>
                 </div>
-
-                <div class="card" id="wmiCard">
-                    <h3>WMI</h3>
-                    <div class="big-value" id="wmiValue">0.0</div>
-                    <p id="wmiDesc">Whale Mass Index</p>
-                </div>
             </div>
 
             <section class="details-section" id="detailsSection">
@@ -1140,6 +1267,14 @@
                 <div class="data-row">
                     <span>RSI (6)</span>
                     <span class="val" id="rsiValue">--</span>
+                </div>
+                <div class="data-row">
+                    <span>Aggressive Ratio</span>
+                    <span class="val" id="aggRatio">--</span>
+                </div>
+                <div class="data-row">
+                    <span>Trade Flow</span>
+                    <span class="val" id="tradeFlow">--</span>
                 </div>
                 <div class="data-row">
                     <span>Liquidation Target</span>
@@ -1161,13 +1296,27 @@
                     <span>Fuel Injection</span>
                     <span class="val" id="fuelStatus">--</span>
                 </div>
+                <div class="data-row">
+                    <span>DTD Trap</span>
+                    <span class="val" id="dtdStatus">--</span>
+                </div>
             </section>
 
             <div class="advanced-grid" id="advancedMetrics">
+                <div class="advanced-card lvs-card" id="lvsDetailCard">
+                    <h4>👻 Low-Volume Suction</h4>
+                    <div class="value" id="lvsDetail">--</div>
+                    <div class="desc" id="lvsDesc">--</div>
+                </div>
                 <div class="advanced-card">
                     <h4>Market Phase</h4>
                     <div class="value" id="marketPhase">--</div>
                     <div class="desc" id="marketPhaseDesc">--</div>
+                </div>
+                <div class="advanced-card">
+                    <h4>WMI (Whale Mass)</h4>
+                    <div class="value" id="wmiValue">0.0</div>
+                    <div class="desc" id="wmiDesc">Neutral</div>
                 </div>
                 <div class="advanced-card">
                     <h4>Confidence</h4>
@@ -1187,22 +1336,22 @@
             </div>
 
             <footer class="alert-box" id="alertBox">
-                <strong>🚀 ENGINE ALERT:</strong> <span id="alertMessage">Click Analyze to get signal</span>
+                <strong>👻 GHOST ALERT:</strong> <span id="alertMessage">Click Analyze to get signal</span>
             </footer>
 
             <div class="terminal-output" id="terminalOutput" style="display: none;"></div>
         </div>
 
         <div class="footer">
-            <div>DylPredict V58 • THE ENGINE STARTER EDITION • Anti-Neutral</div>
+            <div>DylPredict V61 • THE GHOST WHISPERER EDITION • Low-Volume Suction (LVS)</div>
             <div class="features">
+                <span class="lvs-feature">👻 LVS Suction</span>
+                <span>🛡️ DTD Trap</span>
+                <span>💨 Vacuum</span>
                 <span>🚀 Engine Starter</span>
-                <span>⏱️ TTK Countdown</span>
-                <span>⛽ Fuel Injection</span>
-                <span>🐋 Whale Clustering</span>
-                <span>🧲 Thinning</span>
-                <span>🛡️ LRR</span>
-                <span>📈 AV Slam</span>
+                <span>⏱️ TTK</span>
+                <span>⛽ Fuel Inj</span>
+                <span>🐋 WMI</span>
                 <span>☢️ 90-Rule</span>
             </div>
         </div>
@@ -1210,8 +1359,8 @@
 
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner">
-            <i class="fas fa-robot"></i>
-            <p>Analyzing with V58 Engine Starter...</p>
+            <i class="fas fa-ghost"></i>
+            <p>Ghost Scanner Active - Analyzing for Low-Volume Suction...</p>
         </div>
     </div>
 
@@ -1223,6 +1372,7 @@
         const elements = {
             symbolSelect: document.getElementById('symbolSelect'),
             analyzeCustomBtn: document.getElementById('analyzeCustomBtn'),
+            ghostModeBtn: document.getElementById('ghostModeBtn'),
             batchModeBtn: document.getElementById('batchModeBtn'),
             customSymbolInput: document.getElementById('customSymbolInput'),
             loadingOverlay: document.getElementById('loadingOverlay'),
@@ -1237,36 +1387,50 @@
             confidenceLabel: document.getElementById('confidenceLabel'),
             biasValue: document.getElementById('biasValue'),
             biasDetail: document.getElementById('biasDetail'),
+            lvsStatus: document.getElementById('lvsStatus'),
+            lvsType: document.getElementById('lvsType'),
             engineScore: document.getElementById('engineScore'),
             engineStatus: document.getElementById('engineStatus'),
             ttkMinutes: document.getElementById('ttkMinutes'),
             ttkUrgency: document.getElementById('ttkUrgency'),
-            wmiValue: document.getElementById('wmiValue'),
-            wmiDesc: document.getElementById('wmiDesc'),
             obRatio: document.getElementById('obRatio'),
             rsiValue: document.getElementById('rsiValue'),
+            aggRatio: document.getElementById('aggRatio'),
+            tradeFlow: document.getElementById('tradeFlow'),
             liqTarget: document.getElementById('liqTarget'),
             lrrRatio: document.getElementById('lrrRatio'),
             avStatus: document.getElementById('avStatus'),
             oiDelta: document.getElementById('oiDelta'),
             fuelStatus: document.getElementById('fuelStatus'),
+            dtdStatus: document.getElementById('dtdStatus'),
             marketPhase: document.getElementById('marketPhase'),
             marketPhaseDesc: document.getElementById('marketPhaseDesc'),
+            wmiValue: document.getElementById('wmiValue'),
+            wmiDesc: document.getElementById('wmiDesc'),
             confidenceLevel: document.getElementById('confidenceLevel'),
             confidenceDesc: document.getElementById('confidenceDesc'),
             longLiq: document.getElementById('longLiq'),
             longLiqDesc: document.getElementById('longLiqDesc'),
             shortLiq: document.getElementById('shortLiq'),
             shortLiqDesc: document.getElementById('shortLiqDesc'),
+            lvsDetail: document.getElementById('lvsDetail'),
+            lvsDesc: document.getElementById('lvsDesc'),
             alertBox: document.getElementById('alertBox'),
             alertMessage: document.getElementById('alertMessage'),
             phaseBadge: document.getElementById('phaseBadge'),
-            terminalOutput: document.getElementById('terminalOutput')
+            terminalOutput: document.getElementById('terminalOutput'),
+            lvsDetailCard: document.getElementById('lvsDetailCard')
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('🚀 DylPredict V58 Engine Starter Edition Initialized');
+            console.log('👻 DylPredict V61 Ghost Whisperer Edition Initialized');
+            console.log('📡 API URL:', API_URL);
             attachEventListeners();
+            
+            // Auto-analyze SIRENUSDT on load (classic ghost example)
+            setTimeout(() => {
+                analyzeSymbol('SIRENUSDT');
+            }, 500);
         });
 
         function attachEventListeners() {
@@ -1275,7 +1439,16 @@
                 if (symbol) {
                     analyzeSymbol(symbol);
                 } else {
-                    alert('❌ Masukkan symbol coin! Contoh: BTCUSDT');
+                    alert('❌ Masukkan symbol coin! Contoh: SIRENUSDT');
+                }
+            });
+
+            elements.ghostModeBtn.addEventListener('click', () => {
+                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
+                if (symbol) {
+                    ghostScan(symbol);
+                } else {
+                    alert('❌ Masukkan symbol untuk ghost scan!');
                 }
             });
 
@@ -1290,16 +1463,16 @@
             });
 
             elements.batchModeBtn.addEventListener('click', () => {
-                const symbols = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'ARCUSDT', 'SIRENUSDT', 'PIPPINUSDT', 'KITEUSDT', 'ALICEUSDT'];
+                const symbols = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'SIRENUSDT', 'POWERUSDT', 'PIPPINUSDT', 'KITEUSDT', 'ALICEUSDT'];
                 analyzeBatch(symbols);
             });
         }
 
         async function analyzeSymbol(symbol) {
-            showLoading();
+            showLoading('Analyzing with V61 Ghost Whisperer...');
             
             try {
-                console.log(`🔍 Analyzing ${symbol} with V58...`);
+                console.log(`👻 Analyzing ${symbol} with V61 Ghost Whisperer...`);
                 
                 const timestamp = Date.now();
                 const url = `${API_URL}/analyze/${symbol}?t=${timestamp}`;
@@ -1332,13 +1505,52 @@
             }
         }
 
-        async function analyzeBatch(symbols) {
-            showLoading();
+        async function ghostScan(symbol) {
+            showLoading('👻 GHOST SCAN ACTIVE - Hunting for Low-Volume Suction...');
             
             try {
-                console.log(`🔍 Analyzing batch: ${symbols.join(', ')}`);
+                console.log(`👻 Ghost scanning ${symbol} for LVS...`);
                 
-                let summary = "📊 BATCH ANALYSIS SUMMARY - V58 ENGINE STARTER:\n\n";
+                const timestamp = Date.now();
+                const url = `${API_URL}/ghost/${symbol}?t=${timestamp}`;
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Cache-Control': 'no-cache'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    updateGhostDisplay(result.data);
+                } else {
+                    // Fallback to regular analyze
+                    analyzeSymbol(symbol);
+                }
+                
+            } catch (error) {
+                console.error('❌ Ghost Scan Failed:', error);
+                analyzeSymbol(symbol); // Fallback
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function analyzeBatch(symbols) {
+            showLoading('Batch scanning for ghost markets...');
+            
+            try {
+                console.log(`👻 Batch scanning: ${symbols.join(', ')}`);
+                
+                let summary = "👻 GHOST SCAN SUMMARY - V61 GHOST WHISPERER:\n\n";
+                let ghostCount = 0;
                 
                 for (const symbol of symbols) {
                     try {
@@ -1347,9 +1559,16 @@
                         
                         if (result.success && result.data) {
                             const data = result.data;
+                            const isGhost = data.lvs?.is_suction ? '👻 GHOST!' : '     ';
+                            const ghostType = data.lvs?.suction_type || '';
                             const engineIcon = data.starter?.is_starting ? '🚀' : '⏳';
-                            const ttkInfo = data.ttk ? `TTK:${data.ttk.estimated_minutes}m` : '';
-                            summary += `${engineIcon} ${symbol}: ${data.bias || 'NEUTRAL'} (${data.confidence || 'LOW'}) - ${data.market_phase || 'UNKNOWN'} ${ttkInfo}\n`;
+                            
+                            if (data.lvs?.is_suction) ghostCount++;
+                            
+                            summary += `${isGhost} ${engineIcon} ${symbol}: ${data.bias || 'NEUTRAL'} (${data.confidence || 'LOW'})\n`;
+                            if (data.lvs?.is_suction) {
+                                summary += `      └─ ${data.lvs.reason}\n`;
+                            }
                         } else {
                             summary += `${symbol}: FAILED\n`;
                         }
@@ -1358,6 +1577,7 @@
                     }
                 }
                 
+                summary += `\n👻 Ghost Markets Found: ${ghostCount}`;
                 alert(summary);
                 
             } catch (error) {
@@ -1369,25 +1589,32 @@
         }
 
         function updateDisplay(data) {
-            console.log('🔄 Updating display with V58 data:', data);
+            console.log('🔄 Updating display with V61 data:', data);
             
             // Basic info
-            elements.mainSymbol.textContent = data.symbol || 'BTCUSDT';
+            elements.mainSymbol.textContent = data.symbol || 'SIRENUSDT';
             elements.headerTime.textContent = data.timestamp || data.time || new Date().toLocaleTimeString();
             elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}`;
             
             // Bias and signal
             const bias = data.bias || data.opinion || 'NEUTRAL';
             elements.opinionMain.textContent = bias;
-            elements.signalHero.className = `signal-hero ${bias.toLowerCase()}`;
+            
+            // Check for LVS
+            const lvsActive = data.lvs?.is_suction || false;
+            elements.signalHero.className = `signal-hero ${lvsActive ? 'lvs-active' : bias.toLowerCase()}`;
             
             // Phase badge
             const phase = data.market_phase || 'NEUTRAL';
-            elements.phaseBadge.textContent = phase;
+            elements.phaseBadge.textContent = lvsActive ? `👻 ${data.lvs?.suction_type || 'GHOST'}` : phase;
             elements.phaseBadge.className = 'phase-badge';
             
-            if (phase.includes('NUCLEAR')) {
+            if (lvsActive) {
+                elements.phaseBadge.classList.add('lvs');
+            } else if (phase.includes('NUCLEAR')) {
                 elements.phaseBadge.classList.add('nuclear');
+            } else if (data.dtd?.is_trap) {
+                elements.phaseBadge.classList.add('dtd');
             } else if (data.lrr?.is_trap || phase.includes('LRR')) {
                 elements.phaseBadge.classList.add('lrr');
             } else if (data.av?.is_market_slam || phase.includes('SLAM')) {
@@ -1403,7 +1630,7 @@
             }
             
             // Strategy and reason
-            elements.strategyDisplay.textContent = `STRATEGY: ${phase}`;
+            elements.strategyDisplay.textContent = `STRATEGY: ${lvsActive ? 'GHOST WHISPERER' : phase}`;
             elements.phaseReason.textContent = data.phase_reason || data.reason || '--';
             
             // Confidence
@@ -1439,6 +1666,16 @@
             elements.biasValue.className = `big-value ${bias.toLowerCase()}`;
             elements.biasDetail.textContent = data.phase_reason?.split('.')[0] || '--';
             
+            // LVS Status
+            elements.lvsStatus.textContent = lvsActive ? 'ACTIVE' : 'INACTIVE';
+            elements.lvsStatus.className = `score-num ${lvsActive ? 'cyan' : ''}`;
+            elements.lvsType.textContent = data.lvs?.suction_type || 'No suction';
+            
+            // LVS Detail Card
+            elements.lvsDetail.textContent = lvsActive ? data.lvs?.suction_type : 'NO GHOST';
+            elements.lvsDetail.className = `value ${lvsActive ? 'cyan' : ''}`;
+            elements.lvsDesc.textContent = lvsActive ? (data.lvs?.reason || 'Ghost market detected') : 'No low-volume suction';
+            
             // Engine Starter
             const engineScore = data.starter?.score || 0;
             const engineActive = data.starter?.is_starting ? 'ACTIVE' : 'INACTIVE';
@@ -1457,7 +1694,7 @@
             const wmi = data.wmi_ratio || 0;
             elements.wmiValue.textContent = wmi.toFixed(1);
             elements.wmiValue.className = `big-value ${Math.abs(wmi) > 50 ? 'cyan' : ''}`;
-            elements.wmiDesc.textContent = wmi > 0 ? 'Bull Whale' : wmi < 0 ? 'Bear Whale' : 'Neutral';
+            elements.wmiDesc.textContent = wmi > 0 ? 'Bull Whale (Short Liq)' : wmi < 0 ? 'Bear Whale (Long Liq)' : 'Neutral';
             
             // Details
             elements.obRatio.textContent = `${(data.ob_ratio || 1.0).toFixed(2)}x`;
@@ -1466,6 +1703,12 @@
             const rsi6 = data.rsi6 || 50;
             elements.rsiValue.textContent = rsi6.toFixed(1);
             elements.rsiValue.className = `val ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}`;
+            
+            elements.aggRatio.textContent = `${(data.aggressive_ratio || 1.0).toFixed(2)}x`;
+            elements.aggRatio.className = `val ${(data.aggressive_ratio || 1) < 0.3 ? 'cyan' : (data.aggressive_ratio || 1) > 2 ? 'warning' : ''}`;
+            
+            elements.tradeFlow.textContent = `${(data.trade_flow || 1.0).toFixed(2)}x`;
+            elements.tradeFlow.className = `val ${(data.trade_flow || 1) < 0.5 ? 'cyan' : (data.trade_flow || 1) > 2 ? 'warning' : ''}`;
             
             const longLiq = data.long_liq || 0;
             const shortLiq = data.short_liq || 0;
@@ -1493,6 +1736,11 @@
             elements.fuelStatus.textContent = fuelReady;
             elements.fuelStatus.className = `val ${fuelReady === 'YES' ? 'green' : ''}`;
             
+            // DTD Status
+            const dtdActive = data.dtd?.is_trap ? 'ACTIVE' : 'INACTIVE';
+            elements.dtdStatus.textContent = dtdActive;
+            elements.dtdStatus.className = `val ${dtdActive === 'ACTIVE' ? 'purple' : ''}`;
+            
             // Advanced metrics
             elements.marketPhase.textContent = phase;
             elements.marketPhaseDesc.textContent = data.phase_confidence || '--';
@@ -1512,31 +1760,31 @@
             
             // Alert Box
             let alertMsg = data.liquidation_alert || data.reason || 'No alert';
-            if (data.starter?.is_starting) {
+            if (lvsActive) {
+                alertMsg = `👻 GHOST WHISPERER: ${data.lvs?.reason || 'Low-Volume Suction Detected!'}`;
+                elements.alertBox.className = 'alert-box lvs-alert';
+            } else if (data.dtd?.is_trap) {
+                alertMsg = `🛡️ DTD ACTIVE: ${data.dtd?.reason || 'Divergence Trap Detected!'}`;
+                elements.alertBox.className = 'alert-box dtd-alert';
+            } else if (data.starter?.is_starting) {
                 alertMsg = `🚀 ENGINE STARTED: ${data.starter.reasons[0] || 'Fuel injection detected'}`;
+                elements.alertBox.className = 'alert-box engine';
             } else if (data.ttk?.urgency === 'IMMINENT') {
                 alertMsg = `⏱️ TTK IMMINENT: ${data.ttk.estimated_minutes}m remaining!`;
+                elements.alertBox.className = 'alert-box';
             } else if (data.market_phase === 'WARMING_UP') {
                 alertMsg = `🔥 PASSIVE LOADING: OI +${data.oi_delta_5m?.toFixed(1)}%`;
+                elements.alertBox.className = 'alert-box warming';
+            } else if (phase.includes('NUCLEAR')) {
+                elements.alertBox.className = 'alert-box nuclear';
+            } else if (data.lrr?.is_trap) {
+                elements.alertBox.className = 'alert-box lrr';
+            } else if (data.av?.is_market_slam) {
+                elements.alertBox.className = 'alert-box slam';
+            } else {
+                elements.alertBox.className = 'alert-box';
             }
             elements.alertMessage.textContent = alertMsg;
-            
-            elements.alertBox.className = 'alert-box';
-            if (phase.includes('NUCLEAR')) {
-                elements.alertBox.classList.add('nuclear');
-            } else if (data.lrr?.is_trap) {
-                elements.alertBox.classList.add('lrr');
-            } else if (data.av?.is_market_slam) {
-                elements.alertBox.classList.add('slam');
-            } else if (phase.includes('PNR')) {
-                elements.alertBox.classList.add('pnr');
-            } else if (phase.includes('MAGNET') || phase.includes('FLASH')) {
-                elements.alertBox.classList.add('magnet');
-            } else if (data.starter?.is_starting) {
-                elements.alertBox.classList.add('engine');
-            } else if (phase.includes('WARMING')) {
-                elements.alertBox.classList.add('warming');
-            }
             
             // Entry ready
             if (data.entry_ready) {
@@ -1544,6 +1792,27 @@
             }
             
             showTerminalOutput(data);
+        }
+
+        function updateGhostDisplay(data) {
+            // Special display for ghost scan results
+            if (data.lvs && data.lvs.is_suction) {
+                elements.alertBox.className = 'alert-box lvs-alert';
+                elements.alertMessage.textContent = `👻 GHOST MARKET: ${data.lvs.reason}`;
+                elements.phaseBadge.textContent = `👻 ${data.lvs.suction_type}`;
+                elements.phaseBadge.classList.add('lvs');
+                
+                // Highlight LVS card
+                elements.lvsDetail.textContent = data.lvs.suction_type;
+                elements.lvsDetail.className = 'value cyan';
+                elements.lvsDesc.textContent = data.lvs.reason;
+                elements.lvsStatus.textContent = 'ACTIVE';
+                elements.lvsStatus.className = 'score-num cyan';
+                elements.lvsType.textContent = data.lvs.suction_type;
+            }
+            
+            // Update regular display with the data
+            updateDisplay(data);
         }
 
         function showTerminalOutput(data) {
@@ -1554,11 +1823,18 @@
             const longLiq = data.long_liq || 0;
             const shortLiq = data.short_liq || 0;
             const tradeFlow = data.trade_flow || 1.0;
+            const aggressiveRatio = data.aggressive_ratio || 1.0;
             const rsi6 = data.rsi6 || 50;
             const obRatio = data.ob_ratio || 1.0;
             const oiDelta = data.oi_delta_5m || 0;
             
-            // V58 metrics
+            // V61 metrics
+            const lvsActive = data.lvs?.is_suction ? 'YES' : 'NO';
+            const lvsType = data.lvs?.suction_type || 'NONE';
+            const lvsReason = data.lvs?.reason || 'No suction';
+            const dtdActive = data.dtd?.is_trap ? 'YES' : 'NO';
+            const dtdType = data.dtd?.trap_type || 'NONE';
+            const dtdReason = data.dtd?.reason || 'No trap';
             const engineActive = data.starter?.is_starting ? 'YES' : 'NO';
             const engineScore = data.starter?.score || 0;
             const engineReasons = data.starter?.reasons ? data.starter.reasons.join(' | ') : 'None';
@@ -1579,9 +1855,17 @@
                 <div class="line"><span class="label">PRICE  :</span> <span class="value">$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}</span></div>
                 <div class="header-line">================================================================================</div>
                 
-                <div class="section-title">🚀 ENGINE STARTER V58</div>
-                <div class="line"><span class="label">🎯 PHASE :</span> <span class="value ${data.market_phase?.includes('NUCLEAR') ? 'red' : data.market_phase?.includes('ENGINE') ? 'cyan' : ''}">${data.market_phase || 'NEUTRAL'}</span></div>
+                <div class="section-title lvs-section">👻 V61 GHOST WHISPERER</div>
+                <div class="line"><span class="label">👻 LVS Active :</span> <span class="value ${lvsActive === 'YES' ? 'cyan' : ''}">${lvsActive} (${lvsType})</span></div>
+                <div class="line"><span class="label">📋 LVS Reason :</span> <span class="value cyan">${lvsReason}</span></div>
+                <div class="line"><span class="label">🎯 PHASE :</span> <span class="value ${lvsActive === 'YES' ? 'cyan' : data.market_phase?.includes('NUCLEAR') ? 'red' : data.market_phase?.includes('ENGINE') ? 'cyan' : ''}">${data.market_phase || 'NEUTRAL'}</span></div>
                 <div class="line"><span class="label">📌 REASON :</span> <span class="value">${data.phase_reason || data.reason || '--'}</span></div>
+                
+                <div class="divider"></div>
+                
+                <div class="section-title dtd-section">🛡️ V60 DIVERGENCE TRAP</div>
+                <div class="line"><span class="label">🛡️ DTD Active :</span> <span class="value ${dtdActive === 'YES' ? 'purple' : ''}">${dtdActive} (${dtdType})</span></div>
+                <div class="line"><span class="label">📋 DTD Reason :</span> <span class="value purple">${dtdReason}</span></div>
                 
                 <div class="divider"></div>
                 
@@ -1605,7 +1889,8 @@
                 <div class="section-title">📊 KEY METRICS</div>
                 <div class="line"><span class="label">🎯 Long Liq :</span> <span class="value ${longLiq < 0.5 ? 'red' : ''}">${longLiq.toFixed(2)}%</span></div>
                 <div class="line"><span class="label">🎯 Short Liq :</span> <span class="value ${shortLiq < 0.5 ? 'green' : ''}">${shortLiq.toFixed(2)}%</span></div>
-                <div class="line"><span class="label">📊 Trade Flow :</span> <span class="value ${tradeFlow > 1.5 ? 'green' : tradeFlow < 0.6 ? 'red' : ''}">${tradeFlow.toFixed(2)}x</span></div>
+                <div class="line"><span class="label">📊 Trade Flow :</span> <span class="value ${tradeFlow > 1.5 ? 'green' : tradeFlow < 0.6 ? 'cyan' : ''}">${tradeFlow.toFixed(2)}x</span></div>
+                <div class="line"><span class="label">⚔️ Aggressive Ratio :</span> <span class="value ${aggressiveRatio > 1.5 ? 'green' : aggressiveRatio < 0.5 ? 'cyan' : ''}">${aggressiveRatio.toFixed(2)}x</span></div>
                 <div class="line"><span class="label">📈 RSI(6) :</span> <span class="value ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}">${rsi6.toFixed(1)}</span></div>
                 <div class="line"><span class="label">📚 OB Ratio :</span> <span class="value ${obRatio > 1.5 ? 'green' : obRatio < 0.6 ? 'red' : ''}">${obRatio.toFixed(2)}x</span></div>
                 <div class="line"><span class="label">📈 OI Δ5m :</span> <span class="value ${oiDelta > 2 ? 'green' : oiDelta < -2 ? 'red' : ''}">${oiDelta.toFixed(2)}%</span></div>
@@ -1620,18 +1905,19 @@
                 <div class="divider"></div>
                 
                 <div class="section-title">🎯 TRADING SIGNAL</div>
-                <div class="line"><span class="label">${data.bias === 'LONG' ? '🟢' : data.bias === 'SHORT' ? '🔴' : '⚪'} BIAS :</span> <span class="value ${data.bias === 'LONG' ? 'green' : data.bias === 'SHORT' ? 'red' : ''}">${data.bias || 'NEUTRAL'}</span></div>
+                <div class="line"><span class="label">${lvsActive ? '👻' : data.bias === 'LONG' ? '🟢' : data.bias === 'SHORT' ? '🔴' : '⚪'} BIAS :</span> <span class="value ${lvsActive ? 'cyan' : data.bias === 'LONG' ? 'green' : data.bias === 'SHORT' ? 'red' : ''}">${data.bias || 'NEUTRAL'} ${lvsActive ? '(GHOST MODE)' : ''}</span></div>
                 <div class="line"><span class="label">🔥 CONFIDENCE :</span> <span class="value ${data.confidence === 'ABSOLUTE' ? 'red' : data.confidence === 'SUPREME' ? 'green' : data.confidence === 'HIGH' ? 'yellow' : ''}">${data.confidence || 'LOW'}</span></div>
                 <div class="line"><span class="label">⏳ ENTRY STATUS :</span> <span class="value ${data.entry_ready ? 'green' : ''}">${data.entry_status || 'WAITING'}</span></div>
                 
                 <div class="header-line">================================================================================</div>
-                <div class="line"><span class="value">${data.liquidation_alert || data.reason || 'No analysis reason'}</span></div>
+                <div class="line"><span class="value ${lvsActive ? 'cyan' : ''}">${lvsActive ? data.lvs?.reason : data.liquidation_alert || data.reason || 'No analysis reason'}</span></div>
                 <div class="header-line">================================================================================</div>
             `;
         }
 
-        function showLoading() {
+        function showLoading(message = 'Analyzing with V61 Ghost Whisperer...') {
             elements.loadingOverlay.style.display = 'flex';
+            document.querySelector('.loading-spinner p').textContent = message;
         }
 
         function hideLoading() {
@@ -1641,13 +1927,14 @@
         function showError(message) {
             console.error('❌', message);
             elements.alertMessage.textContent = `❌ ERROR: ${message}`;
-            elements.alertBox.className = 'alert-box danger';
+            elements.alertBox.className = 'alert-box nuclear';
         }
 
         window.dylpredict = {
             analyze: analyzeSymbol,
+            ghostScan: ghostScan,
             batch: analyzeBatch,
-            version: 'V58 Engine Starter'
+            version: 'V61 Ghost Whisperer'
         };
     </script>
 </body>
