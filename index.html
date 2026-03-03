@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DylPredict V62 • The Magnet Wall Reversal Edition</title>
+    <title>DylPredict V65 • The Aggression-Mass Divergence Edition</title>
     
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -23,6 +23,8 @@
             --pink: #ec4899;
             --cyan: #06b6d4;
             --magnet: #a78bfa;
+            --amd: #ff6b6b;        /* Warna untuk AMD (merah untuk spoof detection) */
+            --tdp: #ffd700;          /* Warna untuk TDP (emas untuk god candle) */
             --text-main: #eaecef;
             --text-dim: #848e9c;
             --glass-opacity: rgba(30, 35, 41, 0.8);
@@ -34,6 +36,8 @@
             --neon-blue: 0 0 10px rgba(59, 130, 246, 0.5);
             --neon-cyan: 0 0 10px rgba(6, 182, 212, 0.5);
             --neon-magnet: 0 0 10px rgba(167, 139, 250, 0.5);
+            --neon-amd: 0 0 10px rgba(255, 107, 107, 0.5);
+            --neon-tdp: 0 0 10px rgba(255, 215, 0, 0.5);
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -60,7 +64,7 @@
             right: -20%;
             width: 800px;
             height: 800px;
-            background: radial-gradient(circle, rgba(167, 139, 250, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
             border-radius: 50%;
             filter: blur(100px);
             z-index: -1;
@@ -74,7 +78,7 @@
             left: -20%;
             width: 800px;
             height: 800px;
-            background: radial-gradient(circle, rgba(248, 73, 96, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
             border-radius: 50%;
             filter: blur(100px);
             z-index: -1;
@@ -116,7 +120,7 @@
 
         .logo h1 {
             font-size: 24px;
-            background: linear-gradient(135deg, #fff, var(--magnet));
+            background: linear-gradient(135deg, #fff, var(--amd));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
@@ -125,12 +129,12 @@
 
         .version {
             font-size: 12px;
-            background: rgba(167, 139, 250, 0.2);
+            background: rgba(255, 107, 107, 0.2);
             padding: 4px 10px;
             border-radius: 100px;
             margin-left: 8px;
-            color: var(--magnet);
-            border: 1px solid rgba(167, 139, 250, 0.3);
+            color: var(--amd);
+            border: 1px solid rgba(255, 107, 107, 0.3);
             font-weight: 600;
         }
 
@@ -145,6 +149,30 @@
             font-weight: 500;
         }
 
+        .amd-badge {
+            font-size: 10px;
+            background: rgba(255, 107, 107, 0.15);
+            padding: 2px 8px;
+            border-radius: 100px;
+            margin-left: 5px;
+            color: var(--amd);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            font-weight: 500;
+            animation: pulseAMD 2s infinite;
+        }
+
+        .tdp-badge {
+            font-size: 10px;
+            background: rgba(255, 215, 0, 0.15);
+            padding: 2px 8px;
+            border-radius: 100px;
+            margin-left: 5px;
+            color: var(--tdp);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            font-weight: 500;
+            animation: pulseTDP 2s infinite;
+        }
+
         .mwr-badge {
             font-size: 10px;
             background: rgba(167, 139, 250, 0.15);
@@ -154,7 +182,6 @@
             color: var(--magnet);
             border: 1px solid rgba(167, 139, 250, 0.2);
             font-weight: 500;
-            animation: pulseMWR 2s infinite;
         }
 
         .lvs-badge {
@@ -168,9 +195,14 @@
             font-weight: 500;
         }
 
-        @keyframes pulseMWR {
-            0%, 100% { opacity: 0.8; box-shadow: 0 0 5px var(--magnet); }
-            50% { opacity: 1; box-shadow: 0 0 15px var(--magnet); }
+        @keyframes pulseAMD {
+            0%, 100% { opacity: 0.8; box-shadow: 0 0 5px var(--amd); }
+            50% { opacity: 1; box-shadow: 0 0 15px var(--amd); }
+        }
+
+        @keyframes pulseTDP {
+            0%, 100% { opacity: 0.8; box-shadow: 0 0 5px var(--tdp); }
+            50% { opacity: 1; box-shadow: 0 0 15px var(--tdp); }
         }
 
         .symbol-selector {
@@ -201,8 +233,8 @@
         }
 
         #customSymbolInput:focus {
-            border-color: var(--magnet);
-            box-shadow: 0 0 15px rgba(167, 139, 250, 0.2);
+            border-color: var(--amd);
+            box-shadow: 0 0 15px rgba(255, 107, 107, 0.2);
         }
 
         #customSymbolInput::placeholder {
@@ -226,7 +258,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--magnet), #8b5cf6);
+            background: linear-gradient(135deg, var(--amd), #ff4757);
             border: none;
             border-radius: 8px;
             padding: 10px 20px;
@@ -243,7 +275,7 @@
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 25px var(--magnet);
+            box-shadow: 0 0 25px var(--amd);
         }
 
         .btn-secondary {
@@ -261,6 +293,42 @@
         .btn-secondary:hover {
             background: rgba(138, 109, 233, 0.3);
             transform: translateY(-2px);
+        }
+
+        .btn-amd {
+            background: rgba(255, 107, 107, 0.2);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: var(--amd);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 14px;
+        }
+
+        .btn-amd:hover {
+            background: rgba(255, 107, 107, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--amd);
+        }
+
+        .btn-tdp {
+            background: rgba(255, 215, 0, 0.2);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: var(--tdp);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 14px;
+        }
+
+        .btn-tdp:hover {
+            background: rgba(255, 215, 0, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--tdp);
         }
 
         .btn-magnet {
@@ -313,7 +381,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-left: 4px solid var(--magnet);
+            border-left: 4px solid var(--amd);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             transition: var(--transition-smooth);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -322,7 +390,7 @@
 
         .header-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 48px rgba(167, 139, 250, 0.15);
+            box-shadow: 0 12px 48px rgba(255, 107, 107, 0.15);
         }
 
         .symbol-info {
@@ -336,7 +404,7 @@
             font-weight: 800;
             margin: 0;
             letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #fff, var(--magnet));
+            background: linear-gradient(135deg, #fff, var(--amd));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -367,11 +435,11 @@
         }
 
         .price {
-            color: var(--magnet);
+            color: var(--amd);
             font-size: 2rem;
             margin: 0;
             font-weight: 700;
-            text-shadow: var(--neon-magnet);
+            text-shadow: var(--neon-amd);
             letter-spacing: -0.5px;
         }
 
@@ -393,10 +461,21 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
+        .phase-badge.amd {
+            background: linear-gradient(135deg, var(--amd), #ff4757);
+            box-shadow: 0 0 25px var(--amd);
+            animation: pulseAMD 1s infinite;
+        }
+
+        .phase-badge.tdp {
+            background: linear-gradient(135deg, var(--tdp), #ffaa00);
+            box-shadow: 0 0 25px var(--tdp);
+            animation: pulseTDP 1s infinite;
+        }
+
         .phase-badge.mwr {
             background: linear-gradient(135deg, var(--magnet), #8b5cf6);
             box-shadow: 0 0 25px var(--magnet);
-            animation: pulseMWR 1s infinite;
         }
 
         .phase-badge.lvs {
@@ -474,7 +553,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(167, 139, 250, 0.03) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.03) 0%, transparent 70%);
             animation: rotate 30s linear infinite;
             z-index: -1;
         }
@@ -482,6 +561,16 @@
         @keyframes rotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
+        }
+
+        .signal-hero.amd-active {
+            border-bottom: 5px solid var(--amd);
+            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
+        }
+
+        .signal-hero.tdp-active {
+            border-bottom: 5px solid var(--tdp);
+            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.3);
         }
 
         .signal-hero.mwr-active {
@@ -511,6 +600,16 @@
 
         .signal-hero.neutral { 
             border-bottom: 5px solid var(--text-dim);
+        }
+
+        .signal-hero.amd-active .main-opinion {
+            color: var(--amd);
+            text-shadow: 0 0 30px var(--amd);
+        }
+
+        .signal-hero.tdp-active .main-opinion {
+            color: var(--tdp);
+            text-shadow: 0 0 30px var(--tdp);
         }
 
         .signal-hero.mwr-active .main-opinion {
@@ -546,6 +645,14 @@
             margin-bottom: 5px;
         }
 
+        .amd-active .main-opinion {
+            animation: glowPulseAMD 2s infinite;
+        }
+
+        .tdp-active .main-opinion {
+            animation: glowPulseTDP 2s infinite;
+        }
+
         .mwr-active .main-opinion {
             animation: glowPulseMWR 2s infinite;
         }
@@ -560,6 +667,16 @@
 
         .lvs-active .main-opinion {
             animation: glowPulseCyan 2s infinite;
+        }
+
+        @keyframes glowPulseAMD {
+            0%, 100% { text-shadow: 0 0 20px var(--amd); }
+            50% { text-shadow: 0 0 40px var(--amd); }
+        }
+
+        @keyframes glowPulseTDP {
+            0%, 100% { text-shadow: 0 0 20px var(--tdp); }
+            50% { text-shadow: 0 0 40px var(--tdp); }
         }
 
         @keyframes glowPulseMWR {
@@ -628,10 +745,10 @@
         }
 
         .confidence-bar .fill {
-            background: var(--magnet);
+            background: var(--amd);
             height: 100%;
             border-radius: 5px;
-            box-shadow: 0 0 15px var(--magnet);
+            box-shadow: 0 0 15px var(--amd);
             transition: width 0.5s ease;
             position: relative;
             overflow: hidden;
@@ -646,6 +763,21 @@
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             animation: shimmer 2s infinite;
+        }
+
+        .signal-hero.amd-active .confidence-bar .fill {
+            background: var(--amd);
+            box-shadow: 0 0 15px var(--amd);
+        }
+
+        .signal-hero.tdp-active .confidence-bar .fill {
+            background: var(--tdp);
+            box-shadow: 0 0 15px var(--tdp);
+        }
+
+        .signal-hero.mwr-active .confidence-bar .fill {
+            background: var(--magnet);
+            box-shadow: 0 0 15px var(--magnet);
         }
 
         .signal-hero.bullish .confidence-bar .fill {
@@ -692,8 +824,8 @@
 
         .card:hover {
             transform: translateY(-4px);
-            border-color: rgba(167, 139, 250, 0.2);
-            box-shadow: 0 8px 24px rgba(167, 139, 250, 0.15);
+            border-color: rgba(255, 107, 107, 0.2);
+            box-shadow: 0 8px 24px rgba(255, 107, 107, 0.15);
         }
 
         .card h3 {
@@ -721,6 +853,8 @@
         .pink { color: var(--pink); text-shadow: 0 0 10px var(--pink); }
         .cyan { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
         .magnet { color: var(--magnet); text-shadow: 0 0 10px var(--magnet); }
+        .amd { color: var(--amd); text-shadow: 0 0 10px var(--amd); }
+        .tdp { color: var(--tdp); text-shadow: 0 0 10px var(--tdp); }
 
         .score-display {
             display: flex;
@@ -818,6 +952,14 @@
             color: var(--magnet);
         }
 
+        .data-row .val.amd {
+            color: var(--amd);
+        }
+
+        .data-row .val.tdp {
+            color: var(--tdp);
+        }
+
         .advanced-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -849,6 +991,24 @@
         .advanced-card .desc {
             font-size: 0.75rem;
             color: var(--text-dim);
+        }
+
+        .amd-card {
+            border-left: 3px solid var(--amd);
+            background: rgba(255, 107, 107, 0.05);
+        }
+
+        .amd-card .value {
+            color: var(--amd);
+        }
+
+        .tdp-card {
+            border-left: 3px solid var(--tdp);
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        .tdp-card .value {
+            color: var(--tdp);
         }
 
         .mwr-card {
@@ -893,6 +1053,26 @@
             font-size: 40px;
             opacity: 0.1;
             transform: rotate(10deg);
+        }
+
+        .alert-box.amd-alert {
+            border-color: var(--amd);
+            border-left-color: var(--amd);
+            background: rgba(255, 107, 107, 0.08);
+        }
+
+        .alert-box.amd-alert::before {
+            content: '🎭';
+        }
+
+        .alert-box.tdp-alert {
+            border-color: var(--tdp);
+            border-left-color: var(--tdp);
+            background: rgba(255, 215, 0, 0.08);
+        }
+
+        .alert-box.tdp-alert::before {
+            content: '☢️';
         }
 
         .alert-box.mwr-alert {
@@ -967,6 +1147,14 @@
             color: var(--yellow);
         }
 
+        .alert-box.amd-alert strong {
+            color: var(--amd);
+        }
+
+        .alert-box.tdp-alert strong {
+            color: var(--tdp);
+        }
+
         .alert-box.mwr-alert strong {
             color: var(--magnet);
         }
@@ -1023,7 +1211,7 @@
         }
 
         .terminal-output .header-line {
-            color: var(--magnet);
+            color: var(--amd);
             font-weight: 700;
             margin: 10px 0;
             text-align: center;
@@ -1038,6 +1226,16 @@
             letter-spacing: 1px;
             border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
             padding-bottom: 5px;
+        }
+
+        .terminal-output .amd-section {
+            color: var(--amd);
+            border-bottom-color: var(--amd);
+        }
+
+        .terminal-output .tdp-section {
+            color: var(--tdp);
+            border-bottom-color: var(--tdp);
         }
 
         .terminal-output .mwr-section {
@@ -1083,6 +1281,8 @@
         .terminal-output .pink { color: var(--pink); }
         .terminal-output .cyan { color: var(--cyan); }
         .terminal-output .magnet { color: var(--magnet); }
+        .terminal-output .amd { color: var(--amd); }
+        .terminal-output .tdp { color: var(--tdp); }
 
         .terminal-output .divider {
             border-top: 1px dashed rgba(255, 255, 255, 0.1);
@@ -1112,16 +1312,29 @@
 
         .features span {
             padding: 4px 12px;
-            background: rgba(167, 139, 250, 0.1);
+            background: rgba(255, 107, 107, 0.1);
             border-radius: 100px;
-            color: var(--magnet);
+            color: var(--amd);
+        }
+
+        .features .amd-feature {
+            background: rgba(255, 107, 107, 0.2);
+            color: var(--amd);
+            font-weight: 600;
+            animation: pulseAMD 2s infinite;
+        }
+
+        .features .tdp-feature {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--tdp);
+            font-weight: 600;
+            animation: pulseTDP 2s infinite;
         }
 
         .features .mwr-feature {
             background: rgba(167, 139, 250, 0.2);
             color: var(--magnet);
             font-weight: 600;
-            animation: pulseMWR 2s infinite;
         }
 
         .features .lvs-feature {
@@ -1150,10 +1363,10 @@
 
         .loading-spinner i {
             font-size: 48px;
-            color: var(--magnet);
+            color: var(--amd);
             margin-bottom: 20px;
             animation: spin 1s linear infinite;
-            text-shadow: 0 0 20px var(--magnet);
+            text-shadow: 0 0 20px var(--amd);
         }
 
         .loading-spinner p {
@@ -1185,7 +1398,7 @@
                 flex-direction: column;
             }
 
-            #customSymbolInput, .glass-select, .btn-primary, .btn-secondary, .btn-magnet, .btn-ghost {
+            #customSymbolInput, .glass-select, .btn-primary, .btn-secondary, .btn-amd, .btn-tdp, .btn-magnet, .btn-ghost {
                 width: 100%;
             }
 
@@ -1257,13 +1470,13 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--magnet);
+            background: var(--amd);
             border-radius: 3px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #8b5cf6;
-            box-shadow: 0 0 10px var(--magnet);
+            background: #ff4757;
+            box-shadow: 0 0 10px var(--amd);
         }
     </style>
 </head>
@@ -1271,12 +1484,12 @@
     <div class="container">
         <header>
             <div class="logo">
-                <h1>DYLPREDICT<span class="version">V62</span><span class="sub-version">MAGNET WALL</span><span class="mwr-badge">🧲 MWR</span><span class="lvs-badge">👻 LVS</span></h1>
+                <h1>DYLPREDICT<span class="version">V65</span><span class="sub-version">AMD + TDP</span><span class="amd-badge">🎭 AMD</span><span class="tdp-badge">☢️ TDP</span><span class="mwr-badge">🧲 MWR</span><span class="lvs-badge">👻 LVS</span></h1>
             </div>
             
             <div class="symbol-selector">
                 <div class="input-controls">
-                    <input type="text" id="customSymbolInput" placeholder="Symbol" value="SAHARAUSDT">
+                    <input type="text" id="customSymbolInput" placeholder="Symbol" value="ROBOUSDT">
                     <select id="symbolSelect" class="glass-select">
                         <option value="BTCUSDT">BTCUSDT</option>
                         <option value="ETHUSDT">ETHUSDT</option>
@@ -1284,9 +1497,11 @@
                         <option value="SOLUSDT">SOLUSDT</option>
                         <option value="DOGEUSDT">DOGEUSDT</option>
                         <option value="ARCUSDT">ARCUSDT</option>
-                        <option value="SAHARAUSDT" selected>SAHARAUSDT</option>
+                        <option value="SAHARAUSDT">SAHARAUSDT</option>
                         <option value="SIRENUSDT">SIRENUSDT</option>
                         <option value="POWERUSDT">POWERUSDT</option>
+                        <option value="ROBOUSDT" selected>ROBOUSDT</option>
+                        <option value="PHAUSDT">PHAUSDT</option>
                         <option value="PIPPINUSDT">PIPPINUSDT</option>
                         <option value="KITEUSDT">KITEUSDT</option>
                         <option value="ALICEUSDT">ALICEUSDT</option>
@@ -1296,13 +1511,21 @@
                     <i class="fas fa-chart-line"></i>
                     Analyze
                 </button>
+                <button id="amdModeBtn" class="btn-amd">
+                    <i class="fas fa-mask"></i>
+                    AMD Scan
+                </button>
+                <button id="tdpModeBtn" class="btn-tdp">
+                    <i class="fas fa-crown"></i>
+                    TDP Scan
+                </button>
                 <button id="magnetModeBtn" class="btn-magnet">
                     <i class="fas fa-magnet"></i>
-                    Magnet Scan
+                    Magnet
                 </button>
                 <button id="ghostModeBtn" class="btn-ghost">
                     <i class="fas fa-ghost"></i>
-                    Ghost Scan
+                    Ghost
                 </button>
                 <button id="batchModeBtn" class="btn-secondary">
                     <i class="fas fa-layer-group"></i>
@@ -1315,7 +1538,7 @@
             <div class="header-card">
                 <div class="phase-badge" id="phaseBadge">NEUTRAL</div>
                 <div class="symbol-info">
-                    <h1 class="symbol" id="mainSymbol">SAHARAUSDT</h1>
+                    <h1 class="symbol" id="mainSymbol">ROBOUSDT</h1>
                     <span class="timestamp" id="headerTime">--:--:--.---</span>
                 </div>
                 <div class="price-section">
@@ -1339,6 +1562,22 @@
                     <h3>Market Bias</h3>
                     <div class="big-value" id="biasValue">--</div>
                     <p id="biasDetail">--</p>
+                </div>
+
+                <div class="card" id="amdCard">
+                    <h3>AMD Spoof <span class="amd-badge" style="margin-left: 5px;">🎭</span></h3>
+                    <div class="score-display">
+                        <span class="score-num amd" id="amdStatus">INACTIVE</span>
+                        <span class="score-sub" id="amdType">--</span>
+                    </div>
+                </div>
+
+                <div class="card" id="tdpCard">
+                    <h3>TDP Particle <span class="tdp-badge" style="margin-left: 5px;">☢️</span></h3>
+                    <div class="score-display">
+                        <span class="score-num tdp" id="tdpStatus">INACTIVE</span>
+                        <span class="score-sub" id="tdpType">--</span>
+                    </div>
                 </div>
 
                 <div class="card" id="mwrCard">
@@ -1420,6 +1659,16 @@
             </section>
 
             <div class="advanced-grid" id="advancedMetrics">
+                <div class="advanced-card amd-card" id="amdDetailCard">
+                    <h4>🎭 Aggression-Mass Divergence</h4>
+                    <div class="value" id="amdDetail">--</div>
+                    <div class="desc" id="amdDesc">--</div>
+                </div>
+                <div class="advanced-card tdp-card" id="tdpDetailCard">
+                    <h4>☢️ The DYL Particle</h4>
+                    <div class="value" id="tdpDetail">--</div>
+                    <div class="desc" id="tdpDesc">--</div>
+                </div>
                 <div class="advanced-card mwr-card" id="mwrDetailCard">
                     <h4>🧲 Magnet Wall Reversal</h4>
                     <div class="value" id="mwrDetail">--</div>
@@ -1463,15 +1712,17 @@
             </div>
 
             <footer class="alert-box" id="alertBox">
-                <strong>🧲 MAGNET ALERT:</strong> <span id="alertMessage">Click Analyze to get signal</span>
+                <strong>🎭 AMD ALERT:</strong> <span id="alertMessage">Click Analyze to get signal</span>
             </footer>
 
             <div class="terminal-output" id="terminalOutput" style="display: none;"></div>
         </div>
 
         <div class="footer">
-            <div>DylPredict V62 • THE MAGNET WALL REVERSAL EDITION • MWR + LVS + SILENT DRIVE</div>
+            <div>DylPredict V65 • THE AGGRESSION-MASS DIVERGENCE EDITION • AMD + TDP + MWR + LVS</div>
             <div class="features">
+                <span class="amd-feature">🎭 AMD Spoof</span>
+                <span class="tdp-feature">☢️ TDP Particle</span>
                 <span class="mwr-feature">🧲 MWR Magnet</span>
                 <span class="lvs-feature">👻 LVS Suction</span>
                 <span>🛡️ DTD Trap</span>
@@ -1487,8 +1738,8 @@
 
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner">
-            <i class="fas fa-magnet"></i>
-            <p>Magnet Wall Scanner Active - Detecting Fake Ceilings...</p>
+            <i class="fas fa-mask"></i>
+            <p>AMD Scanner Active - Detecting WMI Spoofing...</p>
         </div>
     </div>
 
@@ -1500,6 +1751,8 @@
         const elements = {
             symbolSelect: document.getElementById('symbolSelect'),
             analyzeCustomBtn: document.getElementById('analyzeCustomBtn'),
+            amdModeBtn: document.getElementById('amdModeBtn'),
+            tdpModeBtn: document.getElementById('tdpModeBtn'),
             magnetModeBtn: document.getElementById('magnetModeBtn'),
             ghostModeBtn: document.getElementById('ghostModeBtn'),
             batchModeBtn: document.getElementById('batchModeBtn'),
@@ -1516,6 +1769,10 @@
             confidenceLabel: document.getElementById('confidenceLabel'),
             biasValue: document.getElementById('biasValue'),
             biasDetail: document.getElementById('biasDetail'),
+            amdStatus: document.getElementById('amdStatus'),
+            amdType: document.getElementById('amdType'),
+            tdpStatus: document.getElementById('tdpStatus'),
+            tdpType: document.getElementById('tdpType'),
             mwrStatus: document.getElementById('mwrStatus'),
             mwrType: document.getElementById('mwrType'),
             lvsStatus: document.getElementById('lvsStatus'),
@@ -1545,6 +1802,10 @@
             longLiqDesc: document.getElementById('longLiqDesc'),
             shortLiq: document.getElementById('shortLiq'),
             shortLiqDesc: document.getElementById('shortLiqDesc'),
+            amdDetail: document.getElementById('amdDetail'),
+            amdDesc: document.getElementById('amdDesc'),
+            tdpDetail: document.getElementById('tdpDetail'),
+            tdpDesc: document.getElementById('tdpDesc'),
             mwrDetail: document.getElementById('mwrDetail'),
             mwrDesc: document.getElementById('mwrDesc'),
             lvsDetail: document.getElementById('lvsDetail'),
@@ -1555,17 +1816,18 @@
             alertMessage: document.getElementById('alertMessage'),
             phaseBadge: document.getElementById('phaseBadge'),
             terminalOutput: document.getElementById('terminalOutput'),
-            mwrDetailCard: document.getElementById('mwrDetailCard')
+            amdDetailCard: document.getElementById('amdDetailCard'),
+            tdpDetailCard: document.getElementById('tdpDetailCard')
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('🧲 DylPredict V62 Magnet Wall Reversal Edition Initialized');
+            console.log('🎭 DylPredict V65 Aggression-Mass Divergence Edition Initialized');
             console.log('📡 API URL:', API_URL);
             attachEventListeners();
             
-            // Auto-analyze SAHARAUSDT on load (classic magnet example)
+            // Auto-analyze ROBOUSDT on load (classic AMD spoof example)
             setTimeout(() => {
-                analyzeSymbol('SAHARAUSDT');
+                analyzeSymbol('ROBOUSDT');
             }, 500);
         });
 
@@ -1575,7 +1837,25 @@
                 if (symbol) {
                     analyzeSymbol(symbol);
                 } else {
-                    alert('❌ Masukkan symbol coin! Contoh: SAHARAUSDT');
+                    alert('❌ Masukkan symbol coin! Contoh: ROBOUSDT');
+                }
+            });
+
+            elements.amdModeBtn.addEventListener('click', () => {
+                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
+                if (symbol) {
+                    amdScan(symbol);
+                } else {
+                    alert('❌ Masukkan symbol untuk AMD scan!');
+                }
+            });
+
+            elements.tdpModeBtn.addEventListener('click', () => {
+                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
+                if (symbol) {
+                    tdpScan(symbol);
+                } else {
+                    alert('❌ Masukkan symbol untuk TDP scan!');
                 }
             });
 
@@ -1608,16 +1888,16 @@
             });
 
             elements.batchModeBtn.addEventListener('click', () => {
-                const symbols = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'SAHARAUSDT', 'SIRENUSDT', 'POWERUSDT', 'PIPPINUSDT', 'KITEUSDT'];
+                const symbols = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'ROBOUSDT', 'PHAUSDT', 'SAHARAUSDT', 'SIRENUSDT', 'POWERUSDT'];
                 analyzeBatch(symbols);
             });
         }
 
         async function analyzeSymbol(symbol) {
-            showLoading('Analyzing with V62 Magnet Wall Reversal...');
+            showLoading('Analyzing with V65 Aggression-Mass Divergence...');
             
             try {
-                console.log(`🧲 Analyzing ${symbol} with V62 Magnet Wall Reversal...`);
+                console.log(`🎭 Analyzing ${symbol} with V65 AMD + TDP...`);
                 
                 const timestamp = Date.now();
                 const url = `${API_URL}/analyze/${symbol}?t=${timestamp}`;
@@ -1645,6 +1925,82 @@
             } catch (error) {
                 console.error('❌ Analysis Failed:', error);
                 showError(error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function amdScan(symbol) {
+            showLoading('🎭 AMD SCAN ACTIVE - Hunting for WMI Spoofing...');
+            
+            try {
+                console.log(`🎭 AMD scanning ${symbol} for spoof detection...`);
+                
+                const timestamp = Date.now();
+                const url = `${API_URL}/amd/${symbol}?t=${timestamp}`;
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Cache-Control': 'no-cache'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    updateAmdDisplay(result.data);
+                } else {
+                    // Fallback to regular analyze
+                    analyzeSymbol(symbol);
+                }
+                
+            } catch (error) {
+                console.error('❌ AMD Scan Failed:', error);
+                analyzeSymbol(symbol); // Fallback
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function tdpScan(symbol) {
+            showLoading('☢️ TDP SCAN ACTIVE - Looking for God Candle...');
+            
+            try {
+                console.log(`☢️ TDP scanning ${symbol} for DYL Particle...`);
+                
+                const timestamp = Date.now();
+                const url = `${API_URL}/tdp/${symbol}?t=${timestamp}`;
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Cache-Control': 'no-cache'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    updateTdpDisplay(result.data);
+                } else {
+                    // Fallback to regular analyze
+                    analyzeSymbol(symbol);
+                }
+                
+            } catch (error) {
+                console.error('❌ TDP Scan Failed:', error);
+                analyzeSymbol(symbol); // Fallback
             } finally {
                 hideLoading();
             }
@@ -1727,12 +2083,14 @@
         }
 
         async function analyzeBatch(symbols) {
-            showLoading('Batch scanning for magnet walls & ghost markets...');
+            showLoading('Batch scanning with AMD + TDP + MWR + LVS...');
             
             try {
-                console.log(`🧲 Batch scanning: ${symbols.join(', ')}`);
+                console.log(`🎭 Batch scanning: ${symbols.join(', ')}`);
                 
-                let summary = "🧲 MAGNET & GHOST SCAN SUMMARY - V62 MAGNET WALL:\n\n";
+                let summary = "🎭 AMD + TDP SCAN SUMMARY - V65 AGGRESSION-MASS DIVERGENCE:\n\n";
+                let amdCount = 0;
+                let tdpCount = 0;
                 let magnetCount = 0;
                 let ghostCount = 0;
                 
@@ -1743,16 +2101,28 @@
                         
                         if (result.success && result.data) {
                             const data = result.data;
+                            const isAmd = data.amd?.is_spoof && data.amd?.confidence === 'SUPREME' ? '🎭 AMD!' : '      ';
+                            const isTdp = data.tdp?.is_active ? '☢️ TDP!' : '      ';
                             const isMagnet = data.mwr?.is_magnet ? '🧲 MAGNET!' : '      ';
                             const isGhost = data.lvs?.is_suction ? '👻 GHOST!' : '      ';
+                            const amdType = data.amd?.action || '';
+                            const tdpBias = data.tdp?.bias || '';
                             const magnetType = data.mwr?.magnet_type || '';
                             const ghostType = data.lvs?.suction_type || '';
                             const engineIcon = data.starter?.is_starting ? '🚀' : '⏳';
                             
+                            if (data.amd?.is_spoof) amdCount++;
+                            if (data.tdp?.is_active) tdpCount++;
                             if (data.mwr?.is_magnet) magnetCount++;
                             if (data.lvs?.is_suction) ghostCount++;
                             
-                            summary += `${isMagnet} ${isGhost} ${engineIcon} ${symbol}: ${data.bias || 'NEUTRAL'} (${data.confidence || 'LOW'})\n`;
+                            summary += `${isAmd} ${isTdp} ${isMagnet} ${isGhost} ${engineIcon} ${symbol}: ${data.bias || 'NEUTRAL'} (${data.confidence || 'LOW'})\n`;
+                            if (data.amd?.is_spoof) {
+                                summary += `      └─ 🎭 ${data.amd.reason}\n`;
+                            }
+                            if (data.tdp?.is_active) {
+                                summary += `      └─ ☢️ ${data.tdp.reason}\n`;
+                            }
                             if (data.mwr?.is_magnet) {
                                 summary += `      └─ 🧲 ${data.mwr.reason}\n`;
                             }
@@ -1767,6 +2137,8 @@
                     }
                 }
                 
+                summary += `\n🎭 AMD Spoofs Found: ${amdCount}`;
+                summary += `\n☢️ TDP Particles Found: ${tdpCount}`;
                 summary += `\n🧲 Magnet Walls Found: ${magnetCount}`;
                 summary += `\n👻 Ghost Markets Found: ${ghostCount}`;
                 alert(summary);
@@ -1780,10 +2152,10 @@
         }
 
         function updateDisplay(data) {
-            console.log('🔄 Updating display with V62 data:', data);
+            console.log('🔄 Updating display with V65 data:', data);
             
             // Basic info
-            elements.mainSymbol.textContent = data.symbol || 'SAHARAUSDT';
+            elements.mainSymbol.textContent = data.symbol || 'ROBOUSDT';
             elements.headerTime.textContent = data.timestamp || data.time || new Date().toLocaleTimeString();
             elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}`;
             
@@ -1791,11 +2163,17 @@
             const bias = data.bias || data.opinion || 'NEUTRAL';
             elements.opinionMain.textContent = bias;
             
-            // Check for MWR and LVS
+            // Check for AMD, TDP, MWR, LVS
+            const amdActive = data.amd?.is_spoof && data.amd?.confidence === 'SUPREME';
+            const tdpActive = data.tdp?.is_active || false;
             const mwrActive = data.mwr?.is_magnet || false;
             const lvsActive = data.lvs?.is_suction || false;
             
-            if (mwrActive) {
+            if (amdActive) {
+                elements.signalHero.className = 'signal-hero amd-active';
+            } else if (tdpActive) {
+                elements.signalHero.className = 'signal-hero tdp-active';
+            } else if (mwrActive) {
                 elements.signalHero.className = 'signal-hero mwr-active';
             } else if (lvsActive) {
                 elements.signalHero.className = 'signal-hero lvs-active';
@@ -1805,7 +2183,13 @@
             
             // Phase badge
             const phase = data.market_phase || 'NEUTRAL';
-            if (mwrActive) {
+            if (amdActive) {
+                elements.phaseBadge.textContent = `🎭 AMD ${data.amd?.action?.replace('FORCE_', '') || 'SPOOF'}`;
+                elements.phaseBadge.className = 'phase-badge amd';
+            } else if (tdpActive) {
+                elements.phaseBadge.textContent = `☢️ TDP ${data.tdp?.bias || 'ACTIVE'}`;
+                elements.phaseBadge.className = 'phase-badge tdp';
+            } else if (mwrActive) {
                 elements.phaseBadge.textContent = `🧲 ${data.mwr?.magnet_type || 'MAGNET'}`;
                 elements.phaseBadge.className = 'phase-badge mwr';
             } else if (lvsActive) {
@@ -1835,7 +2219,14 @@
             }
             
             // Strategy and reason
-            elements.strategyDisplay.textContent = `STRATEGY: ${mwrActive ? 'MAGNET WALL REVERSAL' : lvsActive ? 'GHOST WHISPERER' : phase}`;
+            let strategy = 'AGGRESSION-MASS DIVERGENCE';
+            if (amdActive) strategy = 'AMD SPOOF DETECTOR';
+            else if (tdpActive) strategy = 'THE DYL PARTICLE';
+            else if (mwrActive) strategy = 'MAGNET WALL REVERSAL';
+            else if (lvsActive) strategy = 'GHOST WHISPERER';
+            else strategy = phase;
+            
+            elements.strategyDisplay.textContent = `STRATEGY: ${strategy}`;
             elements.phaseReason.textContent = data.phase_reason || data.reason || '--';
             
             // Confidence
@@ -1870,6 +2261,26 @@
             elements.biasValue.textContent = bias;
             elements.biasValue.className = `big-value ${bias.toLowerCase()}`;
             elements.biasDetail.textContent = data.phase_reason?.split('.')[0] || '--';
+            
+            // AMD Status
+            elements.amdStatus.textContent = amdActive ? 'ACTIVE' : 'INACTIVE';
+            elements.amdStatus.className = `score-num ${amdActive ? 'amd' : ''}`;
+            elements.amdType.textContent = data.amd?.action || 'No spoof';
+            
+            // AMD Detail Card
+            elements.amdDetail.textContent = amdActive ? data.amd?.action : 'NO SPOOF';
+            elements.amdDetail.className = `value ${amdActive ? 'amd' : ''}`;
+            elements.amdDesc.textContent = amdActive ? (data.amd?.reason || 'Spoof detected') : 'No aggression-mass divergence';
+            
+            // TDP Status
+            elements.tdpStatus.textContent = tdpActive ? 'ACTIVE' : 'INACTIVE';
+            elements.tdpStatus.className = `score-num ${tdpActive ? 'tdp' : ''}`;
+            elements.tdpType.textContent = tdpActive ? data.tdp?.bias : 'No particle';
+            
+            // TDP Detail Card
+            elements.tdpDetail.textContent = tdpActive ? `${data.tdp?.bias} CANDLE` : 'NO PARTICLE';
+            elements.tdpDetail.className = `value ${tdpActive ? 'tdp' : ''}`;
+            elements.tdpDesc.textContent = tdpActive ? (data.tdp?.reason || 'God candle detected') : 'OI < 5% or WMI < 90';
             
             // MWR Status
             elements.mwrStatus.textContent = mwrActive ? 'ACTIVE' : 'INACTIVE';
@@ -1929,7 +2340,7 @@
             elements.rsiValue.className = `val ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}`;
             
             elements.aggRatio.textContent = `${(data.aggressive_ratio || 1.0).toFixed(2)}x`;
-            elements.aggRatio.className = `val ${(data.aggressive_ratio || 1) < 0.3 ? 'cyan' : (data.aggressive_ratio || 1) > 2 ? 'warning' : ''}`;
+            elements.aggRatio.className = `val ${(data.aggressive_ratio || 1) < 0.3 ? 'amd' : (data.aggressive_ratio || 1) > 2 ? 'warning' : ''}`;
             
             elements.tradeFlow.textContent = `${(data.trade_flow || 1.0).toFixed(2)}x`;
             elements.tradeFlow.className = `val ${(data.trade_flow || 1) < 0.5 ? 'cyan' : (data.trade_flow || 1) > 2 ? 'warning' : ''}`;
@@ -1984,7 +2395,13 @@
             
             // Alert Box
             let alertMsg = data.liquidation_alert || data.reason || 'No alert';
-            if (mwrActive) {
+            if (amdActive) {
+                alertMsg = `🎭 AMD SPOOF: ${data.amd?.reason || 'WMI Bullish Palsu - Target Short!'}`;
+                elements.alertBox.className = 'alert-box amd-alert';
+            } else if (tdpActive) {
+                alertMsg = `☢️ TDP ACTIVE: ${data.tdp?.reason || 'God Candle Detected - Absolute Bias!'}`;
+                elements.alertBox.className = 'alert-box tdp-alert';
+            } else if (mwrActive) {
                 alertMsg = `🧲 MAGNET WALL: ${data.mwr?.reason || 'Fake Ceiling Detected - Target Long!'}`;
                 elements.alertBox.className = 'alert-box mwr-alert';
             } else if (lvsActive) {
@@ -2019,6 +2436,48 @@
             }
             
             showTerminalOutput(data);
+        }
+
+        function updateAmdDisplay(data) {
+            // Special display for AMD scan results
+            if (data.amd && data.amd.is_spoof) {
+                elements.alertBox.className = 'alert-box amd-alert';
+                elements.alertMessage.textContent = `🎭 AMD SPOOF: ${data.amd.reason}`;
+                elements.phaseBadge.textContent = `🎭 ${data.amd.action}`;
+                elements.phaseBadge.classList.add('amd');
+                
+                // Highlight AMD card
+                elements.amdDetail.textContent = data.amd.action;
+                elements.amdDetail.className = 'value amd';
+                elements.amdDesc.textContent = data.amd.reason;
+                elements.amdStatus.textContent = 'ACTIVE';
+                elements.amdStatus.className = 'score-num amd';
+                elements.amdType.textContent = data.amd.action;
+            }
+            
+            // Update regular display with the data
+            updateDisplay(data);
+        }
+
+        function updateTdpDisplay(data) {
+            // Special display for TDP scan results
+            if (data.tdp && data.tdp.is_active) {
+                elements.alertBox.className = 'alert-box tdp-alert';
+                elements.alertMessage.textContent = `☢️ TDP ACTIVE: ${data.tdp.reason}`;
+                elements.phaseBadge.textContent = `☢️ TDP ${data.tdp.bias}`;
+                elements.phaseBadge.classList.add('tdp');
+                
+                // Highlight TDP card
+                elements.tdpDetail.textContent = `${data.tdp.bias} CANDLE`;
+                elements.tdpDetail.className = 'value tdp';
+                elements.tdpDesc.textContent = data.tdp.reason;
+                elements.tdpStatus.textContent = 'ACTIVE';
+                elements.tdpStatus.className = 'score-num tdp';
+                elements.tdpType.textContent = data.tdp.bias;
+            }
+            
+            // Update regular display with the data
+            updateDisplay(data);
         }
 
         function updateMagnetDisplay(data) {
@@ -2076,7 +2535,13 @@
             const obRatio = data.ob_ratio || 1.0;
             const oiDelta = data.oi_delta_5m || 0;
             
-            // V62 metrics
+            // V65 metrics
+            const amdActive = data.amd?.is_spoof ? 'YES' : 'NO';
+            const amdAction = data.amd?.action || 'NONE';
+            const amdReason = data.amd?.reason || 'No divergence';
+            const tdpActive = data.tdp?.is_active ? 'YES' : 'NO';
+            const tdpBias = data.tdp?.bias || 'NONE';
+            const tdpReason = data.tdp?.reason || 'No particle';
             const mwrActive = data.mwr?.is_magnet ? 'YES' : 'NO';
             const mwrType = data.mwr?.magnet_type || 'NONE';
             const mwrReason = data.mwr?.reason || 'No magnet';
@@ -2110,15 +2575,23 @@
                 <div class="line"><span class="label">PRICE  :</span> <span class="value">$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}</span></div>
                 <div class="header-line">================================================================================</div>
                 
+                <div class="section-title amd-section">🎭 V65 AGGRESSION-MASS DIVERGENCE</div>
+                <div class="line"><span class="label">🎭 AMD Active :</span> <span class="value ${amdActive === 'YES' ? 'amd' : ''}">${amdActive} (${amdAction})</span></div>
+                <div class="line"><span class="label">📋 AMD Reason :</span> <span class="value amd">${amdReason}</span></div>
+                
+                <div class="divider"></div>
+                
+                <div class="section-title tdp-section">☢️ V64 THE DYL PARTICLE</div>
+                <div class="line"><span class="label">☢️ TDP Active :</span> <span class="value ${tdpActive === 'YES' ? 'tdp' : ''}">${tdpActive} (${tdpBias})</span></div>
+                <div class="line"><span class="label">📋 TDP Reason :</span> <span class="value tdp">${tdpReason}</span></div>
+                
+                <div class="divider"></div>
+                
                 <div class="section-title mwr-section">🧲 V62 MAGNET WALL REVERSAL</div>
                 <div class="line"><span class="label">🧲 MWR Active :</span> <span class="value ${mwrActive === 'YES' ? 'magnet' : ''}">${mwrActive} (${mwrType})</span></div>
                 <div class="line"><span class="label">📋 MWR Reason :</span> <span class="value magnet">${mwrReason}</span></div>
                 <div class="line"><span class="label">📊 ODD Status :</span> <span class="value ${oddStatus.includes('HEAVY') ? 'magnet' : oddStatus.includes('THINNING') ? 'green' : ''}">${oddStatus}</span></div>
                 <div class="line"><span class="label">📊 ODD Reason :</span> <span class="value">${oddReason}</span></div>
-                <div class="line"><span class="label">📊 Bid Volume :</span> <span class="value">${bidVolume}</span></div>
-                <div class="line"><span class="label">📊 Ask Volume :</span> <span class="value">${askVolume}</span></div>
-                <div class="line"><span class="label">🎯 PHASE :</span> <span class="value ${mwrActive === 'YES' ? 'magnet' : data.market_phase?.includes('NUCLEAR') ? 'red' : ''}">${data.market_phase || 'NEUTRAL'}</span></div>
-                <div class="line"><span class="label">📌 REASON :</span> <span class="value">${data.phase_reason || data.reason || '--'}</span></div>
                 
                 <div class="divider"></div>
                 
@@ -2155,7 +2628,7 @@
                 <div class="line"><span class="label">🎯 Long Liq :</span> <span class="value ${longLiq < 0.5 ? 'red' : ''}">${longLiq.toFixed(2)}%</span></div>
                 <div class="line"><span class="label">🎯 Short Liq :</span> <span class="value ${shortLiq < 0.5 ? 'green' : ''}">${shortLiq.toFixed(2)}%</span></div>
                 <div class="line"><span class="label">📊 Trade Flow :</span> <span class="value ${tradeFlow > 1.5 ? 'green' : tradeFlow < 0.6 ? 'cyan' : ''}">${tradeFlow.toFixed(2)}x</span></div>
-                <div class="line"><span class="label">⚔️ Aggressive Ratio :</span> <span class="value ${aggressiveRatio > 1.5 ? 'green' : aggressiveRatio < 0.5 ? 'cyan' : ''}">${aggressiveRatio.toFixed(2)}x</span></div>
+                <div class="line"><span class="label">⚔️ Aggressive Ratio :</span> <span class="value ${aggressiveRatio > 1.5 ? 'green' : aggressiveRatio < 0.5 ? 'amd' : ''}">${aggressiveRatio.toFixed(2)}x</span></div>
                 <div class="line"><span class="label">📈 RSI(6) :</span> <span class="value ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}">${rsi6.toFixed(1)}</span></div>
                 <div class="line"><span class="label">📚 OB Ratio :</span> <span class="value ${obRatio > 1.5 ? 'green' : obRatio < 0.6 ? 'red' : ''}">${obRatio.toFixed(2)}x</span></div>
                 <div class="line"><span class="label">📈 OI Δ5m :</span> <span class="value ${oiDelta > 2 ? 'green' : oiDelta < -2 ? 'red' : ''}">${oiDelta.toFixed(2)}%</span></div>
@@ -2170,17 +2643,17 @@
                 <div class="divider"></div>
                 
                 <div class="section-title">🎯 TRADING SIGNAL</div>
-                <div class="line"><span class="label">${mwrActive ? '🧲' : lvsActive ? '👻' : data.bias === 'LONG' ? '🟢' : data.bias === 'SHORT' ? '🔴' : '⚪'} BIAS :</span> <span class="value ${mwrActive ? 'magnet' : lvsActive ? 'cyan' : data.bias === 'LONG' ? 'green' : data.bias === 'SHORT' ? 'red' : ''}">${data.bias || 'NEUTRAL'} ${mwrActive ? '(MAGNET MODE)' : lvsActive ? '(GHOST MODE)' : ''}</span></div>
+                <div class="line"><span class="label">${amdActive ? '🎭' : tdpActive ? '☢️' : mwrActive ? '🧲' : lvsActive ? '👻' : data.bias === 'LONG' ? '🟢' : data.bias === 'SHORT' ? '🔴' : '⚪'} BIAS :</span> <span class="value ${amdActive ? 'amd' : tdpActive ? 'tdp' : mwrActive ? 'magnet' : lvsActive ? 'cyan' : data.bias === 'LONG' ? 'green' : data.bias === 'SHORT' ? 'red' : ''}">${data.bias || 'NEUTRAL'} ${amdActive ? '(AMD MODE)' : tdpActive ? '(TDP MODE)' : mwrActive ? '(MAGNET MODE)' : lvsActive ? '(GHOST MODE)' : ''}</span></div>
                 <div class="line"><span class="label">🔥 CONFIDENCE :</span> <span class="value ${data.confidence === 'ABSOLUTE' ? 'red' : data.confidence === 'SUPREME' ? 'green' : data.confidence === 'HIGH' ? 'yellow' : ''}">${data.confidence || 'LOW'}</span></div>
                 <div class="line"><span class="label">⏳ ENTRY STATUS :</span> <span class="value ${data.entry_ready ? 'green' : ''}">${data.entry_status || 'WAITING'}</span></div>
                 
                 <div class="header-line">================================================================================</div>
-                <div class="line"><span class="value ${mwrActive ? 'magnet' : lvsActive ? 'cyan' : ''}">${mwrActive ? data.mwr?.reason : lvsActive ? data.lvs?.reason : data.liquidation_alert || data.reason || 'No analysis reason'}</span></div>
+                <div class="line"><span class="value ${amdActive ? 'amd' : tdpActive ? 'tdp' : mwrActive ? 'magnet' : lvsActive ? 'cyan' : ''}">${amdActive ? data.amd?.reason : tdpActive ? data.tdp?.reason : mwrActive ? data.mwr?.reason : lvsActive ? data.lvs?.reason : data.liquidation_alert || data.reason || 'No analysis reason'}</span></div>
                 <div class="header-line">================================================================================</div>
             `;
         }
 
-        function showLoading(message = 'Analyzing with V62 Magnet Wall Reversal...') {
+        function showLoading(message = 'Analyzing with V65 Aggression-Mass Divergence...') {
             elements.loadingOverlay.style.display = 'flex';
             document.querySelector('.loading-spinner p').textContent = message;
         }
@@ -2197,10 +2670,12 @@
 
         window.dylpredict = {
             analyze: analyzeSymbol,
+            amdScan: amdScan,
+            tdpScan: tdpScan,
             magnetScan: magnetScan,
             ghostScan: ghostScan,
             batch: analyzeBatch,
-            version: 'V62 Magnet Wall Reversal'
+            version: 'V65 Aggression-Mass Divergence'
         };
     </script>
 </body>
