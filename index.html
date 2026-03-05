@@ -50,14 +50,44 @@
             box-sizing: border-box;
         }
 
+        /* 1. Efek halus pada Body dengan Radial Gradient */
         body {
-            background: linear-gradient(135deg, #f0f7f0 0%, #e8f3e8 100%);
+            background: 
+                radial-gradient(circle at top right, #e8f3e8, transparent),
+                radial-gradient(circle at bottom left, #e0eee0, transparent),
+                #f0f7f0;
+            background-attachment: fixed;
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             padding: 20px;
             min-height: 100vh;
             position: relative;
             overflow-x: auto;
+        }
+
+        /* 4. Floating Shapes Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 40%;
+            height: 40%;
+            background: radial-gradient(circle, rgba(0,168,107,0.05) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -10%;
+            right: -10%;
+            width: 50%;
+            height: 50%;
+            background: radial-gradient(circle, rgba(0,168,107,0.08) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
         }
 
         .container {
@@ -67,6 +97,7 @@
             z-index: 10;
         }
 
+        /* 2. Percantik Card dengan Soft Shadow & Border */
         header {
             display: flex;
             justify-content: space-between;
@@ -75,12 +106,11 @@
             flex-wrap: wrap;
             gap: 15px;
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             padding: 16px 24px;
             border-radius: 16px;
-            border: var(--border-light);
-            box-shadow: var(--shadow-light);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 80, 0, 0.05);
         }
 
         .logo h1 {
@@ -209,7 +239,7 @@
             background: var(--green-pale);
             padding: 4px;
             border-radius: 12px;
-            border: var(--border-light);
+            border: 1px solid rgba(0, 100, 0, 0.1);
         }
 
         #customSymbolInput {
@@ -277,18 +307,23 @@
             gap: 15px;
         }
 
+        /* 2. Percantik Card dengan Soft Shadow & Border */
+        .header-card, .signal-hero, .card, .details-section {
+            border: 1px solid rgba(255, 255, 255, 0.8) !important;
+            box-shadow: 0 10px 30px rgba(0, 80, 0, 0.05) !important;
+            backdrop-filter: blur(12px);
+        }
+
         .header-card {
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             padding: 20px;
             border-radius: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-left: 4px solid var(--green);
-            box-shadow: var(--shadow-light);
             transition: var(--transition-smooth);
-            border: var(--border-light);
             position: relative;
         }
 
@@ -317,7 +352,8 @@
             border-radius: 100px;
             display: inline-block;
             width: fit-content;
-            border: var(--border-light);
+            border: 1px solid rgba(0, 100, 0, 0.1);
+            transition: color 0.5s;
         }
 
         .price-section {
@@ -339,8 +375,10 @@
             margin: 0;
             font-weight: 700;
             letter-spacing: -0.5px;
+            transition: color 0.5s;
         }
 
+        /* 6. Glow pada Phase Badge */
         .phase-badge {
             position: absolute;
             top: -12px;
@@ -355,62 +393,78 @@
             letter-spacing: 1.5px;
             z-index: 30;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
 
         .phase-badge.pab {
             background: linear-gradient(135deg, var(--pab), #9932cc);
+            box-shadow: 0 4px 15px rgba(128, 0, 128, 0.3);
         }
 
         .phase-badge.cfk {
             background: linear-gradient(135deg, var(--cfk), #ff6347);
+            box-shadow: 0 4px 15px rgba(255, 69, 0, 0.3);
         }
 
         .phase-badge.mdd {
             background: linear-gradient(135deg, var(--mdd), #8a6de9);
+            box-shadow: 0 4px 15px rgba(147, 112, 219, 0.3);
         }
 
         .phase-badge.ovd {
             background: linear-gradient(135deg, var(--ovd), #5f9ea0);
+            box-shadow: 0 4px 15px rgba(135, 206, 235, 0.3);
         }
 
         .phase-badge.trend {
             background: linear-gradient(135deg, var(--trend), #228b22);
+            box-shadow: 0 4px 15px rgba(152, 251, 152, 0.3);
         }
 
         .phase-badge.ogd {
             background: linear-gradient(135deg, var(--ogd), #00cccc);
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
         }
 
         .phase-badge.zas {
             background: linear-gradient(135deg, var(--zas), #cc0000);
+            box-shadow: 0 4px 15px rgba(255, 68, 68, 0.3);
         }
 
         .phase-badge.avc {
             background: linear-gradient(135deg, var(--avc), #cc8800);
+            box-shadow: 0 4px 15px rgba(255, 170, 0, 0.3);
         }
 
         .phase-badge.ati {
             background: linear-gradient(135deg, var(--ati), #6a4fc9);
+            box-shadow: 0 4px 15px rgba(138, 109, 233, 0.3);
         }
 
         .phase-badge.amd {
             background: linear-gradient(135deg, var(--amd), #ff4757);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
         }
 
         .phase-badge.tdp {
             background: linear-gradient(135deg, var(--tdp), #ffaa00);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
         }
 
         .phase-badge.mwr {
             background: linear-gradient(135deg, var(--magnet), #8b5cf6);
+            box-shadow: 0 4px 15px rgba(167, 139, 250, 0.3);
         }
 
         .phase-badge.lvs {
             background: linear-gradient(135deg, var(--cyan), #0891b2);
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
         }
 
         .phase-badge.nuclear {
             background: linear-gradient(135deg, #f44336, #d32f2f);
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
         }
 
         .signal-hero {
@@ -418,9 +472,9 @@
             border-radius: 20px;
             text-align: center;
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: var(--border-light);
-            box-shadow: var(--shadow-light);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 80, 0, 0.05);
             position: relative;
             overflow: hidden;
         }
@@ -489,12 +543,21 @@
             border-bottom: 5px solid var(--yellow);
         }
 
+        /* 3. Animasi Pulse untuk Signal Utama */
+        @keyframes pulse-subtle {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.02); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
         .main-opinion {
             font-size: 3.5rem;
             font-weight: 900;
             letter-spacing: 4px;
             line-height: 1.2;
             margin-bottom: 5px;
+            animation: pulse-subtle 3s ease-in-out infinite;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
         .signal-hero.pab-active .main-opinion {
@@ -567,7 +630,7 @@
             display: inline-block;
             padding: 6px 16px;
             border-radius: 100px;
-            border: var(--border-light);
+            border: 1px solid rgba(0, 100, 0, 0.1);
         }
 
         .phase-reason {
@@ -598,7 +661,7 @@
             height: 10px;
             border-radius: 5px;
             overflow: hidden;
-            border: var(--border-light);
+            border: 1px solid rgba(0, 100, 0, 0.1);
         }
 
         .confidence-bar .fill {
@@ -615,15 +678,21 @@
             margin: 10px 0;
         }
 
+        /* 4. Hover effect pada Metrics Card */
         .card {
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             padding: 18px 12px;
             border-radius: 16px;
             text-align: center;
-            border: var(--border-light);
-            transition: var(--transition-smooth);
-            box-shadow: var(--shadow-light);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 80, 0, 0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--green) !important;
         }
 
         .card h3 {
@@ -640,6 +709,7 @@
             font-weight: 700;
             line-height: 1.2;
             margin-bottom: 8px;
+            transition: color 0.5s;
         }
 
         .green { color: var(--green); }
@@ -680,11 +750,12 @@
 
         .details-section {
             background: var(--card-bg);
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(12px);
             border-radius: 16px;
             padding: 16px;
             margin: 10px 0;
-            border: var(--border-light);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 80, 0, 0.05);
         }
 
         .data-row {
@@ -706,6 +777,7 @@
         .data-row .val {
             font-weight: 600;
             font-family: 'Courier New', monospace;
+            transition: color 0.5s;
         }
 
         .data-row .val.warning {
@@ -745,7 +817,7 @@
             padding: 15px;
             border-radius: 12px;
             border-left: 3px solid var(--green);
-            border: var(--border-light);
+            border: 1px solid rgba(0, 100, 0, 0.1);
         }
 
         .advanced-card h4 {
@@ -855,8 +927,8 @@
             border-radius: 12px;
             font-size: 0.8rem;
             color: var(--text-dim);
-            border: var(--border-light);
-            box-shadow: var(--shadow-light);
+            border: 1px solid rgba(0, 100, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 80, 0, 0.05);
         }
 
         .loading-overlay {
@@ -893,6 +965,39 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* 7. Skeleton Loading Effect (Optional untuk UX) */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .loading-active .big-value {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            color: transparent !important;
+            border-radius: 4px;
+        }
+
+        /* 5. Styling untuk Scrollbar yang lebih Modern */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--green-pale);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--green), var(--green-light));
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--green);
         }
 
         @media (max-width: 768px) {
@@ -969,24 +1074,6 @@
                 grid-template-columns: 1fr;
             }
         }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--green-pale);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--green);
-            border-radius: 3px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--green-light);
-        }
     </style>
 </head>
 <body>
@@ -1043,7 +1130,7 @@
                 <div class="phase-badge" id="phaseBadge">NEUTRAL</div>
                 <div class="symbol-info">
                     <h1 class="symbol" id="mainSymbol">SIRENUSDT</h1>
-                    <span class="timestamp" id="headerTime">--:--:--.---</span>
+                    <span class="timestamp" id="headerTime">--:--:--.--- GMT+0</span>
                 </div>
                 <div class="price-section">
                     <span class="price-label">LIVE PRICE</span>
@@ -1176,6 +1263,16 @@
             phaseBadge: document.getElementById('phaseBadge')
         };
 
+        // Cara 3 — Auto Update setiap detik (Real-time GMT Clock)
+        function updateClock() {
+            const now = new Date();
+            const time = now.toISOString().split('T')[1].replace('Z', '');
+            elements.headerTime.textContent = time + " GMT+0";
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
         document.addEventListener('DOMContentLoaded', () => {
             attachEventListeners();
             setTimeout(() => {
@@ -1241,7 +1338,24 @@
 
         function updateDisplay(data) {
             elements.mainSymbol.textContent = data.symbol || 'SIRENUSDT';
-            elements.headerTime.textContent = data.timestamp || new Date().toLocaleTimeString();
+            
+            // Cara 2 — Format GMT (tapi kita sudah pakai Cara 3 di atas)
+            // Tetap update clock via setInterval, jadi tidak perlu diubah di sini
+            
+            // 5. Sentuhan pada JavaScript - CountUp dengan transisi warna
+            const oldPrice = parseFloat(elements.priceValue.textContent.replace('$', ''));
+            const newPrice = data.price || 0;
+            
+            // Efek transisi warna
+            elements.priceValue.style.transition = "color 0.5s";
+            if (newPrice > oldPrice) {
+                elements.priceValue.style.color = "var(--green)";
+            } else if (newPrice < oldPrice) {
+                elements.priceValue.style.color = "var(--red)";
+            } else {
+                elements.priceValue.style.color = "var(--green)";
+            }
+            
             elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}`;
             
             const bias = data.bias || 'NEUTRAL';
@@ -1466,10 +1580,12 @@
 
         function showLoading() {
             elements.loadingOverlay.style.display = 'flex';
+            document.body.classList.add('loading-active');
         }
 
         function hideLoading() {
             elements.loadingOverlay.style.display = 'none';
+            document.body.classList.remove('loading-active');
         }
 
         function showError(message) {
