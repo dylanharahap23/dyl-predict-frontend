@@ -10,14 +10,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* ===== MODERN TRADING TERMINAL CSS WITH GLASSMORPHISM & NEON ===== */
+        /* ===== MODERN TRADING TERMINAL CSS WITH LIGHT GREEN & WHITE THEME ===== */
         :root {
-            --bg-color: #0b0e11;
-            --card-bg: #1e2329;
-            --green: #02c076;
-            --red: #f84960;
-            --yellow: #f0b90b;
-            --purple: #8a6de9;
+            --bg-color: #f0f7f0;           /* Soft green background */
+            --card-bg: #ffffff;              /* Pure white cards */
+            --text-main: #1e3a2e;            /* Dark green text */
+            --text-dim: #2c5e4a;              /* Medium green for dim text */
+            --green: #00a86b;                  /* Vibrant green */
+            --green-light: #4cd964;            /* Light green */
+            --green-pale: #e6f3e6;             /* Pale green for backgrounds */
+            --red: #ff6b6b;                     /* Soft red */
+            --yellow: #ffb347;                   /* Warm yellow */
+            --purple: #8a6de9;                   /* Keep purple for special indicators */
             --orange: #ff9800;
             --blue: #3b82f6;
             --pink: #ec4899;
@@ -29,15 +33,15 @@
             --zas: #ff4444;
             --avc: #ffaa00;
             --ati: #8a6de9;
-            --pab: #800080;      /* Purple for Blackhole */
+            --pab: #800080;                    /* Purple for Blackhole */
             --cfk: #ff4500;
             --mdd: #9370db;
             --ovd: #87ceeb;
             --trend: #98fb98;
-            --text-main: #eaecef;
-            --text-dim: #848e9c;
-            --glass-opacity: rgba(30, 35, 41, 0.8);
+            --glass-opacity: rgba(255, 255, 255, 0.9);
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-light: 1px solid rgba(0, 100, 0, 0.1);
+            --shadow-light: 0 4px 20px rgba(0, 80, 0, 0.1);
         }
 
         * {
@@ -47,13 +51,13 @@
         }
 
         body {
-            background-color: var(--bg-color);
+            background: linear-gradient(135deg, #f0f7f0 0%, #e8f3e8 100%);
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             padding: 20px;
             min-height: 100vh;
             position: relative;
-            overflow-x: hidden;
+            overflow-x: auto;
         }
 
         .container {
@@ -70,18 +74,18 @@
             margin-bottom: 20px;
             flex-wrap: wrap;
             gap: 15px;
-            background: rgba(30, 35, 41, 0.7);
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             padding: 16px 24px;
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: var(--border-light);
+            box-shadow: var(--shadow-light);
         }
 
         .logo h1 {
             font-size: 24px;
-            background: linear-gradient(135deg, #fff, var(--pab));
+            background: linear-gradient(135deg, #1e3a2e, #00a86b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
@@ -94,11 +98,11 @@
 
         .version {
             font-size: 12px;
-            background: rgba(128, 0, 128, 0.2);
+            background: var(--green-pale);
             padding: 4px 10px;
             border-radius: 100px;
-            color: var(--pab);
-            border: 1px solid rgba(128, 0, 128, 0.3);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
             font-weight: 600;
         }
 
@@ -116,79 +120,79 @@
         }
 
         .badge.pab {
-            background: rgba(128, 0, 128, 0.15);
+            background: rgba(128, 0, 128, 0.1);
             color: var(--pab);
             border: 1px solid rgba(128, 0, 128, 0.2);
         }
 
         .badge.cfk {
-            background: rgba(255, 69, 0, 0.15);
+            background: rgba(255, 69, 0, 0.1);
             color: var(--cfk);
             border: 1px solid rgba(255, 69, 0, 0.2);
         }
 
         .badge.mdd {
-            background: rgba(147, 112, 219, 0.15);
+            background: rgba(147, 112, 219, 0.1);
             color: var(--mdd);
             border: 1px solid rgba(147, 112, 219, 0.2);
         }
 
         .badge.ovd {
-            background: rgba(135, 206, 235, 0.15);
+            background: rgba(135, 206, 235, 0.1);
             color: var(--ovd);
             border: 1px solid rgba(135, 206, 235, 0.2);
         }
 
         .badge.trend {
-            background: rgba(152, 251, 152, 0.15);
+            background: rgba(152, 251, 152, 0.1);
             color: var(--trend);
             border: 1px solid rgba(152, 251, 152, 0.2);
         }
 
         .badge.ogd {
-            background: rgba(0, 255, 255, 0.15);
+            background: rgba(0, 255, 255, 0.1);
             color: var(--ogd);
             border: 1px solid rgba(0, 255, 255, 0.2);
         }
 
         .badge.zas {
-            background: rgba(255, 68, 68, 0.15);
+            background: rgba(255, 68, 68, 0.1);
             color: var(--zas);
             border: 1px solid rgba(255, 68, 68, 0.2);
         }
 
         .badge.avc {
-            background: rgba(255, 170, 0, 0.15);
+            background: rgba(255, 170, 0, 0.1);
             color: var(--avc);
             border: 1px solid rgba(255, 170, 0, 0.2);
         }
 
         .badge.ati {
-            background: rgba(138, 109, 233, 0.15);
+            background: rgba(138, 109, 233, 0.1);
             color: var(--ati);
             border: 1px solid rgba(138, 109, 233, 0.2);
         }
 
         .badge.amd {
-            background: rgba(255, 107, 107, 0.15);
+            background: rgba(255, 107, 107, 0.1);
             color: var(--amd);
             border: 1px solid rgba(255, 107, 107, 0.2);
         }
 
         .badge.tdp {
-            background: rgba(255, 215, 0, 0.15);
+            background: rgba(255, 215, 0, 0.1);
             color: var(--tdp);
             border: 1px solid rgba(255, 215, 0, 0.2);
         }
 
         .badge.mwr {
-            background: rgba(167, 139, 250, 0.15);
+            background: rgba(167, 139, 250, 0.1);
             color: var(--magnet);
             border: 1px solid rgba(167, 139, 250, 0.2);
         }
 
         .badge.lvs {
-            background: rgba(6, 182, 212, 0.15);
+            background: rgba(6, 182, 212, 0.1);
             color: var(--cyan);
             border: 1px solid rgba(6, 182, 212, 0.2);
         }
@@ -202,15 +206,15 @@
         .input-controls {
             display: flex;
             gap: 8px;
-            background: rgba(0, 0, 0, 0.3);
+            background: var(--green-pale);
             padding: 4px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: var(--border-light);
         }
 
         #customSymbolInput {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: white;
+            border: 1px solid rgba(0, 100, 0, 0.1);
             border-radius: 8px;
             padding: 10px 15px;
             color: var(--text-main);
@@ -221,17 +225,18 @@
         }
 
         #customSymbolInput:focus {
-            border-color: var(--pab);
-            box-shadow: 0 0 15px rgba(128, 0, 128, 0.2);
+            border-color: var(--green);
+            box-shadow: 0 0 15px rgba(0, 168, 107, 0.2);
         }
 
         #customSymbolInput::placeholder {
             color: var(--text-dim);
+            opacity: 0.7;
         }
 
         .glass-select {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: white;
+            border: 1px solid rgba(0, 100, 0, 0.1);
             border-radius: 8px;
             padding: 10px 15px;
             color: var(--text-main);
@@ -241,16 +246,16 @@
         }
 
         .glass-select option {
-            background: var(--card-bg);
+            background: white;
             color: var(--text-main);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--pab), #9932cc);
+            background: linear-gradient(135deg, var(--green), var(--green-light));
             border: none;
             border-radius: 8px;
             padding: 10px 20px;
-            color: #0b0e11;
+            color: white;
             font-weight: 700;
             cursor: pointer;
             display: flex;
@@ -258,12 +263,12 @@
             gap: 8px;
             transition: var(--transition-smooth);
             font-family: 'Inter', sans-serif;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 25px var(--pab);
+            box-shadow: 0 0 25px rgba(0, 168, 107, 0.3);
         }
 
         .dashboard-container {
@@ -273,17 +278,17 @@
         }
 
         .header-card {
-            background: rgba(30, 35, 41, 0.7);
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
             padding: 20px;
             border-radius: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-left: 4px solid var(--pab);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border-left: 4px solid var(--green);
+            box-shadow: var(--shadow-light);
             transition: var(--transition-smooth);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: var(--border-light);
             position: relative;
         }
 
@@ -298,7 +303,7 @@
             font-weight: 800;
             margin: 0;
             letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #fff, var(--pab));
+            background: linear-gradient(135deg, #1e3a2e, var(--green));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -307,12 +312,12 @@
             font-size: 0.8rem;
             color: var(--text-dim);
             font-family: 'Courier New', monospace;
-            background: rgba(0, 0, 0, 0.3);
+            background: var(--green-pale);
             padding: 4px 10px;
             border-radius: 100px;
             display: inline-block;
             width: fit-content;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: var(--border-light);
         }
 
         .price-section {
@@ -329,7 +334,7 @@
         }
 
         .price {
-            color: var(--pab);
+            color: var(--green);
             font-size: 2rem;
             margin: 0;
             font-weight: 700;
@@ -340,7 +345,7 @@
             position: absolute;
             top: -12px;
             right: 20px;
-            background: linear-gradient(135deg, var(--purple), #6a4fc9);
+            background: linear-gradient(135deg, var(--green), var(--green-light));
             color: white;
             font-weight: 800;
             font-size: 0.8rem;
@@ -412,10 +417,10 @@
             padding: 25px 25px;
             border-radius: 20px;
             text-align: center;
-            background: rgba(30, 35, 41, 0.7);
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: var(--border-light);
+            box-shadow: var(--shadow-light);
             position: relative;
             overflow: hidden;
         }
@@ -558,11 +563,11 @@
             margin-bottom: 10px;
             font-weight: 500;
             letter-spacing: 1px;
-            background: rgba(0, 0, 0, 0.3);
+            background: var(--green-pale);
             display: inline-block;
             padding: 6px 16px;
             border-radius: 100px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: var(--border-light);
         }
 
         .phase-reason {
@@ -589,15 +594,15 @@
         }
 
         .confidence-bar .bar {
-            background: rgba(51, 51, 51, 0.5);
+            background: var(--green-pale);
             height: 10px;
             border-radius: 5px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: var(--border-light);
         }
 
         .confidence-bar .fill {
-            background: var(--pab);
+            background: linear-gradient(90deg, var(--green), var(--green-light));
             height: 100%;
             border-radius: 5px;
             transition: width 0.5s ease;
@@ -611,14 +616,14 @@
         }
 
         .card {
-            background: rgba(30, 35, 41, 0.7);
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
             padding: 18px 12px;
             border-radius: 16px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            border: var(--border-light);
             transition: var(--transition-smooth);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow-light);
         }
 
         .card h3 {
@@ -674,19 +679,19 @@
         }
 
         .details-section {
-            background: rgba(30, 35, 41, 0.5);
+            background: var(--card-bg);
             backdrop-filter: blur(5px);
             border-radius: 16px;
             padding: 16px;
             margin: 10px 0;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            border: var(--border-light);
         }
 
         .data-row {
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(0, 100, 0, 0.05);
         }
 
         .data-row:last-child {
@@ -735,11 +740,12 @@
         }
 
         .advanced-card {
-            background: rgba(30, 35, 41, 0.5);
+            background: var(--card-bg);
             backdrop-filter: blur(5px);
             padding: 15px;
             border-radius: 12px;
-            border-left: 3px solid var(--purple);
+            border-left: 3px solid var(--green);
+            border: var(--border-light);
         }
 
         .advanced-card h4 {
@@ -761,15 +767,15 @@
         }
 
         .alert-box {
-            background: rgba(240, 185, 11, 0.08);
-            border: 1px dashed var(--yellow);
+            background: var(--green-pale);
+            border: 1px dashed var(--green);
             padding: 18px;
             border-radius: 16px;
             font-size: 0.9rem;
             line-height: 1.5;
             color: var(--text-main);
             margin: 15px 0;
-            border-left: 4px solid var(--yellow);
+            border-left: 4px solid var(--green);
         }
 
         .alert-box.pab-alert {
@@ -838,18 +844,19 @@
         }
 
         .alert-box strong {
-            color: var(--yellow);
+            color: var(--green);
         }
 
         .footer {
             text-align: center;
             margin-top: 30px;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
+            background: var(--card-bg);
             border-radius: 12px;
             font-size: 0.8rem;
             color: var(--text-dim);
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            border: var(--border-light);
+            box-shadow: var(--shadow-light);
         }
 
         .loading-overlay {
@@ -858,7 +865,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(11, 14, 17, 0.95);
+            background: rgba(240, 247, 240, 0.95);
             backdrop-filter: blur(10px);
             display: none;
             justify-content: center;
@@ -872,7 +879,7 @@
 
         .loading-spinner i {
             font-size: 48px;
-            color: var(--pab);
+            color: var(--green);
             margin-bottom: 20px;
             animation: spin 1s linear infinite;
         }
@@ -969,12 +976,16 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: var(--bg-color);
+            background: var(--green-pale);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--pab);
+            background: var(--green);
             border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--green-light);
         }
     </style>
 </head>
