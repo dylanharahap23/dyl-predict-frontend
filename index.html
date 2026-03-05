@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DylPredict V72 • The Liquidity Stalker Edition</title>
+    <title>DylPredict V73 • The Liquidity Blackhole Edition</title>
     
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -29,6 +29,7 @@
             --zas: #ff4444;
             --avc: #ffaa00;
             --ati: #8a6de9;
+            --pab: #800080;      /* Purple for Blackhole */
             --cfk: #ff4500;
             --mdd: #9370db;
             --ovd: #87ceeb;
@@ -80,7 +81,7 @@
 
         .logo h1 {
             font-size: 24px;
-            background: linear-gradient(135deg, #fff, var(--cfk));
+            background: linear-gradient(135deg, #fff, var(--pab));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
@@ -93,11 +94,11 @@
 
         .version {
             font-size: 12px;
-            background: rgba(255, 69, 0, 0.2);
+            background: rgba(128, 0, 128, 0.2);
             padding: 4px 10px;
             border-radius: 100px;
-            color: var(--cfk);
-            border: 1px solid rgba(255, 69, 0, 0.3);
+            color: var(--pab);
+            border: 1px solid rgba(128, 0, 128, 0.3);
             font-weight: 600;
         }
 
@@ -112,6 +113,12 @@
             padding: 2px 8px;
             border-radius: 100px;
             font-weight: 500;
+        }
+
+        .badge.pab {
+            background: rgba(128, 0, 128, 0.15);
+            color: var(--pab);
+            border: 1px solid rgba(128, 0, 128, 0.2);
         }
 
         .badge.cfk {
@@ -214,8 +221,8 @@
         }
 
         #customSymbolInput:focus {
-            border-color: var(--cfk);
-            box-shadow: 0 0 15px rgba(255, 69, 0, 0.2);
+            border-color: var(--pab);
+            box-shadow: 0 0 15px rgba(128, 0, 128, 0.2);
         }
 
         #customSymbolInput::placeholder {
@@ -239,7 +246,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--cfk), #ff6347);
+            background: linear-gradient(135deg, var(--pab), #9932cc);
             border: none;
             border-radius: 8px;
             padding: 10px 20px;
@@ -256,7 +263,7 @@
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 25px var(--cfk);
+            box-shadow: 0 0 25px var(--pab);
         }
 
         .dashboard-container {
@@ -273,7 +280,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-left: 4px solid var(--cfk);
+            border-left: 4px solid var(--pab);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             transition: var(--transition-smooth);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -291,7 +298,7 @@
             font-weight: 800;
             margin: 0;
             letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #fff, var(--cfk));
+            background: linear-gradient(135deg, #fff, var(--pab));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -322,7 +329,7 @@
         }
 
         .price {
-            color: var(--cfk);
+            color: var(--pab);
             font-size: 2rem;
             margin: 0;
             font-weight: 700;
@@ -343,6 +350,10 @@
             letter-spacing: 1.5px;
             z-index: 30;
             border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .phase-badge.pab {
+            background: linear-gradient(135deg, var(--pab), #9932cc);
         }
 
         .phase-badge.cfk {
@@ -407,6 +418,10 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
+        }
+
+        .signal-hero.pab-active {
+            border-bottom: 5px solid var(--pab);
         }
 
         .signal-hero.cfk-active {
@@ -475,6 +490,10 @@
             letter-spacing: 4px;
             line-height: 1.2;
             margin-bottom: 5px;
+        }
+
+        .signal-hero.pab-active .main-opinion {
+            color: var(--pab);
         }
 
         .signal-hero.cfk-active .main-opinion {
@@ -578,7 +597,7 @@
         }
 
         .confidence-bar .fill {
-            background: var(--cfk);
+            background: var(--pab);
             height: 100%;
             border-radius: 5px;
             transition: width 0.5s ease;
@@ -632,6 +651,7 @@
         .zas { color: var(--zas); }
         .avc { color: var(--avc); }
         .ati { color: var(--ati); }
+        .pab { color: var(--pab); }
         .cfk { color: var(--cfk); }
         .mdd { color: var(--mdd); }
         .ovd { color: var(--ovd); }
@@ -703,6 +723,10 @@
             color: var(--cyan);
         }
 
+        .data-row .val.pab {
+            color: var(--pab);
+        }
+
         .advanced-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -746,6 +770,11 @@
             color: var(--text-main);
             margin: 15px 0;
             border-left: 4px solid var(--yellow);
+        }
+
+        .alert-box.pab-alert {
+            border-color: var(--pab);
+            border-left-color: var(--pab);
         }
 
         .alert-box.cfk-alert {
@@ -843,7 +872,7 @@
 
         .loading-spinner i {
             font-size: 48px;
-            color: var(--cfk);
+            color: var(--pab);
             margin-bottom: 20px;
             animation: spin 1s linear infinite;
         }
@@ -944,7 +973,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--cfk);
+            background: var(--pab);
             border-radius: 3px;
         }
     </style>
@@ -955,7 +984,8 @@
             <div class="logo">
                 <h1>
                     DYLPREDICT
-                    <span class="version">V72</span>
+                    <span class="version">V73</span>
+                    <span class="badge pab">PAB</span>
                     <span class="badge cfk">CFK</span>
                     <span class="badge mdd">MDD</span>
                     <span class="badge ovd">OVD</span>
@@ -973,7 +1003,7 @@
             
             <div class="symbol-selector">
                 <div class="input-controls">
-                    <input type="text" id="customSymbolInput" placeholder="Symbol" value="ROBOUSDT">
+                    <input type="text" id="customSymbolInput" placeholder="Symbol" value="SIRENUSDT">
                     <select id="symbolSelect" class="glass-select">
                         <option value="BTCUSDT">BTCUSDT</option>
                         <option value="ETHUSDT">ETHUSDT</option>
@@ -985,8 +1015,8 @@
                         <option value="PIPPINUSDT">PIPPINUSDT</option>
                         <option value="POWERUSDT">POWERUSDT</option>
                         <option value="SAHARAUSDT">SAHARAUSDT</option>
-                        <option value="ROBOUSDT" selected>ROBOUSDT</option>
-                        <option value="SIRENUSDT">SIRENUSDT</option>
+                        <option value="ROBOUSDT">ROBOUSDT</option>
+                        <option value="SIRENUSDT" selected>SIRENUSDT</option>
                         <option value="ARCUSDT">ARCUSDT</option>
                     </select>
                 </div>
@@ -1001,7 +1031,7 @@
             <div class="header-card">
                 <div class="phase-badge" id="phaseBadge">NEUTRAL</div>
                 <div class="symbol-info">
-                    <h1 class="symbol" id="mainSymbol">ROBOUSDT</h1>
+                    <h1 class="symbol" id="mainSymbol">SIRENUSDT</h1>
                     <span class="timestamp" id="headerTime">--:--:--.---</span>
                 </div>
                 <div class="price-section">
@@ -1087,7 +1117,7 @@
         </div>
 
         <div class="footer">
-            DylPredict V72 • The Liquidity Stalker Edition | CFK (Catching Falling Knives) • MDD (Magnet Distance Dominance) • OVD (Vacuum Defense) • Trend Integrity • OGD (Gravity Deflection) • ZAS (Zero Aggression) • AVC (Absorption Check) • AMD (Anti-Spoof) • TDP (DYL Particle) • ATI (Temporal Accumulation) • MWR (Magnet Wall) • LVS (Ghost Suction)
+            DylPredict V73 • The Liquidity Blackhole Edition | PAB (Passive Absorption Blackhole) • CFK (Catching Falling Knives) • MDD (Magnet Distance Dominance) • OVD (Vacuum Defense) • Trend Integrity • OGD (Gravity Deflection) • ZAS (Zero Aggression) • AVC (Absorption Check) • AMD (Anti-Spoof) • TDP (DYL Particle) • ATI (Temporal Accumulation) • MWR (Magnet Wall) • LVS (Ghost Suction)
         </div>
     </div>
 
@@ -1138,7 +1168,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             attachEventListeners();
             setTimeout(() => {
-                analyzeSymbol('ROBOUSDT');
+                analyzeSymbol('SIRENUSDT');
             }, 500);
         });
 
@@ -1199,14 +1229,15 @@
         }
 
         function updateDisplay(data) {
-            elements.mainSymbol.textContent = data.symbol || 'ROBOUSDT';
+            elements.mainSymbol.textContent = data.symbol || 'SIRENUSDT';
             elements.headerTime.textContent = data.timestamp || new Date().toLocaleTimeString();
             elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}`;
             
             const bias = data.bias || 'NEUTRAL';
             elements.opinionMain.textContent = bias;
             
-            // Check all strategy priorities in order (CFK highest priority)
+            // Check all strategy priorities in order (PAB highest priority - V73)
+            const pabActive = data.pab?.is_blackhole;
             const cfkActive = data.cfk?.is_knife;
             const mddActive = data.mdd?.is_magnet_trap;
             const ovdActive = data.ovd?.is_trap;
@@ -1220,8 +1251,10 @@
             const mwrActive = data.mwr?.is_magnet;
             const lvsActive = data.lvs?.is_suction;
             
-            // Apply class based on priority (highest to lowest)
-            if (cfkActive) {
+            // Apply class based on priority (highest to lowest) - PAB now top priority
+            if (pabActive) {
+                elements.signalHero.className = 'signal-hero pab-active';
+            } else if (cfkActive) {
                 elements.signalHero.className = 'signal-hero cfk-active';
             } else if (mddActive) {
                 elements.signalHero.className = 'signal-hero mdd-active';
@@ -1251,8 +1284,11 @@
             
             const phase = data.market_phase || 'NEUTRAL';
             
-            // Set phase badge based on priority
-            if (cfkActive) {
+            // Set phase badge based on priority - PAB now top priority
+            if (pabActive) {
+                elements.phaseBadge.textContent = `PAB ${data.pab?.blackhole_type || 'BLACKHOLE'}`;
+                elements.phaseBadge.className = 'phase-badge pab';
+            } else if (cfkActive) {
                 elements.phaseBadge.textContent = `CFK ${data.cfk?.knife_type || 'FALLING KNIFE'}`;
                 elements.phaseBadge.className = 'phase-badge cfk';
             } else if (mddActive) {
@@ -1370,8 +1406,11 @@
             
             let alertMsg = data.liquidation_alert || data.reason || 'No alert';
             
-            // Set alert box based on priority
-            if (cfkActive) {
+            // Set alert box based on priority - PAB now top priority
+            if (pabActive) {
+                alertMsg = `PAB BLACKHOLE: ${data.pab?.reason || 'Whale absorption detected - ABSOLUTE LONG!'}`;
+                elements.alertBox.className = 'alert-box pab-alert';
+            } else if (cfkActive) {
                 alertMsg = `CFK: ${data.cfk?.reason || 'Falling knife detected - DANGER!'}`;
                 elements.alertBox.className = 'alert-box cfk-alert';
             } else if (mddActive) {
