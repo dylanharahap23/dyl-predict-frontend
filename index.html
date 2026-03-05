@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DylPredict V68 • The Gravity Deflector Edition</title>
+    <title>DylPredict V72 • The Liquidity Stalker Edition</title>
     
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -29,6 +29,10 @@
             --zas: #ff4444;
             --avc: #ffaa00;
             --ati: #8a6de9;
+            --cfk: #ff4500;
+            --mdd: #9370db;
+            --ovd: #87ceeb;
+            --trend: #98fb98;
             --text-main: #eaecef;
             --text-dim: #848e9c;
             --glass-opacity: rgba(30, 35, 41, 0.8);
@@ -76,7 +80,7 @@
 
         .logo h1 {
             font-size: 24px;
-            background: linear-gradient(135deg, #fff, var(--ogd));
+            background: linear-gradient(135deg, #fff, var(--cfk));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
@@ -89,11 +93,11 @@
 
         .version {
             font-size: 12px;
-            background: rgba(0, 255, 255, 0.2);
+            background: rgba(255, 69, 0, 0.2);
             padding: 4px 10px;
             border-radius: 100px;
-            color: var(--ogd);
-            border: 1px solid rgba(0, 255, 255, 0.3);
+            color: var(--cfk);
+            border: 1px solid rgba(255, 69, 0, 0.3);
             font-weight: 600;
         }
 
@@ -108,6 +112,30 @@
             padding: 2px 8px;
             border-radius: 100px;
             font-weight: 500;
+        }
+
+        .badge.cfk {
+            background: rgba(255, 69, 0, 0.15);
+            color: var(--cfk);
+            border: 1px solid rgba(255, 69, 0, 0.2);
+        }
+
+        .badge.mdd {
+            background: rgba(147, 112, 219, 0.15);
+            color: var(--mdd);
+            border: 1px solid rgba(147, 112, 219, 0.2);
+        }
+
+        .badge.ovd {
+            background: rgba(135, 206, 235, 0.15);
+            color: var(--ovd);
+            border: 1px solid rgba(135, 206, 235, 0.2);
+        }
+
+        .badge.trend {
+            background: rgba(152, 251, 152, 0.15);
+            color: var(--trend);
+            border: 1px solid rgba(152, 251, 152, 0.2);
         }
 
         .badge.ogd {
@@ -186,8 +214,8 @@
         }
 
         #customSymbolInput:focus {
-            border-color: var(--ogd);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+            border-color: var(--cfk);
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.2);
         }
 
         #customSymbolInput::placeholder {
@@ -211,7 +239,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--ogd), #00cccc);
+            background: linear-gradient(135deg, var(--cfk), #ff6347);
             border: none;
             border-radius: 8px;
             padding: 10px 20px;
@@ -228,7 +256,7 @@
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 25px var(--ogd);
+            box-shadow: 0 0 25px var(--cfk);
         }
 
         .dashboard-container {
@@ -245,7 +273,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-left: 4px solid var(--ogd);
+            border-left: 4px solid var(--cfk);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             transition: var(--transition-smooth);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -263,7 +291,7 @@
             font-weight: 800;
             margin: 0;
             letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #fff, var(--ogd));
+            background: linear-gradient(135deg, #fff, var(--cfk));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -294,7 +322,7 @@
         }
 
         .price {
-            color: var(--ogd);
+            color: var(--cfk);
             font-size: 2rem;
             margin: 0;
             font-weight: 700;
@@ -315,6 +343,22 @@
             letter-spacing: 1.5px;
             z-index: 30;
             border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .phase-badge.cfk {
+            background: linear-gradient(135deg, var(--cfk), #ff6347);
+        }
+
+        .phase-badge.mdd {
+            background: linear-gradient(135deg, var(--mdd), #8a6de9);
+        }
+
+        .phase-badge.ovd {
+            background: linear-gradient(135deg, var(--ovd), #5f9ea0);
+        }
+
+        .phase-badge.trend {
+            background: linear-gradient(135deg, var(--trend), #228b22);
         }
 
         .phase-badge.ogd {
@@ -363,6 +407,22 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
+        }
+
+        .signal-hero.cfk-active {
+            border-bottom: 5px solid var(--cfk);
+        }
+
+        .signal-hero.mdd-active {
+            border-bottom: 5px solid var(--mdd);
+        }
+
+        .signal-hero.ovd-active {
+            border-bottom: 5px solid var(--ovd);
+        }
+
+        .signal-hero.trend-active {
+            border-bottom: 5px solid var(--trend);
         }
 
         .signal-hero.ogd-active {
@@ -415,6 +475,22 @@
             letter-spacing: 4px;
             line-height: 1.2;
             margin-bottom: 5px;
+        }
+
+        .signal-hero.cfk-active .main-opinion {
+            color: var(--cfk);
+        }
+
+        .signal-hero.mdd-active .main-opinion {
+            color: var(--mdd);
+        }
+
+        .signal-hero.ovd-active .main-opinion {
+            color: var(--ovd);
+        }
+
+        .signal-hero.trend-active .main-opinion {
+            color: var(--trend);
         }
 
         .signal-hero.ogd-active .main-opinion {
@@ -502,7 +578,7 @@
         }
 
         .confidence-bar .fill {
-            background: var(--ogd);
+            background: var(--cfk);
             height: 100%;
             border-radius: 5px;
             transition: width 0.5s ease;
@@ -556,6 +632,10 @@
         .zas { color: var(--zas); }
         .avc { color: var(--avc); }
         .ati { color: var(--ati); }
+        .cfk { color: var(--cfk); }
+        .mdd { color: var(--mdd); }
+        .ovd { color: var(--ovd); }
+        .trend { color: var(--trend); }
 
         .score-display {
             display: flex;
@@ -668,6 +748,26 @@
             border-left: 4px solid var(--yellow);
         }
 
+        .alert-box.cfk-alert {
+            border-color: var(--cfk);
+            border-left-color: var(--cfk);
+        }
+
+        .alert-box.mdd-alert {
+            border-color: var(--mdd);
+            border-left-color: var(--mdd);
+        }
+
+        .alert-box.ovd-alert {
+            border-color: var(--ovd);
+            border-left-color: var(--ovd);
+        }
+
+        .alert-box.trend-alert {
+            border-color: var(--trend);
+            border-left-color: var(--trend);
+        }
+
         .alert-box.ogd-alert {
             border-color: var(--ogd);
             border-left-color: var(--ogd);
@@ -743,7 +843,7 @@
 
         .loading-spinner i {
             font-size: 48px;
-            color: var(--ogd);
+            color: var(--cfk);
             margin-bottom: 20px;
             animation: spin 1s linear infinite;
         }
@@ -844,7 +944,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--ogd);
+            background: var(--cfk);
             border-radius: 3px;
         }
     </style>
@@ -855,7 +955,11 @@
             <div class="logo">
                 <h1>
                     DYLPREDICT
-                    <span class="version">V68</span>
+                    <span class="version">V72</span>
+                    <span class="badge cfk">CFK</span>
+                    <span class="badge mdd">MDD</span>
+                    <span class="badge ovd">OVD</span>
+                    <span class="badge trend">TREND</span>
                     <span class="badge ogd">OGD</span>
                     <span class="badge zas">ZAS</span>
                     <span class="badge avc">AVC</span>
@@ -869,18 +973,19 @@
             
             <div class="symbol-selector">
                 <div class="input-controls">
-                    <input type="text" id="customSymbolInput" placeholder="Symbol" value="PIPPINUSDT">
+                    <input type="text" id="customSymbolInput" placeholder="Symbol" value="ROBOUSDT">
                     <select id="symbolSelect" class="glass-select">
                         <option value="BTCUSDT">BTCUSDT</option>
                         <option value="ETHUSDT">ETHUSDT</option>
                         <option value="BNBUSDT">BNBUSDT</option>
                         <option value="SOLUSDT">SOLUSDT</option>
                         <option value="DOGEUSDT">DOGEUSDT</option>
-                        <option value="PIPPINUSDT" selected>PIPPINUSDT</option>
+                        <option value="RIVERUSDT">RIVERUSDT</option>
+                        <option value="PHAUSDT">PHAUSDT</option>
+                        <option value="PIPPINUSDT">PIPPINUSDT</option>
                         <option value="POWERUSDT">POWERUSDT</option>
                         <option value="SAHARAUSDT">SAHARAUSDT</option>
-                        <option value="ROBOUSDT">ROBOUSDT</option>
-                        <option value="PHAUSDT">PHAUSDT</option>
+                        <option value="ROBOUSDT" selected>ROBOUSDT</option>
                         <option value="SIRENUSDT">SIRENUSDT</option>
                         <option value="ARCUSDT">ARCUSDT</option>
                     </select>
@@ -896,7 +1001,7 @@
             <div class="header-card">
                 <div class="phase-badge" id="phaseBadge">NEUTRAL</div>
                 <div class="symbol-info">
-                    <h1 class="symbol" id="mainSymbol">PIPPINUSDT</h1>
+                    <h1 class="symbol" id="mainSymbol">ROBOUSDT</h1>
                     <span class="timestamp" id="headerTime">--:--:--.---</span>
                 </div>
                 <div class="price-section">
@@ -966,6 +1071,14 @@
                     <span>TTK</span>
                     <span class="val" id="ttkMinutes">--</span>
                 </div>
+                <div class="data-row">
+                    <span>MA10/MA20</span>
+                    <span class="val" id="maValue">--/--</span>
+                </div>
+                <div class="data-row">
+                    <span>OBV</span>
+                    <span class="val" id="obvValue">--</span>
+                </div>
             </section>
 
             <footer class="alert-box" id="alertBox">
@@ -974,7 +1087,7 @@
         </div>
 
         <div class="footer">
-            DylPredict V68 • The Gravity Deflector Edition
+            DylPredict V72 • The Liquidity Stalker Edition | CFK (Catching Falling Knives) • MDD (Magnet Distance Dominance) • OVD (Vacuum Defense) • Trend Integrity • OGD (Gravity Deflection) • ZAS (Zero Aggression) • AVC (Absorption Check) • AMD (Anti-Spoof) • TDP (DYL Particle) • ATI (Temporal Accumulation) • MWR (Magnet Wall) • LVS (Ghost Suction)
         </div>
     </div>
 
@@ -1015,6 +1128,8 @@
             longLiq: document.getElementById('longLiq'),
             shortLiq: document.getElementById('shortLiq'),
             ttkMinutes: document.getElementById('ttkMinutes'),
+            maValue: document.getElementById('maValue'),
+            obvValue: document.getElementById('obvValue'),
             alertBox: document.getElementById('alertBox'),
             alertMessage: document.getElementById('alertMessage'),
             phaseBadge: document.getElementById('phaseBadge')
@@ -1023,7 +1138,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             attachEventListeners();
             setTimeout(() => {
-                analyzeSymbol('PIPPINUSDT');
+                analyzeSymbol('ROBOUSDT');
             }, 500);
         });
 
@@ -1084,13 +1199,18 @@
         }
 
         function updateDisplay(data) {
-            elements.mainSymbol.textContent = data.symbol || 'PIPPINUSDT';
+            elements.mainSymbol.textContent = data.symbol || 'ROBOUSDT';
             elements.headerTime.textContent = data.timestamp || new Date().toLocaleTimeString();
             elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}`;
             
             const bias = data.bias || 'NEUTRAL';
             elements.opinionMain.textContent = bias;
             
+            // Check all strategy priorities in order (CFK highest priority)
+            const cfkActive = data.cfk?.is_knife;
+            const mddActive = data.mdd?.is_magnet_trap;
+            const ovdActive = data.ovd?.is_trap;
+            const trendActive = data.trend_integrity?.restriction !== 'NONE';
             const ogdActive = data.ogd?.is_deflected;
             const zasActive = data.zas?.is_dead;
             const avcActive = data.avc?.is_trap;
@@ -1100,7 +1220,16 @@
             const mwrActive = data.mwr?.is_magnet;
             const lvsActive = data.lvs?.is_suction;
             
-            if (ogdActive) {
+            // Apply class based on priority (highest to lowest)
+            if (cfkActive) {
+                elements.signalHero.className = 'signal-hero cfk-active';
+            } else if (mddActive) {
+                elements.signalHero.className = 'signal-hero mdd-active';
+            } else if (ovdActive) {
+                elements.signalHero.className = 'signal-hero ovd-active';
+            } else if (trendActive) {
+                elements.signalHero.className = 'signal-hero trend-active';
+            } else if (ogdActive) {
                 elements.signalHero.className = 'signal-hero ogd-active';
             } else if (zasActive) {
                 elements.signalHero.className = 'signal-hero zas-active';
@@ -1121,7 +1250,21 @@
             }
             
             const phase = data.market_phase || 'NEUTRAL';
-            if (ogdActive) {
+            
+            // Set phase badge based on priority
+            if (cfkActive) {
+                elements.phaseBadge.textContent = `CFK ${data.cfk?.knife_type || 'FALLING KNIFE'}`;
+                elements.phaseBadge.className = 'phase-badge cfk';
+            } else if (mddActive) {
+                elements.phaseBadge.textContent = `MDD ${data.mdd?.trap_type || 'MAGNET TRAP'}`;
+                elements.phaseBadge.className = 'phase-badge mdd';
+            } else if (ovdActive) {
+                elements.phaseBadge.textContent = `OVD ${data.ovd?.trap_type || 'VACUUM TRAP'}`;
+                elements.phaseBadge.className = 'phase-badge ovd';
+            } else if (trendActive) {
+                elements.phaseBadge.textContent = `TREND ${data.trend_integrity?.restriction || 'ACTIVE'}`;
+                elements.phaseBadge.className = 'phase-badge trend';
+            } else if (ogdActive) {
                 elements.phaseBadge.textContent = `OGD ${data.ogd?.bias || 'DEFLECTION'}`;
                 elements.phaseBadge.className = 'phase-badge ogd';
             } else if (zasActive) {
@@ -1216,8 +1359,31 @@
             const ttk = data.ttk?.estimated_minutes || '--';
             elements.ttkMinutes.textContent = ttk !== '--' ? ttk + 'm' : '--';
             
+            // MA10/MA20
+            const ma10 = data.ma10 || 0;
+            const ma20 = data.ma20 || 0;
+            elements.maValue.textContent = ma10 ? `${ma10.toFixed(2)}/${ma20.toFixed(2)}` : '--/--';
+            
+            // OBV
+            const obv = data.obv || 0;
+            elements.obvValue.textContent = obv ? obv.toFixed(0) : '--';
+            
             let alertMsg = data.liquidation_alert || data.reason || 'No alert';
-            if (ogdActive) {
+            
+            // Set alert box based on priority
+            if (cfkActive) {
+                alertMsg = `CFK: ${data.cfk?.reason || 'Falling knife detected - DANGER!'}`;
+                elements.alertBox.className = 'alert-box cfk-alert';
+            } else if (mddActive) {
+                alertMsg = `MDD: ${data.mdd?.reason || 'Magnet trap detected'}`;
+                elements.alertBox.className = 'alert-box mdd-alert';
+            } else if (ovdActive) {
+                alertMsg = `OVD: ${data.ovd?.reason || 'Vacuum trap detected'}`;
+                elements.alertBox.className = 'alert-box ovd-alert';
+            } else if (trendActive) {
+                alertMsg = `TREND: ${data.trend_integrity?.reason || 'Trend restriction active'}`;
+                elements.alertBox.className = 'alert-box trend-alert';
+            } else if (ogdActive) {
                 alertMsg = `OGD: ${data.ogd?.reason || 'Gravity deflection'}`;
                 elements.alertBox.className = 'alert-box ogd-alert';
             } else if (zasActive) {
@@ -1244,6 +1410,7 @@
             } else {
                 elements.alertBox.className = 'alert-box';
             }
+            
             elements.alertMessage.textContent = alertMsg;
         }
 
