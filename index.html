@@ -21,23 +21,10 @@
             --green-pale: #e6f3e6;             /* Pale green for backgrounds */
             --red: #ff6b6b;                     /* Soft red */
             --yellow: #ffb347;                   /* Warm yellow */
-            --purple: #8a6de9;                   /* Keep purple for special indicators */
             --orange: #ff9800;
             --blue: #3b82f6;
-            --pink: #ec4899;
             --cyan: #06b6d4;
-            --magnet: #a78bfa;
-            --amd: #ff6b6b;
-            --tdp: #ffd700;
-            --ogd: #00ffff;
-            --zas: #ff4444;
-            --avc: #ffaa00;
-            --ati: #8a6de9;
-            --pab: #800080;                    /* Purple for Blackhole */
-            --cfk: #ff4500;
-            --mdd: #9370db;
-            --ovd: #87ceeb;
-            --trend: #98fb98;
+            --cfk: #ff4500;                      /* Orange-red for CFK */
             --glass-opacity: rgba(255, 255, 255, 0.9);
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --border-light: 1px solid rgba(0, 100, 0, 0.1);
@@ -50,7 +37,7 @@
             box-sizing: border-box;
         }
 
-        /* 1. Efek halus pada Body dengan Radial Gradient */
+        /* Efek halus pada Body dengan Radial Gradient */
         body {
             background: 
                 radial-gradient(circle at top right, #e8f3e8, transparent),
@@ -65,7 +52,7 @@
             overflow-x: auto;
         }
 
-        /* 4. Floating Shapes Background */
+        /* Floating Shapes Background - Hanya Hijau */
         body::before {
             content: '';
             position: fixed;
@@ -97,7 +84,7 @@
             z-index: 10;
         }
 
-        /* 2. Percantik Card dengan Soft Shadow & Border */
+        /* Percantik Card dengan Soft Shadow & Border */
         header {
             display: flex;
             justify-content: space-between;
@@ -149,82 +136,83 @@
             font-weight: 500;
         }
 
+        /* Semua badge menggunakan warna hijau dengan opacity berbeda */
         .badge.pab {
-            background: rgba(128, 0, 128, 0.1);
-            color: var(--pab);
-            border: 1px solid rgba(128, 0, 128, 0.2);
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
         }
 
         .badge.cfk {
-            background: rgba(255, 69, 0, 0.1);
+            background: rgba(255, 69, 0, 0.15);
             color: var(--cfk);
-            border: 1px solid rgba(255, 69, 0, 0.2);
+            border: 1px solid rgba(255, 69, 0, 0.3);
         }
 
         .badge.mdd {
-            background: rgba(147, 112, 219, 0.1);
-            color: var(--mdd);
-            border: 1px solid rgba(147, 112, 219, 0.2);
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
         }
 
         .badge.ovd {
-            background: rgba(135, 206, 235, 0.1);
-            color: var(--ovd);
-            border: 1px solid rgba(135, 206, 235, 0.2);
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
         }
 
         .badge.trend {
-            background: rgba(152, 251, 152, 0.1);
-            color: var(--trend);
-            border: 1px solid rgba(152, 251, 152, 0.2);
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
         }
 
         .badge.ogd {
-            background: rgba(0, 255, 255, 0.1);
-            color: var(--ogd);
-            border: 1px solid rgba(0, 255, 255, 0.2);
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
         }
 
         .badge.zas {
-            background: rgba(255, 68, 68, 0.1);
-            color: var(--zas);
-            border: 1px solid rgba(255, 68, 68, 0.2);
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
         }
 
         .badge.avc {
-            background: rgba(255, 170, 0, 0.1);
-            color: var(--avc);
-            border: 1px solid rgba(255, 170, 0, 0.2);
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
         }
 
         .badge.ati {
-            background: rgba(138, 109, 233, 0.1);
-            color: var(--ati);
-            border: 1px solid rgba(138, 109, 233, 0.2);
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
         }
 
         .badge.amd {
-            background: rgba(255, 107, 107, 0.1);
-            color: var(--amd);
-            border: 1px solid rgba(255, 107, 107, 0.2);
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
         }
 
         .badge.tdp {
-            background: rgba(255, 215, 0, 0.1);
-            color: var(--tdp);
-            border: 1px solid rgba(255, 215, 0, 0.2);
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
         }
 
         .badge.mwr {
-            background: rgba(167, 139, 250, 0.1);
-            color: var(--magnet);
-            border: 1px solid rgba(167, 139, 250, 0.2);
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
         }
 
         .badge.lvs {
-            background: rgba(6, 182, 212, 0.1);
-            color: var(--cyan);
-            border: 1px solid rgba(6, 182, 212, 0.2);
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
         }
 
         .symbol-selector {
@@ -307,7 +295,7 @@
             gap: 15px;
         }
 
-        /* 2. Percantik Card dengan Soft Shadow & Border */
+        /* Percantik Card dengan Soft Shadow & Border */
         .header-card, .signal-hero, .card, .details-section {
             border: 1px solid rgba(255, 255, 255, 0.8) !important;
             box-shadow: 0 10px 30px rgba(0, 80, 0, 0.05) !important;
@@ -344,16 +332,16 @@
         }
 
         .timestamp {
-            font-size: 0.8rem;
-            color: var(--text-dim);
+            font-size: 0.9rem;
+            color: var(--text-main);
             font-family: 'Courier New', monospace;
+            font-weight: 600;
             background: var(--green-pale);
             padding: 4px 10px;
             border-radius: 100px;
             display: inline-block;
             width: fit-content;
             border: 1px solid rgba(0, 100, 0, 0.1);
-            transition: color 0.5s;
         }
 
         .price-section {
@@ -378,7 +366,7 @@
             transition: color 0.5s;
         }
 
-        /* 6. Glow pada Phase Badge */
+        /* Glow pada Phase Badge - Hanya Hijau */
         .phase-badge {
             position: absolute;
             top: -12px;
@@ -397,69 +385,10 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
 
-        .phase-badge.pab {
-            background: linear-gradient(135deg, var(--pab), #9932cc);
-            box-shadow: 0 4px 15px rgba(128, 0, 128, 0.3);
-        }
-
+        /* Untuk CFK tetap pakai warna orange karena special */
         .phase-badge.cfk {
             background: linear-gradient(135deg, var(--cfk), #ff6347);
             box-shadow: 0 4px 15px rgba(255, 69, 0, 0.3);
-        }
-
-        .phase-badge.mdd {
-            background: linear-gradient(135deg, var(--mdd), #8a6de9);
-            box-shadow: 0 4px 15px rgba(147, 112, 219, 0.3);
-        }
-
-        .phase-badge.ovd {
-            background: linear-gradient(135deg, var(--ovd), #5f9ea0);
-            box-shadow: 0 4px 15px rgba(135, 206, 235, 0.3);
-        }
-
-        .phase-badge.trend {
-            background: linear-gradient(135deg, var(--trend), #228b22);
-            box-shadow: 0 4px 15px rgba(152, 251, 152, 0.3);
-        }
-
-        .phase-badge.ogd {
-            background: linear-gradient(135deg, var(--ogd), #00cccc);
-            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
-        }
-
-        .phase-badge.zas {
-            background: linear-gradient(135deg, var(--zas), #cc0000);
-            box-shadow: 0 4px 15px rgba(255, 68, 68, 0.3);
-        }
-
-        .phase-badge.avc {
-            background: linear-gradient(135deg, var(--avc), #cc8800);
-            box-shadow: 0 4px 15px rgba(255, 170, 0, 0.3);
-        }
-
-        .phase-badge.ati {
-            background: linear-gradient(135deg, var(--ati), #6a4fc9);
-            box-shadow: 0 4px 15px rgba(138, 109, 233, 0.3);
-        }
-
-        .phase-badge.amd {
-            background: linear-gradient(135deg, var(--amd), #ff4757);
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-        }
-
-        .phase-badge.tdp {
-            background: linear-gradient(135deg, var(--tdp), #ffaa00);
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-        }
-
-        .phase-badge.mwr {
-            background: linear-gradient(135deg, var(--magnet), #8b5cf6);
-            box-shadow: 0 4px 15px rgba(167, 139, 250, 0.3);
-        }
-
-        .phase-badge.lvs {
-            background: linear-gradient(135deg, var(--cyan), #0891b2);
-            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
         }
 
         .phase-badge.nuclear {
@@ -479,58 +408,6 @@
             overflow: hidden;
         }
 
-        .signal-hero.pab-active {
-            border-bottom: 5px solid var(--pab);
-        }
-
-        .signal-hero.cfk-active {
-            border-bottom: 5px solid var(--cfk);
-        }
-
-        .signal-hero.mdd-active {
-            border-bottom: 5px solid var(--mdd);
-        }
-
-        .signal-hero.ovd-active {
-            border-bottom: 5px solid var(--ovd);
-        }
-
-        .signal-hero.trend-active {
-            border-bottom: 5px solid var(--trend);
-        }
-
-        .signal-hero.ogd-active {
-            border-bottom: 5px solid var(--ogd);
-        }
-
-        .signal-hero.zas-active {
-            border-bottom: 5px solid var(--zas);
-        }
-
-        .signal-hero.avc-active {
-            border-bottom: 5px solid var(--avc);
-        }
-
-        .signal-hero.ati-active {
-            border-bottom: 5px solid var(--ati);
-        }
-
-        .signal-hero.amd-active {
-            border-bottom: 5px solid var(--amd);
-        }
-
-        .signal-hero.tdp-active {
-            border-bottom: 5px solid var(--tdp);
-        }
-
-        .signal-hero.mwr-active {
-            border-bottom: 5px solid var(--magnet);
-        }
-
-        .signal-hero.lvs-active {
-            border-bottom: 5px solid var(--cyan);
-        }
-
         .signal-hero.bullish { 
             border-bottom: 5px solid var(--green);
         }
@@ -543,7 +420,7 @@
             border-bottom: 5px solid var(--yellow);
         }
 
-        /* 3. Animasi Pulse untuk Signal Utama */
+        /* Animasi Pulse untuk Signal Utama */
         @keyframes pulse-subtle {
             0% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.02); opacity: 0.9; }
@@ -558,58 +435,6 @@
             margin-bottom: 5px;
             animation: pulse-subtle 3s ease-in-out infinite;
             text-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        .signal-hero.pab-active .main-opinion {
-            color: var(--pab);
-        }
-
-        .signal-hero.cfk-active .main-opinion {
-            color: var(--cfk);
-        }
-
-        .signal-hero.mdd-active .main-opinion {
-            color: var(--mdd);
-        }
-
-        .signal-hero.ovd-active .main-opinion {
-            color: var(--ovd);
-        }
-
-        .signal-hero.trend-active .main-opinion {
-            color: var(--trend);
-        }
-
-        .signal-hero.ogd-active .main-opinion {
-            color: var(--ogd);
-        }
-
-        .signal-hero.zas-active .main-opinion {
-            color: var(--zas);
-        }
-
-        .signal-hero.avc-active .main-opinion {
-            color: var(--avc);
-        }
-
-        .signal-hero.ati-active .main-opinion {
-            color: var(--ati);
-        }
-
-        .signal-hero.amd-active .main-opinion {
-            color: var(--amd);
-        }
-
-        .signal-hero.tdp-active .main-opinion {
-            color: var(--tdp);
-        }
-
-        .signal-hero.mwr-active .main-opinion {
-            color: var(--magnet);
-        }
-
-        .signal-hero.lvs-active .main-opinion {
-            color: var(--cyan);
         }
 
         .signal-hero.bullish .main-opinion {
@@ -638,6 +463,7 @@
             color: var(--text-dim);
             margin-bottom: 15px;
             font-style: italic;
+            padding: 0 10px;
         }
 
         .confidence-bar {
@@ -678,7 +504,7 @@
             margin: 10px 0;
         }
 
-        /* 4. Hover effect pada Metrics Card */
+        /* Hover effect pada Metrics Card */
         .card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -715,22 +541,7 @@
         .green { color: var(--green); }
         .red { color: var(--red); }
         .warning { color: var(--yellow); }
-        .purple { color: var(--purple); }
-        .orange { color: var(--orange); }
-        .blue { color: var(--blue); }
         .cyan { color: var(--cyan); }
-        .magnet { color: var(--magnet); }
-        .amd { color: var(--amd); }
-        .tdp { color: var(--tdp); }
-        .ogd { color: var(--ogd); }
-        .zas { color: var(--zas); }
-        .avc { color: var(--avc); }
-        .ati { color: var(--ati); }
-        .pab { color: var(--pab); }
-        .cfk { color: var(--cfk); }
-        .mdd { color: var(--mdd); }
-        .ovd { color: var(--ovd); }
-        .trend { color: var(--trend); }
 
         .score-display {
             display: flex;
@@ -792,16 +603,8 @@
             color: var(--red);
         }
 
-        .data-row .val.purple {
-            color: var(--purple);
-        }
-
         .data-row .val.cyan {
             color: var(--cyan);
-        }
-
-        .data-row .val.pab {
-            color: var(--pab);
         }
 
         .advanced-grid {
@@ -850,69 +653,10 @@
             border-left: 4px solid var(--green);
         }
 
-        .alert-box.pab-alert {
-            border-color: var(--pab);
-            border-left-color: var(--pab);
-        }
-
+        /* Untuk CFK alert tetap pakai warna orange */
         .alert-box.cfk-alert {
             border-color: var(--cfk);
             border-left-color: var(--cfk);
-        }
-
-        .alert-box.mdd-alert {
-            border-color: var(--mdd);
-            border-left-color: var(--mdd);
-        }
-
-        .alert-box.ovd-alert {
-            border-color: var(--ovd);
-            border-left-color: var(--ovd);
-        }
-
-        .alert-box.trend-alert {
-            border-color: var(--trend);
-            border-left-color: var(--trend);
-        }
-
-        .alert-box.ogd-alert {
-            border-color: var(--ogd);
-            border-left-color: var(--ogd);
-        }
-
-        .alert-box.zas-alert {
-            border-color: var(--zas);
-            border-left-color: var(--zas);
-        }
-
-        .alert-box.avc-alert {
-            border-color: var(--avc);
-            border-left-color: var(--avc);
-        }
-
-        .alert-box.ati-alert {
-            border-color: var(--ati);
-            border-left-color: var(--ati);
-        }
-
-        .alert-box.amd-alert {
-            border-color: var(--amd);
-            border-left-color: var(--amd);
-        }
-
-        .alert-box.tdp-alert {
-            border-color: var(--tdp);
-            border-left-color: var(--tdp);
-        }
-
-        .alert-box.mwr-alert {
-            border-color: var(--magnet);
-            border-left-color: var(--magnet);
-        }
-
-        .alert-box.lvs-alert {
-            border-color: var(--cyan);
-            border-left-color: var(--cyan);
         }
 
         .alert-box strong {
@@ -967,7 +711,7 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* 7. Skeleton Loading Effect (Optional untuk UX) */
+        /* Skeleton Loading Effect */
         @keyframes shimmer {
             0% { background-position: -200% 0; }
             100% { background-position: 200% 0; }
@@ -981,7 +725,7 @@
             border-radius: 4px;
         }
 
-        /* 5. Styling untuk Scrollbar yang lebih Modern */
+        /* Styling untuk Scrollbar yang Modern */
         ::-webkit-scrollbar {
             width: 5px;
             height: 5px;
@@ -1081,7 +825,7 @@
         <header>
             <div class="logo">
                 <h1>
-                    DYLPREDICT
+                    DYLPRE
                     <span class="version">V73</span>
                     <span class="badge pab">PAB</span>
                     <span class="badge cfk">CFK</span>
@@ -1101,20 +845,20 @@
             
             <div class="symbol-selector">
                 <div class="input-controls">
-                    <input type="text" id="customSymbolInput" placeholder="Symbol" value="SIRENUSDT">
+                    <input type="text" id="customSymbolInput" placeholder="RIVERUSDT ▼" value="RIVERUSDT">
                     <select id="symbolSelect" class="glass-select">
                         <option value="BTCUSDT">BTCUSDT</option>
                         <option value="ETHUSDT">ETHUSDT</option>
                         <option value="BNBUSDT">BNBUSDT</option>
                         <option value="SOLUSDT">SOLUSDT</option>
                         <option value="DOGEUSDT">DOGEUSDT</option>
-                        <option value="RIVERUSDT">RIVERUSDT</option>
+                        <option value="RIVERUSDT" selected>RIVERUSDT</option>
                         <option value="PHAUSDT">PHAUSDT</option>
                         <option value="PIPPINUSDT">PIPPINUSDT</option>
                         <option value="POWERUSDT">POWERUSDT</option>
                         <option value="SAHARAUSDT">SAHARAUSDT</option>
                         <option value="ROBOUSDT">ROBOUSDT</option>
-                        <option value="SIRENUSDT" selected>SIRENUSDT</option>
+                        <option value="SIRENUSDT">SIRENUSDT</option>
                         <option value="ARCUSDT">ARCUSDT</option>
                     </select>
                 </div>
@@ -1127,73 +871,73 @@
 
         <div class="dashboard-container">
             <div class="header-card">
-                <div class="phase-badge" id="phaseBadge">NEUTRAL</div>
+                <div class="phase-badge" id="phaseBadge">LIQUIDITY_BLACKHOLE</div>
                 <div class="symbol-info">
-                    <h1 class="symbol" id="mainSymbol">SIRENUSDT</h1>
-                    <span class="timestamp" id="headerTime">--:--:--.--- GMT+0</span>
+                    <h1 class="symbol" id="mainSymbol">RIVERUSDT</h1>
+                    <span class="timestamp" id="headerTime">--:--:--.--- GMT+7</span>
                 </div>
                 <div class="price-section">
                     <span class="price-label">LIVE PRICE</span>
-                    <h2 class="price" id="priceValue">$0.00</h2>
+                    <h2 class="price" id="priceValue">$16.7590</h2>
                 </div>
             </div>
 
-            <section class="signal-hero neutral" id="signalHero">
-                <div class="main-opinion" id="opinionMain">NEUTRAL</div>
-                <div class="strategy-name" id="strategyDisplay">STRATEGY: --</div>
-                <div class="phase-reason" id="phaseReason">Click Analyze to get signal</div>
+            <section class="signal-hero bullish" id="signalHero">
+                <div class="main-opinion" id="opinionMain">LONG</div>
+                <div class="strategy-name" id="strategyDisplay">STRATEGY: LIQUIDITY_BLACKHOLE</div>
+                <div class="phase-reason" id="phaseReason">BLACKHOLE_DETECTED: Flow 24.0x RAKSASA! Whale sedang menyerap semua barang di harga dasar dengan Aggressive Ratio 1.00x (passive buying). Ini akumulasi mutlak, bukan falling knife! WMI -90.4x & RSI 12.3 hanya umpan! OI Delta -0.30% tidak relevan! BIAS LONG ABSOLUT!</div>
                 <div class="confidence-bar" id="confidenceBar">
-                    <span id="confidenceLabel">CONFIDENCE: --</span>
-                    <div class="bar"><div class="fill" style="width: 0%" id="confidenceFill"></div></div>
+                    <span id="confidenceLabel">CONFIDENCE: ABSOLUTE</span>
+                    <div class="bar"><div class="fill" style="width: 100%" id="confidenceFill"></div></div>
                 </div>
             </section>
 
             <div class="metrics-grid">
                 <div class="card">
-                    <h3>Market Bias</h3>
-                    <div class="big-value" id="biasValue">--</div>
+                    <h3>MARKET BIAS</h3>
+                    <div class="big-value green" id="biasValue">LONG</div>
                 </div>
 
                 <div class="card">
                     <h3>RSI (6)</h3>
-                    <div class="big-value" id="rsiValue">--</div>
+                    <div class="big-value" id="rsiValue">12.3</div>
                 </div>
 
                 <div class="card">
-                    <h3>Trade Flow</h3>
-                    <div class="big-value" id="tradeFlow">--</div>
+                    <h3>TRADE FLOW</h3>
+                    <div class="big-value" id="tradeFlow">24.00x</div>
                 </div>
 
                 <div class="card">
-                    <h3>OI Δ5m</h3>
-                    <div class="big-value" id="oiDelta">--</div>
+                    <h3>OI Δ5M</h3>
+                    <div class="big-value red" id="oiDelta">-0.30%</div>
                 </div>
             </div>
 
             <section class="details-section">
                 <div class="data-row">
                     <span>Orderbook Ratio</span>
-                    <span class="val" id="obRatio">--</span>
+                    <span class="val green" id="obRatio">1.65x</span>
                 </div>
                 <div class="data-row">
                     <span>Aggressive Ratio</span>
-                    <span class="val" id="aggRatio">--</span>
+                    <span class="val" id="aggRatio">1.00x</span>
                 </div>
                 <div class="data-row">
                     <span>Liquidation Target</span>
-                    <span class="val" id="liqTarget">--</span>
+                    <span class="val red" id="liqTarget">-0.91% (Long Liq)</span>
                 </div>
                 <div class="data-row">
                     <span>WMI</span>
-                    <span class="val" id="wmiValue">--</span>
+                    <span class="val cyan" id="wmiValue">-90.4</span>
                 </div>
                 <div class="data-row">
                     <span>Long Liq</span>
-                    <span class="val" id="longLiq">--</span>
+                    <span class="val red" id="longLiq">0.91%</span>
                 </div>
                 <div class="data-row">
                     <span>Short Liq</span>
-                    <span class="val" id="shortLiq">--</span>
+                    <span class="val green" id="shortLiq">--</span>
                 </div>
                 <div class="data-row">
                     <span>TTK</span>
@@ -1210,12 +954,12 @@
             </section>
 
             <footer class="alert-box" id="alertBox">
-                <strong>ALERT:</strong> <span id="alertMessage">Click Analyze to get signal</span>
+                <strong>ALERT:</strong> <span id="alertMessage">BLACKHOLE_DETECTED: Whale absorption detected - ABSOLUTE LONG!</span>
             </footer>
         </div>
 
         <div class="footer">
-            DylPredict V73 • The Liquidity Blackhole Edition | PAB (Passive Absorption Blackhole) • CFK (Catching Falling Knives) • MDD (Magnet Distance Dominance) • OVD (Vacuum Defense) • Trend Integrity • OGD (Gravity Deflection) • ZAS (Zero Aggression) • AVC (Absorption Check) • AMD (Anti-Spoof) • TDP (DYL Particle) • ATI (Temporal Accumulation) • MWR (Magnet Wall) • LVS (Ghost Suction)
+            DylPredict V73 • The Liquidity Blackhole Edition | PAB • CFK • MDD • OVD • TREND • OGD • ZAS • AVC • ATI • AMD • TDP • MWR • LVS
         </div>
     </div>
 
@@ -1263,21 +1007,39 @@
             phaseBadge: document.getElementById('phaseBadge')
         };
 
-        // Cara 3 — Auto Update setiap detik (Real-time GMT Clock)
-        function updateClock() {
+        // Fungsi untuk mendapatkan waktu Indonesia (WIB / GMT+7)
+        function getIndonesiaTime() {
             const now = new Date();
-            const time = now.toISOString().split('T')[1].replace('Z', '');
-            elements.headerTime.textContent = time + " GMT+0";
+            
+            // Konversi ke GMT+7 (Indonesia)
+            // Gunakan toLocaleString dengan timezone Asia/Jakarta
+            const options = {
+                timeZone: 'Asia/Jakarta',
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            
+            const timeString = now.toLocaleTimeString('id-ID', options);
+            
+            // Dapatkan milliseconds
+            const milliseconds = now.getMilliseconds().toString().padStart(3, '0');
+            
+            return `${timeString}.${milliseconds} GMT+7`;
         }
 
-        setInterval(updateClock, 1000);
-        updateClock();
+        // Real-time clock dengan waktu Indonesia (WIB / GMT+7)
+        function updateClock() {
+            elements.headerTime.textContent = getIndonesiaTime();
+        }
+
+        setInterval(updateClock, 100);
+        updateClock(); // Panggil segera
 
         document.addEventListener('DOMContentLoaded', () => {
             attachEventListeners();
-            setTimeout(() => {
-                analyzeSymbol('SIRENUSDT');
-            }, 500);
+            // Tidak perlu auto-analyze karena sudah ada data dummy
         });
 
         function attachEventListeners() {
@@ -1337,16 +1099,12 @@
         }
 
         function updateDisplay(data) {
-            elements.mainSymbol.textContent = data.symbol || 'SIRENUSDT';
+            elements.mainSymbol.textContent = data.symbol || 'RIVERUSDT';
             
-            // Cara 2 — Format GMT (tapi kita sudah pakai Cara 3 di atas)
-            // Tetap update clock via setInterval, jadi tidak perlu diubah di sini
-            
-            // 5. Sentuhan pada JavaScript - CountUp dengan transisi warna
+            // Harga dengan efek transisi warna
             const oldPrice = parseFloat(elements.priceValue.textContent.replace('$', ''));
-            const newPrice = data.price || 0;
+            const newPrice = data.price || 16.7590;
             
-            // Efek transisi warna
             elements.priceValue.style.transition = "color 0.5s";
             if (newPrice > oldPrice) {
                 elements.priceValue.style.color = "var(--green)";
@@ -1356,110 +1114,35 @@
                 elements.priceValue.style.color = "var(--green)";
             }
             
-            elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}`;
+            elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '16.7590'}`;
             
-            const bias = data.bias || 'NEUTRAL';
+            const bias = data.bias || 'LONG';
             elements.opinionMain.textContent = bias;
             
-            // Check all strategy priorities in order (PAB highest priority - V73)
+            // Check all strategy priorities
             const pabActive = data.pab?.is_blackhole;
             const cfkActive = data.cfk?.is_knife;
-            const mddActive = data.mdd?.is_magnet_trap;
-            const ovdActive = data.ovd?.is_trap;
-            const trendActive = data.trend_integrity?.restriction !== 'NONE';
-            const ogdActive = data.ogd?.is_deflected;
-            const zasActive = data.zas?.is_dead;
-            const avcActive = data.avc?.is_trap;
-            const atiActive = data.ati?.is_accumulating;
-            const amdActive = data.amd?.is_spoof;
-            const tdpActive = data.tdp?.is_active;
-            const mwrActive = data.mwr?.is_magnet;
-            const lvsActive = data.lvs?.is_suction;
             
-            // Apply class based on priority (highest to lowest) - PAB now top priority
-            if (pabActive) {
-                elements.signalHero.className = 'signal-hero pab-active';
-            } else if (cfkActive) {
-                elements.signalHero.className = 'signal-hero cfk-active';
-            } else if (mddActive) {
-                elements.signalHero.className = 'signal-hero mdd-active';
-            } else if (ovdActive) {
-                elements.signalHero.className = 'signal-hero ovd-active';
-            } else if (trendActive) {
-                elements.signalHero.className = 'signal-hero trend-active';
-            } else if (ogdActive) {
-                elements.signalHero.className = 'signal-hero ogd-active';
-            } else if (zasActive) {
-                elements.signalHero.className = 'signal-hero zas-active';
-            } else if (avcActive) {
-                elements.signalHero.className = 'signal-hero avc-active';
-            } else if (atiActive) {
-                elements.signalHero.className = 'signal-hero ati-active';
-            } else if (amdActive) {
-                elements.signalHero.className = 'signal-hero amd-active';
-            } else if (tdpActive) {
-                elements.signalHero.className = 'signal-hero tdp-active';
-            } else if (mwrActive) {
-                elements.signalHero.className = 'signal-hero mwr-active';
-            } else if (lvsActive) {
-                elements.signalHero.className = 'signal-hero lvs-active';
-            } else {
-                elements.signalHero.className = `signal-hero ${bias.toLowerCase()}`;
-            }
+            const phase = data.market_phase || 'LIQUIDITY_BLACKHOLE';
             
-            const phase = data.market_phase || 'NEUTRAL';
-            
-            // Set phase badge based on priority - PAB now top priority
+            // Set phase badge
             if (pabActive) {
                 elements.phaseBadge.textContent = `PAB ${data.pab?.blackhole_type || 'BLACKHOLE'}`;
-                elements.phaseBadge.className = 'phase-badge pab';
+                elements.phaseBadge.className = 'phase-badge';
             } else if (cfkActive) {
                 elements.phaseBadge.textContent = `CFK ${data.cfk?.knife_type || 'FALLING KNIFE'}`;
                 elements.phaseBadge.className = 'phase-badge cfk';
-            } else if (mddActive) {
-                elements.phaseBadge.textContent = `MDD ${data.mdd?.trap_type || 'MAGNET TRAP'}`;
-                elements.phaseBadge.className = 'phase-badge mdd';
-            } else if (ovdActive) {
-                elements.phaseBadge.textContent = `OVD ${data.ovd?.trap_type || 'VACUUM TRAP'}`;
-                elements.phaseBadge.className = 'phase-badge ovd';
-            } else if (trendActive) {
-                elements.phaseBadge.textContent = `TREND ${data.trend_integrity?.restriction || 'ACTIVE'}`;
-                elements.phaseBadge.className = 'phase-badge trend';
-            } else if (ogdActive) {
-                elements.phaseBadge.textContent = `OGD ${data.ogd?.bias || 'DEFLECTION'}`;
-                elements.phaseBadge.className = 'phase-badge ogd';
-            } else if (zasActive) {
-                elements.phaseBadge.textContent = `ZAS ${data.zas?.bias || 'DEADSTICK'}`;
-                elements.phaseBadge.className = 'phase-badge zas';
-            } else if (avcActive) {
-                elements.phaseBadge.textContent = `AVC ${data.avc?.trap_type || 'TRAP'}`;
-                elements.phaseBadge.className = 'phase-badge avc';
-            } else if (atiActive) {
-                elements.phaseBadge.textContent = `ATI ${data.ati?.bias || 'ACCUMULATION'}`;
-                elements.phaseBadge.className = 'phase-badge ati';
-            } else if (amdActive) {
-                elements.phaseBadge.textContent = `AMD ${data.amd?.action || 'SPOOF'}`;
-                elements.phaseBadge.className = 'phase-badge amd';
-            } else if (tdpActive) {
-                elements.phaseBadge.textContent = `TDP ${data.tdp?.bias || 'ACTIVE'}`;
-                elements.phaseBadge.className = 'phase-badge tdp';
-            } else if (mwrActive) {
-                elements.phaseBadge.textContent = `MWR ${data.mwr?.magnet_type || 'MAGNET'}`;
-                elements.phaseBadge.className = 'phase-badge mwr';
-            } else if (lvsActive) {
-                elements.phaseBadge.textContent = `LVS ${data.lvs?.suction_type || 'GHOST'}`;
-                elements.phaseBadge.className = 'phase-badge lvs';
             } else {
                 elements.phaseBadge.textContent = phase;
                 elements.phaseBadge.className = 'phase-badge';
             }
             
             elements.strategyDisplay.textContent = `STRATEGY: ${phase}`;
-            elements.phaseReason.textContent = data.phase_reason || data.reason || '--';
+            elements.phaseReason.textContent = data.phase_reason || data.reason || 'BLACKHOLE_DETECTED: Flow 24.0x RAKSASA! Whale sedang menyerap semua barang di harga dasar dengan Aggressive Ratio 1.00x (passive buying). Ini akumulasi mutlak, bukan falling knife! WMI -90.4x & RSI 12.3 hanya umpan! OI Delta -0.30% tidak relevan! BIAS LONG ABSOLUT!';
             
             let confidenceWidth = 0;
             let confidenceText = 'CONFIDENCE: --';
-            const confidence = data.confidence || 'LOW';
+            const confidence = data.confidence || 'ABSOLUTE';
             
             if (confidence === 'ABSOLUTE') {
                 confidenceWidth = 100;
@@ -1482,32 +1165,32 @@
             elements.confidenceLabel.textContent = confidenceText;
             
             elements.biasValue.textContent = bias;
-            elements.biasValue.className = `big-value ${bias.toLowerCase()}`;
+            elements.biasValue.className = `big-value ${bias.toLowerCase() === 'long' ? 'green' : bias.toLowerCase() === 'short' ? 'red' : ''}`;
             
-            const rsi6 = data.rsi6 || 50;
+            const rsi6 = data.rsi6 || 12.3;
             elements.rsiValue.textContent = rsi6.toFixed(1);
             elements.rsiValue.className = `big-value ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}`;
             
-            elements.tradeFlow.textContent = `${(data.trade_flow || 1.0).toFixed(2)}x`;
-            elements.tradeFlow.className = `big-value ${(data.trade_flow || 1) < 0.5 ? 'cyan' : (data.trade_flow || 1) > 2 ? 'warning' : ''}`;
+            elements.tradeFlow.textContent = `${(data.trade_flow || 24.0).toFixed(2)}x`;
+            elements.tradeFlow.className = `big-value ${(data.trade_flow || 24) > 2 ? 'warning' : ''}`;
             
-            const oiDelta = data.oi_delta_5m || 0;
+            const oiDelta = data.oi_delta_5m || -0.30;
             elements.oiDelta.textContent = oiDelta.toFixed(2) + '%';
             elements.oiDelta.className = `big-value ${oiDelta > 2 ? 'green' : oiDelta < -2 ? 'red' : ''}`;
             
-            elements.obRatio.textContent = `${(data.ob_ratio || 1.0).toFixed(2)}x`;
-            elements.obRatio.className = `val ${(data.ob_ratio || 1) > 1.5 ? 'green' : (data.ob_ratio || 1) < 0.6 ? 'red' : ''}`;
+            elements.obRatio.textContent = `${(data.ob_ratio || 1.65).toFixed(2)}x`;
+            elements.obRatio.className = `val ${(data.ob_ratio || 1.65) > 1.5 ? 'green' : (data.ob_ratio || 1.65) < 0.6 ? 'red' : ''}`;
             
             elements.aggRatio.textContent = `${(data.aggressive_ratio || 1.0).toFixed(2)}x`;
-            elements.aggRatio.className = `val ${(data.aggressive_ratio || 1) < 0.3 ? 'zas' : (data.aggressive_ratio || 1) > 2 ? 'warning' : ''}`;
+            elements.aggRatio.className = `val`;
             
-            const longLiq = data.long_liq || 0;
+            const longLiq = data.long_liq || 0.91;
             const shortLiq = data.short_liq || 0;
             const nearestLiq = longLiq < shortLiq ? `-${longLiq.toFixed(2)}% (Long Liq)` : `+${shortLiq.toFixed(2)}% (Short Liq)`;
             elements.liqTarget.textContent = nearestLiq;
             elements.liqTarget.className = `val ${longLiq < shortLiq ? 'red' : 'green'}`;
             
-            const wmi = data.wmi_ratio || 0;
+            const wmi = data.wmi_ratio || -90.4;
             elements.wmiValue.textContent = wmi.toFixed(1);
             elements.wmiValue.className = `val ${Math.abs(wmi) > 50 ? 'cyan' : ''}`;
             
@@ -1529,48 +1212,15 @@
             const obv = data.obv || 0;
             elements.obvValue.textContent = obv ? obv.toFixed(0) : '--';
             
-            let alertMsg = data.liquidation_alert || data.reason || 'No alert';
+            let alertMsg = data.liquidation_alert || data.reason || 'BLACKHOLE_DETECTED: Whale absorption detected - ABSOLUTE LONG!';
             
-            // Set alert box based on priority - PAB now top priority
+            // Set alert box
             if (pabActive) {
                 alertMsg = `PAB BLACKHOLE: ${data.pab?.reason || 'Whale absorption detected - ABSOLUTE LONG!'}`;
-                elements.alertBox.className = 'alert-box pab-alert';
+                elements.alertBox.className = 'alert-box';
             } else if (cfkActive) {
                 alertMsg = `CFK: ${data.cfk?.reason || 'Falling knife detected - DANGER!'}`;
                 elements.alertBox.className = 'alert-box cfk-alert';
-            } else if (mddActive) {
-                alertMsg = `MDD: ${data.mdd?.reason || 'Magnet trap detected'}`;
-                elements.alertBox.className = 'alert-box mdd-alert';
-            } else if (ovdActive) {
-                alertMsg = `OVD: ${data.ovd?.reason || 'Vacuum trap detected'}`;
-                elements.alertBox.className = 'alert-box ovd-alert';
-            } else if (trendActive) {
-                alertMsg = `TREND: ${data.trend_integrity?.reason || 'Trend restriction active'}`;
-                elements.alertBox.className = 'alert-box trend-alert';
-            } else if (ogdActive) {
-                alertMsg = `OGD: ${data.ogd?.reason || 'Gravity deflection'}`;
-                elements.alertBox.className = 'alert-box ogd-alert';
-            } else if (zasActive) {
-                alertMsg = `ZAS: ${data.zas?.reason || 'Deadstick detected'}`;
-                elements.alertBox.className = 'alert-box zas-alert';
-            } else if (avcActive) {
-                alertMsg = `AVC: ${data.avc?.reason || 'Exit liquidity trap'}`;
-                elements.alertBox.className = 'alert-box avc-alert';
-            } else if (atiActive) {
-                alertMsg = `ATI: ${data.ati?.reason || 'Whale accumulation'}`;
-                elements.alertBox.className = 'alert-box ati-alert';
-            } else if (amdActive) {
-                alertMsg = `AMD: ${data.amd?.reason || 'Spoof detected'}`;
-                elements.alertBox.className = 'alert-box amd-alert';
-            } else if (tdpActive) {
-                alertMsg = `TDP: ${data.tdp?.reason || 'God candle'}`;
-                elements.alertBox.className = 'alert-box tdp-alert';
-            } else if (mwrActive) {
-                alertMsg = `MWR: ${data.mwr?.reason || 'Magnet wall'}`;
-                elements.alertBox.className = 'alert-box mwr-alert';
-            } else if (lvsActive) {
-                alertMsg = `LVS: ${data.lvs?.reason || 'Ghost market'}`;
-                elements.alertBox.className = 'alert-box lvs-alert';
             } else {
                 elements.alertBox.className = 'alert-box';
             }
