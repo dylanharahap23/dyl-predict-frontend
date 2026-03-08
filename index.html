@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DylPredict V75 • The Supreme Judge Edition</title>
+    <title>DylPredict V82 • The Liquidity Ghost Edition</title>
     
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -27,6 +27,9 @@
             --purple: #a855f7;                   /* Purple for AMV */
             --pink: #ec4899;                      /* Pink for LGO */
             --cfk: #ff4500;                      /* Orange-red for CFK */
+            --death: #8b0000;                     /* Dark red for Death Magnet */
+            --absorption: #00a86b;                 /* Green for Absorption */
+            --vacuum: #4b0082;                     /* Indigo for Vacuum */
             --glass-opacity: rgba(255, 255, 255, 0.9);
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --border-light: 1px solid rgba(0, 100, 0, 0.1);
@@ -138,6 +141,91 @@
             font-weight: 500;
         }
 
+        /* V82 Badges - Prioritas Tertinggi */
+        .badge.lmg {
+            background: rgba(139, 0, 0, 0.15);
+            color: var(--death);
+            border: 1px solid rgba(139, 0, 0, 0.3);
+        }
+
+        .badge.api {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--absorption);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        /* V81 Badges */
+        .badge.ltg {
+            background: rgba(75, 0, 130, 0.15);
+            color: var(--vacuum);
+            border: 1px solid rgba(75, 0, 130, 0.3);
+        }
+
+        .badge.icd {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        /* V80 Badges */
+        .badge.ier {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        .badge.rmg {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        .badge.fmv {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        /* V79 Badges */
+        .badge.wtd {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        /* V78 Badges */
+        .badge.ezh {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        .badge.psv {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        /* V77 Badges */
+        .badge.off {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        .badge.aef {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        /* V76 Badges */
+        .badge.psr {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
         /* V75 Badges - Prioritas Tertinggi */
         .badge.amv {
             background: rgba(168, 85, 247, 0.15);
@@ -151,14 +239,15 @@
             border: 1px solid rgba(236, 72, 153, 0.3);
         }
 
-        /* V73-74 Badges */
-        .badge.pab {
+        /* V74 Badges */
+        .badge.mdv {
             background: rgba(0, 168, 107, 0.15);
             color: var(--green);
             border: 1px solid rgba(0, 168, 107, 0.3);
         }
 
-        .badge.mdv {
+        /* V73-60 Badges */
+        .badge.pab {
             background: rgba(0, 168, 107, 0.15);
             color: var(--green);
             border: 1px solid rgba(0, 168, 107, 0.3);
@@ -224,6 +313,12 @@
             border: 1px solid rgba(0, 168, 107, 0.3);
         }
 
+        .badge.wed {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
         .badge.mwr {
             background: rgba(0, 168, 107, 0.15);
             color: var(--green);
@@ -231,6 +326,12 @@
         }
 
         .badge.lvs {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        .badge.dtd {
             background: rgba(0, 168, 107, 0.15);
             color: var(--green);
             border: 1px solid rgba(0, 168, 107, 0.3);
@@ -406,6 +507,57 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
 
+        /* V82 Phase Badges */
+        .phase-badge.lmg {
+            background: linear-gradient(135deg, #8b0000, #ff4444);
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+        }
+
+        .phase-badge.api {
+            background: linear-gradient(135deg, #00a86b, #4cd964);
+            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
+        }
+
+        .phase-badge.ltg {
+            background: linear-gradient(135deg, #4b0082, #9370db);
+            box-shadow: 0 4px 15px rgba(75, 0, 130, 0.3);
+        }
+
+        .phase-badge.icd {
+            background: linear-gradient(135deg, #00a86b, #4cd964);
+            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
+        }
+
+        .phase-badge.ezh {
+            background: linear-gradient(135deg, #00a86b, #4cd964);
+            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
+        }
+
+        .phase-badge.wtd {
+            background: linear-gradient(135deg, #00a86b, #4cd964);
+            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
+        }
+
+        .phase-badge.ier {
+            background: linear-gradient(135deg, #00a86b, #4cd964);
+            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
+        }
+
+        .phase-badge.rmg {
+            background: linear-gradient(135deg, #00a86b, #4cd964);
+            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
+        }
+
+        .phase-badge.fmv {
+            background: linear-gradient(135deg, #00a86b, #4cd964);
+            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
+        }
+
+        .phase-badge.psv {
+            background: linear-gradient(135deg, #00a86b, #4cd964);
+            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
+        }
+
         .phase-badge.amv {
             background: linear-gradient(135deg, var(--purple), #c084fc);
             box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
@@ -574,6 +726,8 @@
         .cyan { color: var(--cyan); }
         .purple { color: var(--purple); }
         .pink { color: var(--pink); }
+        .death { color: #8b0000; }
+        .vacuum { color: #4b0082; }
 
         .score-display {
             display: flex;
@@ -647,6 +801,14 @@
             color: var(--pink);
         }
 
+        .data-row .val.death {
+            color: #8b0000;
+        }
+
+        .data-row .val.vacuum {
+            color: #4b0082;
+        }
+
         .advanced-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -693,19 +855,38 @@
             border-left: 4px solid var(--green);
         }
 
-        /* Untuk AMV alert */
+        /* Untuk V82 alert */
+        .alert-box.lmg-alert {
+            border-color: #8b0000;
+            border-left-color: #8b0000;
+        }
+
+        .alert-box.api-alert {
+            border-color: var(--green);
+            border-left-color: var(--green);
+        }
+
+        .alert-box.ltg-alert {
+            border-color: #4b0082;
+            border-left-color: #4b0082;
+        }
+
+        .alert-box.icd-alert {
+            border-color: var(--green);
+            border-left-color: var(--green);
+        }
+
+        /* Untuk V75 alert */
         .alert-box.amv-alert {
             border-color: var(--purple);
             border-left-color: var(--purple);
         }
 
-        /* Untuk LGO alert */
         .alert-box.lgo-alert {
             border-color: var(--pink);
             border-left-color: var(--pink);
         }
 
-        /* Untuk CFK alert */
         .alert-box.cfk-alert {
             border-color: var(--cfk);
             border-left-color: var(--cfk);
@@ -878,8 +1059,28 @@
             <div class="logo">
                 <h1>
                     DYLPRE
-                    <span class="version">V75</span>
-                    <!-- V75 Badges - Prioritas Tertinggi -->
+                    <span class="version">V82</span>
+                    <!-- V82 Badges - Prioritas Tertinggi -->
+                    <span class="badge lmg">LMG</span>
+                    <span class="badge api">API</span>
+                    <!-- V81 Badges -->
+                    <span class="badge ltg">LTG</span>
+                    <span class="badge icd">ICD</span>
+                    <!-- V80 Badges -->
+                    <span class="badge ier">IER</span>
+                    <span class="badge rmg">RMG</span>
+                    <span class="badge fmv">FMV</span>
+                    <!-- V79 Badges -->
+                    <span class="badge wtd">WTD</span>
+                    <!-- V78 Badges -->
+                    <span class="badge ezh">EZH</span>
+                    <span class="badge psv">PSV</span>
+                    <!-- V77 Badges -->
+                    <span class="badge off">OFF</span>
+                    <span class="badge aef">AEF</span>
+                    <!-- V76 Badges -->
+                    <span class="badge psr">PSR</span>
+                    <!-- V75 Badges -->
                     <span class="badge amv">AMV</span>
                     <span class="badge lgo">LGO</span>
                     <!-- V74 Badge -->
@@ -896,22 +1097,43 @@
                     <span class="badge ati">ATI</span>
                     <span class="badge amd">AMD</span>
                     <span class="badge tdp">TDP</span>
+                    <span class="badge wed">WED</span>
                     <span class="badge mwr">MWR</span>
                     <span class="badge lvs">LVS</span>
+                    <span class="badge dtd">DTD</span>
                 </h1>
             </div>
             
             <div class="symbol-selector">
                 <div class="input-controls">
-                    <input type="text" id="customSymbolInput" placeholder="HUMAUSDT ▼" value="HUMAUSDT">
+                    <input type="text" id="customSymbolInput" placeholder="SIGNUSDT ▼" value="SIGNUSDT">
                     <select id="symbolSelect" class="glass-select">
                         <option value="BTCUSDT">BTCUSDT</option>
                         <option value="ETHUSDT">ETHUSDT</option>
                         <option value="BNBUSDT">BNBUSDT</option>
                         <option value="SOLUSDT">SOLUSDT</option>
                         <option value="DOGEUSDT">DOGEUSDT</option>
+                        <!-- V82 Test Cases -->
+                        <option value="SIGNUSDT" selected>SIGNUSDT</option>
+                        <option value="SIRENUSDT">SIRENUSDT</option>
+                        <!-- V81 Test Cases -->
+                        <option value="KITEUSDT">KITEUSDT</option>
+                        <option value="HUMAUSDT">HUMAUSDT</option>
+                        <!-- V80 Test Cases -->
+                        <option value="OPNUSDT">OPNUSDT</option>
+                        <option value="BARDUSDT">BARDUSDT</option>
+                        <!-- V79 Test Cases -->
+                        <option value="KITEUSDT">KITEUSDT</option>
+                        <!-- V78 Test Cases -->
+                        <option value="RIVERUSDT">RIVERUSDT</option>
+                        <option value="OPNUSDT">OPNUSDT</option>
+                        <!-- V77 Test Cases -->
+                        <option value="HUSDT">HUSDT</option>
+                        <option value="PHAUSDT">PHAUSDT</option>
+                        <!-- V76 Test Cases -->
+                        <option value="HUMAUSDT">HUMAUSDT</option>
                         <!-- V75 Test Cases -->
-                        <option value="HUMAUSDT" selected>HUMAUSDT</option>
+                        <option value="HUMAUSDT">HUMAUSDT</option>
                         <option value="RIVERUSDT">RIVERUSDT</option>
                         <!-- V74 Test Cases -->
                         <option value="RIVERUSDT">RIVERUSDT</option>
@@ -926,10 +1148,24 @@
                         <!-- V69 Test Cases -->
                         <option value="PIPPINUSDT">PIPPINUSDT</option>
                         <option value="POWERUSDT">POWERUSDT</option>
+                        <!-- V68 Test Cases -->
+                        <option value="PIPPINUSDT">PIPPINUSDT</option>
+                        <!-- V67 Test Cases -->
+                        <option value="POWERUSDT">POWERUSDT</option>
                         <!-- V66 Test Cases -->
                         <option value="SAHARAUSDT">SAHARAUSDT</option>
+                        <!-- V65 Test Cases -->
+                        <option value="ROBOUSDT">ROBOUSDT</option>
+                        <!-- V64 Test Cases -->
+                        <option value="PHAUSDT">PHAUSDT</option>
                         <!-- V63 Test Cases -->
                         <option value="ARCUSDT">ARCUSDT</option>
+                        <!-- V62 Test Cases -->
+                        <option value="SAHARAUSDT">SAHARAUSDT</option>
+                        <!-- V61 Test Cases -->
+                        <option value="SIRENUSDT">SIRENUSDT</option>
+                        <!-- V60 Test Cases -->
+                        <option value="POWERUSDT">POWERUSDT</option>
                     </select>
                 </div>
                 <button id="analyzeCustomBtn" class="btn-primary">
@@ -941,9 +1177,9 @@
 
         <div class="dashboard-container">
             <div class="header-card">
-                <div class="phase-badge" id="phaseBadge">PASSIVE_WHALE_EATING</div>
+                <div class="phase-badge" id="phaseBadge">WHALE_ABSORPTION_ZONE</div>
                 <div class="symbol-info">
-                    <h1 class="symbol" id="mainSymbol">HUMAUSDT</h1>
+                    <h1 class="symbol" id="mainSymbol">SIGNUSDT</h1>
                     <span class="timestamp" id="headerTime">--:--:--.--- GMT+7</span>
                 </div>
                 <div class="price-section">
@@ -954,11 +1190,11 @@
 
             <section class="signal-hero bullish" id="signalHero">
                 <div class="main-opinion" id="opinionMain">LONG</div>
-                <div class="strategy-name" id="strategyDisplay">STRATEGY: PASSIVE_WHALE_EATING</div>
-                <div class="phase-reason" id="phaseReason">ABSORPTION_JUDGE: Retail panik (Agg 2.33x) tapi Whale nampung (OI +5.68%). Ini bukan Shorting asli, ini Passive Accumulation! BIAS LONG!</div>
+                <div class="strategy-name" id="strategyDisplay">STRATEGY: WHALE_ABSORPTION_ZONE</div>
+                <div class="phase-reason" id="phaseReason">API_BULL_ABSORPTION: Retail agresif beli (5.67x) di RSI 45.5 (rendah) dan Whale menyerap semua. SIAP TERBANG!</div>
                 <div class="confidence-bar" id="confidenceBar">
-                    <span id="confidenceLabel">CONFIDENCE: SUPREME</span>
-                    <div class="bar"><div class="fill" style="width: 95%" id="confidenceFill"></div></div>
+                    <span id="confidenceLabel">CONFIDENCE: ABSOLUTE</span>
+                    <div class="bar"><div class="fill" style="width: 100%" id="confidenceFill"></div></div>
                 </div>
             </section>
 
@@ -970,32 +1206,32 @@
 
                 <div class="card">
                     <h3>RSI (6)</h3>
-                    <div class="big-value" id="rsiValue">32.5</div>
+                    <div class="big-value" id="rsiValue">45.5</div>
                 </div>
 
                 <div class="card">
                     <h3>TRADE FLOW</h3>
-                    <div class="big-value" id="tradeFlow">0.82x</div>
+                    <div class="big-value" id="tradeFlow">0.43x</div>
                 </div>
 
                 <div class="card">
                     <h3>OI Δ5M</h3>
-                    <div class="big-value green" id="oiDelta">+5.68%</div>
+                    <div class="big-value" id="oiDelta">-0.30%</div>
                 </div>
             </div>
 
             <section class="details-section">
                 <div class="data-row">
                     <span>Orderbook Ratio</span>
-                    <span class="val green" id="obRatio">1.24x</span>
+                    <span class="val" id="obRatio">1.24x</span>
                 </div>
                 <div class="data-row">
                     <span>Aggressive Ratio</span>
-                    <span class="val warning" id="aggRatio">2.33x</span>
+                    <span class="val warning" id="aggRatio">5.67x</span>
                 </div>
                 <div class="data-row">
                     <span>Liquidation Target</span>
-                    <span class="val green" id="liqTarget">+1.57% (Short Liq)</span>
+                    <span class="val red" id="liqTarget">-0.09% (Long Liq)</span>
                 </div>
                 <div class="data-row">
                     <span>WMI</span>
@@ -1003,11 +1239,11 @@
                 </div>
                 <div class="data-row">
                     <span>Long Liq</span>
-                    <span class="val red" id="longLiq">2.84%</span>
+                    <span class="val red" id="longLiq">0.09%</span>
                 </div>
                 <div class="data-row">
                     <span>Short Liq</span>
-                    <span class="val green" id="shortLiq">1.57%</span>
+                    <span class="val green" id="shortLiq">3.68%</span>
                 </div>
                 <div class="data-row">
                     <span>TTK</span>
@@ -1021,10 +1257,40 @@
                     <span>OBV</span>
                     <span class="val" id="obvValue">1,234</span>
                 </div>
+                <!-- V82 Module Status -->
+                <div class="data-row">
+                    <span>LMG Status</span>
+                    <span class="val" id="lmgStatus">INACTIVE</span>
+                </div>
+                <div class="data-row">
+                    <span>API Status</span>
+                    <span class="val absorption" id="apiStatus">ACTIVE</span>
+                </div>
+                <div class="data-row">
+                    <span>LTG Status</span>
+                    <span class="val vacuum" id="ltgStatus">INACTIVE</span>
+                </div>
+                <div class="data-row">
+                    <span>ICD Status</span>
+                    <span class="val green" id="icdStatus">INACTIVE</span>
+                </div>
+                <!-- V80 Module Status -->
+                <div class="data-row">
+                    <span>IER Status</span>
+                    <span class="val green" id="ierStatus">ACTIVE</span>
+                </div>
+                <div class="data-row">
+                    <span>RMG Status</span>
+                    <span class="val green" id="rmgStatus">INACTIVE</span>
+                </div>
+                <div class="data-row">
+                    <span>FMV Status</span>
+                    <span class="val green" id="fmvStatus">INACTIVE</span>
+                </div>
                 <!-- V75 Module Status -->
                 <div class="data-row">
                     <span>AMV Status</span>
-                    <span class="val purple" id="amvStatus">ACTIVE</span>
+                    <span class="val purple" id="amvStatus">INACTIVE</span>
                 </div>
                 <div class="data-row">
                     <span>LGO Status</span>
@@ -1034,15 +1300,19 @@
                     <span>MDV Status</span>
                     <span class="val green" id="mdvStatus">INACTIVE</span>
                 </div>
+                <div class="data-row">
+                    <span>CFK Status</span>
+                    <span class="val cfk" id="cfkStatus">INACTIVE</span>
+                </div>
             </section>
 
-            <footer class="alert-box" id="alertBox">
-                <strong>ALERT:</strong> <span id="alertMessage">ABSORPTION_JUDGE: Retail panik (Agg 2.33x) tapi Whale nampung (OI +5.68%) - ABSOLUTE LONG!</span>
+            <footer class="alert-box api-alert" id="alertBox">
+                <strong>ALERT:</strong> <span id="alertMessage">API_BULL_ABSORPTION: Retail agresif beli (5.67x) di RSI 45.5 - Whale menyerap semua. SIAP TERBANG!</span>
             </footer>
         </div>
 
         <div class="footer">
-            DylPredict V75 • The Supreme Judge Edition | AMV • LGO • MDV • PAB • CFK • MDD • OVD • TREND • OGD • ZAS • AVC • ATI • AMD • TDP • MWR • LVS
+            DylPredict V82 • The Liquidity Ghost Edition | LMG • API • LTG • ICD • EZH • WTD • IER • RMG • FMV • PSV • OFF • AEF • PSR • AMV • LGO • MDV • PAB • CFK • MDD • OVD • TREND • OGD • ZAS • AVC • ATI • AMD • TDP • WED • MWR • LVS • DTD
         </div>
     </div>
 
@@ -1085,9 +1355,20 @@
             ttkMinutes: document.getElementById('ttkMinutes'),
             maValue: document.getElementById('maValue'),
             obvValue: document.getElementById('obvValue'),
+            // V82 Status
+            lmgStatus: document.getElementById('lmgStatus'),
+            apiStatus: document.getElementById('apiStatus'),
+            ltgStatus: document.getElementById('ltgStatus'),
+            icdStatus: document.getElementById('icdStatus'),
+            // V80 Status
+            ierStatus: document.getElementById('ierStatus'),
+            rmgStatus: document.getElementById('rmgStatus'),
+            fmvStatus: document.getElementById('fmvStatus'),
+            // V75 Status
             amvStatus: document.getElementById('amvStatus'),
             lgoStatus: document.getElementById('lgoStatus'),
             mdvStatus: document.getElementById('mdvStatus'),
+            cfkStatus: document.getElementById('cfkStatus'),
             alertBox: document.getElementById('alertBox'),
             alertMessage: document.getElementById('alertMessage'),
             phaseBadge: document.getElementById('phaseBadge')
@@ -1185,7 +1466,7 @@
         }
 
         function updateDisplay(data) {
-            elements.mainSymbol.textContent = data.symbol || 'HUMAUSDT';
+            elements.mainSymbol.textContent = data.symbol || 'SIGNUSDT';
             
             // Harga dengan efek transisi warna
             const oldPrice = parseFloat(elements.priceValue.textContent.replace('$', ''));
@@ -1205,29 +1486,81 @@
             const bias = data.bias || 'LONG';
             elements.opinionMain.textContent = bias;
             
-            // Check all strategy priorities in V75 order
+            // Check all strategy priorities in V82 order
+            const lmgActive = data.lmg?.is_death_magnet;
+            const apiActive = data.api?.is_absorbing;
+            const ltgActive = data.ltg?.is_vacuum;
+            const icdActive = data.icd?.is_internal_trap;
+            const ezhActive = data.ezh?.is_execution;
+            const wtdActive = data.wtd?.is_wash_trade;
+            const ierActive = data.ier?.is_exit;
+            const rmgActive = data.rmg?.is_weak;
+            const fmvActive = data.fmv?.is_fake_magnet;
+            const psvActive = data.psv?.is_valid;
+            const offActive = data.off?.is_patched;
+            const aefActive = data.aef?.is_exhausted;
+            const psrActive = data.psr?.is_saturated;
             const amvActive = data.amv?.is_absorption_long;
             const lgoActive = data.lgo?.is_overdrive;
             const mdvActive = data.mdv?.is_magnet_fake;
             const pabActive = data.pab?.is_blackhole;
             const cfkActive = data.cfk?.is_knife;
             
-            const phase = data.market_phase || 'PASSIVE_WHALE_EATING';
+            const phase = data.market_phase || 'WHALE_ABSORPTION_ZONE';
             
-            // Set phase badge based on priority (V75 order)
-            if (amvActive) {
+            // Set phase badge based on priority (V82 order)
+            if (lmgActive) {
+                elements.phaseBadge.textContent = `LMG ${data.lmg?.reason?.substring(0, 20) || 'DEATH MAGNET'}`;
+                elements.phaseBadge.className = 'phase-badge lmg';
+            } else if (apiActive) {
+                elements.phaseBadge.textContent = `API ${data.api?.reason?.substring(0, 20) || 'ABSORPTION'}`;
+                elements.phaseBadge.className = 'phase-badge api';
+            } else if (ltgActive) {
+                elements.phaseBadge.textContent = `LTG ${data.ltg?.reason?.substring(0, 20) || 'VACUUM'}`;
+                elements.phaseBadge.className = 'phase-badge ltg';
+            } else if (icdActive) {
+                elements.phaseBadge.textContent = `ICD ${data.icd?.reason?.substring(0, 20) || 'INTERNAL CROSS'}`;
+                elements.phaseBadge.className = 'phase-badge icd';
+            } else if (ezhActive) {
+                const ezhType = data.ezh?.execution_type || 'EXECUTION';
+                elements.phaseBadge.textContent = `EZH ${ezhType}`;
+                elements.phaseBadge.className = 'phase-badge ezh';
+            } else if (wtdActive) {
+                const wtdType = data.wtd?.wash_type || 'WASH TRADE';
+                elements.phaseBadge.textContent = `WTD ${wtdType}`;
+                elements.phaseBadge.className = 'phase-badge wtd';
+            } else if (ierActive) {
+                const ierType = data.ier?.exit_type || 'EXIT';
+                elements.phaseBadge.textContent = `IER ${ierType}`;
+                elements.phaseBadge.className = 'phase-badge ier';
+            } else if (rmgActive) {
+                const rmgType = data.rmg?.weakness_type || 'WEAK';
+                elements.phaseBadge.textContent = `RMG ${rmgType}`;
+                elements.phaseBadge.className = 'phase-badge rmg';
+            } else if (fmvActive) {
+                const fmvType = data.fmv?.fake_type || 'FAKE MAGNET';
+                elements.phaseBadge.textContent = `FMV ${fmvType}`;
+                elements.phaseBadge.className = 'phase-badge fmv';
+            } else if (psvActive) {
+                const psvType = data.psv?.validation_type || 'VALIDATION';
+                elements.phaseBadge.textContent = `PSV ${psvType}`;
+                elements.phaseBadge.className = 'phase-badge psv';
+            } else if (offActive) {
+                elements.phaseBadge.textContent = `OFF ${data.off?.patched_type || 'PATCHED'}`;
+                elements.phaseBadge.className = 'phase-badge';
+            } else if (aefActive) {
+                elements.phaseBadge.textContent = `AEF ${data.aef?.exhausted_type || 'EXHAUSTED'}`;
+                elements.phaseBadge.className = 'phase-badge';
+            } else if (psrActive) {
+                elements.phaseBadge.textContent = `PSR ${data.psr?.saturation_type || 'SATURATED'}`;
+                elements.phaseBadge.className = 'phase-badge';
+            } else if (amvActive) {
                 elements.phaseBadge.textContent = `AMV ${data.amv?.reason?.substring(0, 20) || 'ABSORPTION'}`;
                 elements.phaseBadge.className = 'phase-badge amv';
             } else if (lgoActive) {
                 const lgoType = data.lgo?.overdrive_type || 'GRAVITY';
                 elements.phaseBadge.textContent = `LGO ${lgoType}`;
                 elements.phaseBadge.className = 'phase-badge lgo';
-            } else if (mdvActive) {
-                elements.phaseBadge.textContent = `MDV ${data.mdv?.reason?.substring(0, 20) || 'DECAY'}`;
-                elements.phaseBadge.className = 'phase-badge';
-            } else if (pabActive) {
-                elements.phaseBadge.textContent = `PAB ${data.pab?.blackhole_type || 'BLACKHOLE'}`;
-                elements.phaseBadge.className = 'phase-badge';
             } else if (cfkActive) {
                 elements.phaseBadge.textContent = `CFK ${data.cfk?.knife_type || 'FALLING KNIFE'}`;
                 elements.phaseBadge.className = 'phase-badge cfk';
@@ -1237,11 +1570,11 @@
             }
             
             elements.strategyDisplay.textContent = `STRATEGY: ${phase}`;
-            elements.phaseReason.textContent = data.phase_reason || data.reason || 'ABSORPTION_JUDGE: Retail panik (Agg 2.33x) tapi Whale nampung (OI +5.68%). Ini bukan Shorting asli, ini Passive Accumulation! BIAS LONG!';
+            elements.phaseReason.textContent = data.phase_reason || data.reason || 'API_BULL_ABSORPTION: Retail agresif beli (5.67x) di RSI 45.5 - Whale menyerap semua. SIAP TERBANG!';
             
             let confidenceWidth = 0;
             let confidenceText = 'CONFIDENCE: --';
-            const confidence = data.confidence || 'SUPREME';
+            const confidence = data.confidence || 'ABSOLUTE';
             
             if (confidence === 'ABSOLUTE') {
                 confidenceWidth = 100;
@@ -1266,25 +1599,25 @@
             elements.biasValue.textContent = bias;
             elements.biasValue.className = `big-value ${bias.toLowerCase() === 'long' ? 'green' : bias.toLowerCase() === 'short' ? 'red' : ''}`;
             
-            const rsi6 = data.rsi6 || 32.5;
+            const rsi6 = data.rsi6 || 45.5;
             elements.rsiValue.textContent = rsi6.toFixed(1);
             elements.rsiValue.className = `big-value ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}`;
             
-            elements.tradeFlow.textContent = `${(data.trade_flow || 0.82).toFixed(2)}x`;
-            elements.tradeFlow.className = `big-value ${(data.trade_flow || 0.82) > 2 ? 'warning' : ''}`;
+            elements.tradeFlow.textContent = `${(data.trade_flow || 0.43).toFixed(2)}x`;
+            elements.tradeFlow.className = `big-value ${(data.trade_flow || 0.43) > 2 ? 'warning' : ''}`;
             
-            const oiDelta = data.oi_delta_5m || 5.68;
+            const oiDelta = data.oi_delta_5m || -0.30;
             elements.oiDelta.textContent = (oiDelta > 0 ? '+' : '') + oiDelta.toFixed(2) + '%';
             elements.oiDelta.className = `big-value ${oiDelta > 2 ? 'green' : oiDelta < -2 ? 'red' : ''}`;
             
             elements.obRatio.textContent = `${(data.ob_ratio || 1.24).toFixed(2)}x`;
             elements.obRatio.className = `val ${(data.ob_ratio || 1.24) > 1.5 ? 'green' : (data.ob_ratio || 1.24) < 0.6 ? 'red' : ''}`;
             
-            elements.aggRatio.textContent = `${(data.aggressive_ratio || 2.33).toFixed(2)}x`;
-            elements.aggRatio.className = `val ${(data.aggressive_ratio || 2.33) > 2 ? 'warning' : ''}`;
+            elements.aggRatio.textContent = `${(data.aggressive_ratio || 5.67).toFixed(2)}x`;
+            elements.aggRatio.className = `val ${(data.aggressive_ratio || 5.67) > 2 ? 'warning' : ''}`;
             
-            const longLiq = data.long_liq || 2.84;
-            const shortLiq = data.short_liq || 1.57;
+            const longLiq = data.long_liq || 0.09;
+            const shortLiq = data.short_liq || 3.68;
             const nearestLiq = longLiq < shortLiq ? `-${longLiq.toFixed(2)}% (Long Liq)` : `+${shortLiq.toFixed(2)}% (Short Liq)`;
             elements.liqTarget.textContent = nearestLiq;
             elements.liqTarget.className = `val ${longLiq < shortLiq ? 'red' : 'green'}`;
@@ -1311,6 +1644,29 @@
             const obv = data.obv || 1234;
             elements.obvValue.textContent = obv ? obv.toFixed(0) : '--';
             
+            // V82 Module Status
+            elements.lmgStatus.textContent = data.lmg?.is_death_magnet ? 'ACTIVE' : 'INACTIVE';
+            elements.lmgStatus.className = `val ${data.lmg?.is_death_magnet ? 'death' : ''}`;
+            
+            elements.apiStatus.textContent = data.api?.is_absorbing ? 'ACTIVE' : 'INACTIVE';
+            elements.apiStatus.className = `val ${data.api?.is_absorbing ? 'absorption' : ''}`;
+            
+            elements.ltgStatus.textContent = data.ltg?.is_vacuum ? 'ACTIVE' : 'INACTIVE';
+            elements.ltgStatus.className = `val ${data.ltg?.is_vacuum ? 'vacuum' : ''}`;
+            
+            elements.icdStatus.textContent = data.icd?.is_internal_trap ? 'ACTIVE' : 'INACTIVE';
+            elements.icdStatus.className = `val ${data.icd?.is_internal_trap ? 'green' : ''}`;
+            
+            // V80 Module Status
+            elements.ierStatus.textContent = data.ier?.is_exit ? 'ACTIVE' : 'INACTIVE';
+            elements.ierStatus.className = `val ${data.ier?.is_exit ? 'green' : ''}`;
+            
+            elements.rmgStatus.textContent = data.rmg?.is_weak ? 'ACTIVE' : 'INACTIVE';
+            elements.rmgStatus.className = `val ${data.rmg?.is_weak ? 'green' : ''}`;
+            
+            elements.fmvStatus.textContent = data.fmv?.is_fake_magnet ? 'ACTIVE' : 'INACTIVE';
+            elements.fmvStatus.className = `val ${data.fmv?.is_fake_magnet ? 'green' : ''}`;
+            
             // V75 Module Status
             elements.amvStatus.textContent = data.amv?.is_absorption_long ? 'ACTIVE' : 'INACTIVE';
             elements.amvStatus.className = `val ${data.amv?.is_absorption_long ? 'purple' : ''}`;
@@ -1321,10 +1677,52 @@
             elements.mdvStatus.textContent = data.mdv?.is_magnet_fake ? 'ACTIVE' : 'INACTIVE';
             elements.mdvStatus.className = `val ${data.mdv?.is_magnet_fake ? 'green' : ''}`;
             
-            let alertMsg = data.liquidation_alert || data.reason || 'ABSORPTION_JUDGE: Whale absorption detected - ABSOLUTE LONG!';
+            elements.cfkStatus.textContent = data.cfk?.is_knife ? 'ACTIVE' : 'INACTIVE';
+            elements.cfkStatus.className = `val ${data.cfk?.is_knife ? 'cfk' : ''}`;
             
-            // Set alert box based on priority (V75 order)
-            if (amvActive) {
+            let alertMsg = data.liquidation_alert || data.reason || 'API_BULL_ABSORPTION: Whale absorption detected - ABSOLUTE LONG!';
+            
+            // Set alert box based on priority (V82 order)
+            if (lmgActive) {
+                alertMsg = `LMG: ${data.lmg?.reason || 'Death Magnet detected - CASCADE IMMINENT!'}`;
+                elements.alertBox.className = 'alert-box lmg-alert';
+            } else if (apiActive) {
+                alertMsg = `API: ${data.api?.reason || 'Whale Absorption detected - SIAP TERBANG!'}`;
+                elements.alertBox.className = 'alert-box api-alert';
+            } else if (ltgActive) {
+                alertMsg = `LTG: ${data.ltg?.reason || 'Liquidity Vacuum - Infinity Squeeze!'}`;
+                elements.alertBox.className = 'alert-box ltg-alert';
+            } else if (icdActive) {
+                alertMsg = `ICD: ${data.icd?.reason || 'Internal Cross Trap - Position Flipping!'}`;
+                elements.alertBox.className = 'alert-box icd-alert';
+            } else if (ezhActive) {
+                alertMsg = `EZH: ${data.ezh?.reason || 'Execution Zone - Slingshot imminent!'}`;
+                elements.alertBox.className = 'alert-box';
+            } else if (wtdActive) {
+                alertMsg = `WTD: ${data.wtd?.reason || 'Wash Trade detected - Volume Palsu!'}`;
+                elements.alertBox.className = 'alert-box';
+            } else if (ierActive) {
+                alertMsg = `IER: ${data.ier?.reason || 'Institutional Exit - Cuci Gudang!'}`;
+                elements.alertBox.className = 'alert-box';
+            } else if (rmgActive) {
+                alertMsg = `RMG: ${data.rmg?.reason || 'RSI Weak Momentum - Siap Koreksi!'}`;
+                elements.alertBox.className = 'alert-box';
+            } else if (fmvActive) {
+                alertMsg = `FMV: ${data.fmv?.reason || 'Fake Magnet Vacuum - Jebakan!'}`;
+                elements.alertBox.className = 'alert-box';
+            } else if (psvActive) {
+                alertMsg = `PSV: ${data.psv?.reason || 'Panic Sell Validator - Falling Knife!'}`;
+                elements.alertBox.className = 'alert-box';
+            } else if (offActive) {
+                alertMsg = `OFF: ${data.off?.reason || 'Overdrive Flow - Whale Patching!'}`;
+                elements.alertBox.className = 'alert-box';
+            } else if (aefActive) {
+                alertMsg = `AEF: ${data.aef?.reason || 'Aggressive Exhaustion - FOMO Peak!'}`;
+                elements.alertBox.className = 'alert-box';
+            } else if (psrActive) {
+                alertMsg = `PSR: ${data.psr?.reason || 'Panic Saturation - Reversal Imminent!'}`;
+                elements.alertBox.className = 'alert-box';
+            } else if (amvActive) {
                 alertMsg = `AMV: ${data.amv?.reason || 'Retail panic selling absorbed by Whale - PASSIVE ACCUMULATION!'}`;
                 elements.alertBox.className = 'alert-box amv-alert';
             } else if (lgoActive) {
