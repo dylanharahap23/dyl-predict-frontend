@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DylPredict V82 • The Liquidity Ghost Edition</title>
+    <title>DylPredict V86 • The Liquidity Pathfinder (Zero Gravity Horizon Edition)</title>
     
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -30,6 +30,10 @@
             --death: #8b0000;                     /* Dark red for Death Magnet */
             --absorption: #00a86b;                 /* Green for Absorption */
             --vacuum: #4b0082;                     /* Indigo for Vacuum */
+            --nuclear: #ff3333;                    /* Red for Nuclear Overbought */
+            --odf: #ffaa00;                         /* Orange for ODF (V86) */
+            --zgh: #ffaa00;                          /* Orange for ZGH (V86) */
+            --otf: #00a86b;                           /* Green for OTF (V85) */
             --glass-opacity: rgba(255, 255, 255, 0.9);
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --border-light: 1px solid rgba(0, 100, 0, 0.1);
@@ -141,7 +145,101 @@
             font-weight: 500;
         }
 
-        /* V82 Badges - Prioritas Tertinggi */
+        /* V86 Badges - PRIORITAS TERTINGGI! */
+        .badge.odf {
+            background: rgba(255, 170, 0, 0.15);
+            color: #ffaa00;
+            border: 1px solid rgba(255, 170, 0, 0.3);
+        }
+
+        .badge.zgh {
+            background: rgba(255, 170, 0, 0.15);
+            color: #ffaa00;
+            border: 1px solid rgba(255, 170, 0, 0.3);
+        }
+
+        /* V85 Badges */
+        .badge.otf {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        /* V84 Badges */
+        .badge.fgd {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        .badge.lps {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        .badge.ldf {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        .badge.wdf {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        .badge.lls {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        .badge.fsd {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        /* V83 Badges */
+        .badge.lhg {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        .badge.ovs {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        .badge.adv {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        .badge.tbd {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        .badge.oia {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        .badge.lsp {
+            background: rgba(0, 168, 107, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 168, 107, 0.3);
+        }
+
+        /* V82 Badges */
         .badge.lmg {
             background: rgba(139, 0, 0, 0.15);
             color: var(--death);
@@ -226,7 +324,7 @@
             border: 1px solid rgba(0, 168, 107, 0.3);
         }
 
-        /* V75 Badges - Prioritas Tertinggi */
+        /* V75 Badges */
         .badge.amv {
             background: rgba(168, 85, 247, 0.15);
             color: var(--purple);
@@ -507,6 +605,23 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
 
+        /* V86 Phase Badges - PRIORITAS TERTINGGI! */
+        .phase-badge.odf {
+            background: linear-gradient(135deg, #ffaa00, #ffcc66);
+            box-shadow: 0 4px 15px rgba(255, 170, 0, 0.3);
+        }
+
+        .phase-badge.zgh {
+            background: linear-gradient(135deg, #ffaa00, #ffcc66);
+            box-shadow: 0 4px 15px rgba(255, 170, 0, 0.3);
+        }
+
+        /* V85 Phase Badges */
+        .phase-badge.otf {
+            background: linear-gradient(135deg, #00a86b, #4cd964);
+            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
+        }
+
         /* V82 Phase Badges */
         .phase-badge.lmg {
             background: linear-gradient(135deg, #8b0000, #ff4444);
@@ -728,6 +843,8 @@
         .pink { color: var(--pink); }
         .death { color: #8b0000; }
         .vacuum { color: #4b0082; }
+        .odf-color { color: #ffaa00; }
+        .zgh-color { color: #ffaa00; }
 
         .score-display {
             display: flex;
@@ -809,6 +926,14 @@
             color: #4b0082;
         }
 
+        .data-row .val.odf {
+            color: #ffaa00;
+        }
+
+        .data-row .val.zgh {
+            color: #ffaa00;
+        }
+
         .advanced-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -853,6 +978,23 @@
             color: var(--text-main);
             margin: 15px 0;
             border-left: 4px solid var(--green);
+        }
+
+        /* Untuk V86 alert - PRIORITAS TERTINGGI */
+        .alert-box.odf-alert {
+            border-color: #ffaa00;
+            border-left-color: #ffaa00;
+        }
+
+        .alert-box.zgh-alert {
+            border-color: #ffaa00;
+            border-left-color: #ffaa00;
+        }
+
+        /* Untuk V85 alert */
+        .alert-box.otf-alert {
+            border-color: var(--green);
+            border-left-color: var(--green);
         }
 
         /* Untuk V82 alert */
@@ -1059,8 +1201,27 @@
             <div class="logo">
                 <h1>
                     DYLPRE
-                    <span class="version">V82</span>
-                    <!-- V82 Badges - Prioritas Tertinggi -->
+                    <span class="version">V86</span>
+                    <!-- V86 Badges - PRIORITAS TERTINGGI! -->
+                    <span class="badge odf">ODF</span>
+                    <span class="badge zgh">ZGH</span>
+                    <!-- V85 Badges -->
+                    <span class="badge otf">OTF</span>
+                    <!-- V84 Badges -->
+                    <span class="badge fgd">FGD</span>
+                    <span class="badge lps">LPS</span>
+                    <span class="badge ldf">LDF</span>
+                    <span class="badge wdf">WDF</span>
+                    <span class="badge lls">LLS</span>
+                    <span class="badge fsd">FSD</span>
+                    <!-- V83 Badges -->
+                    <span class="badge lhg">LHG</span>
+                    <span class="badge ovs">OVS</span>
+                    <span class="badge adv">ADV</span>
+                    <span class="badge tbd">TBD</span>
+                    <span class="badge oia">OIA</span>
+                    <span class="badge lsp">LSP</span>
+                    <!-- V82 Badges -->
                     <span class="badge lmg">LMG</span>
                     <span class="badge api">API</span>
                     <!-- V81 Badges -->
@@ -1106,66 +1267,75 @@
             
             <div class="symbol-selector">
                 <div class="input-controls">
-                    <input type="text" id="customSymbolInput" placeholder="SIGNUSDT ▼" value="SIGNUSDT">
+                    <input type="text" id="customSymbolInput" placeholder="TRIAUSDT ▼" value="TRIAUSDT">
                     <select id="symbolSelect" class="glass-select">
                         <option value="BTCUSDT">BTCUSDT</option>
                         <option value="ETHUSDT">ETHUSDT</option>
                         <option value="BNBUSDT">BNBUSDT</option>
                         <option value="SOLUSDT">SOLUSDT</option>
                         <option value="DOGEUSDT">DOGEUSDT</option>
+                        <!-- V86 Test Cases - PRIORITAS TERTINGGI! -->
+                        <option value="TRIAUSDT" selected>TRIAUSDT (V86 - ODF/ZGH)</option>
+                        <!-- V85 Test Cases -->
+                        <option value="UAIUSDT">UAIUSDT (V85 - OTF)</option>
+                        <!-- V84 Test Cases -->
+                        <option value="PHAUSDT">PHAUSDT (V84 - FGD)</option>
+                        <!-- V83 Test Cases -->
+                        <option value="KITEUSDT">KITEUSDT (V83 - LHG/OVS)</option>
                         <!-- V82 Test Cases -->
-                        <option value="SIGNUSDT" selected>SIGNUSDT</option>
-                        <option value="SIRENUSDT">SIRENUSDT</option>
+                        <option value="SIGNUSDT">SIGNUSDT (V82 - API)</option>
+                        <option value="SIRENUSDT">SIRENUSDT (V82 - LMG)</option>
                         <!-- V81 Test Cases -->
-                        <option value="KITEUSDT">KITEUSDT</option>
-                        <option value="HUMAUSDT">HUMAUSDT</option>
+                        <option value="KITEUSDT">KITEUSDT (V81 - LTG)</option>
+                        <option value="HUMAUSDT">HUMAUSDT (V81 - ICD)</option>
                         <!-- V80 Test Cases -->
-                        <option value="OPNUSDT">OPNUSDT</option>
-                        <option value="BARDUSDT">BARDUSDT</option>
+                        <option value="OPNUSDT">OPNUSDT (V80 - IER)</option>
+                        <option value="BARDUSDT">BARDUSDT (V80 - IER)</option>
+                        <option value="RIVERUSDT">RIVERUSDT (V80 - RMG/FMV)</option>
                         <!-- V79 Test Cases -->
-                        <option value="KITEUSDT">KITEUSDT</option>
+                        <option value="KITEUSDT">KITEUSDT (V79 - WTD)</option>
                         <!-- V78 Test Cases -->
-                        <option value="RIVERUSDT">RIVERUSDT</option>
-                        <option value="OPNUSDT">OPNUSDT</option>
+                        <option value="RIVERUSDT">RIVERUSDT (V78 - EZH)</option>
+                        <option value="OPNUSDT">OPNUSDT (V78 - PSV)</option>
                         <!-- V77 Test Cases -->
-                        <option value="HUSDT">HUSDT</option>
-                        <option value="PHAUSDT">PHAUSDT</option>
+                        <option value="HUSDT">HUSDT (V77 - OFF)</option>
+                        <option value="PHAUSDT">PHAUSDT (V77 - AEF)</option>
                         <!-- V76 Test Cases -->
-                        <option value="HUMAUSDT">HUMAUSDT</option>
+                        <option value="HUMAUSDT">HUMAUSDT (V76 - PSR)</option>
                         <!-- V75 Test Cases -->
-                        <option value="HUMAUSDT">HUMAUSDT</option>
-                        <option value="RIVERUSDT">RIVERUSDT</option>
+                        <option value="HUMAUSDT">HUMAUSDT (V75 - AMV)</option>
+                        <option value="RIVERUSDT">RIVERUSDT (V75 - LGO)</option>
                         <!-- V74 Test Cases -->
-                        <option value="RIVERUSDT">RIVERUSDT</option>
+                        <option value="RIVERUSDT">RIVERUSDT (V74 - MDV)</option>
                         <!-- V73 Test Cases -->
-                        <option value="SIRENUSDT">SIRENUSDT</option>
+                        <option value="SIRENUSDT">SIRENUSDT (V73 - PAB)</option>
                         <!-- V72 Test Cases -->
-                        <option value="ROBOUSDT">ROBOUSDT</option>
+                        <option value="ROBOUSDT">ROBOUSDT (V72 - CFK)</option>
                         <!-- V71 Test Cases -->
-                        <option value="RIVERUSDT">RIVERUSDT</option>
+                        <option value="RIVERUSDT">RIVERUSDT (V71 - MDD)</option>
                         <!-- V70 Test Cases -->
-                        <option value="PHAUSDT">PHAUSDT</option>
+                        <option value="PHAUSDT">PHAUSDT (V70 - OVD)</option>
                         <!-- V69 Test Cases -->
-                        <option value="PIPPINUSDT">PIPPINUSDT</option>
-                        <option value="POWERUSDT">POWERUSDT</option>
+                        <option value="PIPPINUSDT">PIPPINUSDT (V69 - TREND)</option>
+                        <option value="POWERUSDT">POWERUSDT (V69 - TREND)</option>
                         <!-- V68 Test Cases -->
-                        <option value="PIPPINUSDT">PIPPINUSDT</option>
+                        <option value="PIPPINUSDT">PIPPINUSDT (V68 - OGD)</option>
                         <!-- V67 Test Cases -->
-                        <option value="POWERUSDT">POWERUSDT</option>
+                        <option value="POWERUSDT">POWERUSDT (V67 - ZAS/AVC)</option>
                         <!-- V66 Test Cases -->
-                        <option value="SAHARAUSDT">SAHARAUSDT</option>
+                        <option value="SAHARAUSDT">SAHARAUSDT (V66 - ATI)</option>
                         <!-- V65 Test Cases -->
-                        <option value="ROBOUSDT">ROBOUSDT</option>
+                        <option value="ROBOUSDT">ROBOUSDT (V65 - AMD)</option>
                         <!-- V64 Test Cases -->
-                        <option value="PHAUSDT">PHAUSDT</option>
+                        <option value="PHAUSDT">PHAUSDT (V64 - TDP)</option>
                         <!-- V63 Test Cases -->
-                        <option value="ARCUSDT">ARCUSDT</option>
+                        <option value="ARCUSDT">ARCUSDT (V63 - WED)</option>
                         <!-- V62 Test Cases -->
-                        <option value="SAHARAUSDT">SAHARAUSDT</option>
+                        <option value="SAHARAUSDT">SAHARAUSDT (V62 - MWR)</option>
                         <!-- V61 Test Cases -->
-                        <option value="SIRENUSDT">SIRENUSDT</option>
+                        <option value="SIRENUSDT">SIRENUSDT (V61 - LVS)</option>
                         <!-- V60 Test Cases -->
-                        <option value="POWERUSDT">POWERUSDT</option>
+                        <option value="POWERUSDT">POWERUSDT (V60 - DTD)</option>
                     </select>
                 </div>
                 <button id="analyzeCustomBtn" class="btn-primary">
@@ -1177,21 +1347,21 @@
 
         <div class="dashboard-container">
             <div class="header-card">
-                <div class="phase-badge" id="phaseBadge">WHALE_ABSORPTION_ZONE</div>
+                <div class="phase-badge" id="phaseBadge">ZERO_GRAVITY_HORIZON</div>
                 <div class="symbol-info">
-                    <h1 class="symbol" id="mainSymbol">SIGNUSDT</h1>
+                    <h1 class="symbol" id="mainSymbol">TRIAUSDT</h1>
                     <span class="timestamp" id="headerTime">--:--:--.--- GMT+7</span>
                 </div>
                 <div class="price-section">
                     <span class="price-label">LIVE PRICE</span>
-                    <h2 class="price" id="priceValue">$0.8245</h2>
+                    <h2 class="price" id="priceValue">$0.0000</h2>
                 </div>
             </div>
 
-            <section class="signal-hero bullish" id="signalHero">
-                <div class="main-opinion" id="opinionMain">LONG</div>
-                <div class="strategy-name" id="strategyDisplay">STRATEGY: WHALE_ABSORPTION_ZONE</div>
-                <div class="phase-reason" id="phaseReason">API_BULL_ABSORPTION: Retail agresif beli (5.67x) di RSI 45.5 (rendah) dan Whale menyerap semua. SIAP TERBANG!</div>
+            <section class="signal-hero bearish" id="signalHero">
+                <div class="main-opinion" id="opinionMain">SHORT</div>
+                <div class="strategy-name" id="strategyDisplay">STRATEGY: ZERO_GRAVITY_HORIZON</div>
+                <div class="phase-reason" id="phaseReason">ODF_OVERBOUGHT_DISTRIBUTION: RSI 96.7 > 90 + OI Δ +1.37% + Agg 1.5x - Whale building shorts! DILARANG LONG!</div>
                 <div class="confidence-bar" id="confidenceBar">
                     <span id="confidenceLabel">CONFIDENCE: ABSOLUTE</span>
                     <div class="bar"><div class="fill" style="width: 100%" id="confidenceFill"></div></div>
@@ -1201,22 +1371,22 @@
             <div class="metrics-grid">
                 <div class="card">
                     <h3>MARKET BIAS</h3>
-                    <div class="big-value green" id="biasValue">LONG</div>
+                    <div class="big-value red" id="biasValue">SHORT</div>
                 </div>
 
                 <div class="card">
                     <h3>RSI (6)</h3>
-                    <div class="big-value" id="rsiValue">45.5</div>
+                    <div class="big-value warning" id="rsiValue">96.7</div>
                 </div>
 
                 <div class="card">
                     <h3>TRADE FLOW</h3>
-                    <div class="big-value" id="tradeFlow">0.43x</div>
+                    <div class="big-value" id="tradeFlow">1.94x</div>
                 </div>
 
                 <div class="card">
                     <h3>OI Δ5M</h3>
-                    <div class="big-value" id="oiDelta">-0.30%</div>
+                    <div class="big-value green" id="oiDelta">+1.37%</div>
                 </div>
             </div>
 
@@ -1227,11 +1397,11 @@
                 </div>
                 <div class="data-row">
                     <span>Aggressive Ratio</span>
-                    <span class="val warning" id="aggRatio">5.67x</span>
+                    <span class="val" id="aggRatio">1.50x</span>
                 </div>
                 <div class="data-row">
                     <span>Liquidation Target</span>
-                    <span class="val red" id="liqTarget">-0.09% (Long Liq)</span>
+                    <span class="val red" id="liqTarget">-8.73% (Long Liq)</span>
                 </div>
                 <div class="data-row">
                     <span>WMI</span>
@@ -1239,15 +1409,15 @@
                 </div>
                 <div class="data-row">
                     <span>Long Liq</span>
-                    <span class="val red" id="longLiq">0.09%</span>
+                    <span class="val red" id="longLiq">8.73%</span>
                 </div>
                 <div class="data-row">
                     <span>Short Liq</span>
-                    <span class="val green" id="shortLiq">3.68%</span>
+                    <span class="val green" id="shortLiq">0.00%</span>
                 </div>
                 <div class="data-row">
                     <span>TTK</span>
-                    <span class="val" id="ttkMinutes">12m</span>
+                    <span class="val" id="ttkMinutes">58m</span>
                 </div>
                 <div class="data-row">
                     <span>MA10/MA20</span>
@@ -1257,6 +1427,20 @@
                     <span>OBV</span>
                     <span class="val" id="obvValue">1,234</span>
                 </div>
+                <!-- V86 Module Status - PRIORITAS TERTINGGI! -->
+                <div class="data-row">
+                    <span>ODF Status (V86)</span>
+                    <span class="val odf" id="odfStatus">ACTIVE</span>
+                </div>
+                <div class="data-row">
+                    <span>ZGH Status (V86)</span>
+                    <span class="val odf" id="zghStatus">ACTIVE</span>
+                </div>
+                <!-- V85 Module Status -->
+                <div class="data-row">
+                    <span>OTF Status (V85)</span>
+                    <span class="val green" id="otfStatus">INACTIVE</span>
+                </div>
                 <!-- V82 Module Status -->
                 <div class="data-row">
                     <span>LMG Status</span>
@@ -1264,28 +1448,28 @@
                 </div>
                 <div class="data-row">
                     <span>API Status</span>
-                    <span class="val absorption" id="apiStatus">ACTIVE</span>
+                    <span class="val" id="apiStatus">INACTIVE</span>
                 </div>
                 <div class="data-row">
                     <span>LTG Status</span>
-                    <span class="val vacuum" id="ltgStatus">INACTIVE</span>
+                    <span class="val" id="ltgStatus">INACTIVE</span>
                 </div>
                 <div class="data-row">
                     <span>ICD Status</span>
-                    <span class="val green" id="icdStatus">INACTIVE</span>
+                    <span class="val" id="icdStatus">INACTIVE</span>
                 </div>
                 <!-- V80 Module Status -->
                 <div class="data-row">
                     <span>IER Status</span>
-                    <span class="val green" id="ierStatus">ACTIVE</span>
+                    <span class="val" id="ierStatus">INACTIVE</span>
                 </div>
                 <div class="data-row">
                     <span>RMG Status</span>
-                    <span class="val green" id="rmgStatus">INACTIVE</span>
+                    <span class="val" id="rmgStatus">INACTIVE</span>
                 </div>
                 <div class="data-row">
                     <span>FMV Status</span>
-                    <span class="val green" id="fmvStatus">INACTIVE</span>
+                    <span class="val" id="fmvStatus">INACTIVE</span>
                 </div>
                 <!-- V75 Module Status -->
                 <div class="data-row">
@@ -1306,13 +1490,13 @@
                 </div>
             </section>
 
-            <footer class="alert-box api-alert" id="alertBox">
-                <strong>ALERT:</strong> <span id="alertMessage">API_BULL_ABSORPTION: Retail agresif beli (5.67x) di RSI 45.5 - Whale menyerap semua. SIAP TERBANG!</span>
+            <footer class="alert-box odf-alert" id="alertBox">
+                <strong>☢️ V86 ALERT:</strong> <span id="alertMessage">ODF_OVERBOUGHT_DISTRIBUTION: RSI 96.7 > 90 + OI Δ +1.37% + Agg 1.5x - Whale building shorts! Short liq 0.00% adalah FAKE MAGNET! Long liq 8.73% adalah REAL TARGET!</span>
             </footer>
         </div>
 
         <div class="footer">
-            DylPredict V82 • The Liquidity Ghost Edition | LMG • API • LTG • ICD • EZH • WTD • IER • RMG • FMV • PSV • OFF • AEF • PSR • AMV • LGO • MDV • PAB • CFK • MDD • OVD • TREND • OGD • ZAS • AVC • ATI • AMD • TDP • WED • MWR • LVS • DTD
+            DylPredict V86 • The Liquidity Pathfinder (Zero Gravity Horizon Edition) | ODF • ZGH • OTF • FGD • LPS • LDF • WDF • LLS • FSD • LHG • OVS • ADV • TBD • OIA • LSP • LMG • API • LTG • ICD • EZH • WTD • IER • RMG • FMV • PSV • OFF • AEF • PSR • AMV • LGO • MDV • PAB • CFK • MDD • OVD • TREND • OGD • ZAS • AVC • ATI • AMD • TDP • WED • MWR • LVS • DTD
         </div>
     </div>
 
@@ -1355,6 +1539,11 @@
             ttkMinutes: document.getElementById('ttkMinutes'),
             maValue: document.getElementById('maValue'),
             obvValue: document.getElementById('obvValue'),
+            // V86 Status
+            odfStatus: document.getElementById('odfStatus'),
+            zghStatus: document.getElementById('zghStatus'),
+            // V85 Status
+            otfStatus: document.getElementById('otfStatus'),
             // V82 Status
             lmgStatus: document.getElementById('lmgStatus'),
             apiStatus: document.getElementById('apiStatus'),
@@ -1406,7 +1595,11 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             attachEventListeners();
-            // Tidak perlu auto-analyze karena sudah ada data dummy
+            // Auto-analyze TRIAUSDT on load untuk demo V86
+            setTimeout(() => {
+                elements.customSymbolInput.value = 'TRIAUSDT';
+                analyzeSymbol('TRIAUSDT');
+            }, 500);
         });
 
         function attachEventListeners() {
@@ -1466,11 +1659,11 @@
         }
 
         function updateDisplay(data) {
-            elements.mainSymbol.textContent = data.symbol || 'SIGNUSDT';
+            elements.mainSymbol.textContent = data.symbol || 'TRIAUSDT';
             
             // Harga dengan efek transisi warna
             const oldPrice = parseFloat(elements.priceValue.textContent.replace('$', ''));
-            const newPrice = data.price || 0.8245;
+            const newPrice = data.price || 0.0000;
             
             elements.priceValue.style.transition = "color 0.5s";
             if (newPrice > oldPrice) {
@@ -1481,12 +1674,15 @@
                 elements.priceValue.style.color = "var(--green)";
             }
             
-            elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.8245'}`;
+            elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.0000'}`;
             
-            const bias = data.bias || 'LONG';
+            const bias = data.bias || 'SHORT';
             elements.opinionMain.textContent = bias;
             
-            // Check all strategy priorities in V82 order
+            // Check all strategy priorities in V86 order
+            const odfActive = data.odf?.active || data.odf?.is_active || false;
+            const zghActive = data.zgh?.is_ceiling || false;
+            const otfActive = data.otf?.is_trap || false;
             const lmgActive = data.lmg?.is_death_magnet;
             const apiActive = data.api?.is_absorbing;
             const ltgActive = data.ltg?.is_vacuum;
@@ -1506,10 +1702,20 @@
             const pabActive = data.pab?.is_blackhole;
             const cfkActive = data.cfk?.is_knife;
             
-            const phase = data.market_phase || 'WHALE_ABSORPTION_ZONE';
+            const phase = data.market_phase || 'ZERO_GRAVITY_HORIZON';
             
-            // Set phase badge based on priority (V82 order)
-            if (lmgActive) {
+            // Set phase badge based on priority (V86 order)
+            if (odfActive) {
+                elements.phaseBadge.textContent = `ODF ${data.odf?.reason?.substring(0, 20) || 'DISTRIBUTION TOP'}`;
+                elements.phaseBadge.className = 'phase-badge odf';
+            } else if (zghActive) {
+                elements.phaseBadge.textContent = `ZGH ${data.zgh?.reason?.substring(0, 20) || 'ZERO GRAVITY'}`;
+                elements.phaseBadge.className = 'phase-badge zgh';
+            } else if (otfActive) {
+                const otfScenario = data.otf?.scenario || 'TRAP';
+                elements.phaseBadge.textContent = `OTF ${otfScenario}`;
+                elements.phaseBadge.className = 'phase-badge otf';
+            } else if (lmgActive) {
                 elements.phaseBadge.textContent = `LMG ${data.lmg?.reason?.substring(0, 20) || 'DEATH MAGNET'}`;
                 elements.phaseBadge.className = 'phase-badge lmg';
             } else if (apiActive) {
@@ -1570,7 +1776,7 @@
             }
             
             elements.strategyDisplay.textContent = `STRATEGY: ${phase}`;
-            elements.phaseReason.textContent = data.phase_reason || data.reason || 'API_BULL_ABSORPTION: Retail agresif beli (5.67x) di RSI 45.5 - Whale menyerap semua. SIAP TERBANG!';
+            elements.phaseReason.textContent = data.phase_reason || data.reason || 'ODF_OVERBOUGHT_DISTRIBUTION: RSI 96.7 > 90 + OI Δ +1.37% + Agg 1.5x - Whale building shorts! Short liq 0.00% adalah FAKE MAGNET!';
             
             let confidenceWidth = 0;
             let confidenceText = 'CONFIDENCE: --';
@@ -1599,25 +1805,25 @@
             elements.biasValue.textContent = bias;
             elements.biasValue.className = `big-value ${bias.toLowerCase() === 'long' ? 'green' : bias.toLowerCase() === 'short' ? 'red' : ''}`;
             
-            const rsi6 = data.rsi6 || 45.5;
+            const rsi6 = data.rsi6 || 96.7;
             elements.rsiValue.textContent = rsi6.toFixed(1);
             elements.rsiValue.className = `big-value ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}`;
             
-            elements.tradeFlow.textContent = `${(data.trade_flow || 0.43).toFixed(2)}x`;
-            elements.tradeFlow.className = `big-value ${(data.trade_flow || 0.43) > 2 ? 'warning' : ''}`;
+            elements.tradeFlow.textContent = `${(data.trade_flow || 1.94).toFixed(2)}x`;
+            elements.tradeFlow.className = `big-value ${(data.trade_flow || 1.94) > 2 ? 'warning' : ''}`;
             
-            const oiDelta = data.oi_delta_5m || -0.30;
+            const oiDelta = data.oi_delta_5m || 1.37;
             elements.oiDelta.textContent = (oiDelta > 0 ? '+' : '') + oiDelta.toFixed(2) + '%';
             elements.oiDelta.className = `big-value ${oiDelta > 2 ? 'green' : oiDelta < -2 ? 'red' : ''}`;
             
             elements.obRatio.textContent = `${(data.ob_ratio || 1.24).toFixed(2)}x`;
             elements.obRatio.className = `val ${(data.ob_ratio || 1.24) > 1.5 ? 'green' : (data.ob_ratio || 1.24) < 0.6 ? 'red' : ''}`;
             
-            elements.aggRatio.textContent = `${(data.aggressive_ratio || 5.67).toFixed(2)}x`;
-            elements.aggRatio.className = `val ${(data.aggressive_ratio || 5.67) > 2 ? 'warning' : ''}`;
+            elements.aggRatio.textContent = `${(data.aggressive_ratio || 1.50).toFixed(2)}x`;
+            elements.aggRatio.className = `val ${(data.aggressive_ratio || 1.50) > 2 ? 'warning' : ''}`;
             
-            const longLiq = data.long_liq || 0.09;
-            const shortLiq = data.short_liq || 3.68;
+            const longLiq = data.long_liq || 8.73;
+            const shortLiq = data.short_liq || 0.00;
             const nearestLiq = longLiq < shortLiq ? `-${longLiq.toFixed(2)}% (Long Liq)` : `+${shortLiq.toFixed(2)}% (Short Liq)`;
             elements.liqTarget.textContent = nearestLiq;
             elements.liqTarget.className = `val ${longLiq < shortLiq ? 'red' : 'green'}`;
@@ -1632,7 +1838,7 @@
             elements.shortLiq.textContent = shortLiq ? `${shortLiq.toFixed(2)}%` : '--';
             elements.shortLiq.className = shortLiq < 0.5 ? 'green' : '';
             
-            const ttk = data.ttk?.estimated_minutes || '12';
+            const ttk = data.ttk?.estimated_minutes || '58';
             elements.ttkMinutes.textContent = ttk !== '--' ? ttk + 'm' : '--';
             
             // MA10/MA20
@@ -1643,6 +1849,17 @@
             // OBV
             const obv = data.obv || 1234;
             elements.obvValue.textContent = obv ? obv.toFixed(0) : '--';
+            
+            // V86 Module Status - PRIORITAS TERTINGGI!
+            elements.odfStatus.textContent = data.odf?.active ? 'ACTIVE' : 'INACTIVE';
+            elements.odfStatus.className = `val ${data.odf?.active ? 'odf' : ''}`;
+            
+            elements.zghStatus.textContent = data.zgh?.is_ceiling ? 'ACTIVE' : 'INACTIVE';
+            elements.zghStatus.className = `val ${data.zgh?.is_ceiling ? 'zgh' : ''}`;
+            
+            // V85 Module Status
+            elements.otfStatus.textContent = data.otf?.is_trap ? 'ACTIVE' : 'INACTIVE';
+            elements.otfStatus.className = `val ${data.otf?.is_trap ? 'green' : ''}`;
             
             // V82 Module Status
             elements.lmgStatus.textContent = data.lmg?.is_death_magnet ? 'ACTIVE' : 'INACTIVE';
@@ -1680,10 +1897,19 @@
             elements.cfkStatus.textContent = data.cfk?.is_knife ? 'ACTIVE' : 'INACTIVE';
             elements.cfkStatus.className = `val ${data.cfk?.is_knife ? 'cfk' : ''}`;
             
-            let alertMsg = data.liquidation_alert || data.reason || 'API_BULL_ABSORPTION: Whale absorption detected - ABSOLUTE LONG!';
+            let alertMsg = data.liquidation_alert || data.reason || 'ODF_OVERBOUGHT_DISTRIBUTION: Whale building shorts - ABSOLUTE SHORT!';
             
-            // Set alert box based on priority (V82 order)
-            if (lmgActive) {
+            // Set alert box based on priority (V86 order)
+            if (odfActive) {
+                alertMsg = `ODF: ${data.odf?.reason || 'Overbought Distribution detected - DISTRIBUTION TOP! Short liq 0.00% adalah FAKE MAGNET!'}`;
+                elements.alertBox.className = 'alert-box odf-alert';
+            } else if (zghActive) {
+                alertMsg = `ZGH: ${data.zgh?.reason || 'Zero Gravity Horizon - DISTRIBUTION TOP! DILARANG LONG!'}`;
+                elements.alertBox.className = 'alert-box zgh-alert';
+            } else if (otfActive) {
+                alertMsg = `OTF: ${data.otf?.reason || 'Oversold Trap detected!'}`;
+                elements.alertBox.className = 'alert-box otf-alert';
+            } else if (lmgActive) {
                 alertMsg = `LMG: ${data.lmg?.reason || 'Death Magnet detected - CASCADE IMMINENT!'}`;
                 elements.alertBox.className = 'alert-box lmg-alert';
             } else if (apiActive) {
