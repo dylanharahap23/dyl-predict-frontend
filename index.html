@@ -1,68 +1,303 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>DylPredict V87 Terminal Output</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DylPredict V87 | Professional Analytics</title>
+    
+    <!-- Fonts: Serif untuk judul, Inter untuk teks -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
-        body { background: #0a0f0b; color: #e0e0e0; font-family: 'Courier New', monospace; padding: 20px; }
-        .container { max-width: 1000px; margin: 0 auto; }
-        .header { margin-bottom: 20px; }
-        input, button { padding: 10px; font-family: 'Courier New', monospace; }
-        pre { 
-            background: #0f1511; 
-            color: #4cd964; 
-            padding: 20px; 
-            border-radius: 8px; 
-            overflow-x: auto; 
+        :root {
+            --bg-color: #f9f8f4;        /* Krem khas Claude */
+            --text-main: #292929;        /* Teks utama gelap */
+            --text-muted: #6b6b6b;       /* Teks sekunder */
+            --accent-orange: #d97757;    /* Warna aksen bunga Claude */
+            --card-bg: #ffffff;           /* Putih untuk kartu */
+            --border-color: #e5e2da;      /* Border krem gelap */
+            --short-bg: #fff5f5;          /* Background untuk SHORT */
+            --short-border: #f5c2c2;       /* Border untuk SHORT */
+            --long-bg: #f5fff5;            /* Background untuk LONG */
+            --long-border: #c2f5c2;        /* Border untuk LONG */
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif; 
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+        }
+
+        /* Brand / Header ala Claude */
+        .brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+
+        .brand span {
+            color: var(--accent-orange);
+            font-size: 36px;
+            line-height: 1;
+        }
+
+        h1 { 
+            font-family: 'Source Serif Pro', serif; 
+            font-size: 36px; 
+            margin: 0;
+            color: #1a1a1a;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        /* Search Bar ala Claude */
+        .search-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 6px 6px 6px 24px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            margin-bottom: 32px;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .search-container:focus-within {
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            border-color: #d4d0c8;
+        }
+
+        input#symbol {
+            border: none;
+            outline: none;
+            padding: 16px 8px;
+            font-size: 18px;
+            flex-grow: 1;
+            background: transparent;
+            color: var(--text-main);
+            font-weight: 400;
+        }
+
+        input#symbol::placeholder {
+            color: #b0b0b0;
+            font-weight: 300;
+            font-size: 17px;
+        }
+
+        .btn-group { 
+            display: flex; 
+            gap: 8px; 
+        }
+
+        button {
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 32px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            letter-spacing: 0.01em;
+        }
+
+        button:hover { 
+            opacity: 0.85;
+            transform: translateY(-1px);
+        }
+
+        button.secondary { 
+            background: #f0f0f0; 
+            color: #333; 
+            border: 1px solid #e0e0e0;
+        }
+
+        button.secondary:hover {
+            background: #e5e5e5;
+        }
+
+        /* Output Card */
+        .output-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 28px;
+            min-height: 400px;
+            position: relative;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.02);
+        }
+
+        /* Terminal output styling */
+        .terminal-style {
+            font-family: 'Courier New', 'SF Mono', 'Fira Code', monospace;
+            background: #f8f8f6;
+            padding: 20px;
+            border-radius: 16px;
+            border-left: 4px solid var(--accent-orange);
+            font-size: 14px;
+            line-height: 1.6;
+            color: #1e1e1e;
             white-space: pre-wrap;
             word-wrap: break-word;
-            border: 1px solid #2a3a30;
-            font-size: 12px;
-            line-height: 1.5;
+            margin: 0;
         }
-        .note { color: #888; margin-top: 10px; }
+
+        pre { 
+            font-family: 'Inter', sans-serif;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 15px;
+            margin: 0;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        /* Status bar ala Claude */
+        .status-bar {
+            margin-top: 24px;
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 12px;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4cd964;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        .version {
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        /* Utility */
+        .text-muted {
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .brand h1 { font-size: 28px; }
+            .search-container { flex-direction: column; padding: 16px; }
+            .btn-group { width: 100%; margin-top: 12px; }
+            button { flex: 1; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🔥 DylPredict V87 - Terminal Output</h1>
-        
-        <div class="header">
-            <input type="text" id="symbol" value="SIRENUSDT" size="15">
-            <button onclick="fetchTerminal()">Get Terminal Output</button>
-            <button onclick="fetchJSON()">Get Raw JSON</button>
+        <!-- Header ala Claude -->
+        <div class="brand">
+            <span>✳</span>
+            <h1>Back at it, Dylan</h1>
         </div>
-        
-        <pre id="output">Menunggu input...</pre>
-        <div class="note" id="note">Gunakan endpoint /terminal untuk output persis seperti di console V87</div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" id="symbol" placeholder="Ketik simbol (e.g. BTCUSDT)..." value="SIRENUSDT">
+            <div class="btn-group">
+                <button onclick="fetchTerminal()">Analyze</button>
+                <button class="secondary" onclick="fetchJSON()">JSON</button>
+            </div>
+        </div>
+
+        <!-- Output Card -->
+        <div class="output-card" id="outputCard">
+            <pre id="output">Hasil analisa akan muncul di sini...</pre>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-left">
+                <span><span class="status-dot"></span> Live Market Data</span>
+                <span>✳ v8.7.0</span>
+            </div>
+            <span>Gunakan tombol Analyze untuk prediksi V87</span>
+        </div>
     </div>
 
     <script>
         const BASE_URL = 'https://spotty-lizzie-dylpredict-2b047c63.koyeb.app';
         
+        // Elemen DOM
+        const symbolInput = document.getElementById('symbol');
+        const outputEl = document.getElementById('output');
+        const cardEl = document.getElementById('outputCard');
+
+        // Fungsi untuk mendapatkan terminal output (dengan format seperti console)
         async function fetchTerminal() {
-            const symbol = document.getElementById('symbol').value.toUpperCase();
-            const outputEl = document.getElementById('output');
-            const noteEl = document.getElementById('note');
+            const symbol = symbolInput.value.toUpperCase();
             
-            outputEl.textContent = '📡 Mengambil data terminal...';
-            noteEl.textContent = `Mengakses: ${BASE_URL}/analyze/${symbol}/terminal`;
+            // Set loading state
+            outputEl.className = 'terminal-style';
+            outputEl.textContent = '📡 Analyzing market dynamics...';
             
+            // Reset warna kartu
+            cardEl.style.borderColor = 'var(--border-color)';
+            cardEl.style.backgroundColor = 'var(--card-bg)';
+
             try {
                 const response = await fetch(`${BASE_URL}/analyze/${symbol}/terminal`);
                 const text = await response.text();
+                
+                // Tampilkan hasil
                 outputEl.textContent = text;
-                noteEl.textContent = `✅ Terminal output untuk ${symbol} (${text.length} karakter)`;
+                
+                // Highlight otomatis berdasarkan bias
+                if (text.includes("FINAL BIAS: SHORT")) {
+                    cardEl.style.borderColor = '#f5c2c2';
+                    cardEl.style.backgroundColor = '#fff5f5';
+                } else if (text.includes("FINAL BIAS: LONG")) {
+                    cardEl.style.borderColor = '#c2f5c2';
+                    cardEl.style.backgroundColor = '#f5fff5';
+                } else {
+                    cardEl.style.borderColor = 'var(--border-color)';
+                    cardEl.style.backgroundColor = 'var(--card-bg)';
+                }
+                
             } catch (error) {
                 outputEl.textContent = `❌ ERROR: ${error.message}`;
+                cardEl.style.borderColor = '#ff6b6b';
+                cardEl.style.backgroundColor = '#fff0f0';
             }
         }
-        
+
+        // Fungsi untuk mendapatkan raw JSON
         async function fetchJSON() {
-            const symbol = document.getElementById('symbol').value.toUpperCase();
-            const outputEl = document.getElementById('output');
+            const symbol = symbolInput.value.toUpperCase();
             
+            outputEl.className = ''; // Hapus style terminal
             outputEl.textContent = '📡 Mengambil data JSON...';
             
+            cardEl.style.borderColor = 'var(--border-color)';
+            cardEl.style.backgroundColor = 'var(--card-bg)';
+
             try {
                 const response = await fetch(`${BASE_URL}/analyze/${symbol}`);
                 const data = await response.json();
@@ -71,9 +306,16 @@
                 outputEl.textContent = `❌ ERROR: ${error.message}`;
             }
         }
-        
-        // Auto-load on page load
-        window.onload = () => setTimeout(fetchTerminal, 500);
+
+        // Enter key untuk analyze
+        symbolInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') fetchTerminal();
+        });
+
+        // Auto-analyze on page load
+        window.addEventListener('load', () => {
+            setTimeout(fetchTerminal, 500);
+        });
     </script>
 </body>
 </html>
