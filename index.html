@@ -4,87 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DylPredict V87 | Professional Analytics</title>
-    
-    <!-- Fonts: Serif untuk judul, Inter untuk teks -->
     <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #f9f8f4;        /* Krem khas Claude */
-            --text-main: #292929;        /* Teks utama gelap */
-            --text-muted: #6b6b6b;       /* Teks sekunder */
-            --accent-orange: #d97757;    /* Warna aksen bunga Claude */
-            --card-bg: #ffffff;           /* Putih untuk kartu */
-            --border-color: #e5e2da;      /* Border krem gelap */
-            --short-bg: #fff5f5;          /* Background untuk SHORT */
-            --short-border: #f5c2c2;       /* Border untuk SHORT */
-            --long-bg: #f5fff5;            /* Background untuk LONG */
-            --long-border: #c2f5c2;        /* Border untuk LONG */
+            --bg-color: #f9f8f4;
+            --text-main: #292929;
+            --text-muted: #6b6b6b;
+            --accent-orange: #d97757;
+            --card-bg: #ffffff;
+            --border-color: #e5e2da;
+            --short-border: #d95757;
+            --long-border: #57d977;
+            --short-bg: #f5c2c2;
+            --long-bg: #c2f5c2;
         }
 
-        body { 
+        body, html { 
+            height: 100%; 
+            margin: 0; 
+            padding: 0;
             background-color: var(--bg-color); 
-            color: var(--text-main); 
             font-family: 'Inter', sans-serif; 
-            margin: 0;
-            padding: 40px 20px;
-            line-height: 1.6;
+            color: var(--text-main);
+            overflow-x: hidden;
         }
 
-        .container { 
-            max-width: 1000px; 
-            margin: 0 auto; 
-        }
-
-        /* Brand / Header ala Claude */
-        .brand {
+        /* Layout Center Wrapper */
+        .main-wrapper {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 48px;
+            min-height: 100vh;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        .brand span {
-            color: var(--accent-orange);
-            font-size: 36px;
-            line-height: 1;
+        /* State saat hasil muncul */
+        .main-wrapper.has-result {
+            justify-content: flex-start;
+            padding-top: 60px;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 40px;
+            transition: all 0.5s ease;
+        }
+
+        .has-result .brand { 
+            transform: scale(0.8); 
+            margin-bottom: 20px; 
+        }
+
+        .brand span { 
+            color: var(--accent-orange); 
+            font-size: 42px; 
+            display: inline-block;
         }
 
         h1 { 
             font-family: 'Source Serif Pro', serif; 
-            font-size: 36px; 
-            margin: 0;
+            font-size: 40px; 
+            margin: 10px 0; 
+            letter-spacing: -0.02em; 
             color: #1a1a1a;
             font-weight: 600;
-            letter-spacing: -0.02em;
         }
 
-        /* Search Bar ala Claude */
+        /* Search Container */
+        .search-area { 
+            width: 100%; 
+            max-width: 700px; 
+            transition: all 0.5s ease; 
+        }
+
         .search-container {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 40px;
-            padding: 6px 6px 6px 24px;
+            border-radius: 28px;
+            padding: 8px 8px 8px 24px;
             display: flex;
             align-items: center;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-            margin-bottom: 32px;
-            transition: box-shadow 0.2s ease;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
         .search-container:focus-within {
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
             border-color: #d4d0c8;
         }
 
         input#symbol {
-            border: none;
-            outline: none;
-            padding: 16px 8px;
-            font-size: 18px;
+            border: none; 
+            outline: none; 
             flex-grow: 1;
-            background: transparent;
+            font-size: 18px; 
+            background: transparent; 
+            padding: 14px 0;
             color: var(--text-main);
             font-weight: 400;
         }
@@ -92,230 +111,348 @@
         input#symbol::placeholder {
             color: #b0b0b0;
             font-weight: 300;
-            font-size: 17px;
         }
 
-        .btn-group { 
-            display: flex; 
-            gap: 8px; 
-        }
-
-        button {
-            background: #1a1a1a;
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 32px;
-            cursor: pointer;
+        .btn-group button {
+            padding: 12px 28px; 
+            border-radius: 24px;
+            border: none; 
+            cursor: pointer; 
             font-weight: 500;
             font-size: 15px;
             transition: all 0.2s ease;
-            letter-spacing: 0.01em;
         }
 
-        button:hover { 
+        .btn-analyze { 
+            background: #1a1a1a; 
+            color: white; 
+        }
+
+        .btn-analyze:hover {
             opacity: 0.85;
             transform: translateY(-1px);
         }
 
-        button.secondary { 
-            background: #f0f0f0; 
-            color: #333; 
-            border: 1px solid #e0e0e0;
+        /* Result Card (Hidden by default) */
+        .result-wrapper {
+            width: 100%; 
+            max-width: 900px;
+            margin-top: 50px;
+            display: none; /* Muncul lewat JS */
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        button.secondary:hover {
-            background: #e5e5e5;
-        }
-
-        /* Output Card */
         .output-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 24px;
-            padding: 28px;
-            min-height: 400px;
-            position: relative;
+            padding: 0; /* Header control terpisah */
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.04);
             transition: all 0.4s ease;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.02);
         }
 
-        /* Terminal output styling */
-        .terminal-style {
-            font-family: 'Courier New', 'SF Mono', 'Fira Code', monospace;
-            background: #f8f8f6;
-            padding: 20px;
-            border-radius: 16px;
-            border-left: 4px solid var(--accent-orange);
-            font-size: 14px;
-            line-height: 1.6;
-            color: #1e1e1e;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            margin: 0;
-        }
-
-        pre { 
-            font-family: 'Inter', sans-serif;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-size: 15px;
-            margin: 0;
-            color: #333;
-            line-height: 1.7;
-        }
-
-        /* Status bar ala Claude */
-        .status-bar {
-            margin-top: 24px;
-            font-size: 13px;
-            color: var(--text-muted);
+        /* Card Header dengan Tombol Aksi */
+        .card-header {
+            padding: 14px 24px;
+            background: #fafafa;
+            border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 12px;
         }
 
-        .status-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #4cd964;
-            display: inline-block;
-            margin-right: 6px;
-        }
-
-        .version {
-            color: #aaa;
-            font-size: 12px;
-        }
-
-        /* Utility */
-        .text-muted {
+        #resultTitle { 
+            font-weight: 600; 
+            font-size: 14px; 
             color: var(--text-muted);
+            letter-spacing: 0.3px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-action { 
+            background: #ffffff; 
+            border: 1px solid #e0e0e0 !important; 
+            border-radius: 16px;
+            font-size: 12px; 
+            padding: 6px 14px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .btn-action:hover { 
+            background: #f5f5f5; 
+            border-color: #d0d0d0;
+            transform: translateY(-1px);
+        }
+
+        /* Terminal Output Styling */
+        .terminal-style {
+            padding: 28px;
+            margin: 0;
+            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.7;
+            max-height: 600px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background: #fbfbf9;
+            color: #1e1e1e;
+        }
+
+        /* Scrollbar Styling */
+        .terminal-style::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .terminal-style::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+
+        .terminal-style::-webkit-scrollbar-thumb {
+            background: #c0c0c0;
+            border-radius: 4px;
+        }
+
+        .terminal-style::-webkit-scrollbar-thumb:hover {
+            background: #a0a0a0;
+        }
+
+        /* Footer */
+        .footer-note {
+            margin-top: 20px;
+            font-size: 12px; 
+            color: #aaa; 
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-note span {
+            color: var(--accent-orange);
+        }
+
+        /* Loading state */
+        .loading {
+            position: relative;
+        }
+
+        .loading::after {
+            content: "...";
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: "."; }
+            40% { content: ".."; }
+            60%, 100% { content: "..."; }
         }
 
         /* Responsive */
         @media (max-width: 600px) {
-            .brand h1 { font-size: 28px; }
+            .brand h1 { font-size: 32px; }
             .search-container { flex-direction: column; padding: 16px; }
             .btn-group { width: 100%; margin-top: 12px; }
-            button { flex: 1; }
+            .btn-group button { width: 100%; }
+            .card-header { flex-direction: column; gap: 12px; }
+            .action-buttons { width: 100%; justify-content: center; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header ala Claude -->
-        <div class="brand">
-            <span>✳</span>
-            <h1>Back at it, Dylan</h1>
-        </div>
 
-        <!-- Search Bar -->
+<div class="main-wrapper" id="wrapper">
+    <!-- Brand dengan icon khas Claude -->
+    <div class="brand">
+        <span>✳</span>
+        <h1>Back at it, Dylan</h1>
+    </div>
+
+    <!-- Search Area - Centered di awal -->
+    <div class="search-area">
         <div class="search-container">
-            <input type="text" id="symbol" placeholder="Ketik simbol (e.g. BTCUSDT)..." value="SIRENUSDT">
+            <input type="text" id="symbol" placeholder="Analyze a symbol..." value="JASMYUSDT">
             <div class="btn-group">
-                <button onclick="fetchTerminal()">Analyze</button>
-                <button class="secondary" onclick="fetchJSON()">JSON</button>
+                <button class="btn-analyze" onclick="handleAnalyze()">Analyze</button>
             </div>
-        </div>
-
-        <!-- Output Card -->
-        <div class="output-card" id="outputCard">
-            <pre id="output">Hasil analisa akan muncul di sini...</pre>
-        </div>
-
-        <!-- Status Bar -->
-        <div class="status-bar">
-            <div class="status-left">
-                <span><span class="status-dot"></span> Live Market Data</span>
-                <span>✳ v8.7.0</span>
-            </div>
-            <span>Gunakan tombol Analyze untuk prediksi V87</span>
         </div>
     </div>
 
-    <script>
-        const BASE_URL = 'https://spotty-lizzie-dylpredict-2b047c63.koyeb.app';
+    <!-- Result Area - Muncul setelah analyze -->
+    <div class="result-wrapper" id="resultArea">
+        <div class="output-card" id="outputCard">
+            <!-- Header dengan kontrol professional -->
+            <div class="card-header">
+                <span id="resultTitle">Terminal Output</span>
+                <div class="action-buttons">
+                    <button class="btn-action" onclick="copyResult()" title="Copy to clipboard">📋 Copy</button>
+                    <button class="btn-action" onclick="downloadResult()" title="Download as text file">⬇️ Download</button>
+                    <button class="btn-action" onclick="fetchJSON()" title="View raw JSON data">🔍 JSON</button>
+                </div>
+            </div>
+            <!-- Terminal output area -->
+            <pre id="output" class="terminal-style">Analyzing...</pre>
+        </div>
         
-        // Elemen DOM
-        const symbolInput = document.getElementById('symbol');
-        const outputEl = document.getElementById('output');
-        const cardEl = document.getElementById('outputCard');
+        <!-- Footer note -->
+        <div class="footer-note">
+            <span>✳</span> DylPredict AI V87 • High-Confidence Neural Analysis
+        </div>
+    </div>
+</div>
 
-        // Fungsi untuk mendapatkan terminal output (dengan format seperti console)
-        async function fetchTerminal() {
-            const symbol = symbolInput.value.toUpperCase();
-            
-            // Set loading state
-            outputEl.className = 'terminal-style';
-            outputEl.textContent = '📡 Analyzing market dynamics...';
-            
-            // Reset warna kartu
-            cardEl.style.borderColor = 'var(--border-color)';
-            cardEl.style.backgroundColor = 'var(--card-bg)';
+<script>
+    // Configuration
+    const BASE_URL = 'https://spotty-lizzie-dylpredict-2b047c63.koyeb.app';
+    
+    // DOM Elements
+    const wrapper = document.getElementById('wrapper');
+    const resultArea = document.getElementById('resultArea');
+    const outputEl = document.getElementById('output');
+    const cardEl = document.getElementById('outputCard');
+    const resultTitle = document.getElementById('resultTitle');
+    const symbolInput = document.getElementById('symbol');
 
-            try {
-                const response = await fetch(`${BASE_URL}/analyze/${symbol}/terminal`);
-                const text = await response.text();
-                
-                // Tampilkan hasil
-                outputEl.textContent = text;
-                
-                // Highlight otomatis berdasarkan bias
-                if (text.includes("FINAL BIAS: SHORT")) {
-                    cardEl.style.borderColor = '#f5c2c2';
-                    cardEl.style.backgroundColor = '#fff5f5';
-                } else if (text.includes("FINAL BIAS: LONG")) {
-                    cardEl.style.borderColor = '#c2f5c2';
-                    cardEl.style.backgroundColor = '#f5fff5';
-                } else {
-                    cardEl.style.borderColor = 'var(--border-color)';
-                    cardEl.style.backgroundColor = 'var(--card-bg)';
-                }
-                
-            } catch (error) {
-                outputEl.textContent = `❌ ERROR: ${error.message}`;
-                cardEl.style.borderColor = '#ff6b6b';
-                cardEl.style.backgroundColor = '#fff0f0';
-            }
+    // ==================== MAIN FUNCTIONS ====================
+
+    async function handleAnalyze() {
+        const symbol = symbolInput.value.toUpperCase().trim();
+        if (!symbol) {
+            alert('Please enter a symbol');
+            return;
         }
 
-        // Fungsi untuk mendapatkan raw JSON
-        async function fetchJSON() {
-            const symbol = symbolInput.value.toUpperCase();
-            
-            outputEl.className = ''; // Hapus style terminal
-            outputEl.textContent = '📡 Mengambil data JSON...';
-            
-            cardEl.style.borderColor = 'var(--border-color)';
-            cardEl.style.backgroundColor = 'var(--card-bg)';
+        // Animate: geser layout ke atas
+        wrapper.classList.add('has-result');
+        resultArea.style.display = 'block';
+        
+        // Trigger fade-in animation
+        setTimeout(() => {
+            resultArea.style.opacity = '1';
+            resultArea.style.transform = 'translateY(0)';
+        }, 50);
 
-            try {
-                const response = await fetch(`${BASE_URL}/analyze/${symbol}`);
-                const data = await response.json();
-                outputEl.textContent = JSON.stringify(data, null, 2);
-            } catch (error) {
-                outputEl.textContent = `❌ ERROR: ${error.message}`;
+        // Set loading state
+        outputEl.textContent = `📡 Gathering intelligence for ${symbol}...`;
+        resultTitle.textContent = `Analyzing ${symbol}`;
+
+        // Reset card border
+        cardEl.style.borderTop = '1px solid var(--border-color)';
+        cardEl.style.borderColor = 'var(--border-color)';
+
+        try {
+            // Fetch terminal output
+            const response = await fetch(`${BASE_URL}/analyze/${symbol}/terminal`);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
+            
+            const text = await response.text();
+            
+            // Display result
+            outputEl.textContent = text;
+            resultTitle.textContent = `Analysis: ${symbol}`;
+
+            // Smart Highlighting berdasarkan bias
+            if (text.includes("FINAL BIAS: SHORT")) {
+                cardEl.style.borderTop = `4px solid var(--short-border)`;
+                cardEl.style.borderColor = '#f5c2c2';
+            } else if (text.includes("FINAL BIAS: LONG")) {
+                cardEl.style.borderTop = `4px solid var(--long-border)`;
+                cardEl.style.borderColor = '#c2f5c2';
+            } else {
+                cardEl.style.borderTop = '1px solid var(--border-color)';
+                cardEl.style.borderColor = 'var(--border-color)';
+            }
+
+        } catch (error) {
+            outputEl.textContent = `❌ Error: ${error.message}`;
+            cardEl.style.borderTop = '4px solid #ff6b6b';
+            console.error('Fetch error:', error);
         }
+    }
 
-        // Enter key untuk analyze
-        symbolInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') fetchTerminal();
-        });
+    // ==================== UTILITY FUNCTIONS ====================
 
-        // Auto-analyze on page load
-        window.addEventListener('load', () => {
-            setTimeout(fetchTerminal, 500);
-        });
-    </script>
+    function downloadResult() {
+        const text = outputEl.textContent;
+        const symbol = symbolInput.value.toUpperCase().trim() || 'analysis';
+        const blob = new Blob([text], { type: 'text/plain' });
+        const anchor = document.createElement('a');
+        
+        anchor.download = `DylPredict_${symbol}_${new Date().toISOString().slice(0,10)}.txt`;
+        anchor.href = window.URL.createObjectURL(blob);
+        anchor.click();
+        
+        // Cleanup
+        window.URL.revokeObjectURL(anchor.href);
+    }
+
+    function copyResult() {
+        navigator.clipboard.writeText(outputEl.textContent)
+            .then(() => {
+                // Temporary feedback
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 1500);
+            })
+            .catch(err => {
+                alert('Failed to copy: ' + err.message);
+            });
+    }
+
+    async function fetchJSON() {
+        const symbol = symbolInput.value.toUpperCase().trim();
+        if (!symbol) return;
+
+        outputEl.textContent = "📡 Loading Raw JSON...";
+        resultTitle.textContent = `Raw JSON: ${symbol}`;
+
+        try {
+            const response = await fetch(`${BASE_URL}/analyze/${symbol}`);
+            const data = await response.json();
+            outputEl.textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+            outputEl.textContent = `❌ Error: ${error.message}`;
+        }
+    }
+
+    // ==================== EVENT LISTENERS ====================
+
+    // Enter key untuk analyze
+    symbolInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            handleAnalyze();
+        }
+    });
+
+    // Auto-analyze on page load (untuk demo)
+    window.addEventListener('load', () => {
+        setTimeout(handleAnalyze, 800);
+    });
+
+    // Optional: Reset layout ketika user klik logo (hidden feature)
+    document.querySelector('.brand').addEventListener('dblclick', () => {
+        wrapper.classList.remove('has-result');
+        resultArea.style.opacity = '0';
+        resultArea.style.transform = 'translateY(30px)';
+        setTimeout(() => {
+            resultArea.style.display = 'none';
+        }, 500);
+    });
+</script>
 </body>
 </html>
