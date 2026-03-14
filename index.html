@@ -1,51 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>DylPredict Test</title>
+    <title>DylPredict V87 Terminal Output</title>
+    <style>
+        body { background: #0a0f0b; color: #e0e0e0; font-family: 'Courier New', monospace; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .header { margin-bottom: 20px; }
+        input, button { padding: 10px; font-family: 'Courier New', monospace; }
+        pre { 
+            background: #0f1511; 
+            color: #4cd964; 
+            padding: 20px; 
+            border-radius: 8px; 
+            overflow-x: auto; 
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border: 1px solid #2a3a30;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        .note { color: #888; margin-top: 10px; }
+    </style>
 </head>
 <body>
-    <h1>DylPredict API Test</h1>
-    <div>
-        <input type="text" id="symbol" value="BTCUSDT">
-        <button onclick="testAPI()">Test API</button>
+    <div class="container">
+        <h1>🔥 DylPredict V87 - Terminal Output</h1>
+        
+        <div class="header">
+            <input type="text" id="symbol" value="SIRENUSDT" size="15">
+            <button onclick="fetchTerminal()">Get Terminal Output</button>
+            <button onclick="fetchJSON()">Get Raw JSON</button>
+        </div>
+        
+        <pre id="output">Menunggu input...</pre>
+        <div class="note" id="note">Gunakan endpoint /terminal untuk output persis seperti di console V87</div>
     </div>
-    <pre id="result" style="background:#f0f0f0; padding:10px; margin-top:20px;"></pre>
 
     <script>
         const BASE_URL = 'https://spotty-lizzie-dylpredict-2b047c63.koyeb.app';
         
-        async function testAPI() {
-            const symbol = document.getElementById('symbol').value;
-            const resultEl = document.getElementById('result');
+        async function fetchTerminal() {
+            const symbol = document.getElementById('symbol').value.toUpperCase();
+            const outputEl = document.getElementById('output');
+            const noteEl = document.getElementById('note');
             
-            resultEl.textContent = 'Loading...';
+            outputEl.textContent = '📡 Mengambil data terminal...';
+            noteEl.textContent = `Mengakses: ${BASE_URL}/analyze/${symbol}/terminal`;
             
             try {
-                // Test root endpoint dulu
-                resultEl.textContent += '\n\n📡 Testing root endpoint...';
-                const rootRes = await fetch(BASE_URL + '/');
-                const rootData = await rootRes.json();
-                resultEl.textContent += '\n✅ Root OK: ' + JSON.stringify(rootData);
-                
-                // Test analyze endpoint
-                resultEl.textContent += '\n\n📡 Testing analyze endpoint...';
-                const analyzeUrl = `${BASE_URL}/analyze/${symbol}`;
-                resultEl.textContent += `\nURL: ${analyzeUrl}`;
-                
-                const analyzeRes = await fetch(analyzeUrl);
-                resultEl.textContent += `\nStatus: ${analyzeRes.status} ${analyzeRes.statusText}`;
-                
-                const text = await analyzeRes.text();
-                resultEl.textContent += `\nResponse: ${text.substring(0, 500)}`;
-                
+                const response = await fetch(`${BASE_URL}/analyze/${symbol}/terminal`);
+                const text = await response.text();
+                outputEl.textContent = text;
+                noteEl.textContent = `✅ Terminal output untuk ${symbol} (${text.length} karakter)`;
             } catch (error) {
-                resultEl.textContent += '\n❌ ERROR: ' + error.message;
-                console.error(error);
+                outputEl.textContent = `❌ ERROR: ${error.message}`;
             }
         }
         
-        // Auto run
-        testAPI();
+        async function fetchJSON() {
+            const symbol = document.getElementById('symbol').value.toUpperCase();
+            const outputEl = document.getElementById('output');
+            
+            outputEl.textContent = '📡 Mengambil data JSON...';
+            
+            try {
+                const response = await fetch(`${BASE_URL}/analyze/${symbol}`);
+                const data = await response.json();
+                outputEl.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                outputEl.textContent = `❌ ERROR: ${error.message}`;
+            }
+        }
+        
+        // Auto-load on page load
+        window.onload = () => setTimeout(fetchTerminal, 500);
     </script>
 </body>
 </html>
