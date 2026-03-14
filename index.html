@@ -1,218 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DylPredict • V87</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0a0f0b; font-family: 'Inter', sans-serif; color: #e0e0e0; padding: 20px; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .header { background: #1a241f; border-radius: 12px; padding: 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #2a3a30; }
-        .logo h1 { font-size: 24px; color: #4cd964; font-weight: 700; }
-        .version { background: #2a3a30; padding: 4px 12px; border-radius: 20px; font-size: 12px; color: #4cd964; margin-left: 10px; }
-        .symbol-selector { display: flex; gap: 10px; }
-        #symbolInput { background: #1e2a22; border: 1px solid #2a3a30; border-radius: 8px; padding: 10px 15px; color: white; width: 200px; }
-        .btn { background: #2a3a30; border: none; border-radius: 8px; padding: 10px 20px; color: white; cursor: pointer; font-weight: 600; }
-        .btn-primary { background: #4cd964; color: #0a0f0b; }
-        .price-header { background: #1a241f; border-radius: 12px; padding: 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #2a3a30; position: relative; }
-        .phase-badge { position: absolute; top: -10px; right: 20px; background: #4cd964; color: #0a0f0b; padding: 5px 20px; border-radius: 20px; font-weight: 700; font-size: 12px; }
-        .symbol-name { font-size: 28px; font-weight: 700; }
-        .timestamp { color: #888; font-size: 14px; }
-        .price { font-size: 32px; font-weight: 700; color: #4cd964; }
-        .signal-hero { background: #1a241f; border-radius: 12px; padding: 30px; margin-bottom: 20px; text-align: center; border: 1px solid #2a3a30; }
-        .signal-hero.bullish { border-bottom: 4px solid #4cd964; }
-        .signal-hero.bearish { border-bottom: 4px solid #ff6b6b; }
-        .opinion { font-size: 48px; font-weight: 800; margin-bottom: 10px; }
-        .bullish .opinion { color: #4cd964; }
-        .bearish .opinion { color: #ff6b6b; }
-        .strategy { color: #888; margin-bottom: 15px; }
-        .reason { color: #aaa; max-width: 800px; margin: 0 auto 20px; line-height: 1.6; }
-        .confidence-bar { max-width: 400px; margin: 0 auto; }
-        .bar { height: 8px; background: #2a3a30; border-radius: 4px; overflow: hidden; }
-        .fill { height: 100%; background: #4cd964; }
-        .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 20px; }
-        .card { background: #1a241f; border-radius: 12px; padding: 20px; border: 1px solid #2a3a30; }
-        .card h3 { font-size: 12px; color: #888; margin-bottom: 10px; text-transform: uppercase; }
-        .big-value { font-size: 24px; font-weight: 700; }
-        .green { color: #4cd964; }
-        .red { color: #ff6b6b; }
-        .wdi { color: #ffaa00; }
-        .details-section { background: #1a241f; border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a3a30; }
-        .data-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #2a3a30; }
-        .data-row span:first-child { color: #888; }
-        .data-row .val { font-family: monospace; font-weight: 600; }
-        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 15, 11, 0.95); display: none; justify-content: center; align-items: center; z-index: 9999; }
-        .loading-spinner i { font-size: 48px; color: #4cd964; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .error { color: #ff6b6b; padding: 20px; text-align: center; }
-    </style>
+    <title>DylPredict Test</title>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="logo"><h1>DYLPRE<span class="version">V87</span></h1></div>
-            <div class="symbol-selector">
-                <input type="text" id="symbolInput" placeholder="BTCUSDT" value="BTCUSDT">
-                <button class="btn btn-primary" id="analyzeBtn">Analyze</button>
-            </div>
-        </div>
-
-        <div class="price-header">
-            <div class="phase-badge" id="phaseBadge">-</div>
-            <div><div class="symbol-name" id="symbolName">BTCUSDT</div><div class="timestamp" id="timestamp">--:--:--</div></div>
-            <div><div class="price" id="price">$0.00</div></div>
-        </div>
-
-        <div class="signal-hero bullish" id="signalHero">
-            <div class="opinion" id="opinion">LONG</div>
-            <div class="strategy" id="strategy">STRATEGY: -</div>
-            <div class="reason" id="reason">Loading...</div>
-            <div class="confidence-bar"><div class="bar"><div class="fill" id="confidenceFill" style="width: 0%"></div></div></div>
-        </div>
-
-        <div class="metrics-grid" id="metrics">
-            <div class="card"><h3>MARKET BIAS</h3><div class="big-value" id="bias">-</div></div>
-            <div class="card"><h3>RSI (6)</h3><div class="big-value" id="rsi6">-</div></div>
-            <div class="card"><h3>TRADE FLOW</h3><div class="big-value" id="tradeFlow">-</div></div>
-            <div class="card"><h3>OI Δ5M</h3><div class="big-value" id="oiDelta">-</div></div>
-        </div>
-
-        <div class="details-section">
-            <h3 style="margin-bottom: 15px;">📊 Data dari V87 Analyzer</h3>
-            <div id="dataContainer">Memuat data...</div>
-        </div>
-
-        <div id="errorContainer" class="error" style="display: none;"></div>
+    <h1>DylPredict API Test</h1>
+    <div>
+        <input type="text" id="symbol" value="BTCUSDT">
+        <button onclick="testAPI()">Test API</button>
     </div>
-
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"><i class="fas fa-sync-alt fa-spin"></i><p style="margin-top: 20px;">Menganalisis...</p></div>
-    </div>
+    <pre id="result" style="background:#f0f0f0; padding:10px; margin-top:20px;"></pre>
 
     <script>
-        // 🔴 GANTI DENGAN URL KOYEB ANDA!
-        const API_URL = 'https://spotty-lizzie-dypredict-2b047c63.koyeb.app';
+        const BASE_URL = 'https://spotty-lizzie-dylpredict-2b047c63.koyeb.app';
         
-        const elements = {
-            symbolInput: document.getElementById('symbolInput'),
-            analyzeBtn: document.getElementById('analyzeBtn'),
-            loadingOverlay: document.getElementById('loadingOverlay'),
-            symbolName: document.getElementById('symbolName'),
-            timestamp: document.getElementById('timestamp'),
-            price: document.getElementById('price'),
-            phaseBadge: document.getElementById('phaseBadge'),
-            signalHero: document.getElementById('signalHero'),
-            opinion: document.getElementById('opinion'),
-            strategy: document.getElementById('strategy'),
-            reason: document.getElementById('reason'),
-            confidenceFill: document.getElementById('confidenceFill'),
-            bias: document.getElementById('bias'),
-            rsi6: document.getElementById('rsi6'),
-            tradeFlow: document.getElementById('tradeFlow'),
-            oiDelta: document.getElementById('oiDelta'),
-            dataContainer: document.getElementById('dataContainer'),
-            errorContainer: document.getElementById('errorContainer')
-        };
-
-        function updateTimestamp() {
-            const now = new Date();
-            elements.timestamp.textContent = now.toLocaleTimeString('id-ID', { hour12: false }) + '.' + 
-                now.getMilliseconds().toString().padStart(3, '0');
-        }
-        setInterval(updateTimestamp, 100);
-        updateTimestamp();
-
-        elements.analyzeBtn.addEventListener('click', () => {
-            const symbol = elements.symbolInput.value.trim().toUpperCase();
-            if (symbol) fetchData(symbol);
-        });
-
-        elements.symbolInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') elements.analyzeBtn.click();
-        });
-
-        async function fetchData(symbol) {
-            showLoading();
-            hideError();
+        async function testAPI() {
+            const symbol = document.getElementById('symbol').value;
+            const resultEl = document.getElementById('result');
+            
+            resultEl.textContent = 'Loading...';
             
             try {
-                // 🔴 PASTIKAN ENDPOINT INI BENAR!
-                const url = `${API_URL}/analyze/${symbol}`;
-                console.log('Fetching:', url);
+                // Test root endpoint dulu
+                resultEl.textContent += '\n\n📡 Testing root endpoint...';
+                const rootRes = await fetch(BASE_URL + '/');
+                const rootData = await rootRes.json();
+                resultEl.textContent += '\n✅ Root OK: ' + JSON.stringify(rootData);
                 
-                const response = await fetch(url);
+                // Test analyze endpoint
+                resultEl.textContent += '\n\n📡 Testing analyze endpoint...';
+                const analyzeUrl = `${BASE_URL}/analyze/${symbol}`;
+                resultEl.textContent += `\nURL: ${analyzeUrl}`;
                 
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
+                const analyzeRes = await fetch(analyzeUrl);
+                resultEl.textContent += `\nStatus: ${analyzeRes.status} ${analyzeRes.statusText}`;
                 
-                const text = await response.text();
-                console.log('Response text:', text.substring(0, 200));
+                const text = await analyzeRes.text();
+                resultEl.textContent += `\nResponse: ${text.substring(0, 500)}`;
                 
-                let result;
-                try {
-                    result = JSON.parse(text);
-                } catch (e) {
-                    throw new Error(`Response bukan JSON: ${text.substring(0, 100)}`);
-                }
-                
-                if (result.success && result.data) {
-                    displayData(result.data);
-                } else {
-                    throw new Error(result.error || 'Unknown error');
-                }
             } catch (error) {
-                console.error('Error:', error);
-                showError(error.message);
-                elements.dataContainer.innerHTML = `<pre style="color:#ff6b6b">${error.message}</pre>`;
-            } finally {
-                hideLoading();
+                resultEl.textContent += '\n❌ ERROR: ' + error.message;
+                console.error(error);
             }
         }
-
-        function displayData(data) {
-            elements.symbolName.textContent = data.symbol || 'BTCUSDT';
-            elements.price.textContent = `$${(data.price || 0).toFixed(4)}`;
-            
-            const bias = data.bias || 'NEUTRAL';
-            elements.opinion.textContent = bias;
-            elements.signalHero.className = `signal-hero ${bias.toLowerCase()}`;
-            
-            elements.phaseBadge.textContent = data.market_phase || 'NORMAL';
-            elements.strategy.textContent = `STRATEGY: ${data.phase_v90 || 'NORMAL'}`;
-            elements.reason.textContent = data.reason || 'No reason';
-            
-            const conf = data.confidence || 'LOW';
-            let width = conf === 'ABSOLUTE' ? 100 : conf === 'SUPREME' ? 95 : conf === 'HIGH' ? 75 : conf === 'MEDIUM' ? 50 : 25;
-            elements.confidenceFill.style.width = `${width}%`;
-            
-            elements.bias.textContent = bias;
-            elements.bias.className = `big-value ${bias.toLowerCase() === 'long' ? 'green' : bias.toLowerCase() === 'short' ? 'red' : ''}`;
-            
-            elements.rsi6.textContent = (data.rsi6 || 0).toFixed(1);
-            elements.tradeFlow.textContent = `${(data.trade_flow || 0).toFixed(2)}x`;
-            elements.oiDelta.textContent = ((data.oi_delta_5m || 0) > 0 ? '+' : '') + (data.oi_delta_5m || 0).toFixed(2) + '%';
-            
-            // Tampilkan semua data dalam format JSON
-            elements.dataContainer.innerHTML = `
-                <pre style="background:#0f1511; padding:15px; border-radius:8px; overflow-x:auto; font-size:12px; color:#4cd964;">
-${JSON.stringify(data, null, 2)}
-                </pre>
-            `;
-        }
-
-        function showLoading() { elements.loadingOverlay.style.display = 'flex'; }
-        function hideLoading() { elements.loadingOverlay.style.display = 'none'; }
-        function showError(msg) { 
-            elements.errorContainer.style.display = 'block'; 
-            elements.errorContainer.textContent = `ERROR: ${msg}`;
-        }
-        function hideError() { elements.errorContainer.style.display = 'none'; }
-
-        // Auto-analyze on load
-        setTimeout(() => fetchData('BTCUSDT'), 1000);
+        
+        // Auto run
+        testAPI();
     </script>
 </body>
 </html>
