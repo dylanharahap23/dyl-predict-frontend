@@ -3,1156 +3,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DylPredict V88 • Whale Dominance Index (The Liquidity Pathfinder)</title>
+    <title>DylPredict • V87 Liquidation Hunter</title>
     
     <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* ===== MODERN TRADING TERMINAL CSS WITH LIGHT GREEN & WHITE THEME ===== */
-        :root {
-            --bg-color: #f0f7f0;           /* Soft green background */
-            --card-bg: #ffffff;              /* Pure white cards */
-            --text-main: #1e3a2e;            /* Dark green text */
-            --text-dim: #2c5e4a;              /* Medium green for dim text */
-            --green: #00a86b;                  /* Vibrant green */
-            --green-light: #4cd964;            /* Light green */
-            --green-pale: #e6f3e6;             /* Pale green for backgrounds */
-            --red: #ff6b6b;                     /* Soft red */
-            --yellow: #ffb347;                   /* Warm yellow */
-            --orange: #ff9800;
-            --blue: #3b82f6;
-            --cyan: #06b6d4;
-            --purple: #a855f7;                   /* Purple for AMV */
-            --pink: #ec4899;                      /* Pink for LGO */
-            --cfk: #ff4500;                      /* Orange-red for CFK */
-            --death: #8b0000;                     /* Dark red for Death Magnet */
-            --absorption: #00a86b;                 /* Green for Absorption */
-            --vacuum: #4b0082;                     /* Indigo for Vacuum */
-            --nuclear: #ff3333;                    /* Red for Nuclear Overbought */
-            --wdi: #ffaa00;                         /* Gold for WDI (V88 - TERTINGGI!) */
-            --odf: #ffaa00;                         /* Orange for ODF (V86) */
-            --zgh: #ffaa00;                          /* Orange for ZGH (V86) */
-            --otf: #00a86b;                           /* Green for OTF (V85) */
-            --glass-opacity: rgba(255, 255, 255, 0.9);
-            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --border-light: 1px solid rgba(0, 100, 0, 0.1);
-            --shadow-light: 0 4px 20px rgba(0, 80, 0, 0.1);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Efek halus pada Body dengan Radial Gradient */
         body {
-            background: 
-                radial-gradient(circle at top right, #e8f3e8, transparent),
-                radial-gradient(circle at bottom left, #e0eee0, transparent),
-                #f0f7f0;
-            background-attachment: fixed;
-            color: var(--text-main);
+            background: #0a0f0b;
             font-family: 'Inter', sans-serif;
+            color: #e0e0e0;
             padding: 20px;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: auto;
-        }
-
-        /* Floating Shapes Background - Hanya Hijau */
-        body::before {
-            content: '';
-            position: fixed;
-            top: -10%;
-            left: -10%;
-            width: 40%;
-            height: 40%;
-            background: radial-gradient(circle, rgba(0,168,107,0.05) 0%, transparent 70%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: -10%;
-            right: -10%;
-            width: 50%;
-            height: 50%;
-            background: radial-gradient(circle, rgba(0,168,107,0.08) 0%, transparent 70%);
-            z-index: -1;
-            pointer-events: none;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            position: relative;
-            z-index: 10;
         }
 
-        /* Percantik Card dengan Soft Shadow & Border */
-        header {
+        /* Header */
+        .header {
+            background: #1a241f;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            padding: 16px 24px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 10px 30px rgba(0, 80, 0, 0.05);
+            border: 1px solid #2a3a30;
         }
 
         .logo h1 {
             font-size: 24px;
-            background: linear-gradient(135deg, #1e3a2e, #00a86b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .version {
-            font-size: 12px;
-            background: var(--green-pale);
-            padding: 4px 10px;
-            border-radius: 100px;
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-            font-weight: 600;
-        }
-
-        .badge-container {
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-        }
-
-        .badge {
-            font-size: 10px;
-            padding: 2px 8px;
-            border-radius: 100px;
-            font-weight: 500;
-        }
-
-        /* V88 Badges - PRIORITAS TERTINGGI! */
-        .badge.wdi {
-            background: rgba(255, 170, 0, 0.25);
-            color: #ffaa00;
-            border: 1px solid rgba(255, 170, 0, 0.4);
+            color: #4cd964;
             font-weight: 700;
         }
 
-        /* V86 Badges */
-        .badge.odf {
-            background: rgba(255, 170, 0, 0.15);
-            color: #ffaa00;
-            border: 1px solid rgba(255, 170, 0, 0.3);
-        }
-
-        .badge.zgh {
-            background: rgba(255, 170, 0, 0.15);
-            color: #ffaa00;
-            border: 1px solid rgba(255, 170, 0, 0.3);
-        }
-
-        /* V85 Badges */
-        .badge.otf {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        /* V84 Badges */
-        .badge.fgd {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.lps {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.ldf {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.wdf {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.lls {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.fsd {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        /* V83 Badges */
-        .badge.lhg {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.ovs {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.adv {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.tbd {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.oia {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.lsp {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        /* V82 Badges */
-        .badge.lmg {
-            background: rgba(139, 0, 0, 0.15);
-            color: var(--death);
-            border: 1px solid rgba(139, 0, 0, 0.3);
-        }
-
-        .badge.api {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--absorption);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        /* V81 Badges */
-        .badge.ltg {
-            background: rgba(75, 0, 130, 0.15);
-            color: var(--vacuum);
-            border: 1px solid rgba(75, 0, 130, 0.3);
-        }
-
-        .badge.icd {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        /* V80 Badges */
-        .badge.ier {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.rmg {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.fmv {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        /* V79 Badges */
-        .badge.wtd {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        /* V78 Badges */
-        .badge.ezh {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.psv {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        /* V77 Badges */
-        .badge.off {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.aef {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        /* V76 Badges */
-        .badge.psr {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        /* V75 Badges */
-        .badge.amv {
-            background: rgba(168, 85, 247, 0.15);
-            color: var(--purple);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-        }
-
-        .badge.lgo {
-            background: rgba(236, 72, 153, 0.15);
-            color: var(--pink);
-            border: 1px solid rgba(236, 72, 153, 0.3);
-        }
-
-        /* V74 Badges */
-        .badge.mdv {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        /* V73-60 Badges */
-        .badge.pab {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.cfk {
-            background: rgba(255, 69, 0, 0.15);
-            color: var(--cfk);
-            border: 1px solid rgba(255, 69, 0, 0.3);
-        }
-
-        .badge.mdd {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.ovd {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.trend {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.ogd {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.zas {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.avc {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.ati {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.amd {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.tdp {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.wed {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.mwr {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.lvs {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
-        }
-
-        .badge.dtd {
-            background: rgba(0, 168, 107, 0.15);
-            color: var(--green);
-            border: 1px solid rgba(0, 168, 107, 0.3);
+        .version {
+            background: #2a3a30;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #4cd964;
+            margin-left: 10px;
         }
 
         .symbol-selector {
             display: flex;
             gap: 10px;
-            flex-wrap: wrap;
         }
 
-        .input-controls {
-            display: flex;
-            gap: 8px;
-            background: var(--green-pale);
-            padding: 4px;
-            border-radius: 12px;
-            border: 1px solid rgba(0, 100, 0, 0.1);
-        }
-
-        #customSymbolInput {
-            background: white;
-            border: 1px solid rgba(0, 100, 0, 0.1);
+        #symbolInput {
+            background: #1e2a22;
+            border: 1px solid #2a3a30;
             border-radius: 8px;
             padding: 10px 15px;
-            color: var(--text-main);
+            color: white;
+            width: 200px;
+        }
+
+        #symbolInput:focus {
             outline: none;
-            width: 150px;
-            font-family: 'Inter', sans-serif;
-            transition: var(--transition-smooth);
+            border-color: #4cd964;
         }
 
-        #customSymbolInput:focus {
-            border-color: var(--green);
-            box-shadow: 0 0 15px rgba(0, 168, 107, 0.2);
-        }
-
-        #customSymbolInput::placeholder {
-            color: var(--text-dim);
-            opacity: 0.7;
-        }
-
-        .glass-select {
-            background: white;
-            border: 1px solid rgba(0, 100, 0, 0.1);
-            border-radius: 8px;
-            padding: 10px 15px;
-            color: var(--text-main);
-            outline: none;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .glass-select option {
-            background: white;
-            color: var(--text-main);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--green), var(--green-light));
+        .btn {
+            background: #2a3a30;
             border: none;
             border-radius: 8px;
             padding: 10px 20px;
             color: white;
-            font-weight: 700;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition-smooth);
-            font-family: 'Inter', sans-serif;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .btn-primary {
+            background: #4cd964;
+            color: #0a0f0b;
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(0, 168, 107, 0.3);
+            background: #2ecc71;
         }
 
-        .btn-secondary {
-            background: var(--card-bg);
-            border: 1px solid var(--green);
-            border-radius: 8px;
-            padding: 10px 20px;
-            color: var(--green);
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition-smooth);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .btn-secondary:hover {
-            background: var(--green-pale);
+        .btn:hover {
             transform: translateY(-2px);
         }
 
-        .dashboard-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        /* Percantik Card dengan Soft Shadow & Border */
-        .header-card, .signal-hero, .card, .details-section {
-            border: 1px solid rgba(255, 255, 255, 0.8) !important;
-            box-shadow: 0 10px 30px rgba(0, 80, 0, 0.05) !important;
-            backdrop-filter: blur(12px);
-        }
-
-        .header-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
+        /* Price Header */
+        .price-header {
+            background: #1a241f;
+            border-radius: 12px;
             padding: 20px;
-            border-radius: 16px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-left: 4px solid var(--green);
-            transition: var(--transition-smooth);
+            border: 1px solid #2a3a30;
             position: relative;
         }
 
-        .symbol-info {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
+        .phase-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: #4cd964;
+            color: #0a0f0b;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 12px;
         }
 
-        .symbol {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin: 0;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #1e3a2e, var(--green));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .symbol-name {
+            font-size: 28px;
+            font-weight: 700;
         }
 
         .timestamp {
-            font-size: 0.9rem;
-            color: var(--text-main);
-            font-family: 'Courier New', monospace;
-            font-weight: 600;
-            background: var(--green-pale);
-            padding: 4px 10px;
-            border-radius: 100px;
-            display: inline-block;
-            width: fit-content;
-            border: 1px solid rgba(0, 100, 0, 0.1);
-        }
-
-        .price-section {
-            text-align: right;
-        }
-
-        .price-label {
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-            display: block;
+            color: #888;
+            font-size: 14px;
+            margin-top: 5px;
         }
 
         .price {
-            color: var(--green);
-            font-size: 2rem;
-            margin: 0;
+            font-size: 32px;
             font-weight: 700;
-            letter-spacing: -0.5px;
-            transition: color 0.5s;
+            color: #4cd964;
         }
 
-        /* Glow pada Phase Badge - Warna berbeda untuk tiap modul prioritas */
-        .phase-badge {
-            position: absolute;
-            top: -12px;
-            right: 20px;
-            background: linear-gradient(135deg, var(--green), var(--green-light));
-            color: white;
-            font-weight: 800;
-            font-size: 0.8rem;
-            padding: 6px 20px;
-            border-radius: 100px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            z-index: 30;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-        }
-
-        /* V88 Phase Badges - PRIORITAS TERTINGGI! */
-        .phase-badge.wdi {
-            background: linear-gradient(135deg, #ffaa00, #ffcc66);
-            box-shadow: 0 4px 15px rgba(255, 170, 0, 0.4);
-            font-weight: 900;
-        }
-
-        /* V86 Phase Badges */
-        .phase-badge.odf {
-            background: linear-gradient(135deg, #ffaa00, #ffcc66);
-            box-shadow: 0 4px 15px rgba(255, 170, 0, 0.3);
-        }
-
-        .phase-badge.zgh {
-            background: linear-gradient(135deg, #ffaa00, #ffcc66);
-            box-shadow: 0 4px 15px rgba(255, 170, 0, 0.3);
-        }
-
-        /* V85 Phase Badges */
-        .phase-badge.otf {
-            background: linear-gradient(135deg, #00a86b, #4cd964);
-            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
-        }
-
-        /* V82 Phase Badges */
-        .phase-badge.lmg {
-            background: linear-gradient(135deg, #8b0000, #ff4444);
-            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
-        }
-
-        .phase-badge.api {
-            background: linear-gradient(135deg, #00a86b, #4cd964);
-            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
-        }
-
-        .phase-badge.ltg {
-            background: linear-gradient(135deg, #4b0082, #9370db);
-            box-shadow: 0 4px 15px rgba(75, 0, 130, 0.3);
-        }
-
-        .phase-badge.icd {
-            background: linear-gradient(135deg, #00a86b, #4cd964);
-            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
-        }
-
-        .phase-badge.ezh {
-            background: linear-gradient(135deg, #00a86b, #4cd964);
-            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
-        }
-
-        .phase-badge.wtd {
-            background: linear-gradient(135deg, #00a86b, #4cd964);
-            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
-        }
-
-        .phase-badge.ier {
-            background: linear-gradient(135deg, #00a86b, #4cd964);
-            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
-        }
-
-        .phase-badge.rmg {
-            background: linear-gradient(135deg, #00a86b, #4cd964);
-            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
-        }
-
-        .phase-badge.fmv {
-            background: linear-gradient(135deg, #00a86b, #4cd964);
-            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
-        }
-
-        .phase-badge.psv {
-            background: linear-gradient(135deg, #00a86b, #4cd964);
-            box-shadow: 0 4px 15px rgba(0, 168, 107, 0.3);
-        }
-
-        .phase-badge.amv {
-            background: linear-gradient(135deg, var(--purple), #c084fc);
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
-        }
-
-        .phase-badge.lgo {
-            background: linear-gradient(135deg, var(--pink), #f472b6);
-            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
-        }
-
-        .phase-badge.cfk {
-            background: linear-gradient(135deg, var(--cfk), #ff6347);
-            box-shadow: 0 4px 15px rgba(255, 69, 0, 0.3);
-        }
-
-        .phase-badge.nuclear {
-            background: linear-gradient(135deg, #f44336, #d32f2f);
-            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
-        }
-
+        /* Signal Hero */
         .signal-hero {
-            padding: 25px 25px;
-            border-radius: 20px;
+            background: #1a241f;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
             text-align: center;
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 10px 30px rgba(0, 80, 0, 0.05);
-            position: relative;
-            overflow: hidden;
+            border: 1px solid #2a3a30;
         }
 
-        .signal-hero.bullish { 
-            border-bottom: 5px solid var(--green);
+        .signal-hero.bullish {
+            border-bottom: 4px solid #4cd964;
         }
 
-        .signal-hero.bearish { 
-            border-bottom: 5px solid var(--red);
+        .signal-hero.bearish {
+            border-bottom: 4px solid #ff6b6b;
         }
 
-        .signal-hero.pending { 
-            border-bottom: 5px solid var(--yellow);
+        .signal-hero.pending {
+            border-bottom: 4px solid #ffb347;
         }
 
-        /* Animasi Pulse untuk Signal Utama */
-        @keyframes pulse-subtle {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.02); opacity: 0.9; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .main-opinion {
-            font-size: 3.5rem;
-            font-weight: 900;
-            letter-spacing: 4px;
-            line-height: 1.2;
-            margin-bottom: 5px;
-            animation: pulse-subtle 3s ease-in-out infinite;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        .signal-hero.bullish .main-opinion {
-            color: var(--green);
-        }
-
-        .signal-hero.bearish .main-opinion {
-            color: var(--red);
-        }
-
-        .strategy-name {
-            font-size: 0.9rem;
-            color: var(--text-dim);
+        .opinion {
+            font-size: 48px;
+            font-weight: 800;
             margin-bottom: 10px;
-            font-weight: 500;
-            letter-spacing: 1px;
-            background: var(--green-pale);
-            display: inline-block;
-            padding: 6px 16px;
-            border-radius: 100px;
-            border: 1px solid rgba(0, 100, 0, 0.1);
         }
 
-        .phase-reason {
-            font-size: 0.9rem;
-            color: var(--text-dim);
+        .bullish .opinion {
+            color: #4cd964;
+        }
+
+        .bearish .opinion {
+            color: #ff6b6b;
+        }
+
+        .strategy {
+            color: #888;
             margin-bottom: 15px;
-            font-style: italic;
-            padding: 0 10px;
+        }
+
+        .reason {
+            color: #aaa;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
         }
 
         .confidence-bar {
-            margin: 15px 0 5px;
-            text-align: left;
-            padding: 0 10px;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
         .confidence-bar span {
             display: block;
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #888;
         }
 
-        .confidence-bar .bar {
-            background: var(--green-pale);
-            height: 10px;
-            border-radius: 5px;
+        .bar {
+            height: 8px;
+            background: #2a3a30;
+            border-radius: 4px;
             overflow: hidden;
-            border: 1px solid rgba(0, 100, 0, 0.1);
         }
 
-        .confidence-bar .fill {
-            background: linear-gradient(90deg, var(--green), var(--green-light));
+        .fill {
             height: 100%;
-            border-radius: 5px;
-            transition: width 0.5s ease;
+            background: #4cd964;
+            border-radius: 4px;
         }
 
+        /* Metrics Grid */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin: 10px 0;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
-        /* Hover effect pada Metrics Card */
         .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            padding: 18px 12px;
-            border-radius: 16px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 80, 0, 0.05);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--green) !important;
+            background: #1a241f;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #2a3a30;
         }
 
         .card h3 {
-            font-size: 0.7rem;
-            color: var(--text-dim);
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 10px;
             text-transform: uppercase;
-            margin-bottom: 12px;
-            letter-spacing: 0.5px;
-            font-weight: 600;
         }
 
         .big-value {
-            font-size: 1.4rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 8px;
-            transition: color 0.5s;
-        }
-
-        .green { color: var(--green); }
-        .red { color: var(--red); }
-        .warning { color: var(--yellow); }
-        .cyan { color: var(--cyan); }
-        .purple { color: var(--purple); }
-        .pink { color: var(--pink); }
-        .death { color: #8b0000; }
-        .vacuum { color: #4b0082; }
-        .wdi-color { color: #ffaa00; font-weight: 800; }
-        .odf-color { color: #ffaa00; }
-        .zgh-color { color: #ffaa00; }
-
-        .score-display {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .score-num {
-            font-size: 1.5rem;
+            font-size: 24px;
             font-weight: 700;
         }
 
-        .score-sub {
-            font-size: 0.7rem;
-            color: var(--text-dim);
-        }
+        .green { color: #4cd964; }
+        .red { color: #ff6b6b; }
+        .yellow { color: #ffb347; }
+        .purple { color: #a855f7; }
+        .pink { color: #ec4899; }
+        .wdi { color: #ffaa00; }
 
+        /* Details Section */
         .details-section {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border-radius: 16px;
-            padding: 16px;
-            margin: 10px 0;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 10px 30px rgba(0, 80, 0, 0.05);
+            background: #1a241f;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #2a3a30;
         }
 
         .details-title {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 1px solid rgba(0, 100, 0, 0.1);
+            border-bottom: 1px solid #2a3a30;
         }
 
-        .details-title h3 {
-            font-size: 1.1rem;
+        .badge-group {
+            display: flex;
+            gap: 5px;
+        }
+
+        .badge {
+            background: #2a3a30;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
             font-weight: 600;
         }
 
-        .details-title .badge-group {
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
+        .badge.wdi { background: rgba(255, 170, 0, 0.2); color: #ffaa00; }
+        .badge.odf { background: rgba(255, 170, 0, 0.15); color: #ffaa00; }
+        .badge.otf { background: rgba(0, 168, 107, 0.15); color: #4cd964; }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
         }
 
         .data-row {
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
-            border-bottom: 1px solid rgba(0, 100, 0, 0.05);
-        }
-
-        .data-row:last-child {
-            border-bottom: none;
+            border-bottom: 1px solid #2a3a30;
         }
 
         .data-row span:first-child {
-            color: var(--text-dim);
-            font-size: 0.85rem;
+            color: #888;
         }
 
         .data-row .val {
+            font-family: monospace;
             font-weight: 600;
-            font-family: 'Courier New', monospace;
-            transition: color 0.5s;
         }
 
-        .data-row .val.warning {
-            color: var(--yellow);
-        }
-
-        .data-row .val.green {
-            color: var(--green);
-        }
-
-        .data-row .val.red {
-            color: var(--red);
-        }
-
-        .data-row .val.cyan {
-            color: var(--cyan);
-        }
-
-        .data-row .val.purple {
-            color: var(--purple);
-        }
-
-        .data-row .val.pink {
-            color: var(--pink);
-        }
-
-        .data-row .val.death {
-            color: #8b0000;
-        }
-
-        .data-row .val.vacuum {
-            color: #4b0082;
-        }
-
-        .data-row .val.wdi {
-            color: #ffaa00;
-            font-weight: 700;
-        }
-
-        .data-row .val.odf {
-            color: #ffaa00;
-        }
-
-        .data-row .val.zgh {
-            color: #ffaa00;
-        }
-
-        .advanced-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin: 15px 0;
-        }
-
-        .advanced-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(5px);
-            padding: 15px;
+        /* Raw Output */
+        .raw-output {
+            background: #0f1511;
             border-radius: 12px;
-            border-left: 3px solid var(--green);
-            border: 1px solid rgba(0, 100, 0, 0.1);
-        }
-
-        .advanced-card h4 {
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        .advanced-card .value {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .advanced-card .desc {
-            font-size: 0.75rem;
-            color: var(--text-dim);
-        }
-
-        .alert-box {
-            background: var(--green-pale);
-            border: 1px dashed var(--green);
-            padding: 18px;
-            border-radius: 16px;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            color: var(--text-main);
-            margin: 15px 0;
-            border-left: 4px solid var(--green);
-        }
-
-        /* Untuk V88 alert - PRIORITAS TERTINGGI! */
-        .alert-box.wdi-alert {
-            border-color: #ffaa00;
-            border-left-color: #ffaa00;
-            border-width: 2px;
-            font-weight: 600;
-        }
-
-        /* Untuk V86 alert */
-        .alert-box.odf-alert {
-            border-color: #ffaa00;
-            border-left-color: #ffaa00;
-        }
-
-        .alert-box.zgh-alert {
-            border-color: #ffaa00;
-            border-left-color: #ffaa00;
-        }
-
-        /* Untuk V85 alert */
-        .alert-box.otf-alert {
-            border-color: var(--green);
-            border-left-color: var(--green);
-        }
-
-        /* Untuk V82 alert */
-        .alert-box.lmg-alert {
-            border-color: #8b0000;
-            border-left-color: #8b0000;
-        }
-
-        .alert-box.api-alert {
-            border-color: var(--green);
-            border-left-color: var(--green);
-        }
-
-        .alert-box.ltg-alert {
-            border-color: #4b0082;
-            border-left-color: #4b0082;
-        }
-
-        .alert-box.icd-alert {
-            border-color: var(--green);
-            border-left-color: var(--green);
-        }
-
-        /* Untuk V75 alert */
-        .alert-box.amv-alert {
-            border-color: var(--purple);
-            border-left-color: var(--purple);
-        }
-
-        .alert-box.lgo-alert {
-            border-color: var(--pink);
-            border-left-color: var(--pink);
-        }
-
-        .alert-box.cfk-alert {
-            border-color: var(--cfk);
-            border-left-color: var(--cfk);
-        }
-
-        .alert-box strong {
-            color: var(--green);
-        }
-
-        .alert-box.wdi-alert strong {
-            color: #ffaa00;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin: 15px 0;
-            flex-wrap: wrap;
-        }
-
-        .tab {
-            padding: 10px 20px;
-            background: var(--card-bg);
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            border: 1px solid rgba(0, 100, 0, 0.1);
-            transition: var(--transition-smooth);
-        }
-
-        .tab.active {
-            background: var(--green);
-            color: white;
-            border-color: var(--green);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 30px;
             padding: 20px;
-            background: var(--card-bg);
-            border-radius: 12px;
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            border: 1px solid rgba(0, 100, 0, 0.1);
-            box-shadow: 0 10px 30px rgba(0, 80, 0, 0.05);
+            margin-top: 20px;
+            border: 1px solid #2a3a30;
+        }
+
+        .raw-output pre {
+            color: #4cd964;
+            font-family: monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .raw-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #888;
+        }
+
+        .toggle-raw {
+            background: #2a3a30;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
         }
 
         .loading-overlay {
@@ -1161,29 +346,17 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(240, 247, 240, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(10, 15, 11, 0.95);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 9999;
         }
 
-        .loading-spinner {
-            text-align: center;
-        }
-
         .loading-spinner i {
             font-size: 48px;
-            color: var(--green);
-            margin-bottom: 20px;
+            color: #4cd964;
             animation: spin 1s linear infinite;
-        }
-
-        .loading-spinner p {
-            font-size: 1rem;
-            color: var(--text-main);
-            letter-spacing: 1px;
         }
 
         @keyframes spin {
@@ -1191,337 +364,107 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Skeleton Loading Effect */
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-
-        .loading-active .big-value {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-            color: transparent !important;
-            border-radius: 4px;
-        }
-
-        /* Styling untuk Scrollbar yang Modern */
-        ::-webkit-scrollbar {
-            width: 5px;
-            height: 5px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--green-pale);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(var(--green), var(--green-light));
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--green);
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #555;
+            font-size: 12px;
         }
 
         @media (max-width: 768px) {
-            body {
-                padding: 12px;
-            }
-
-            header {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .symbol-selector {
-                flex-direction: column;
-            }
-
-            .input-controls {
-                flex-direction: column;
-            }
-
-            #customSymbolInput, .glass-select, .btn-primary {
-                width: 100%;
-            }
-
-            .header-card {
-                flex-direction: column;
-                align-items: start;
-                gap: 15px;
-            }
-
-            .price-section {
-                text-align: left;
-                width: 100%;
-            }
-
-            .price {
-                font-size: 1.8rem;
-            }
-
-            .main-opinion {
-                font-size: 2.5rem;
-            }
-
             .metrics-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-
-            .advanced-grid {
+            
+            .data-grid {
                 grid-template-columns: 1fr;
             }
-
-            .phase-badge {
-                top: -10px;
-                right: 10px;
-                font-size: 0.7rem;
-                padding: 4px 15px;
+            
+            .header {
+                flex-direction: column;
+                gap: 15px;
             }
-        }
-
-        @media (max-width: 480px) {
-            .main-opinion {
-                font-size: 2rem;
+            
+            .symbol-selector {
+                width: 100%;
             }
-
-            .price {
-                font-size: 1.5rem;
-            }
-
-            .symbol {
-                font-size: 1.5rem;
-            }
-
-            .metrics-grid {
-                grid-template-columns: 1fr;
+            
+            #symbolInput {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
+        <!-- Header -->
+        <div class="header">
             <div class="logo">
-                <h1>
-                    DYLPRE
-                    <span class="version">V88</span>
-                    <!-- V88 Badges - PRIORITAS TERTINGGI! -->
-                    <span class="badge wdi">WDI</span>
-                    <!-- V86 Badges -->
-                    <span class="badge odf">ODF</span>
-                    <span class="badge zgh">ZGH</span>
-                    <!-- V85 Badges -->
-                    <span class="badge otf">OTF</span>
-                    <!-- V84 Badges -->
-                    <span class="badge fgd">FGD</span>
-                    <span class="badge lps">LPS</span>
-                    <span class="badge ldf">LDF</span>
-                    <span class="badge wdf">WDF</span>
-                    <span class="badge lls">LLS</span>
-                    <span class="badge fsd">FSD</span>
-                    <!-- V83 Badges -->
-                    <span class="badge lhg">LHG</span>
-                    <span class="badge ovs">OVS</span>
-                    <span class="badge adv">ADV</span>
-                    <span class="badge tbd">TBD</span>
-                    <span class="badge oia">OIA</span>
-                    <span class="badge lsp">LSP</span>
-                    <!-- V82 Badges -->
-                    <span class="badge lmg">LMG</span>
-                    <span class="badge api">API</span>
-                    <!-- V81 Badges -->
-                    <span class="badge ltg">LTG</span>
-                    <span class="badge icd">ICD</span>
-                    <!-- V80 Badges -->
-                    <span class="badge ier">IER</span>
-                    <span class="badge rmg">RMG</span>
-                    <span class="badge fmv">FMV</span>
-                    <!-- V79 Badges -->
-                    <span class="badge wtd">WTD</span>
-                    <!-- V78 Badges -->
-                    <span class="badge ezh">EZH</span>
-                    <span class="badge psv">PSV</span>
-                    <!-- V77 Badges -->
-                    <span class="badge off">OFF</span>
-                    <span class="badge aef">AEF</span>
-                    <!-- V76 Badges -->
-                    <span class="badge psr">PSR</span>
-                    <!-- V75 Badges -->
-                    <span class="badge amv">AMV</span>
-                    <span class="badge lgo">LGO</span>
-                    <!-- V74 Badge -->
-                    <span class="badge mdv">MDV</span>
-                    <!-- V73-60 Badges -->
-                    <span class="badge pab">PAB</span>
-                    <span class="badge cfk">CFK</span>
-                    <span class="badge mdd">MDD</span>
-                    <span class="badge ovd">OVD</span>
-                    <span class="badge trend">TREND</span>
-                    <span class="badge ogd">OGD</span>
-                    <span class="badge zas">ZAS</span>
-                    <span class="badge avc">AVC</span>
-                    <span class="badge ati">ATI</span>
-                    <span class="badge amd">AMD</span>
-                    <span class="badge tdp">TDP</span>
-                    <span class="badge wed">WED</span>
-                    <span class="badge mwr">MWR</span>
-                    <span class="badge lvs">LVS</span>
-                    <span class="badge dtd">DTD</span>
-                </h1>
+                <h1>DYLPRE<span class="version">V87</span></h1>
             </div>
-            
             <div class="symbol-selector">
-                <div class="input-controls">
-                    <input type="text" id="customSymbolInput" placeholder="RIVERUSDT ▼" value="RIVERUSDT">
-                    <select id="symbolSelect" class="glass-select">
-                        <option value="BTCUSDT">BTCUSDT</option>
-                        <option value="ETHUSDT">ETHUSDT</option>
-                        <option value="BNBUSDT">BNBUSDT</option>
-                        <option value="SOLUSDT">SOLUSDT</option>
-                        <option value="DOGEUSDT">DOGEUSDT</option>
-                        <!-- V88 Test Cases - PRIORITAS TERTINGGI! -->
-                        <option value="RIVERUSDT" selected>RIVERUSDT (V88 - WDI VETO)</option>
-                        <!-- V87 Test Cases -->
-                        <option value="POWERUSDT">POWERUSDT (V87 - SAD)</option>
-                        <option value="ROBOUSDT">ROBOUSDT (V87 - SAD)</option>
-                        <!-- V86 Test Cases -->
-                        <option value="TRIAUSDT">TRIAUSDT (V86 - ODF/ZGH)</option>
-                        <!-- V85 Test Cases -->
-                        <option value="UAIUSDT">UAIUSDT (V85 - OTF)</option>
-                        <option value="STABLEUSDT">STABLEUSDT (V85 - NZS/PFD)</option>
-                        <!-- V84 Test Cases -->
-                        <option value="PHAUSDT">PHAUSDT (V84 - FGD)</option>
-                        <!-- V83 Test Cases -->
-                        <option value="KITEUSDT">KITEUSDT (V83 - LHG/OVS)</option>
-                        <!-- V82 Test Cases -->
-                        <option value="SIGNUSDT">SIGNUSDT (V82 - API)</option>
-                        <option value="SIRENUSDT">SIRENUSDT (V82 - LMG)</option>
-                        <!-- V81 Test Cases -->
-                        <option value="HUMAUSDT">HUMAUSDT (V81 - ICD)</option>
-                        <!-- V80 Test Cases -->
-                        <option value="OPNUSDT">OPNUSDT (V80 - IER)</option>
-                        <option value="BARDUSDT">BARDUSDT (V80 - IER)</option>
-                        <!-- V79 Test Cases -->
-                        <option value="KITEUSDT">KITEUSDT (V79 - WTD)</option>
-                        <!-- V78 Test Cases -->
-                        <option value="OPNUSDT">OPNUSDT (V78 - PSV)</option>
-                        <!-- V77 Test Cases -->
-                        <option value="HUSDT">HUSDT (V77 - OFF)</option>
-                        <!-- V76 Test Cases -->
-                        <option value="HUMAUSDT">HUMAUSDT (V76 - PSR)</option>
-                        <!-- V75 Test Cases -->
-                        <option value="HUMAUSDT">HUMAUSDT (V75 - AMV)</option>
-                        <!-- V74 Test Cases -->
-                        <option value="RIVERUSDT">RIVERUSDT (V74 - MDV)</option>
-                        <!-- V73 Test Cases -->
-                        <option value="SIRENUSDT">SIRENUSDT (V73 - PAB)</option>
-                        <!-- V72 Test Cases -->
-                        <option value="ROBOUSDT">ROBOUSDT (V72 - CFK)</option>
-                        <!-- V71 Test Cases -->
-                        <option value="RIVERUSDT">RIVERUSDT (V71 - MDD)</option>
-                        <!-- V70 Test Cases -->
-                        <option value="PHAUSDT">PHAUSDT (V70 - OVD)</option>
-                        <!-- V69 Test Cases -->
-                        <option value="PIPPINUSDT">PIPPINUSDT (V69 - TREND)</option>
-                        <option value="POWERUSDT">POWERUSDT (V69 - TREND)</option>
-                        <!-- V68 Test Cases -->
-                        <option value="PIPPINUSDT">PIPPINUSDT (V68 - OGD)</option>
-                        <!-- V67 Test Cases -->
-                        <option value="POWERUSDT">POWERUSDT (V67 - ZAS/AVC)</option>
-                        <!-- V66 Test Cases -->
-                        <option value="SAHARAUSDT">SAHARAUSDT (V66 - ATI)</option>
-                        <!-- V65 Test Cases -->
-                        <option value="ROBOUSDT">ROBOUSDT (V65 - AMD)</option>
-                        <!-- V64 Test Cases -->
-                        <option value="PHAUSDT">PHAUSDT (V64 - TDP)</option>
-                        <!-- V63 Test Cases -->
-                        <option value="ARCUSDT">ARCUSDT (V63 - WED)</option>
-                        <!-- V62 Test Cases -->
-                        <option value="SAHARAUSDT">SAHARAUSDT (V62 - MWR)</option>
-                        <!-- V61 Test Cases -->
-                        <option value="SIRENUSDT">SIRENUSDT (V61 - LVS)</option>
-                        <!-- V60 Test Cases -->
-                        <option value="POWERUSDT">POWERUSDT (V60 - DTD)</option>
-                    </select>
-                </div>
-                <button id="analyzeCustomBtn" class="btn-primary">
-                    <i class="fas fa-chart-line"></i>
-                    Analyze
-                </button>
-                <button id="analyzeRealBtn" class="btn-secondary">
-                    <i class="fas fa-database"></i>
-                    Real Data
+                <input type="text" id="symbolInput" placeholder="BTCUSDT" value="BTCUSDT">
+                <button class="btn btn-primary" id="analyzeBtn">
+                    <i class="fas fa-chart-line"></i> Analyze
                 </button>
             </div>
-        </header>
-
-        <div class="tabs">
-            <div class="tab active" data-tab="v88">V88 - Whale Dominance</div>
-            <div class="tab" data-tab="real">Real Data</div>
-            <div class="tab" data-tab="wdi">WDI - Whale Index</div>
-            <div class="tab" data-tab="v87">V87 - Ghost Shell</div>
-            <div class="tab" data-tab="v86">V86 - Zero Gravity</div>
-            <div class="tab" data-tab="v85">V85 - Oversold Trap</div>
         </div>
 
-        <div class="dashboard-container">
-            <div class="header-card">
-                <div class="phase-badge" id="phaseBadge">WHALE_HUNT</div>
-                <div class="symbol-info">
-                    <h1 class="symbol" id="mainSymbol">RIVERUSDT</h1>
-                    <span class="timestamp" id="headerTime">--:--:--.--- GMT+7</span>
-                </div>
-                <div class="price-section">
-                    <span class="price-label">LIVE PRICE</span>
-                    <h2 class="price" id="priceValue">$0.0000</h2>
+        <!-- Price Header -->
+        <div class="price-header">
+            <div class="phase-badge" id="phaseBadge">WHALE_HUNT</div>
+            <div>
+                <div class="symbol-name" id="symbolName">BTCUSDT</div>
+                <div class="timestamp" id="timestamp">--:--:--</div>
+            </div>
+            <div>
+                <div class="price" id="price">$0.00</div>
+            </div>
+        </div>
+
+        <!-- Signal Hero -->
+        <div class="signal-hero bullish" id="signalHero">
+            <div class="opinion" id="opinion">LONG</div>
+            <div class="strategy" id="strategy">STRATEGY: WHALE_HUNT</div>
+            <div class="reason" id="reason">WDI_VETO: WMI 95.1x (SHORT_LIQ_WHALE) terdeteksi! Jarak 1.7% terlalu lezat untuk MM. OI turun (-1.7%) adalah bukti SHORT COVERING. DILARANG SHORT!</div>
+            <div class="confidence-bar">
+                <span id="confidenceLabel">CONFIDENCE: ABSOLUTE</span>
+                <div class="bar"><div class="fill" id="confidenceFill" style="width: 100%"></div></div>
+            </div>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="metrics-grid">
+            <div class="card">
+                <h3>MARKET BIAS</h3>
+                <div class="big-value green" id="bias">LONG</div>
+            </div>
+            <div class="card">
+                <h3>RSI (6)</h3>
+                <div class="big-value" id="rsi6">72.0</div>
+            </div>
+            <div class="card">
+                <h3>TRADE FLOW</h3>
+                <div class="big-value" id="tradeFlow">1.20x</div>
+            </div>
+            <div class="card">
+                <h3>OI Δ5M</h3>
+                <div class="big-value red" id="oiDelta">-1.70%</div>
+            </div>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="details-section">
+            <div class="details-title">
+                <h3>📊 KEY METRICS</h3>
+                <div class="badge-group">
+                    <span class="badge wdi">WDI</span>
+                    <span class="badge odf">ODF</span>
+                    <span class="badge otf">OTF</span>
                 </div>
             </div>
-
-            <!-- V88 - Whale Dominance Tab Content -->
-            <div class="tab-content active" id="tab-v88">
-                <section class="signal-hero bullish" id="signalHero">
-                    <div class="main-opinion" id="opinionMain">LONG</div>
-                    <div class="strategy-name" id="strategyDisplay">STRATEGY: WHALE_HUNT</div>
-                    <div class="phase-reason" id="phaseReason">WDI_VETO: WMI 95.1x (SHORT_LIQ_WHALE) terdeteksi! Jarak 1.7% terlalu lezat untuk MM. OI turun (-1.7%) adalah bukti SHORT COVERING. DILARANG SHORT!</div>
-                    <div class="confidence-bar" id="confidenceBar">
-                        <span id="confidenceLabel">CONFIDENCE: ABSOLUTE</span>
-                        <div class="bar"><div class="fill" style="width: 100%" id="confidenceFill"></div></div>
-                    </div>
-                </section>
-
-                <div class="metrics-grid">
-                    <div class="card">
-                        <h3>MARKET BIAS</h3>
-                        <div class="big-value green" id="biasValue">LONG</div>
-                    </div>
-
-                    <div class="card">
-                        <h3>RSI (6)</h3>
-                        <div class="big-value" id="rsiValue">72.0</div>
-                    </div>
-
-                    <div class="card">
-                        <h3>TRADE FLOW</h3>
-                        <div class="big-value" id="tradeFlow">1.20x</div>
-                    </div>
-
-                    <div class="card">
-                        <h3>OI Δ5M</h3>
-                        <div class="big-value red" id="oiDelta">-1.70%</div>
-                    </div>
-                </div>
-
-                <section class="details-section">
-                    <div class="details-title">
-                        <h3>V88 - Whale Dominance Metrics</h3>
-                        <div class="badge-group">
-                            <span class="badge wdi">WDI</span>
-                            <span class="badge odf">ODF</span>
-                            <span class="badge zgh">ZGH</span>
-                        </div>
-                    </div>
+            <div class="data-grid">
+                <div>
                     <div class="data-row">
                         <span>Orderbook Ratio</span>
                         <span class="val" id="obRatio">1.05x</span>
@@ -1531,12 +474,8 @@
                         <span class="val" id="aggRatio">0.85x</span>
                     </div>
                     <div class="data-row">
-                        <span>Liquidation Target</span>
-                        <span class="val green" id="liqTarget">+1.70% (Short Liq)</span>
-                    </div>
-                    <div class="data-row">
-                        <span>WMI (Whale Mass Index)</span>
-                        <span class="val wdi" id="wmiValue">+95.1</span>
+                        <span>WMI (Whale Index)</span>
+                        <span class="val wdi" id="wmi">+95.1</span>
                     </div>
                     <div class="data-row">
                         <span>Long Liq</span>
@@ -1546,1045 +485,322 @@
                         <span>Short Liq</span>
                         <span class="val green" id="shortLiq">1.70%</span>
                     </div>
+                </div>
+                <div>
                     <div class="data-row">
-                        <span>TTK (Time to Kill)</span>
-                        <span class="val" id="ttkMinutes">15m</span>
+                        <span>WDI Status</span>
+                        <span class="val wdi" id="wdiStatus">ACTIVE</span>
                     </div>
                     <div class="data-row">
-                        <span>MA10/MA20</span>
-                        <span class="val" id="maValue">0.845/0.832</span>
-                    </div>
-                    <div class="data-row">
-                        <span>OBV</span>
-                        <span class="val" id="obvValue">1,567</span>
-                    </div>
-                    <!-- V88 Module Status - PRIORITAS TERTINGGI! -->
-                    <div class="data-row">
-                        <span>WDI Status (V88)</span>
-                        <span class="val wdi" id="wdiStatus">ACTIVE (VETO!)</span>
-                    </div>
-                    <!-- V86 Module Status -->
-                    <div class="data-row">
-                        <span>ODF Status (V86)</span>
+                        <span>ODF Status</span>
                         <span class="val odf" id="odfStatus">INACTIVE</span>
                     </div>
                     <div class="data-row">
-                        <span>ZGH Status (V86)</span>
-                        <span class="val odf" id="zghStatus">INACTIVE</span>
-                    </div>
-                    <!-- V85 Module Status -->
-                    <div class="data-row">
-                        <span>OTF Status (V85)</span>
+                        <span>OTF Status</span>
                         <span class="val green" id="otfStatus">INACTIVE</span>
                     </div>
-                    <!-- V82 Module Status -->
                     <div class="data-row">
-                        <span>LMG Status</span>
-                        <span class="val" id="lmgStatus">INACTIVE</span>
+                        <span>TTK</span>
+                        <span class="val" id="ttk">15m</span>
                     </div>
                     <div class="data-row">
-                        <span>API Status</span>
-                        <span class="val" id="apiStatus">INACTIVE</span>
+                        <span>Entry Status</span>
+                        <span class="val green" id="entryStatus">WAITING</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Module Status -->
+        <div class="details-section">
+            <div class="details-title">
+                <h3>🧠 MODULE STATUS</h3>
+                <span class="badge">V87</span>
+            </div>
+            <div class="data-grid">
+                <div>
+                    <div class="data-row">
+                        <span>SAD (Stealth)</span>
+                        <span class="val" id="sadStatus">INACTIVE</span>
                     </div>
                     <div class="data-row">
-                        <span>LTG Status</span>
-                        <span class="val" id="ltgStatus">INACTIVE</span>
+                        <span>ZAS (Zero Agg)</span>
+                        <span class="val" id="zasStatus">INACTIVE</span>
                     </div>
                     <div class="data-row">
-                        <span>ICD Status</span>
-                        <span class="val" id="icdStatus">INACTIVE</span>
+                        <span>LCD (Compression)</span>
+                        <span class="val" id="lcdStatus">INACTIVE</span>
                     </div>
-                    <!-- V80 Module Status -->
                     <div class="data-row">
-                        <span>IER Status</span>
+                        <span>LBD (Bait)</span>
+                        <span class="val" id="lbdStatus">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>LIM (Imbalance)</span>
+                        <span class="val" id="limStatus">INACTIVE</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="data-row">
+                        <span>IER (Exit Radar)</span>
                         <span class="val" id="ierStatus">INACTIVE</span>
                     </div>
                     <div class="data-row">
-                        <span>RMG Status</span>
+                        <span>RMG (RSI Guard)</span>
                         <span class="val" id="rmgStatus">INACTIVE</span>
                     </div>
                     <div class="data-row">
-                        <span>FMV Status</span>
-                        <span class="val" id="fmvStatus">INACTIVE</span>
-                    </div>
-                    <!-- V75 Module Status -->
-                    <div class="data-row">
-                        <span>AMV Status</span>
-                        <span class="val purple" id="amvStatus">INACTIVE</span>
+                        <span>LMG (Mirror)</span>
+                        <span class="val" id="lmgStatus">INACTIVE</span>
                     </div>
                     <div class="data-row">
-                        <span>LGO Status</span>
-                        <span class="val pink" id="lgoStatus">INACTIVE</span>
+                        <span>API (Absorption)</span>
+                        <span class="val" id="apiStatus">INACTIVE</span>
                     </div>
                     <div class="data-row">
-                        <span>MDV Status</span>
-                        <span class="val green" id="mdvStatus">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>CFK Status</span>
-                        <span class="val cfk" id="cfkStatus">INACTIVE</span>
-                    </div>
-                </section>
-            </div>
-
-            <!-- Real Data Tab Content -->
-            <div class="tab-content" id="tab-real">
-                <section class="signal-hero pending" id="realSignalHero">
-                    <div class="main-opinion" id="realOpinionMain">NEUTRAL</div>
-                    <div class="strategy-name">REAL-TIME DATA</div>
-                    <div class="phase-reason" id="realPhaseReason">Real-time data dari Binance API</div>
-                </section>
-
-                <div class="metrics-grid">
-                    <div class="card">
-                        <h3>24H CHANGE</h3>
-                        <div class="big-value" id="realChange24h">0.00%</div>
-                    </div>
-                    <div class="card">
-                        <h3>VOLUME 24H</h3>
-                        <div class="big-value" id="realVolume24h">0</div>
-                    </div>
-                    <div class="card">
-                        <h3>HIGH 24H</h3>
-                        <div class="big-value green" id="realHigh24h">$0.0000</div>
-                    </div>
-                    <div class="card">
-                        <h3>LOW 24H</h3>
-                        <div class="big-value red" id="realLow24h">$0.0000</div>
+                        <span>ICD (Internal Cross)</span>
+                        <span class="val" id="icdStatus">INACTIVE</span>
                     </div>
                 </div>
-
-                <section class="details-section">
-                    <div class="details-title">
-                        <h3>Real-time Market Data</h3>
-                        <span class="badge">BINANCE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Orderbook Ratio</span>
-                        <span class="val" id="realObRatio">1.00x</span>
-                    </div>
-                    <div class="data-row">
-                        <span>RSI (6)</span>
-                        <span class="val" id="realRsi6">50.0</span>
-                    </div>
-                    <div class="data-row">
-                        <span>RSI (14)</span>
-                        <span class="val" id="realRsi14">50.0</span>
-                    </div>
-                    <div class="data-row">
-                        <span>5m Change</span>
-                        <span class="val" id="realChange5m">0.00%</span>
-                    </div>
-                    <div class="data-row">
-                        <span>1m Change</span>
-                        <span class="val" id="realChange1m">0.00%</span>
-                    </div>
-                    <div class="data-row">
-                        <span>MA10</span>
-                        <span class="val" id="realMa10">0.0000</span>
-                    </div>
-                    <div class="data-row">
-                        <span>MA20</span>
-                        <span class="val" id="realMa20">0.0000</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Long Liq</span>
-                        <span class="val red" id="realLongLiq">0.00%</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Short Liq</span>
-                        <span class="val green" id="realShortLiq">0.00%</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Funding Rate</span>
-                        <span class="val" id="realFundingRate">0.000%</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Premium</span>
-                        <span class="val" id="realPremium">0.000%</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Open Interest</span>
-                        <span class="val" id="realOpenInterest">0</span>
-                    </div>
-                </section>
             </div>
+        </div>
 
-            <!-- WDI - Whale Dominance Index Tab -->
-            <div class="tab-content" id="tab-wdi">
-                <section class="details-section">
-                    <div class="details-title">
-                        <h3>🐋 WDI - Whale Dominance Index (V88)</h3>
-                        <span class="badge wdi">PRIORITAS TERTINGGI</span>
-                    </div>
-                    <div class="data-row">
-                        <span>WMI Ratio</span>
-                        <span class="val wdi" id="wdiWmi">0.0</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Short Dist</span>
-                        <span class="val green" id="wdiShortDist">0.00%</span>
-                    </div>
-                    <div class="data-row">
-                        <span>OI Delta</span>
-                        <span class="val" id="wdiOiDelta">0.00%</span>
-                    </div>
-                    <div class="data-row">
-                        <span>WDI Veto</span>
-                        <span class="val wdi" id="wdiVeto">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Threshold WMI</span>
-                        <span class="val">90.0</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Threshold Dist</span>
-                        <span class="val">2.0%</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Threshold OI</span>
-                        <span class="val">&#60; 0 (negative)</span>
-                    </div>
-                    <div class="alert-box wdi-alert" id="wdiAlert">
-                        <strong>🐋 WDI INFO:</strong> <span id="wdiMessage">Menunggu data...</span>
-                    </div>
-                </section>
+        <!-- Alert Box -->
+        <div class="details-section" id="alertBox" style="border-left: 4px solid #ffaa00;">
+            <strong>🐋 ALERT:</strong> <span id="alertMessage">WDI_VETO: WMI 95.1x + Short Liq 1.7% + OI turun - Whale Dominance detected!</span>
+        </div>
+
+        <!-- Raw Output (Collapsible) -->
+        <div class="raw-output">
+            <div class="raw-header">
+                <span>📦 RAW OUTPUT (16,000+ lines analyzer)</span>
+                <button class="toggle-raw" id="toggleRaw">Show Raw Data</button>
             </div>
-
-            <!-- V87 - Ghost Shell Tab -->
-            <div class="tab-content" id="tab-v87">
-                <section class="details-section">
-                    <div class="details-title">
-                        <h3>👻 V87 - Ghost in the Shell</h3>
-                        <div class="badge-group">
-                            <span class="badge">SAD</span>
-                            <span class="badge">ZAS</span>
-                            <span class="badge">LCD</span>
-                            <span class="badge">LBD</span>
-                            <span class="badge">LIM</span>
-                        </div>
-                    </div>
-                    <div class="data-row">
-                        <span>SAD - Stealth Accumulation</span>
-                        <span class="val" id="v87Sad">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>ZAS - Zero Aggression</span>
-                        <span class="val" id="v87Zas">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>LCD - Compression</span>
-                        <span class="val" id="v87Lcd">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>LBD - Liquidity Bait</span>
-                        <span class="val" id="v87Lbd">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>LIM - Imbalance</span>
-                        <span class="val" id="v87Lim">INACTIVE</span>
-                    </div>
-                </section>
-            </div>
-
-            <!-- V86 - Zero Gravity Tab -->
-            <div class="tab-content" id="tab-v86">
-                <section class="details-section">
-                    <div class="details-title">
-                        <h3>☢️ V86 - Zero Gravity Horizon</h3>
-                        <div class="badge-group">
-                            <span class="badge odf">ODF</span>
-                            <span class="badge zgh">ZGH</span>
-                        </div>
-                    </div>
-                    <div class="data-row">
-                        <span>ODF - Overbought Distribution</span>
-                        <span class="val odf" id="v86Odf">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>ZGH - Zero Gravity</span>
-                        <span class="val odf" id="v86Zgh">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>RSI</span>
-                        <span class="val" id="v86Rsi">0.0</span>
-                    </div>
-                    <div class="data-row">
-                        <span>OI Delta</span>
-                        <span class="val" id="v86OiDelta">0.00%</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Aggression</span>
-                        <span class="val" id="v86Agg">0.00x</span>
-                    </div>
-                </section>
-            </div>
-
-            <!-- V85 - Oversold Trap Tab -->
-            <div class="tab-content" id="tab-v85">
-                <section class="details-section">
-                    <div class="details-title">
-                        <h3>🔄 V85 - Oversold Trap Filter</h3>
-                        <span class="badge otf">OTF</span>
-                    </div>
-                    <div class="data-row">
-                        <span>OTF - Trap Status</span>
-                        <span class="val green" id="v85Otf">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Scenario</span>
-                        <span class="val" id="v85Scenario">NORMAL</span>
-                    </div>
-                    <div class="data-row">
-                        <span>RSI</span>
-                        <span class="val" id="v85Rsi">0.0</span>
-                    </div>
-                    <div class="data-row">
-                        <span>WMI</span>
-                        <span class="val" id="v85Wmi">0.0</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Aggression</span>
-                        <span class="val" id="v85Agg">0.00x</span>
-                    </div>
-                </section>
-            </div>
-
-            <footer class="alert-box wdi-alert" id="alertBox">
-                <strong>🐋 V88 ALERT:</strong> <span id="alertMessage">WDI_VETO: WMI 95.1x (SHORT_LIQ_WHALE) terdeteksi! Jarak 1.7% terlalu lezat untuk MM. OI turun (-1.7%) adalah bukti SHORT COVERING. DILARANG SHORT! MM lebih milih makan 'Ikan Paus' daripada 'Ikan Teri'!</span>
-            </footer>
+            <pre id="rawData" style="display: none;">{}</pre>
         </div>
 
         <div class="footer">
-            DylPredict V88 • Whale Dominance Index (The Liquidity Pathfinder) | WDI • ODF • ZGH • OTF • FGD • LPS • LDF • WDF • LLS • FSD • LHG • OVS • ADV • TBD • OIA • LSP • LMG • API • LTG • ICD • EZH • WTD • IER • RMG • FMV • PSV • OFF • AEF • PSR • AMV • LGO • MDV • PAB • CFK • MDD • OVD • TREND • OGD • ZAS • AVC • ATI • AMD • TDP • WED • MWR • LVS • DTD
+            DylPredict V87 • Ghost in the Shell Edition • 40+ Modules • 16,000+ Lines
         </div>
     </div>
 
+    <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner">
             <i class="fas fa-sync-alt fa-spin"></i>
-            <p>Analyzing...</p>
+            <p style="margin-top: 20px;">Analyzing with 16,000 lines of code...</p>
         </div>
     </div>
 
     <script>
-        // Configuration
-        const API_URL = ''; // Kosongkan untuk relative path, atau isi dengan URL backend jika berbeda
+        const API_URL = ''; // Kosongkan untuk relative path
         
         // DOM Elements
         const elements = {
-            symbolSelect: document.getElementById('symbolSelect'),
-            analyzeCustomBtn: document.getElementById('analyzeCustomBtn'),
-            analyzeRealBtn: document.getElementById('analyzeRealBtn'),
-            customSymbolInput: document.getElementById('customSymbolInput'),
+            symbolInput: document.getElementById('symbolInput'),
+            analyzeBtn: document.getElementById('analyzeBtn'),
             loadingOverlay: document.getElementById('loadingOverlay'),
-            mainSymbol: document.getElementById('mainSymbol'),
-            headerTime: document.getElementById('headerTime'),
-            priceValue: document.getElementById('priceValue'),
+            symbolName: document.getElementById('symbolName'),
+            timestamp: document.getElementById('timestamp'),
+            price: document.getElementById('price'),
             signalHero: document.getElementById('signalHero'),
-            opinionMain: document.getElementById('opinionMain'),
-            strategyDisplay: document.getElementById('strategyDisplay'),
-            phaseReason: document.getElementById('phaseReason'),
-            confidenceFill: document.getElementById('confidenceFill'),
+            opinion: document.getElementById('opinion'),
+            strategy: document.getElementById('strategy'),
+            reason: document.getElementById('reason'),
             confidenceLabel: document.getElementById('confidenceLabel'),
-            biasValue: document.getElementById('biasValue'),
-            rsiValue: document.getElementById('rsiValue'),
+            confidenceFill: document.getElementById('confidenceFill'),
+            phaseBadge: document.getElementById('phaseBadge'),
+            bias: document.getElementById('bias'),
+            rsi6: document.getElementById('rsi6'),
             tradeFlow: document.getElementById('tradeFlow'),
             oiDelta: document.getElementById('oiDelta'),
             obRatio: document.getElementById('obRatio'),
             aggRatio: document.getElementById('aggRatio'),
-            liqTarget: document.getElementById('liqTarget'),
-            wmiValue: document.getElementById('wmiValue'),
+            wmi: document.getElementById('wmi'),
             longLiq: document.getElementById('longLiq'),
             shortLiq: document.getElementById('shortLiq'),
-            ttkMinutes: document.getElementById('ttkMinutes'),
-            maValue: document.getElementById('maValue'),
-            obvValue: document.getElementById('obvValue'),
-            // V88 Status
             wdiStatus: document.getElementById('wdiStatus'),
-            // V86 Status
             odfStatus: document.getElementById('odfStatus'),
-            zghStatus: document.getElementById('zghStatus'),
-            // V85 Status
             otfStatus: document.getElementById('otfStatus'),
-            // V82 Status
-            lmgStatus: document.getElementById('lmgStatus'),
-            apiStatus: document.getElementById('apiStatus'),
-            ltgStatus: document.getElementById('ltgStatus'),
-            icdStatus: document.getElementById('icdStatus'),
-            // V80 Status
+            ttk: document.getElementById('ttk'),
+            entryStatus: document.getElementById('entryStatus'),
+            sadStatus: document.getElementById('sadStatus'),
+            zasStatus: document.getElementById('zasStatus'),
+            lcdStatus: document.getElementById('lcdStatus'),
+            lbdStatus: document.getElementById('lbdStatus'),
+            limStatus: document.getElementById('limStatus'),
             ierStatus: document.getElementById('ierStatus'),
             rmgStatus: document.getElementById('rmgStatus'),
-            fmvStatus: document.getElementById('fmvStatus'),
-            // V75 Status
-            amvStatus: document.getElementById('amvStatus'),
-            lgoStatus: document.getElementById('lgoStatus'),
-            mdvStatus: document.getElementById('mdvStatus'),
-            cfkStatus: document.getElementById('cfkStatus'),
+            lmgStatus: document.getElementById('lmgStatus'),
+            apiStatus: document.getElementById('apiStatus'),
+            icdStatus: document.getElementById('icdStatus'),
             alertBox: document.getElementById('alertBox'),
             alertMessage: document.getElementById('alertMessage'),
-            phaseBadge: document.getElementById('phaseBadge'),
-            
-            // Real data elements
-            realSignalHero: document.getElementById('realSignalHero'),
-            realOpinionMain: document.getElementById('realOpinionMain'),
-            realPhaseReason: document.getElementById('realPhaseReason'),
-            realChange24h: document.getElementById('realChange24h'),
-            realVolume24h: document.getElementById('realVolume24h'),
-            realHigh24h: document.getElementById('realHigh24h'),
-            realLow24h: document.getElementById('realLow24h'),
-            realObRatio: document.getElementById('realObRatio'),
-            realRsi6: document.getElementById('realRsi6'),
-            realRsi14: document.getElementById('realRsi14'),
-            realChange5m: document.getElementById('realChange5m'),
-            realChange1m: document.getElementById('realChange1m'),
-            realMa10: document.getElementById('realMa10'),
-            realMa20: document.getElementById('realMa20'),
-            realLongLiq: document.getElementById('realLongLiq'),
-            realShortLiq: document.getElementById('realShortLiq'),
-            realFundingRate: document.getElementById('realFundingRate'),
-            realPremium: document.getElementById('realPremium'),
-            realOpenInterest: document.getElementById('realOpenInterest'),
-            
-            // WDI elements
-            wdiWmi: document.getElementById('wdiWmi'),
-            wdiShortDist: document.getElementById('wdiShortDist'),
-            wdiOiDelta: document.getElementById('wdiOiDelta'),
-            wdiVeto: document.getElementById('wdiVeto'),
-            wdiAlert: document.getElementById('wdiAlert'),
-            wdiMessage: document.getElementById('wdiMessage'),
-            
-            // V87 elements
-            v87Sad: document.getElementById('v87Sad'),
-            v87Zas: document.getElementById('v87Zas'),
-            v87Lcd: document.getElementById('v87Lcd'),
-            v87Lbd: document.getElementById('v87Lbd'),
-            v87Lim: document.getElementById('v87Lim'),
-            
-            // V86 elements
-            v86Odf: document.getElementById('v86Odf'),
-            v86Zgh: document.getElementById('v86Zgh'),
-            v86Rsi: document.getElementById('v86Rsi'),
-            v86OiDelta: document.getElementById('v86OiDelta'),
-            v86Agg: document.getElementById('v86Agg'),
-            
-            // V85 elements
-            v85Otf: document.getElementById('v85Otf'),
-            v85Scenario: document.getElementById('v85Scenario'),
-            v85Rsi: document.getElementById('v85Rsi'),
-            v85Wmi: document.getElementById('v85Wmi'),
-            v85Agg: document.getElementById('v85Agg'),
-            
-            // Tabs
-            tabs: document.querySelectorAll('.tab'),
-            tabContents: document.querySelectorAll('.tab-content')
+            toggleRaw: document.getElementById('toggleRaw'),
+            rawData: document.getElementById('rawData')
         };
 
-        // Fungsi untuk mendapatkan waktu Indonesia (WIB / GMT+7)
-        function getIndonesiaTime() {
+        // Update timestamp
+        function updateTimestamp() {
             const now = new Date();
-            
-            // Konversi ke GMT+7 (Indonesia)
-            const options = {
-                timeZone: 'Asia/Jakarta',
-                hour12: false,
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            };
-            
-            const timeString = now.toLocaleTimeString('id-ID', options);
-            
-            // Dapatkan milliseconds
-            const milliseconds = now.getMilliseconds().toString().padStart(3, '0');
-            
-            return `${timeString}.${milliseconds} GMT+7`;
+            elements.timestamp.textContent = now.toLocaleTimeString('id-ID', { hour12: false }) + '.' + 
+                now.getMilliseconds().toString().padStart(3, '0');
         }
+        setInterval(updateTimestamp, 100);
+        updateTimestamp();
 
-        // Real-time clock dengan waktu Indonesia (WIB / GMT+7)
-        function updateClock() {
-            elements.headerTime.textContent = getIndonesiaTime();
-        }
-
-        setInterval(updateClock, 100);
-        updateClock(); // Panggil segera
-
-        // Tab switching
-        elements.tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Remove active class from all tabs and contents
-                elements.tabs.forEach(t => t.classList.remove('active'));
-                elements.tabContents.forEach(c => c.classList.remove('active'));
-                
-                // Add active class to clicked tab
-                tab.classList.add('active');
-                
-                // Show corresponding content
-                const tabId = tab.getAttribute('data-tab');
-                document.getElementById(`tab-${tabId}`).classList.add('active');
-            });
+        // Toggle raw data
+        elements.toggleRaw.addEventListener('click', () => {
+            if (elements.rawData.style.display === 'none') {
+                elements.rawData.style.display = 'block';
+                elements.toggleRaw.textContent = 'Hide Raw Data';
+            } else {
+                elements.rawData.style.display = 'none';
+                elements.toggleRaw.textContent = 'Show Raw Data';
+            }
         });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            attachEventListeners();
-            // Auto-analyze RIVERUSDT on load untuk demo V88
-            setTimeout(() => {
-                elements.customSymbolInput.value = 'RIVERUSDT';
-                analyzeSymbol('RIVERUSDT');
-            }, 500);
+        // Analyze button
+        elements.analyzeBtn.addEventListener('click', () => {
+            const symbol = elements.symbolInput.value.trim().toUpperCase();
+            if (symbol) analyzeSymbol(symbol);
         });
 
-        function attachEventListeners() {
-            elements.analyzeCustomBtn.addEventListener('click', () => {
-                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
-                if (symbol) {
-                    analyzeSymbol(symbol);
-                } else {
-                    alert('Please enter a symbol!');
-                }
-            });
-
-            elements.analyzeRealBtn.addEventListener('click', () => {
-                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
-                if (symbol) {
-                    fetchRealData(symbol);
-                } else {
-                    alert('Please enter a symbol!');
-                }
-            });
-
-            elements.customSymbolInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    elements.analyzeCustomBtn.click();
-                }
-            });
-
-            elements.symbolSelect.addEventListener('change', (e) => {
-                elements.customSymbolInput.value = e.target.value;
-            });
-        }
+        // Enter key
+        elements.symbolInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') elements.analyzeBtn.click();
+        });
 
         async function analyzeSymbol(symbol) {
             showLoading();
             
             try {
-                const timestamp = Date.now();
-                const url = `${API_URL}/analyze/${symbol}?t=${timestamp}`;
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache'
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
+                const response = await fetch(`${API_URL}/analyze/${symbol}?t=${Date.now()}`);
                 const result = await response.json();
                 
                 if (result.success && result.data) {
                     updateDisplay(result.data);
-                    
-                    // Also fetch WDI data
-                    fetchWDIData(symbol);
-                    
-                    // Switch to V88 tab
-                    document.querySelector('.tab[data-tab="v88"]').click();
+                    elements.rawData.textContent = JSON.stringify(result.data, null, 2);
                 } else {
-                    throw new Error(result.error || `Failed to fetch data for ${symbol}`);
+                    throw new Error(result.error || 'Analysis failed');
                 }
-                
             } catch (error) {
-                console.error('Analysis Failed:', error);
-                showError(error.message);
+                console.error('Error:', error);
+                elements.alertMessage.textContent = `ERROR: ${error.message}`;
+                elements.alertBox.style.borderLeftColor = '#ff6b6b';
             } finally {
                 hideLoading();
-            }
-        }
-
-        async function fetchRealData(symbol) {
-            showLoading();
-            
-            try {
-                const timestamp = Date.now();
-                const url = `${API_URL}/real/${symbol}?t=${timestamp}`;
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache'
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.success && result.data) {
-                    updateRealDisplay(result.data);
-                    
-                    // Switch to Real Data tab
-                    document.querySelector('.tab[data-tab="real"]').click();
-                } else {
-                    throw new Error(result.error || `Failed to fetch real data for ${symbol}`);
-                }
-                
-            } catch (error) {
-                console.error('Real Data Fetch Failed:', error);
-                showError(error.message);
-            } finally {
-                hideLoading();
-            }
-        }
-
-        async function fetchWDIData(symbol) {
-            try {
-                const timestamp = Date.now();
-                const url = `${API_URL}/wdi/${symbol}?t=${timestamp}`;
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache'
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.success && result.data) {
-                    updateWDIDisplay(result.data);
-                }
-                
-            } catch (error) {
-                console.error('WDI Data Fetch Failed:', error);
             }
         }
 
         function updateDisplay(data) {
-            elements.mainSymbol.textContent = data.symbol || 'RIVERUSDT';
+            // Basic info
+            elements.symbolName.textContent = data.symbol || 'BTCUSDT';
+            elements.price.textContent = `$${(data.price || 0).toFixed(4)}`;
             
-            // Harga dengan efek transisi warna
-            const oldPrice = parseFloat(elements.priceValue.textContent.replace('$', ''));
-            const newPrice = data.price || 0.0000;
+            // Signal
+            const bias = data.bias || 'NEUTRAL';
+            elements.opinion.textContent = bias;
+            elements.signalHero.className = `signal-hero ${bias.toLowerCase()}`;
             
-            elements.priceValue.style.transition = "color 0.5s";
-            if (newPrice > oldPrice) {
-                elements.priceValue.style.color = "var(--green)";
-            } else if (newPrice < oldPrice) {
-                elements.priceValue.style.color = "var(--red)";
-            } else {
-                elements.priceValue.style.color = "var(--green)";
-            }
-            
-            elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.0000'}`;
-            
-            const bias = data.bias || 'LONG';
-            elements.opinionMain.textContent = bias;
-            
-            // Check all strategy priorities in V88 order
+            // Phase badge
             const wdiActive = data.wdi?.is_veto || false;
-            const odfActive = data.odf?.active || data.odf?.is_active || false;
-            const zghActive = data.zgh?.is_ceiling || false;
+            const odfActive = data.odf?.active || false;
             const otfActive = data.otf?.is_trap || false;
-            const lmgActive = data.lmg?.is_death_magnet;
-            const apiActive = data.api?.is_absorbing;
-            const ltgActive = data.ltg?.is_vacuum;
-            const icdActive = data.icd?.is_internal_trap;
-            const ezhActive = data.ezh?.is_execution;
-            const wtdActive = data.wtd?.is_wash_trade;
-            const ierActive = data.ier?.is_exit;
-            const rmgActive = data.rmg?.is_weak;
-            const fmvActive = data.fmv?.is_fake_magnet;
-            const psvActive = data.psv?.is_valid;
-            const offActive = data.off?.is_patched;
-            const aefActive = data.aef?.is_exhausted;
-            const psrActive = data.psr?.is_saturated;
-            const amvActive = data.amv?.is_absorption_long;
-            const lgoActive = data.lgo?.is_overdrive;
-            const mdvActive = data.mdv?.is_magnet_fake;
-            const pabActive = data.pab?.is_blackhole;
-            const cfkActive = data.cfk?.is_knife;
             
-            const phase = data.phase_v88 || data.market_phase || 'WHALE_HUNT';
-            
-            // Set phase badge based on priority (V88 order)
             if (wdiActive) {
-                elements.phaseBadge.textContent = `WDI ${data.wdi?.reason?.substring(0, 20) || 'WHALE VETO!'}`;
-                elements.phaseBadge.className = 'phase-badge wdi';
+                elements.phaseBadge.textContent = 'WDI VETO';
+                elements.phaseBadge.style.background = '#ffaa00';
             } else if (odfActive) {
-                elements.phaseBadge.textContent = `ODF ${data.odf?.reason?.substring(0, 20) || 'DISTRIBUTION TOP'}`;
-                elements.phaseBadge.className = 'phase-badge odf';
-            } else if (zghActive) {
-                elements.phaseBadge.textContent = `ZGH ${data.zgh?.reason?.substring(0, 20) || 'ZERO GRAVITY'}`;
-                elements.phaseBadge.className = 'phase-badge zgh';
+                elements.phaseBadge.textContent = 'ODF DISTRIBUTION';
+                elements.phaseBadge.style.background = '#ffaa00';
             } else if (otfActive) {
-                const otfScenario = data.otf?.scenario || 'TRAP';
-                elements.phaseBadge.textContent = `OTF ${otfScenario}`;
-                elements.phaseBadge.className = 'phase-badge otf';
-            } else if (lmgActive) {
-                elements.phaseBadge.textContent = `LMG ${data.lmg?.reason?.substring(0, 20) || 'DEATH MAGNET'}`;
-                elements.phaseBadge.className = 'phase-badge lmg';
-            } else if (apiActive) {
-                elements.phaseBadge.textContent = `API ${data.api?.reason?.substring(0, 20) || 'ABSORPTION'}`;
-                elements.phaseBadge.className = 'phase-badge api';
-            } else if (ltgActive) {
-                elements.phaseBadge.textContent = `LTG ${data.ltg?.reason?.substring(0, 20) || 'VACUUM'}`;
-                elements.phaseBadge.className = 'phase-badge ltg';
-            } else if (icdActive) {
-                elements.phaseBadge.textContent = `ICD ${data.icd?.reason?.substring(0, 20) || 'INTERNAL CROSS'}`;
-                elements.phaseBadge.className = 'phase-badge icd';
-            } else if (ezhActive) {
-                const ezhType = data.ezh?.execution_type || 'EXECUTION';
-                elements.phaseBadge.textContent = `EZH ${ezhType}`;
-                elements.phaseBadge.className = 'phase-badge ezh';
-            } else if (wtdActive) {
-                const wtdType = data.wtd?.wash_type || 'WASH TRADE';
-                elements.phaseBadge.textContent = `WTD ${wtdType}`;
-                elements.phaseBadge.className = 'phase-badge wtd';
-            } else if (ierActive) {
-                const ierType = data.ier?.exit_type || 'EXIT';
-                elements.phaseBadge.textContent = `IER ${ierType}`;
-                elements.phaseBadge.className = 'phase-badge ier';
-            } else if (rmgActive) {
-                const rmgType = data.rmg?.weakness_type || 'WEAK';
-                elements.phaseBadge.textContent = `RMG ${rmgType}`;
-                elements.phaseBadge.className = 'phase-badge rmg';
-            } else if (fmvActive) {
-                const fmvType = data.fmv?.fake_type || 'FAKE MAGNET';
-                elements.phaseBadge.textContent = `FMV ${fmvType}`;
-                elements.phaseBadge.className = 'phase-badge fmv';
-            } else if (psvActive) {
-                const psvType = data.psv?.validation_type || 'VALIDATION';
-                elements.phaseBadge.textContent = `PSV ${psvType}`;
-                elements.phaseBadge.className = 'phase-badge psv';
-            } else if (offActive) {
-                elements.phaseBadge.textContent = `OFF ${data.off?.patched_type || 'PATCHED'}`;
-                elements.phaseBadge.className = 'phase-badge';
-            } else if (aefActive) {
-                elements.phaseBadge.textContent = `AEF ${data.aef?.exhausted_type || 'EXHAUSTED'}`;
-                elements.phaseBadge.className = 'phase-badge';
-            } else if (psrActive) {
-                elements.phaseBadge.textContent = `PSR ${data.psr?.saturation_type || 'SATURATED'}`;
-                elements.phaseBadge.className = 'phase-badge';
-            } else if (amvActive) {
-                elements.phaseBadge.textContent = `AMV ${data.amv?.reason?.substring(0, 20) || 'ABSORPTION'}`;
-                elements.phaseBadge.className = 'phase-badge amv';
-            } else if (lgoActive) {
-                const lgoType = data.lgo?.overdrive_type || 'GRAVITY';
-                elements.phaseBadge.textContent = `LGO ${lgoType}`;
-                elements.phaseBadge.className = 'phase-badge lgo';
-            } else if (cfkActive) {
-                elements.phaseBadge.textContent = `CFK ${data.cfk?.knife_type || 'FALLING KNIFE'}`;
-                elements.phaseBadge.className = 'phase-badge cfk';
+                elements.phaseBadge.textContent = 'OTF TRAP';
+                elements.phaseBadge.style.background = '#4cd964';
             } else {
-                elements.phaseBadge.textContent = phase;
-                elements.phaseBadge.className = 'phase-badge';
+                elements.phaseBadge.textContent = data.market_phase || 'NEUTRAL';
+                elements.phaseBadge.style.background = '#4cd964';
             }
             
-            elements.strategyDisplay.textContent = `STRATEGY: ${phase}`;
-            elements.phaseReason.textContent = data.phase_reason || data.reason || 'WDI_VETO: WMI 95.1x + Short Liq 1.7% + OI turun - Whale Dominance detected! DILARANG SHORT!';
+            // Reason
+            elements.reason.textContent = data.reason || 'No reason provided';
+            elements.strategy.textContent = `STRATEGY: ${data.phase_v90 || 'NORMAL'}`;
+            
+            // Confidence
+            const confidence = data.confidence || 'LOW';
+            elements.confidenceLabel.textContent = `CONFIDENCE: ${confidence}`;
             
             let confidenceWidth = 0;
-            let confidenceText = 'CONFIDENCE: --';
-            const confidence = data.confidence || 'ABSOLUTE';
-            
-            if (confidence === 'ABSOLUTE') {
-                confidenceWidth = 100;
-                confidenceText = 'CONFIDENCE: ABSOLUTE';
-            } else if (confidence === 'SUPREME') {
-                confidenceWidth = 95;
-                confidenceText = 'CONFIDENCE: SUPREME';
-            } else if (confidence === 'HIGH') {
-                confidenceWidth = 75;
-                confidenceText = 'CONFIDENCE: HIGH';
-            } else if (confidence === 'MEDIUM') {
-                confidenceWidth = 50;
-                confidenceText = 'CONFIDENCE: MEDIUM';
-            } else if (confidence === 'LOW') {
-                confidenceWidth = 25;
-                confidenceText = 'CONFIDENCE: LOW';
-            }
-            
+            if (confidence === 'ABSOLUTE') confidenceWidth = 100;
+            else if (confidence === 'SUPREME') confidenceWidth = 95;
+            else if (confidence === 'HIGH') confidenceWidth = 75;
+            else if (confidence === 'MEDIUM') confidenceWidth = 50;
+            else if (confidence === 'LOW') confidenceWidth = 25;
             elements.confidenceFill.style.width = `${confidenceWidth}%`;
-            elements.confidenceLabel.textContent = confidenceText;
-            
-            elements.biasValue.textContent = bias;
-            elements.biasValue.className = `big-value ${bias.toLowerCase() === 'long' ? 'green' : bias.toLowerCase() === 'short' ? 'red' : ''}`;
-            
-            const rsi6 = data.rsi6 || 72.0;
-            elements.rsiValue.textContent = rsi6.toFixed(1);
-            elements.rsiValue.className = `big-value ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}`;
-            
-            elements.tradeFlow.textContent = `${(data.trade_flow || 1.20).toFixed(2)}x`;
-            elements.tradeFlow.className = `big-value ${(data.trade_flow || 1.20) > 2 ? 'warning' : ''}`;
-            
-            const oiDelta = data.oi_delta_5m || -1.70;
-            elements.oiDelta.textContent = (oiDelta > 0 ? '+' : '') + oiDelta.toFixed(2) + '%';
-            elements.oiDelta.className = `big-value ${oiDelta > 2 ? 'green' : oiDelta < -0.5 ? 'red' : ''}`;
-            
-            elements.obRatio.textContent = `${(data.ob_ratio || 1.05).toFixed(2)}x`;
-            elements.obRatio.className = `val ${(data.ob_ratio || 1.05) > 1.5 ? 'green' : (data.ob_ratio || 1.05) < 0.6 ? 'red' : ''}`;
-            
-            elements.aggRatio.textContent = `${(data.aggressive_ratio || 0.85).toFixed(2)}x`;
-            elements.aggRatio.className = `val ${(data.aggressive_ratio || 0.85) > 2 ? 'warning' : ''}`;
-            
-            const longLiq = data.long_liq || 12.4;
-            const shortLiq = data.short_liq || 1.70;
-            const nearestLiq = longLiq < shortLiq ? `-${longLiq.toFixed(2)}% (Long Liq)` : `+${shortLiq.toFixed(2)}% (Short Liq)`;
-            elements.liqTarget.textContent = nearestLiq;
-            elements.liqTarget.className = `val ${longLiq < shortLiq ? 'red' : 'green'}`;
-            
-            const wmi = data.wmi_ratio || 95.1;
-            elements.wmiValue.textContent = (wmi > 0 ? '+' : '') + wmi.toFixed(1);
-            elements.wmiValue.className = `val ${Math.abs(wmi) > 50 ? 'wdi' : ''}`;
-            
-            elements.longLiq.textContent = longLiq ? `${longLiq.toFixed(2)}%` : '--';
-            elements.longLiq.className = longLiq < 0.5 ? 'red' : '';
-            
-            elements.shortLiq.textContent = shortLiq ? `${shortLiq.toFixed(2)}%` : '--';
-            elements.shortLiq.className = shortLiq < 0.5 ? 'green' : '';
-            
-            const ttk = data.ttk?.estimated_minutes || '15';
-            elements.ttkMinutes.textContent = ttk !== '--' ? ttk + 'm' : '--';
-            
-            // MA10/MA20
-            const ma10 = data.ma10 || 0.845;
-            const ma20 = data.ma20 || 0.832;
-            elements.maValue.textContent = ma10 ? `${ma10.toFixed(3)}/${ma20.toFixed(3)}` : '--/--';
-            
-            // OBV
-            const obv = data.obv || 1567;
-            elements.obvValue.textContent = obv ? obv.toFixed(0) : '--';
-            
-            // V88 Module Status - PRIORITAS TERTINGGI!
-            elements.wdiStatus.textContent = data.wdi?.is_veto ? 'ACTIVE (VETO!)' : 'INACTIVE';
-            elements.wdiStatus.className = `val ${data.wdi?.is_veto ? 'wdi' : ''}`;
-            
-            // V86 Module Status
-            elements.odfStatus.textContent = data.odf?.active ? 'ACTIVE' : 'INACTIVE';
-            elements.odfStatus.className = `val ${data.odf?.active ? 'odf' : ''}`;
-            
-            elements.zghStatus.textContent = data.zgh?.is_ceiling ? 'ACTIVE' : 'INACTIVE';
-            elements.zghStatus.className = `val ${data.zgh?.is_ceiling ? 'zgh' : ''}`;
-            
-            // V85 Module Status
-            elements.otfStatus.textContent = data.otf?.is_trap ? 'ACTIVE' : 'INACTIVE';
-            elements.otfStatus.className = `val ${data.otf?.is_trap ? 'green' : ''}`;
-            
-            // V82 Module Status
-            elements.lmgStatus.textContent = data.lmg?.is_death_magnet ? 'ACTIVE' : 'INACTIVE';
-            elements.lmgStatus.className = `val ${data.lmg?.is_death_magnet ? 'death' : ''}`;
-            
-            elements.apiStatus.textContent = data.api?.is_absorbing ? 'ACTIVE' : 'INACTIVE';
-            elements.apiStatus.className = `val ${data.api?.is_absorbing ? 'absorption' : ''}`;
-            
-            elements.ltgStatus.textContent = data.ltg?.is_vacuum ? 'ACTIVE' : 'INACTIVE';
-            elements.ltgStatus.className = `val ${data.ltg?.is_vacuum ? 'vacuum' : ''}`;
-            
-            elements.icdStatus.textContent = data.icd?.is_internal_trap ? 'ACTIVE' : 'INACTIVE';
-            elements.icdStatus.className = `val ${data.icd?.is_internal_trap ? 'green' : ''}`;
-            
-            // V80 Module Status
-            elements.ierStatus.textContent = data.ier?.is_exit ? 'ACTIVE' : 'INACTIVE';
-            elements.ierStatus.className = `val ${data.ier?.is_exit ? 'green' : ''}`;
-            
-            elements.rmgStatus.textContent = data.rmg?.is_weak ? 'ACTIVE' : 'INACTIVE';
-            elements.rmgStatus.className = `val ${data.rmg?.is_weak ? 'green' : ''}`;
-            
-            elements.fmvStatus.textContent = data.fmv?.is_fake_magnet ? 'ACTIVE' : 'INACTIVE';
-            elements.fmvStatus.className = `val ${data.fmv?.is_fake_magnet ? 'green' : ''}`;
-            
-            // V75 Module Status
-            elements.amvStatus.textContent = data.amv?.is_absorption_long ? 'ACTIVE' : 'INACTIVE';
-            elements.amvStatus.className = `val ${data.amv?.is_absorption_long ? 'purple' : ''}`;
-            
-            elements.lgoStatus.textContent = data.lgo?.is_overdrive ? 'ACTIVE' : 'INACTIVE';
-            elements.lgoStatus.className = `val ${data.lgo?.is_overdrive ? 'pink' : ''}`;
-            
-            elements.mdvStatus.textContent = data.mdv?.is_magnet_fake ? 'ACTIVE' : 'INACTIVE';
-            elements.mdvStatus.className = `val ${data.mdv?.is_magnet_fake ? 'green' : ''}`;
-            
-            elements.cfkStatus.textContent = data.cfk?.is_knife ? 'ACTIVE' : 'INACTIVE';
-            elements.cfkStatus.className = `val ${data.cfk?.is_knife ? 'cfk' : ''}`;
-            
-            let alertMsg = data.liquidation_alert || data.reason || 'WDI_VETO: WMI 95.1x + Short Liq 1.7% + OI turun - Whale Dominance detected! MM lebih milih makan Ikan Paus daripada Ikan Teri!';
-            
-            // Set alert box based on priority (V88 order)
-            if (wdiActive) {
-                alertMsg = `WDI VETO: ${data.wdi?.reason || 'Whale Dominance detected! DILARANG SHORT!'}`;
-                elements.alertBox.className = 'alert-box wdi-alert';
-            } else if (odfActive) {
-                alertMsg = `ODF: ${data.odf?.reason || 'Overbought Distribution detected - DISTRIBUTION TOP!'}`;
-                elements.alertBox.className = 'alert-box odf-alert';
-            } else if (zghActive) {
-                alertMsg = `ZGH: ${data.zgh?.reason || 'Zero Gravity Horizon - DISTRIBUTION TOP! DILARANG LONG!'}`;
-                elements.alertBox.className = 'alert-box zgh-alert';
-            } else if (otfActive) {
-                alertMsg = `OTF: ${data.otf?.reason || 'Oversold Trap detected!'}`;
-                elements.alertBox.className = 'alert-box otf-alert';
-            } else if (lmgActive) {
-                alertMsg = `LMG: ${data.lmg?.reason || 'Death Magnet detected - CASCADE IMMINENT!'}`;
-                elements.alertBox.className = 'alert-box lmg-alert';
-            } else if (apiActive) {
-                alertMsg = `API: ${data.api?.reason || 'Whale Absorption detected - SIAP TERBANG!'}`;
-                elements.alertBox.className = 'alert-box api-alert';
-            } else if (ltgActive) {
-                alertMsg = `LTG: ${data.ltg?.reason || 'Liquidity Vacuum - Infinity Squeeze!'}`;
-                elements.alertBox.className = 'alert-box ltg-alert';
-            } else if (icdActive) {
-                alertMsg = `ICD: ${data.icd?.reason || 'Internal Cross Trap - Position Flipping!'}`;
-                elements.alertBox.className = 'alert-box icd-alert';
-            } else if (ezhActive) {
-                alertMsg = `EZH: ${data.ezh?.reason || 'Execution Zone - Slingshot imminent!'}`;
-                elements.alertBox.className = 'alert-box';
-            } else if (wtdActive) {
-                alertMsg = `WTD: ${data.wtd?.reason || 'Wash Trade detected - Volume Palsu!'}`;
-                elements.alertBox.className = 'alert-box';
-            } else if (ierActive) {
-                alertMsg = `IER: ${data.ier?.reason || 'Institutional Exit - Cuci Gudang!'}`;
-                elements.alertBox.className = 'alert-box';
-            } else if (rmgActive) {
-                alertMsg = `RMG: ${data.rmg?.reason || 'RSI Weak Momentum - Siap Koreksi!'}`;
-                elements.alertBox.className = 'alert-box';
-            } else if (fmvActive) {
-                alertMsg = `FMV: ${data.fmv?.reason || 'Fake Magnet Vacuum - Jebakan!'}`;
-                elements.alertBox.className = 'alert-box';
-            } else if (psvActive) {
-                alertMsg = `PSV: ${data.psv?.reason || 'Panic Sell Validator - Falling Knife!'}`;
-                elements.alertBox.className = 'alert-box';
-            } else if (offActive) {
-                alertMsg = `OFF: ${data.off?.reason || 'Overdrive Flow - Whale Patching!'}`;
-                elements.alertBox.className = 'alert-box';
-            } else if (aefActive) {
-                alertMsg = `AEF: ${data.aef?.reason || 'Aggressive Exhaustion - FOMO Peak!'}`;
-                elements.alertBox.className = 'alert-box';
-            } else if (psrActive) {
-                alertMsg = `PSR: ${data.psr?.reason || 'Panic Saturation - Reversal Imminent!'}`;
-                elements.alertBox.className = 'alert-box';
-            } else if (amvActive) {
-                alertMsg = `AMV: ${data.amv?.reason || 'Retail panic selling absorbed by Whale - PASSIVE ACCUMULATION!'}`;
-                elements.alertBox.className = 'alert-box amv-alert';
-            } else if (lgoActive) {
-                alertMsg = `LGO: ${data.lgo?.reason || 'Gravity Overdrive detected - LIQUIDATION BLACKHOLE!'}`;
-                elements.alertBox.className = 'alert-box lgo-alert';
-            } else if (mdvActive) {
-                alertMsg = `MDV: ${data.mdv?.reason || 'Magnet Decay detected - FAKE MAGNET!'}`;
-                elements.alertBox.className = 'alert-box';
-            } else if (pabActive) {
-                alertMsg = `PAB BLACKHOLE: ${data.pab?.reason || 'Whale absorption detected - ABSOLUTE LONG!'}`;
-                elements.alertBox.className = 'alert-box';
-            } else if (cfkActive) {
-                alertMsg = `CFK: ${data.cfk?.reason || 'Falling knife detected - DANGER!'}`;
-                elements.alertBox.className = 'alert-box cfk-alert';
-            } else {
-                elements.alertBox.className = 'alert-box';
-            }
-            
-            elements.alertMessage.textContent = alertMsg;
-
-            // Update V87 elements
-            elements.v87Sad.textContent = data.sad?.is_active ? 'ACTIVE' : 'INACTIVE';
-            elements.v87Zas.textContent = data.zas_v87?.is_squeeze ? 'ACTIVE' : 'INACTIVE';
-            elements.v87Lcd.textContent = data.lcd?.is_compression ? 'ACTIVE' : 'INACTIVE';
-            elements.v87Lbd.textContent = data.lbd?.is_bait ? 'ACTIVE' : 'INACTIVE';
-            elements.v87Lim.textContent = data.lim?.bias !== 'NEUTRAL' ? 'ACTIVE' : 'INACTIVE';
-
-            // Update V86 elements
-            elements.v86Odf.textContent = data.odf?.active ? 'ACTIVE' : 'INACTIVE';
-            elements.v86Zgh.textContent = data.zgh?.is_ceiling ? 'ACTIVE' : 'INACTIVE';
-            elements.v86Rsi.textContent = (data.rsi6 || 0).toFixed(1);
-            elements.v86OiDelta.textContent = ((data.oi_delta_5m || 0) > 0 ? '+' : '') + (data.oi_delta_5m || 0).toFixed(2) + '%';
-            elements.v86Agg.textContent = (data.aggressive_ratio || 0).toFixed(2) + 'x';
-
-            // Update V85 elements
-            elements.v85Otf.textContent = data.otf?.is_trap ? 'ACTIVE' : 'INACTIVE';
-            elements.v85Scenario.textContent = data.otf?.scenario || 'NORMAL';
-            elements.v85Rsi.textContent = (data.rsi6 || 0).toFixed(1);
-            elements.v85Wmi.textContent = (data.wmi_ratio || 0).toFixed(1);
-            elements.v85Agg.textContent = (data.aggressive_ratio || 0).toFixed(2) + 'x';
-        }
-
-        function updateRealDisplay(data) {
-            elements.mainSymbol.textContent = data.symbol || 'RIVERUSDT';
-            elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.0000'}`;
-            
-            // Signal hero
-            const bias = data.opinion || 'NEUTRAL';
-            elements.realOpinionMain.textContent = bias;
-            elements.realSignalHero.className = `signal-hero ${bias.toLowerCase() === 'long' ? 'bullish' : bias.toLowerCase() === 'short' ? 'bearish' : 'pending'}`;
-            elements.realPhaseReason.textContent = data.reason || 'Real-time data from Binance';
             
             // Metrics
-            elements.realChange24h.textContent = (data.change_24h || 0).toFixed(2) + '%';
-            elements.realChange24h.className = `big-value ${(data.change_24h || 0) > 0 ? 'green' : (data.change_24h || 0) < 0 ? 'red' : ''}`;
+            elements.bias.textContent = bias;
+            elements.bias.className = `big-value ${bias.toLowerCase() === 'long' ? 'green' : bias.toLowerCase() === 'short' ? 'red' : ''}`;
             
-            elements.realVolume24h.textContent = (data.volume_24h || 0).toFixed(0);
-            elements.realHigh24h.textContent = `$${(data.high_24h || 0).toFixed(4)}`;
-            elements.realLow24h.textContent = `$${(data.low_24h || 0).toFixed(4)}`;
+            const rsi = data.rsi6 || 50;
+            elements.rsi6.textContent = rsi.toFixed(1);
+            elements.rsi6.className = `big-value ${rsi > 70 ? 'yellow' : rsi < 30 ? 'green' : ''}`;
             
-            // Details
-            elements.realObRatio.textContent = (data.ob_ratio || 1.0).toFixed(2) + 'x';
-            elements.realRsi6.textContent = (data.rsi6 || 50).toFixed(1);
-            elements.realRsi14.textContent = (data.rsi14 || 50).toFixed(1);
+            elements.tradeFlow.textContent = `${(data.trade_flow || 1).toFixed(2)}x`;
+            elements.oiDelta.textContent = ((data.oi_delta_5m || 0) > 0 ? '+' : '') + (data.oi_delta_5m || 0).toFixed(2) + '%';
             
-            const change5m = data.change_5m || 0;
-            elements.realChange5m.textContent = (change5m > 0 ? '+' : '') + change5m.toFixed(2) + '%';
-            elements.realChange5m.className = `val ${change5m > 0 ? 'green' : change5m < 0 ? 'red' : ''}`;
+            elements.obRatio.textContent = `${(data.ob_ratio || 1).toFixed(2)}x`;
+            elements.aggRatio.textContent = `${(data.aggressive_ratio || 0).toFixed(2)}x`;
             
-            const change1m = data.change_1m || 0;
-            elements.realChange1m.textContent = (change1m > 0 ? '+' : '') + change1m.toFixed(2) + '%';
-            elements.realChange1m.className = `val ${change1m > 0 ? 'green' : change1m < 0 ? 'red' : ''}`;
+            const wmi = data.wmi_ratio || 0;
+            elements.wmi.textContent = (wmi > 0 ? '+' : '') + wmi.toFixed(1);
+            elements.wmi.className = `val ${Math.abs(wmi) > 50 ? 'wdi' : ''}`;
             
-            elements.realMa10.textContent = (data.ma10 || 0).toFixed(4);
-            elements.realMa20.textContent = (data.ma20 || 0).toFixed(4);
+            elements.longLiq.textContent = `${(data.long_liq || 0).toFixed(2)}%`;
+            elements.shortLiq.textContent = `${(data.short_liq || 0).toFixed(2)}%`;
             
-            const longLiq = data.long_liq || 0;
-            elements.realLongLiq.textContent = longLiq.toFixed(2) + '%';
-            elements.realLongLiq.className = `val ${longLiq < 0.5 ? 'red' : ''}`;
+            // Module status
+            elements.wdiStatus.textContent = data.wdi?.is_veto ? 'ACTIVE' : 'INACTIVE';
+            elements.odfStatus.textContent = data.odf?.active ? 'ACTIVE' : 'INACTIVE';
+            elements.otfStatus.textContent = data.otf?.is_trap ? 'ACTIVE' : 'INACTIVE';
             
-            const shortLiq = data.short_liq || 0;
-            elements.realShortLiq.textContent = shortLiq.toFixed(2) + '%';
-            elements.realShortLiq.className = `val ${shortLiq < 0.5 ? 'green' : ''}`;
+            elements.ttk.textContent = (data.ttk?.estimated_minutes || '15') + 'm';
+            elements.entryStatus.textContent = data.entry_ready ? 'READY' : 'WAITING';
             
-            elements.realFundingRate.textContent = (data.funding_rate || 0).toFixed(4) + '%';
-            elements.realPremium.textContent = (data.premium || 0).toFixed(4) + '%';
-            elements.realOpenInterest.textContent = (data.open_interest || 0).toFixed(0);
-        }
-
-        function updateWDIDisplay(data) {
-            elements.wdiWmi.textContent = (data.wmi_ratio || 0).toFixed(1);
-            elements.wdiShortDist.textContent = (data.short_liq || 0).toFixed(2) + '%';
-            elements.wdiOiDelta.textContent = ((data.oi_delta_5m || 0) > 0 ? '+' : '') + (data.oi_delta_5m || 0).toFixed(2) + '%';
-            elements.wdiVeto.textContent = data.is_veto ? 'ACTIVE' : 'INACTIVE';
-            elements.wdiVeto.className = `val ${data.is_veto ? 'wdi' : ''}`;
-            elements.wdiMessage.textContent = data.wdi_reason || 'Menunggu data...';
+            // V87 modules
+            elements.sadStatus.textContent = data.sad?.is_active ? 'ACTIVE' : 'INACTIVE';
+            elements.zasStatus.textContent = data.zas_v87?.is_squeeze ? 'ACTIVE' : 'INACTIVE';
+            elements.lcdStatus.textContent = data.lcd?.is_compression ? 'ACTIVE' : 'INACTIVE';
+            elements.lbdStatus.textContent = data.lbd?.is_bait ? 'ACTIVE' : 'INACTIVE';
+            elements.limStatus.textContent = data.lim?.bias !== 'NEUTRAL' ? 'ACTIVE' : 'INACTIVE';
+            
+            elements.ierStatus.textContent = data.ier?.is_exit ? 'ACTIVE' : 'INACTIVE';
+            elements.rmgStatus.textContent = data.rmg?.is_weak ? 'ACTIVE' : 'INACTIVE';
+            elements.lmgStatus.textContent = data.lmg?.is_death_magnet ? 'ACTIVE' : 'INACTIVE';
+            elements.apiStatus.textContent = data.api?.is_absorbing ? 'ACTIVE' : 'INACTIVE';
+            elements.icdStatus.textContent = data.icd?.is_internal_trap ? 'ACTIVE' : 'INACTIVE';
+            
+            // Alert
+            elements.alertMessage.textContent = data.reason || 'No alert';
+            if (wdiActive) elements.alertBox.style.borderLeftColor = '#ffaa00';
+            else if (odfActive) elements.alertBox.style.borderLeftColor = '#ffaa00';
+            else if (otfActive) elements.alertBox.style.borderLeftColor = '#4cd964';
+            else elements.alertBox.style.borderLeftColor = '#4cd964';
         }
 
         function showLoading() {
             elements.loadingOverlay.style.display = 'flex';
-            document.body.classList.add('loading-active');
         }
 
         function hideLoading() {
             elements.loadingOverlay.style.display = 'none';
-            document.body.classList.remove('loading-active');
         }
 
-        function showError(message) {
-            elements.alertMessage.textContent = `ERROR: ${message}`;
-            elements.alertBox.className = 'alert-box nuclear';
-        }
+        // Auto-analyze on load
+        setTimeout(() => {
+            elements.symbolInput.value = 'RIVERUSDT';
+            elements.analyzeBtn.click();
+        }, 500);
     </script>
 </body>
 </html>
