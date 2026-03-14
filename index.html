@@ -3,599 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DylPredict • V87 Liquidation Hunter</title>
-    
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>DylPredict • V87</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #0a0f0b;
-            font-family: 'Inter', sans-serif;
-            color: #e0e0e0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* Header */
-        .header {
-            background: #1a241f;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid #2a3a30;
-        }
-
-        .logo h1 {
-            font-size: 24px;
-            color: #4cd964;
-            font-weight: 700;
-        }
-
-        .version {
-            background: #2a3a30;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            color: #4cd964;
-            margin-left: 10px;
-        }
-
-        .symbol-selector {
-            display: flex;
-            gap: 10px;
-        }
-
-        #symbolInput {
-            background: #1e2a22;
-            border: 1px solid #2a3a30;
-            border-radius: 8px;
-            padding: 10px 15px;
-            color: white;
-            width: 200px;
-        }
-
-        #symbolInput:focus {
-            outline: none;
-            border-color: #4cd964;
-        }
-
-        .btn {
-            background: #2a3a30;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 20px;
-            color: white;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.2s;
-        }
-
-        .btn-primary {
-            background: #4cd964;
-            color: #0a0f0b;
-        }
-
-        .btn-primary:hover {
-            background: #2ecc71;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Price Header */
-        .price-header {
-            background: #1a241f;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid #2a3a30;
-            position: relative;
-        }
-
-        .phase-badge {
-            position: absolute;
-            top: -10px;
-            right: 20px;
-            background: #4cd964;
-            color: #0a0f0b;
-            padding: 5px 20px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 12px;
-        }
-
-        .symbol-name {
-            font-size: 28px;
-            font-weight: 700;
-        }
-
-        .timestamp {
-            color: #888;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        .price {
-            font-size: 32px;
-            font-weight: 700;
-            color: #4cd964;
-        }
-
-        /* Signal Hero */
-        .signal-hero {
-            background: #1a241f;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 20px;
-            text-align: center;
-            border: 1px solid #2a3a30;
-        }
-
-        .signal-hero.bullish {
-            border-bottom: 4px solid #4cd964;
-        }
-
-        .signal-hero.bearish {
-            border-bottom: 4px solid #ff6b6b;
-        }
-
-        .signal-hero.pending {
-            border-bottom: 4px solid #ffb347;
-        }
-
-        .opinion {
-            font-size: 48px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .bullish .opinion {
-            color: #4cd964;
-        }
-
-        .bearish .opinion {
-            color: #ff6b6b;
-        }
-
-        .strategy {
-            color: #888;
-            margin-bottom: 15px;
-        }
-
-        .reason {
-            color: #aaa;
-            max-width: 800px;
-            margin: 0 auto 20px;
-            line-height: 1.6;
-        }
-
-        .confidence-bar {
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .confidence-bar span {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 12px;
-            color: #888;
-        }
-
-        .bar {
-            height: 8px;
-            background: #2a3a30;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .fill {
-            height: 100%;
-            background: #4cd964;
-            border-radius: 4px;
-        }
-
-        /* Metrics Grid */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .card {
-            background: #1a241f;
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid #2a3a30;
-        }
-
-        .card h3 {
-            font-size: 12px;
-            color: #888;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .big-value {
-            font-size: 24px;
-            font-weight: 700;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0a0f0b; font-family: 'Inter', sans-serif; color: #e0e0e0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { background: #1a241f; border-radius: 12px; padding: 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #2a3a30; }
+        .logo h1 { font-size: 24px; color: #4cd964; font-weight: 700; }
+        .version { background: #2a3a30; padding: 4px 12px; border-radius: 20px; font-size: 12px; color: #4cd964; margin-left: 10px; }
+        .symbol-selector { display: flex; gap: 10px; }
+        #symbolInput { background: #1e2a22; border: 1px solid #2a3a30; border-radius: 8px; padding: 10px 15px; color: white; width: 200px; }
+        .btn { background: #2a3a30; border: none; border-radius: 8px; padding: 10px 20px; color: white; cursor: pointer; font-weight: 600; }
+        .btn-primary { background: #4cd964; color: #0a0f0b; }
+        .price-header { background: #1a241f; border-radius: 12px; padding: 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #2a3a30; position: relative; }
+        .phase-badge { position: absolute; top: -10px; right: 20px; background: #4cd964; color: #0a0f0b; padding: 5px 20px; border-radius: 20px; font-weight: 700; font-size: 12px; }
+        .symbol-name { font-size: 28px; font-weight: 700; }
+        .timestamp { color: #888; font-size: 14px; }
+        .price { font-size: 32px; font-weight: 700; color: #4cd964; }
+        .signal-hero { background: #1a241f; border-radius: 12px; padding: 30px; margin-bottom: 20px; text-align: center; border: 1px solid #2a3a30; }
+        .signal-hero.bullish { border-bottom: 4px solid #4cd964; }
+        .signal-hero.bearish { border-bottom: 4px solid #ff6b6b; }
+        .opinion { font-size: 48px; font-weight: 800; margin-bottom: 10px; }
+        .bullish .opinion { color: #4cd964; }
+        .bearish .opinion { color: #ff6b6b; }
+        .strategy { color: #888; margin-bottom: 15px; }
+        .reason { color: #aaa; max-width: 800px; margin: 0 auto 20px; line-height: 1.6; }
+        .confidence-bar { max-width: 400px; margin: 0 auto; }
+        .bar { height: 8px; background: #2a3a30; border-radius: 4px; overflow: hidden; }
+        .fill { height: 100%; background: #4cd964; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 20px; }
+        .card { background: #1a241f; border-radius: 12px; padding: 20px; border: 1px solid #2a3a30; }
+        .card h3 { font-size: 12px; color: #888; margin-bottom: 10px; text-transform: uppercase; }
+        .big-value { font-size: 24px; font-weight: 700; }
         .green { color: #4cd964; }
         .red { color: #ff6b6b; }
-        .yellow { color: #ffb347; }
-        .purple { color: #a855f7; }
-        .pink { color: #ec4899; }
         .wdi { color: #ffaa00; }
-
-        /* Details Section */
-        .details-section {
-            background: #1a241f;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid #2a3a30;
-        }
-
-        .details-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #2a3a30;
-        }
-
-        .badge-group {
-            display: flex;
-            gap: 5px;
-        }
-
-        .badge {
-            background: #2a3a30;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: 600;
-        }
-
-        .badge.wdi { background: rgba(255, 170, 0, 0.2); color: #ffaa00; }
-        .badge.odf { background: rgba(255, 170, 0, 0.15); color: #ffaa00; }
-        .badge.otf { background: rgba(0, 168, 107, 0.15); color: #4cd964; }
-
-        .data-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-
-        .data-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #2a3a30;
-        }
-
-        .data-row span:first-child {
-            color: #888;
-        }
-
-        .data-row .val {
-            font-family: monospace;
-            font-weight: 600;
-        }
-
-        /* Raw Output */
-        .raw-output {
-            background: #0f1511;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 20px;
-            border: 1px solid #2a3a30;
-        }
-
-        .raw-output pre {
-            color: #4cd964;
-            font-family: monospace;
-            font-size: 12px;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-
-        .raw-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            color: #888;
-        }
-
-        .toggle-raw {
-            background: #2a3a30;
-            border: none;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 15, 11, 0.95);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        .loading-spinner i {
-            font-size: 48px;
-            color: #4cd964;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            color: #555;
-            font-size: 12px;
-        }
-
-        @media (max-width: 768px) {
-            .metrics-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .data-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .header {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .symbol-selector {
-                width: 100%;
-            }
-            
-            #symbolInput {
-                width: 100%;
-            }
-        }
+        .details-section { background: #1a241f; border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a3a30; }
+        .data-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #2a3a30; }
+        .data-row span:first-child { color: #888; }
+        .data-row .val { font-family: monospace; font-weight: 600; }
+        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 15, 11, 0.95); display: none; justify-content: center; align-items: center; z-index: 9999; }
+        .loading-spinner i { font-size: 48px; color: #4cd964; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .error { color: #ff6b6b; padding: 20px; text-align: center; }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
-            <div class="logo">
-                <h1>DYLPRE<span class="version">V87</span></h1>
-            </div>
+            <div class="logo"><h1>DYLPRE<span class="version">V87</span></h1></div>
             <div class="symbol-selector">
                 <input type="text" id="symbolInput" placeholder="BTCUSDT" value="BTCUSDT">
-                <button class="btn btn-primary" id="analyzeBtn">
-                    <i class="fas fa-chart-line"></i> Analyze
-                </button>
+                <button class="btn btn-primary" id="analyzeBtn">Analyze</button>
             </div>
         </div>
 
-        <!-- Price Header -->
         <div class="price-header">
-            <div class="phase-badge" id="phaseBadge">WHALE_HUNT</div>
-            <div>
-                <div class="symbol-name" id="symbolName">BTCUSDT</div>
-                <div class="timestamp" id="timestamp">--:--:--</div>
-            </div>
-            <div>
-                <div class="price" id="price">$0.00</div>
-            </div>
+            <div class="phase-badge" id="phaseBadge">-</div>
+            <div><div class="symbol-name" id="symbolName">BTCUSDT</div><div class="timestamp" id="timestamp">--:--:--</div></div>
+            <div><div class="price" id="price">$0.00</div></div>
         </div>
 
-        <!-- Signal Hero -->
         <div class="signal-hero bullish" id="signalHero">
             <div class="opinion" id="opinion">LONG</div>
-            <div class="strategy" id="strategy">STRATEGY: WHALE_HUNT</div>
-            <div class="reason" id="reason">WDI_VETO: WMI 95.1x (SHORT_LIQ_WHALE) terdeteksi! Jarak 1.7% terlalu lezat untuk MM. OI turun (-1.7%) adalah bukti SHORT COVERING. DILARANG SHORT!</div>
-            <div class="confidence-bar">
-                <span id="confidenceLabel">CONFIDENCE: ABSOLUTE</span>
-                <div class="bar"><div class="fill" id="confidenceFill" style="width: 100%"></div></div>
-            </div>
+            <div class="strategy" id="strategy">STRATEGY: -</div>
+            <div class="reason" id="reason">Loading...</div>
+            <div class="confidence-bar"><div class="bar"><div class="fill" id="confidenceFill" style="width: 0%"></div></div></div>
         </div>
 
-        <!-- Metrics Grid -->
-        <div class="metrics-grid">
-            <div class="card">
-                <h3>MARKET BIAS</h3>
-                <div class="big-value green" id="bias">LONG</div>
-            </div>
-            <div class="card">
-                <h3>RSI (6)</h3>
-                <div class="big-value" id="rsi6">72.0</div>
-            </div>
-            <div class="card">
-                <h3>TRADE FLOW</h3>
-                <div class="big-value" id="tradeFlow">1.20x</div>
-            </div>
-            <div class="card">
-                <h3>OI Δ5M</h3>
-                <div class="big-value red" id="oiDelta">-1.70%</div>
-            </div>
+        <div class="metrics-grid" id="metrics">
+            <div class="card"><h3>MARKET BIAS</h3><div class="big-value" id="bias">-</div></div>
+            <div class="card"><h3>RSI (6)</h3><div class="big-value" id="rsi6">-</div></div>
+            <div class="card"><h3>TRADE FLOW</h3><div class="big-value" id="tradeFlow">-</div></div>
+            <div class="card"><h3>OI Δ5M</h3><div class="big-value" id="oiDelta">-</div></div>
         </div>
 
-        <!-- Key Metrics -->
         <div class="details-section">
-            <div class="details-title">
-                <h3>📊 KEY METRICS</h3>
-                <div class="badge-group">
-                    <span class="badge wdi">WDI</span>
-                    <span class="badge odf">ODF</span>
-                    <span class="badge otf">OTF</span>
-                </div>
-            </div>
-            <div class="data-grid">
-                <div>
-                    <div class="data-row">
-                        <span>Orderbook Ratio</span>
-                        <span class="val" id="obRatio">1.05x</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Aggressive Ratio</span>
-                        <span class="val" id="aggRatio">0.85x</span>
-                    </div>
-                    <div class="data-row">
-                        <span>WMI (Whale Index)</span>
-                        <span class="val wdi" id="wmi">+95.1</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Long Liq</span>
-                        <span class="val red" id="longLiq">12.4%</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Short Liq</span>
-                        <span class="val green" id="shortLiq">1.70%</span>
-                    </div>
-                </div>
-                <div>
-                    <div class="data-row">
-                        <span>WDI Status</span>
-                        <span class="val wdi" id="wdiStatus">ACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>ODF Status</span>
-                        <span class="val odf" id="odfStatus">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>OTF Status</span>
-                        <span class="val green" id="otfStatus">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>TTK</span>
-                        <span class="val" id="ttk">15m</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Entry Status</span>
-                        <span class="val green" id="entryStatus">WAITING</span>
-                    </div>
-                </div>
-            </div>
+            <h3 style="margin-bottom: 15px;">📊 Data dari V87 Analyzer</h3>
+            <div id="dataContainer">Memuat data...</div>
         </div>
 
-        <!-- Module Status -->
-        <div class="details-section">
-            <div class="details-title">
-                <h3>🧠 MODULE STATUS</h3>
-                <span class="badge">V87</span>
-            </div>
-            <div class="data-grid">
-                <div>
-                    <div class="data-row">
-                        <span>SAD (Stealth)</span>
-                        <span class="val" id="sadStatus">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>ZAS (Zero Agg)</span>
-                        <span class="val" id="zasStatus">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>LCD (Compression)</span>
-                        <span class="val" id="lcdStatus">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>LBD (Bait)</span>
-                        <span class="val" id="lbdStatus">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>LIM (Imbalance)</span>
-                        <span class="val" id="limStatus">INACTIVE</span>
-                    </div>
-                </div>
-                <div>
-                    <div class="data-row">
-                        <span>IER (Exit Radar)</span>
-                        <span class="val" id="ierStatus">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>RMG (RSI Guard)</span>
-                        <span class="val" id="rmgStatus">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>LMG (Mirror)</span>
-                        <span class="val" id="lmgStatus">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>API (Absorption)</span>
-                        <span class="val" id="apiStatus">INACTIVE</span>
-                    </div>
-                    <div class="data-row">
-                        <span>ICD (Internal Cross)</span>
-                        <span class="val" id="icdStatus">INACTIVE</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Alert Box -->
-        <div class="details-section" id="alertBox" style="border-left: 4px solid #ffaa00;">
-            <strong>🐋 ALERT:</strong> <span id="alertMessage">WDI_VETO: WMI 95.1x + Short Liq 1.7% + OI turun - Whale Dominance detected!</span>
-        </div>
-
-        <!-- Raw Output (Collapsible) -->
-        <div class="raw-output">
-            <div class="raw-header">
-                <span>📦 RAW OUTPUT (16,000+ lines analyzer)</span>
-                <button class="toggle-raw" id="toggleRaw">Show Raw Data</button>
-            </div>
-            <pre id="rawData" style="display: none;">{}</pre>
-        </div>
-
-        <div class="footer">
-            DylPredict V87 • Ghost in the Shell Edition • 40+ Modules • 16,000+ Lines
-        </div>
+        <div id="errorContainer" class="error" style="display: none;"></div>
     </div>
 
-    <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner">
-            <i class="fas fa-sync-alt fa-spin"></i>
-            <p style="margin-top: 20px;">Analyzing with 16,000 lines of code...</p>
-        </div>
+        <div class="loading-spinner"><i class="fas fa-sync-alt fa-spin"></i><p style="margin-top: 20px;">Menganalisis...</p></div>
     </div>
 
     <script>
-        const API_URL = ''; // Kosongkan untuk relative path
+        // 🔴 GANTI DENGAN URL KOYEB ANDA!
+        const API_URL = 'https://spotty-lizzie-dypredict-2b047c63.koyeb.app';
         
-        // DOM Elements
         const elements = {
             symbolInput: document.getElementById('symbolInput'),
             analyzeBtn: document.getElementById('analyzeBtn'),
@@ -603,44 +102,20 @@
             symbolName: document.getElementById('symbolName'),
             timestamp: document.getElementById('timestamp'),
             price: document.getElementById('price'),
+            phaseBadge: document.getElementById('phaseBadge'),
             signalHero: document.getElementById('signalHero'),
             opinion: document.getElementById('opinion'),
             strategy: document.getElementById('strategy'),
             reason: document.getElementById('reason'),
-            confidenceLabel: document.getElementById('confidenceLabel'),
             confidenceFill: document.getElementById('confidenceFill'),
-            phaseBadge: document.getElementById('phaseBadge'),
             bias: document.getElementById('bias'),
             rsi6: document.getElementById('rsi6'),
             tradeFlow: document.getElementById('tradeFlow'),
             oiDelta: document.getElementById('oiDelta'),
-            obRatio: document.getElementById('obRatio'),
-            aggRatio: document.getElementById('aggRatio'),
-            wmi: document.getElementById('wmi'),
-            longLiq: document.getElementById('longLiq'),
-            shortLiq: document.getElementById('shortLiq'),
-            wdiStatus: document.getElementById('wdiStatus'),
-            odfStatus: document.getElementById('odfStatus'),
-            otfStatus: document.getElementById('otfStatus'),
-            ttk: document.getElementById('ttk'),
-            entryStatus: document.getElementById('entryStatus'),
-            sadStatus: document.getElementById('sadStatus'),
-            zasStatus: document.getElementById('zasStatus'),
-            lcdStatus: document.getElementById('lcdStatus'),
-            lbdStatus: document.getElementById('lbdStatus'),
-            limStatus: document.getElementById('limStatus'),
-            ierStatus: document.getElementById('ierStatus'),
-            rmgStatus: document.getElementById('rmgStatus'),
-            lmgStatus: document.getElementById('lmgStatus'),
-            apiStatus: document.getElementById('apiStatus'),
-            icdStatus: document.getElementById('icdStatus'),
-            alertBox: document.getElementById('alertBox'),
-            alertMessage: document.getElementById('alertMessage'),
-            toggleRaw: document.getElementById('toggleRaw'),
-            rawData: document.getElementById('rawData')
+            dataContainer: document.getElementById('dataContainer'),
+            errorContainer: document.getElementById('errorContainer')
         };
 
-        // Update timestamp
         function updateTimestamp() {
             const now = new Date();
             elements.timestamp.textContent = now.toLocaleTimeString('id-ID', { hour12: false }) + '.' + 
@@ -649,158 +124,95 @@
         setInterval(updateTimestamp, 100);
         updateTimestamp();
 
-        // Toggle raw data
-        elements.toggleRaw.addEventListener('click', () => {
-            if (elements.rawData.style.display === 'none') {
-                elements.rawData.style.display = 'block';
-                elements.toggleRaw.textContent = 'Hide Raw Data';
-            } else {
-                elements.rawData.style.display = 'none';
-                elements.toggleRaw.textContent = 'Show Raw Data';
-            }
-        });
-
-        // Analyze button
         elements.analyzeBtn.addEventListener('click', () => {
             const symbol = elements.symbolInput.value.trim().toUpperCase();
-            if (symbol) analyzeSymbol(symbol);
+            if (symbol) fetchData(symbol);
         });
 
-        // Enter key
         elements.symbolInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') elements.analyzeBtn.click();
         });
 
-        async function analyzeSymbol(symbol) {
+        async function fetchData(symbol) {
             showLoading();
+            hideError();
             
             try {
-                const response = await fetch(`${API_URL}/analyze/${symbol}?t=${Date.now()}`);
-                const result = await response.json();
+                // 🔴 PASTIKAN ENDPOINT INI BENAR!
+                const url = `${API_URL}/analyze/${symbol}`;
+                console.log('Fetching:', url);
+                
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const text = await response.text();
+                console.log('Response text:', text.substring(0, 200));
+                
+                let result;
+                try {
+                    result = JSON.parse(text);
+                } catch (e) {
+                    throw new Error(`Response bukan JSON: ${text.substring(0, 100)}`);
+                }
                 
                 if (result.success && result.data) {
-                    updateDisplay(result.data);
-                    elements.rawData.textContent = JSON.stringify(result.data, null, 2);
+                    displayData(result.data);
                 } else {
-                    throw new Error(result.error || 'Analysis failed');
+                    throw new Error(result.error || 'Unknown error');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                elements.alertMessage.textContent = `ERROR: ${error.message}`;
-                elements.alertBox.style.borderLeftColor = '#ff6b6b';
+                showError(error.message);
+                elements.dataContainer.innerHTML = `<pre style="color:#ff6b6b">${error.message}</pre>`;
             } finally {
                 hideLoading();
             }
         }
 
-        function updateDisplay(data) {
-            // Basic info
+        function displayData(data) {
             elements.symbolName.textContent = data.symbol || 'BTCUSDT';
             elements.price.textContent = `$${(data.price || 0).toFixed(4)}`;
             
-            // Signal
             const bias = data.bias || 'NEUTRAL';
             elements.opinion.textContent = bias;
             elements.signalHero.className = `signal-hero ${bias.toLowerCase()}`;
             
-            // Phase badge
-            const wdiActive = data.wdi?.is_veto || false;
-            const odfActive = data.odf?.active || false;
-            const otfActive = data.otf?.is_trap || false;
-            
-            if (wdiActive) {
-                elements.phaseBadge.textContent = 'WDI VETO';
-                elements.phaseBadge.style.background = '#ffaa00';
-            } else if (odfActive) {
-                elements.phaseBadge.textContent = 'ODF DISTRIBUTION';
-                elements.phaseBadge.style.background = '#ffaa00';
-            } else if (otfActive) {
-                elements.phaseBadge.textContent = 'OTF TRAP';
-                elements.phaseBadge.style.background = '#4cd964';
-            } else {
-                elements.phaseBadge.textContent = data.market_phase || 'NEUTRAL';
-                elements.phaseBadge.style.background = '#4cd964';
-            }
-            
-            // Reason
-            elements.reason.textContent = data.reason || 'No reason provided';
+            elements.phaseBadge.textContent = data.market_phase || 'NORMAL';
             elements.strategy.textContent = `STRATEGY: ${data.phase_v90 || 'NORMAL'}`;
+            elements.reason.textContent = data.reason || 'No reason';
             
-            // Confidence
-            const confidence = data.confidence || 'LOW';
-            elements.confidenceLabel.textContent = `CONFIDENCE: ${confidence}`;
+            const conf = data.confidence || 'LOW';
+            let width = conf === 'ABSOLUTE' ? 100 : conf === 'SUPREME' ? 95 : conf === 'HIGH' ? 75 : conf === 'MEDIUM' ? 50 : 25;
+            elements.confidenceFill.style.width = `${width}%`;
             
-            let confidenceWidth = 0;
-            if (confidence === 'ABSOLUTE') confidenceWidth = 100;
-            else if (confidence === 'SUPREME') confidenceWidth = 95;
-            else if (confidence === 'HIGH') confidenceWidth = 75;
-            else if (confidence === 'MEDIUM') confidenceWidth = 50;
-            else if (confidence === 'LOW') confidenceWidth = 25;
-            elements.confidenceFill.style.width = `${confidenceWidth}%`;
-            
-            // Metrics
             elements.bias.textContent = bias;
             elements.bias.className = `big-value ${bias.toLowerCase() === 'long' ? 'green' : bias.toLowerCase() === 'short' ? 'red' : ''}`;
             
-            const rsi = data.rsi6 || 50;
-            elements.rsi6.textContent = rsi.toFixed(1);
-            elements.rsi6.className = `big-value ${rsi > 70 ? 'yellow' : rsi < 30 ? 'green' : ''}`;
-            
-            elements.tradeFlow.textContent = `${(data.trade_flow || 1).toFixed(2)}x`;
+            elements.rsi6.textContent = (data.rsi6 || 0).toFixed(1);
+            elements.tradeFlow.textContent = `${(data.trade_flow || 0).toFixed(2)}x`;
             elements.oiDelta.textContent = ((data.oi_delta_5m || 0) > 0 ? '+' : '') + (data.oi_delta_5m || 0).toFixed(2) + '%';
             
-            elements.obRatio.textContent = `${(data.ob_ratio || 1).toFixed(2)}x`;
-            elements.aggRatio.textContent = `${(data.aggressive_ratio || 0).toFixed(2)}x`;
-            
-            const wmi = data.wmi_ratio || 0;
-            elements.wmi.textContent = (wmi > 0 ? '+' : '') + wmi.toFixed(1);
-            elements.wmi.className = `val ${Math.abs(wmi) > 50 ? 'wdi' : ''}`;
-            
-            elements.longLiq.textContent = `${(data.long_liq || 0).toFixed(2)}%`;
-            elements.shortLiq.textContent = `${(data.short_liq || 0).toFixed(2)}%`;
-            
-            // Module status
-            elements.wdiStatus.textContent = data.wdi?.is_veto ? 'ACTIVE' : 'INACTIVE';
-            elements.odfStatus.textContent = data.odf?.active ? 'ACTIVE' : 'INACTIVE';
-            elements.otfStatus.textContent = data.otf?.is_trap ? 'ACTIVE' : 'INACTIVE';
-            
-            elements.ttk.textContent = (data.ttk?.estimated_minutes || '15') + 'm';
-            elements.entryStatus.textContent = data.entry_ready ? 'READY' : 'WAITING';
-            
-            // V87 modules
-            elements.sadStatus.textContent = data.sad?.is_active ? 'ACTIVE' : 'INACTIVE';
-            elements.zasStatus.textContent = data.zas_v87?.is_squeeze ? 'ACTIVE' : 'INACTIVE';
-            elements.lcdStatus.textContent = data.lcd?.is_compression ? 'ACTIVE' : 'INACTIVE';
-            elements.lbdStatus.textContent = data.lbd?.is_bait ? 'ACTIVE' : 'INACTIVE';
-            elements.limStatus.textContent = data.lim?.bias !== 'NEUTRAL' ? 'ACTIVE' : 'INACTIVE';
-            
-            elements.ierStatus.textContent = data.ier?.is_exit ? 'ACTIVE' : 'INACTIVE';
-            elements.rmgStatus.textContent = data.rmg?.is_weak ? 'ACTIVE' : 'INACTIVE';
-            elements.lmgStatus.textContent = data.lmg?.is_death_magnet ? 'ACTIVE' : 'INACTIVE';
-            elements.apiStatus.textContent = data.api?.is_absorbing ? 'ACTIVE' : 'INACTIVE';
-            elements.icdStatus.textContent = data.icd?.is_internal_trap ? 'ACTIVE' : 'INACTIVE';
-            
-            // Alert
-            elements.alertMessage.textContent = data.reason || 'No alert';
-            if (wdiActive) elements.alertBox.style.borderLeftColor = '#ffaa00';
-            else if (odfActive) elements.alertBox.style.borderLeftColor = '#ffaa00';
-            else if (otfActive) elements.alertBox.style.borderLeftColor = '#4cd964';
-            else elements.alertBox.style.borderLeftColor = '#4cd964';
+            // Tampilkan semua data dalam format JSON
+            elements.dataContainer.innerHTML = `
+                <pre style="background:#0f1511; padding:15px; border-radius:8px; overflow-x:auto; font-size:12px; color:#4cd964;">
+${JSON.stringify(data, null, 2)}
+                </pre>
+            `;
         }
 
-        function showLoading() {
-            elements.loadingOverlay.style.display = 'flex';
+        function showLoading() { elements.loadingOverlay.style.display = 'flex'; }
+        function hideLoading() { elements.loadingOverlay.style.display = 'none'; }
+        function showError(msg) { 
+            elements.errorContainer.style.display = 'block'; 
+            elements.errorContainer.textContent = `ERROR: ${msg}`;
         }
-
-        function hideLoading() {
-            elements.loadingOverlay.style.display = 'none';
-        }
+        function hideError() { elements.errorContainer.style.display = 'none'; }
 
         // Auto-analyze on load
-        setTimeout(() => {
-            elements.symbolInput.value = 'RIVERUSDT';
-            elements.analyzeBtn.click();
-        }, 500);
+        setTimeout(() => fetchData('BTCUSDT'), 1000);
     </script>
 </body>
 </html>
