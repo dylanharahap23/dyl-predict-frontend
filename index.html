@@ -277,10 +277,10 @@
         <h1>Back at it, Dylan</h1>
     </div>
 
-    <!-- Search Area - Centered di awal -->
+    <!-- Search Area - Centered di awal, dengan input kosong -->
     <div class="search-area">
         <div class="search-container">
-            <input type="text" id="symbol" placeholder="Analyze a symbol..." value="JASMYUSDT">
+            <input type="text" id="symbol" placeholder="Analyze a symbol..." value="">
             <div class="btn-group">
                 <button class="btn-analyze" onclick="handleAnalyze()">Analyze</button>
             </div>
@@ -439,9 +439,26 @@
         }
     });
 
-    // Auto-analyze on page load (untuk demo)
+    // Memastikan saat halaman dimuat, tidak ada analisis otomatis dan input kosong
     window.addEventListener('load', () => {
-        setTimeout(handleAnalyze, 800);
+        // Hapus value input agar kosong
+        symbolInput.value = '';
+        
+        // Pastikan wrapper tidak memiliki class 'has-result'
+        wrapper.classList.remove('has-result');
+        
+        // Sembunyikan area hasil dengan animasi
+        resultArea.style.opacity = '0';
+        resultArea.style.transform = 'translateY(30px)';
+        resultArea.style.display = 'none';
+        
+        // Reset konten output ke default
+        outputEl.textContent = 'Analyzing...';
+        resultTitle.textContent = 'Terminal Output';
+        
+        // Reset border card
+        cardEl.style.borderTop = '1px solid var(--border-color)';
+        cardEl.style.borderColor = 'var(--border-color)';
     });
 
     // Optional: Reset layout ketika user klik logo (hidden feature)
@@ -452,6 +469,9 @@
         setTimeout(() => {
             resultArea.style.display = 'none';
         }, 500);
+        
+        // Kosongkan input juga (opsional)
+        symbolInput.value = '';
     });
 </script>
 </body>
