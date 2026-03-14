@@ -1,1172 +1,253 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DylPredict V100 • The Magnet Wall Reversal Edition</title>
-    
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>DylPredict V87 | Professional Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* ===== MODERN TRADING TERMINAL CSS WITH GLASSMORPHISM & NEON ===== */
         :root {
-            --bg-color: #0b0e11;
-            --card-bg: #1e2329;
-            --green: #02c076;
-            --red: #f84960;
-            --yellow: #f0b90b;
-            --purple: #8a6de9;
-            --orange: #ff9800;
-            --blue: #3b82f6;
-            --pink: #ec4899;
-            --cyan: #06b6d4;
-            --magnet: #a78bfa;
-            --text-main: #eaecef;
-            --text-dim: #848e9c;
-            --glass-opacity: rgba(30, 35, 41, 0.8);
-            --neon-green: 0 0 10px rgba(2, 192, 118, 0.5);
-            --neon-red: 0 0 10px rgba(248, 73, 96, 0.5);
-            --neon-yellow: 0 0 10px rgba(240, 185, 11, 0.5);
-            --neon-purple: 0 0 10px rgba(138, 109, 233, 0.5);
-            --neon-orange: 0 0 10px rgba(255, 152, 0, 0.5);
-            --neon-blue: 0 0 10px rgba(59, 130, 246, 0.5);
-            --neon-cyan: 0 0 10px rgba(6, 182, 212, 0.5);
-            --neon-magnet: 0 0 10px rgba(167, 139, 250, 0.5);
-            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --bg-color: #f9f8f4;
+            --text-main: #292929;
+            --text-muted: #6b6b6b;
+            --accent-orange: #d97757;
+            --card-bg: #ffffff;
+            --border-color: #e5e2da;
+            --short-border: #d95757;
+            --long-border: #57d977;
+            --short-bg: #f5c2c2;
+            --long-bg: #c2f5c2;
         }
 
-        * {
-            margin: 0;
+        body, html { 
+            height: 100%; 
+            margin: 0; 
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--bg-color);
+            background-color: var(--bg-color); 
+            font-family: 'Inter', sans-serif; 
             color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            padding: 20px;
-            min-height: 100vh;
-            position: relative;
             overflow-x: hidden;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            right: -20%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(167, 139, 250, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            filter: blur(100px);
-            z-index: -1;
-            animation: floatGlow 15s ease-in-out infinite;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: -50%;
-            left: -20%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(248, 73, 96, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            filter: blur(100px);
-            z-index: -1;
-            animation: floatGlow2 20s ease-in-out infinite;
-        }
-
-        @keyframes floatGlow {
-            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-            50% { transform: translate(-30px, 30px) scale(1.2); opacity: 0.6; }
-        }
-
-        @keyframes floatGlow2 {
-            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
-            50% { transform: translate(30px, -30px) scale(1.3); opacity: 0.5; }
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-        }
-
-        header {
+        /* Layout Center Wrapper */
+        .main-wrapper {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-            background: rgba(30, 35, 41, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 16px 24px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            justify-content: center;
+            min-height: 100vh;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        .logo h1 {
-            font-size: 24px;
-            background: linear-gradient(135deg, #fff, var(--magnet));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-            letter-spacing: -0.5px;
+        /* State saat hasil muncul */
+        .main-wrapper.has-result {
+            justify-content: flex-start;
+            padding-top: 60px;
         }
 
-        .version {
-            font-size: 12px;
-            background: rgba(167, 139, 250, 0.2);
-            padding: 4px 10px;
-            border-radius: 100px;
-            margin-left: 8px;
-            color: var(--magnet);
-            border: 1px solid rgba(167, 139, 250, 0.3);
+        .brand {
+            text-align: center;
+            margin-bottom: 40px;
+            transition: all 0.5s ease;
+        }
+
+        .has-result .brand { 
+            transform: scale(0.8); 
+            margin-bottom: 20px; 
+        }
+
+        .brand span { 
+            color: var(--accent-orange); 
+            font-size: 42px; 
+            display: inline-block;
+        }
+
+        h1 { 
+            font-family: 'Source Serif Pro', serif; 
+            font-size: 40px; 
+            margin: 10px 0; 
+            letter-spacing: -0.02em; 
+            color: #1a1a1a;
             font-weight: 600;
         }
 
-        .sub-version {
-            font-size: 10px;
-            background: rgba(138, 109, 233, 0.15);
-            padding: 2px 8px;
-            border-radius: 100px;
-            margin-left: 5px;
-            color: var(--purple);
-            border: 1px solid rgba(138, 109, 233, 0.2);
-            font-weight: 500;
+        /* Search Container */
+        .search-area { 
+            width: 100%; 
+            max-width: 700px; 
+            transition: all 0.5s ease; 
         }
 
-        .mwr-badge {
-            font-size: 10px;
-            background: rgba(167, 139, 250, 0.15);
-            padding: 2px 8px;
-            border-radius: 100px;
-            margin-left: 5px;
-            color: var(--magnet);
-            border: 1px solid rgba(167, 139, 250, 0.2);
-            font-weight: 500;
-            animation: pulseMWR 2s infinite;
-        }
-
-        .lvs-badge {
-            font-size: 10px;
-            background: rgba(6, 182, 212, 0.15);
-            padding: 2px 8px;
-            border-radius: 100px;
-            margin-left: 5px;
-            color: var(--cyan);
-            border: 1px solid rgba(6, 182, 212, 0.2);
-            font-weight: 500;
-        }
-
-        @keyframes pulseMWR {
-            0%, 100% { opacity: 0.8; box-shadow: 0 0 5px var(--magnet); }
-            50% { opacity: 1; box-shadow: 0 0 15px var(--magnet); }
-        }
-
-        .symbol-selector {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .input-controls {
-            display: flex;
-            gap: 8px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 4px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        #customSymbolInput {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 10px 15px;
-            color: var(--text-main);
-            outline: none;
-            width: 150px;
-            font-family: 'Inter', sans-serif;
-            transition: var(--transition-smooth);
-        }
-
-        #customSymbolInput:focus {
-            border-color: var(--magnet);
-            box-shadow: 0 0 15px rgba(167, 139, 250, 0.2);
-        }
-
-        #customSymbolInput::placeholder {
-            color: var(--text-dim);
-        }
-
-        .glass-select {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 10px 15px;
-            color: var(--text-main);
-            outline: none;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .glass-select option {
+        .search-container {
             background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 28px;
+            padding: 8px 8px 8px 24px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .search-container:focus-within {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border-color: #d4d0c8;
+        }
+
+        input#symbol {
+            border: none; 
+            outline: none; 
+            flex-grow: 1;
+            font-size: 18px; 
+            background: transparent; 
+            padding: 14px 0;
             color: var(--text-main);
+            font-weight: 400;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--magnet), #8b5cf6);
-            border: none;
-            border-radius: 8px;
-            padding: 10px 20px;
-            color: #0b0e11;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition-smooth);
-            font-family: 'Inter', sans-serif;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        input#symbol::placeholder {
+            color: #b0b0b0;
+            font-weight: 300;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px var(--magnet);
-        }
-
-        .btn-secondary {
-            background: rgba(138, 109, 233, 0.2);
-            border: 1px solid rgba(138, 109, 233, 0.3);
-            border-radius: 8px;
-            padding: 10px 20px;
-            color: var(--purple);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            font-size: 14px;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(138, 109, 233, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .btn-magnet {
-            background: rgba(167, 139, 250, 0.2);
-            border: 1px solid rgba(167, 139, 250, 0.3);
-            border-radius: 8px;
-            padding: 10px 20px;
-            color: var(--magnet);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            font-size: 14px;
-        }
-
-        .btn-magnet:hover {
-            background: rgba(167, 139, 250, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px var(--magnet);
-        }
-
-        .btn-ghost {
-            background: rgba(6, 182, 212, 0.2);
-            border: 1px solid rgba(6, 182, 212, 0.3);
-            border-radius: 8px;
-            padding: 10px 20px;
-            color: var(--cyan);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            font-size: 14px;
-        }
-
-        .btn-ghost:hover {
-            background: rgba(6, 182, 212, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px var(--cyan);
-        }
-
-        .dashboard-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .header-card {
-            background: rgba(30, 35, 41, 0.7);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            border-radius: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-left: 4px solid var(--magnet);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            transition: var(--transition-smooth);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-        }
-
-        .header-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 48px rgba(167, 139, 250, 0.15);
-        }
-
-        .symbol-info {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .symbol {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin: 0;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #fff, var(--magnet));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .timestamp {
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            font-family: 'Courier New', monospace;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 4px 10px;
-            border-radius: 100px;
-            display: inline-block;
-            width: fit-content;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .price-section {
-            text-align: right;
-        }
-
-        .price-label {
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-            display: block;
-        }
-
-        .price {
-            color: var(--magnet);
-            font-size: 2rem;
-            margin: 0;
-            font-weight: 700;
-            text-shadow: var(--neon-magnet);
-            letter-spacing: -0.5px;
-        }
-
-        .phase-badge {
-            position: absolute;
-            top: -12px;
-            right: 20px;
-            background: linear-gradient(135deg, var(--purple), #6a4fc9);
-            color: white;
-            font-weight: 800;
-            font-size: 0.8rem;
-            padding: 6px 20px;
-            border-radius: 100px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            box-shadow: 0 0 25px var(--purple);
-            animation: pulseBadge 2s infinite;
-            z-index: 30;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .phase-badge.mwr {
-            background: linear-gradient(135deg, var(--magnet), #8b5cf6);
-            box-shadow: 0 0 25px var(--magnet);
-            animation: pulseMWR 1s infinite;
-        }
-
-        .phase-badge.lvs {
-            background: linear-gradient(135deg, var(--cyan), #0891b2);
-            box-shadow: 0 0 25px var(--cyan);
-        }
-
-        .phase-badge.nuclear {
-            background: linear-gradient(135deg, #f44336, #d32f2f);
-            box-shadow: 0 0 25px #f44336;
-            animation: pulseNuclear 1s infinite;
-        }
-
-        .phase-badge.dtd {
-            background: linear-gradient(135deg, var(--purple), #6a4fc9);
-            box-shadow: 0 0 25px var(--purple);
-        }
-
-        .phase-badge.lrr {
-            background: linear-gradient(135deg, #ff9800, #f57c00);
-            box-shadow: 0 0 25px #ff9800;
-        }
-
-        .phase-badge.slam {
-            background: linear-gradient(135deg, #ec4899, #db2777);
-            box-shadow: 0 0 25px #ec4899;
-        }
-
-        .phase-badge.pnr {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            box-shadow: 0 0 25px #3b82f6;
-        }
-
-        .phase-badge.magnet {
-            background: linear-gradient(135deg, var(--green), #00a35c);
-            box-shadow: 0 0 25px var(--green);
-        }
-
-        .phase-badge.engine {
-            background: linear-gradient(135deg, var(--cyan), #0891b2);
-            box-shadow: 0 0 25px var(--cyan);
-        }
-
-        .phase-badge.warming {
-            background: linear-gradient(135deg, var(--orange), #ea580c);
-            box-shadow: 0 0 25px var(--orange);
-        }
-
-        .phase-badge.institutional-exit {
-            background: linear-gradient(135deg, #ff6b6b, #f03e3e);
-            box-shadow: 0 0 25px #ff6b6b;
-        }
-
-        @keyframes pulseBadge {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.9; }
-        }
-
-        @keyframes pulseNuclear {
-            0%, 100% { transform: scale(1); opacity: 1; background: #f44336; }
-            50% { transform: scale(1.1); opacity: 0.9; background: #ff5722; }
-        }
-
-        .signal-hero {
-            padding: 25px 25px;
-            border-radius: 20px;
-            text-align: center;
-            background: rgba(30, 35, 41, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .signal-hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(167, 139, 250, 0.03) 0%, transparent 70%);
-            animation: rotate 30s linear infinite;
-            z-index: -1;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .signal-hero.mwr-active {
-            border-bottom: 5px solid var(--magnet);
-            box-shadow: 0 8px 32px rgba(167, 139, 250, 0.3);
-        }
-
-        .signal-hero.lvs-active {
-            border-bottom: 5px solid var(--cyan);
-            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.3);
-        }
-
-        .signal-hero.bullish { 
-            border-bottom: 5px solid var(--green);
-            box-shadow: 0 8px 32px rgba(2, 192, 118, 0.15);
-        }
-
-        .signal-hero.bearish { 
-            border-bottom: 5px solid var(--red);
-            box-shadow: 0 8px 32px rgba(248, 73, 96, 0.15);
-        }
-
-        .signal-hero.pending { 
-            border-bottom: 5px solid var(--yellow);
-            box-shadow: 0 8px 32px rgba(240, 185, 11, 0.15);
-        }
-
-        .signal-hero.neutral { 
-            border-bottom: 5px solid var(--text-dim);
-        }
-
-        .signal-hero.mwr-active .main-opinion {
-            color: var(--magnet);
-            text-shadow: 0 0 30px var(--magnet);
-        }
-
-        .signal-hero.lvs-active .main-opinion {
-            color: var(--cyan);
-            text-shadow: 0 0 30px var(--cyan);
-        }
-
-        .signal-hero.bullish .main-opinion {
-            color: var(--green);
-            text-shadow: 0 0 30px var(--green);
-        }
-
-        .signal-hero.bearish .main-opinion {
-            color: var(--red);
-            text-shadow: 0 0 30px var(--red);
-        }
-
-        .signal-hero.pending .main-opinion {
-            color: var(--yellow);
-            text-shadow: 0 0 30px var(--yellow);
-        }
-
-        .main-opinion {
-            font-size: 3.5rem;
-            font-weight: 900;
-            letter-spacing: 4px;
-            line-height: 1.2;
-            margin-bottom: 5px;
-        }
-
-        .mwr-active .main-opinion {
-            animation: glowPulseMWR 2s infinite;
-        }
-
-        .bullish .main-opinion {
-            animation: glowPulse 3s infinite;
-        }
-
-        .bearish .main-opinion {
-            animation: glowPulseRed 3s infinite;
-        }
-
-        .lvs-active .main-opinion {
-            animation: glowPulseCyan 2s infinite;
-        }
-
-        @keyframes glowPulseMWR {
-            0%, 100% { text-shadow: 0 0 20px var(--magnet); }
-            50% { text-shadow: 0 0 40px var(--magnet); }
-        }
-
-        @keyframes glowPulse {
-            0%, 100% { text-shadow: 0 0 20px var(--green); }
-            50% { text-shadow: 0 0 40px var(--green); }
-        }
-
-        @keyframes glowPulseRed {
-            0%, 100% { text-shadow: 0 0 20px var(--red); }
-            50% { text-shadow: 0 0 40px var(--red); }
-        }
-
-        @keyframes glowPulseCyan {
-            0%, 100% { text-shadow: 0 0 20px var(--cyan); }
-            50% { text-shadow: 0 0 50px var(--cyan); }
-        }
-
-        .strategy-name {
-            font-size: 0.9rem;
-            color: var(--text-dim);
-            margin-bottom: 10px;
+        .btn-group button {
+            padding: 12px 28px; 
+            border-radius: 24px;
+            border: none; 
+            cursor: pointer; 
             font-weight: 500;
-            letter-spacing: 1px;
-            background: rgba(0, 0, 0, 0.3);
-            display: inline-block;
-            padding: 6px 16px;
-            border-radius: 100px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 15px;
+            transition: all 0.2s ease;
         }
 
-        .phase-reason {
-            font-size: 0.9rem;
-            color: var(--text-dim);
-            margin-bottom: 15px;
-            font-style: italic;
+        .btn-analyze { 
+            background: #1a1a1a; 
+            color: white; 
         }
 
-        .confidence-bar {
-            margin: 15px 0 5px;
-            text-align: left;
-            padding: 0 10px;
-        }
-
-        .confidence-bar span {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        .confidence-bar .bar {
-            background: rgba(51, 51, 51, 0.5);
-            height: 10px;
-            border-radius: 5px;
-            overflow: hidden;
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .confidence-bar .fill {
-            background: var(--magnet);
-            height: 100%;
-            border-radius: 5px;
-            box-shadow: 0 0 15px var(--magnet);
-            transition: width 0.5s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .confidence-bar .fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        .signal-hero.bullish .confidence-bar .fill {
-            background: var(--green);
-            box-shadow: 0 0 15px var(--green);
-        }
-
-        .signal-hero.bearish .confidence-bar .fill {
-            background: var(--red);
-            box-shadow: 0 0 15px var(--red);
-        }
-
-        .signal-hero.pending .confidence-bar .fill {
-            background: var(--yellow);
-            box-shadow: 0 0 15px var(--yellow);
-        }
-
-        .signal-hero.lvs-active .confidence-bar .fill {
-            background: var(--cyan);
-            box-shadow: 0 0 15px var(--cyan);
-        }
-
-        @keyframes shimmer {
-            100% { left: 100%; }
-        }
-
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin: 10px 0;
-        }
-
-        .card {
-            background: rgba(30, 35, 41, 0.7);
-            backdrop-filter: blur(10px);
-            padding: 18px 12px;
-            border-radius: 16px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            transition: var(--transition-smooth);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(167, 139, 250, 0.2);
-            box-shadow: 0 8px 24px rgba(167, 139, 250, 0.15);
-        }
-
-        .card h3 {
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            margin-bottom: 12px;
-            letter-spacing: 0.5px;
-            font-weight: 600;
-        }
-
-        .big-value {
-            font-size: 1.4rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 8px;
-        }
-
-        .green { color: var(--green); text-shadow: 0 0 10px var(--green); }
-        .red { color: var(--red); text-shadow: 0 0 10px var(--red); }
-        .warning { color: var(--yellow); text-shadow: 0 0 10px var(--yellow); }
-        .purple { color: var(--purple); text-shadow: 0 0 10px var(--purple); }
-        .orange { color: var(--orange); text-shadow: 0 0 10px var(--orange); }
-        .blue { color: var(--blue); text-shadow: 0 0 10px var(--blue); }
-        .pink { color: var(--pink); text-shadow: 0 0 10px var(--pink); }
-        .cyan { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
-        .magnet { color: var(--magnet); text-shadow: 0 0 10px var(--magnet); }
-
-        .score-display {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .score-num {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--magnet);
-        }
-
-        .score-sub {
-            font-size: 0.7rem;
-            color: var(--text-dim);
-        }
-
-        .flow-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--green);
-            margin-bottom: 5px;
-        }
-
-        .trend-badge {
-            font-size: 0.7rem;
-            padding: 4px 10px;
-            background: rgba(2, 192, 118, 0.15);
-            border-radius: 100px;
-            display: inline-block;
-            color: var(--green);
-            border: 1px solid rgba(2, 192, 118, 0.3);
-        }
-
-        .details-section {
-            background: rgba(30, 35, 41, 0.5);
-            backdrop-filter: blur(5px);
-            border-radius: 16px;
-            padding: 16px;
-            margin: 10px 0;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .data-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .data-row:last-child {
-            border-bottom: none;
-        }
-
-        .data-row span:first-child {
-            color: var(--text-dim);
-            font-size: 0.85rem;
-        }
-
-        .data-row .val {
-            font-weight: 600;
-            font-family: 'Courier New', monospace;
-        }
-
-        .data-row .val.warning {
-            color: var(--yellow);
-        }
-
-        .data-row .val.green {
-            color: var(--green);
-        }
-
-        .data-row .val.red {
-            color: var(--red);
-        }
-
-        .data-row .val.purple {
-            color: var(--purple);
-        }
-
-        .data-row .val.orange {
-            color: var(--orange);
-        }
-
-        .data-row .val.blue {
-            color: var(--blue);
-        }
-
-        .data-row .val.cyan {
-            color: var(--cyan);
-        }
-
-        .data-row .val.magnet {
-            color: var(--magnet);
-        }
-
-        .advanced-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin: 15px 0;
-        }
-
-        .advanced-card {
-            background: rgba(30, 35, 41, 0.5);
-            backdrop-filter: blur(5px);
-            padding: 15px;
-            border-radius: 12px;
-            border-left: 3px solid var(--purple);
-        }
-
-        .advanced-card h4 {
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        .advanced-card .value {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .advanced-card .desc {
-            font-size: 0.75rem;
-            color: var(--text-dim);
-        }
-
-        .mwr-card {
-            border-left: 3px solid var(--magnet);
-            background: rgba(167, 139, 250, 0.05);
-        }
-
-        .mwr-card .value {
-            color: var(--magnet);
-        }
-
-        .lvs-card {
-            border-left: 3px solid var(--cyan);
-            background: rgba(6, 182, 212, 0.05);
-        }
-
-        .lvs-card .value {
-            color: var(--cyan);
-        }
-
-        .fake-magnet-card {
-            border-left: 3px solid var(--red);
-            background: rgba(248, 73, 96, 0.05);
-        }
-
-        .fake-magnet-card .value {
-            color: var(--red);
-        }
-
-        .gravity-card {
-            border-left: 3px solid var(--orange);
-            background: rgba(255, 152, 0, 0.05);
-        }
-
-        .gravity-card .value {
-            color: var(--orange);
-        }
-
-        .alert-box {
-            background: rgba(240, 185, 11, 0.08);
-            backdrop-filter: blur(5px);
-            border: 1px dashed var(--yellow);
-            padding: 18px;
-            border-radius: 16px;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            color: var(--text-main);
-            box-shadow: 0 4px 16px rgba(240, 185, 11, 0.1);
-            margin: 15px 0;
-            position: relative;
-            overflow: hidden;
-            border-left: 4px solid var(--yellow);
-        }
-
-        .alert-box::before {
-            content: '⚠️';
-            position: absolute;
-            right: 15px;
-            bottom: 5px;
-            font-size: 40px;
-            opacity: 0.1;
-            transform: rotate(10deg);
-        }
-
-        .alert-box.mwr-alert {
-            border-color: var(--magnet);
-            border-left-color: var(--magnet);
-            background: rgba(167, 139, 250, 0.08);
-        }
-
-        .alert-box.mwr-alert::before {
-            content: '🧲';
-        }
-
-        .alert-box.lvs-alert {
-            border-color: var(--cyan);
-            border-left-color: var(--cyan);
-            background: rgba(6, 182, 212, 0.08);
-        }
-
-        .alert-box.lvs-alert::before {
-            content: '👻';
-        }
-
-        .alert-box.fake-magnet {
-            border-color: var(--red);
-            border-left-color: var(--red);
-            background: rgba(248, 73, 96, 0.08);
-        }
-
-        .alert-box.fake-magnet::before {
-            content: '🎭';
-        }
-
-        .alert-box.gravity {
-            border-color: var(--orange);
-            border-left-color: var(--orange);
-            background: rgba(255, 152, 0, 0.08);
-        }
-
-        .alert-box.gravity::before {
-            content: '⚡';
-        }
-
-        .alert-box.institutional-exit {
-            border-color: #ff6b6b;
-            border-left-color: #ff6b6b;
-            background: rgba(255, 107, 107, 0.08);
-        }
-
-        .alert-box.institutional-exit::before {
-            content: '🏛️';
-        }
-
-        .alert-box.nuclear {
-            border-color: #f44336;
-            border-left-color: #f44336;
-            background: rgba(244, 67, 54, 0.08);
-        }
-
-        .alert-box.dtd-alert {
-            border-color: var(--purple);
-            border-left-color: var(--purple);
-            background: rgba(138, 109, 233, 0.08);
-        }
-
-        .alert-box.lrr {
-            border-color: var(--orange);
-            border-left-color: var(--orange);
-            background: rgba(255, 152, 0, 0.08);
-        }
-
-        .alert-box.slam {
-            border-color: var(--pink);
-            border-left-color: var(--pink);
-            background: rgba(236, 72, 153, 0.08);
-        }
-
-        .alert-box.pnr {
-            border-color: var(--blue);
-            border-left-color: var(--blue);
-            background: rgba(59, 130, 246, 0.08);
-        }
-
-        .alert-box.magnet {
-            border-color: var(--green);
-            border-left-color: var(--green);
-            background: rgba(2, 192, 118, 0.08);
-        }
-
-        .alert-box.engine {
-            border-color: var(--cyan);
-            border-left-color: var(--cyan);
-            background: rgba(6, 182, 212, 0.08);
-        }
-
-        .alert-box.warming {
-            border-color: var(--orange);
-            border-left-color: var(--orange);
-            background: rgba(255, 152, 0, 0.08);
-        }
-
-        .alert-box strong {
-            color: var(--yellow);
-        }
-
-        .alert-box.mwr-alert strong {
-            color: var(--magnet);
-        }
-
-        .alert-box.lvs-alert strong {
-            color: var(--cyan);
-        }
-
-        .alert-box.fake-magnet strong {
-            color: var(--red);
-        }
-
-        .alert-box.gravity strong {
-            color: var(--orange);
-        }
-
-        .alert-box.institutional-exit strong {
-            color: #ff6b6b;
-        }
-
-        .alert-box.nuclear strong {
-            color: #f44336;
-        }
-
-        .alert-box.dtd-alert strong {
-            color: var(--purple);
-        }
-
-        .alert-box.lrr strong {
-            color: var(--orange);
-        }
-
-        .alert-box.slam strong {
-            color: var(--pink);
-        }
-
-        .alert-box.pnr strong {
-            color: var(--blue);
-        }
-
-        .alert-box.magnet strong {
-            color: var(--green);
-        }
-
-        .alert-box.engine strong {
-            color: var(--cyan);
-        }
-
-        .alert-box.warming strong {
-            color: var(--orange);
-        }
-
-        .terminal-output {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-            border-radius: 16px;
-            padding: 20px;
-            margin-top: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
-            line-height: 1.6;
-            color: #e0e0e0;
-            max-height: 500px;
-            overflow-y: auto;
-            position: relative;
-        }
-
-        .terminal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .terminal-title {
-            font-size: 0.9rem;
-            color: var(--magnet);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .terminal-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .terminal-btn {
-            background: rgba(167, 139, 250, 0.2);
-            border: 1px solid rgba(167, 139, 250, 0.3);
-            border-radius: 6px;
-            padding: 4px 12px;
-            color: var(--magnet);
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .terminal-btn:hover {
-            background: rgba(167, 139, 250, 0.3);
+        .btn-analyze:hover {
+            opacity: 0.85;
             transform: translateY(-1px);
         }
 
-        .terminal-btn.analysis-btn {
-            background: rgba(2, 192, 118, 0.2);
-            border-color: rgba(2, 192, 118, 0.3);
-            color: var(--green);
+        /* Result Card (Hidden by default) */
+        .result-wrapper {
+            width: 100%; 
+            max-width: 900px;
+            margin-top: 50px;
+            display: none; /* Muncul lewat JS */
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .terminal-btn.analysis-btn:hover {
-            background: rgba(2, 192, 118, 0.3);
+        .output-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 0; /* Header control terpisah */
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.04);
+            transition: all 0.4s ease;
         }
 
-        .terminal-btn.json-btn {
-            background: rgba(240, 185, 11, 0.2);
-            border-color: rgba(240, 185, 11, 0.3);
-            color: var(--yellow);
+        /* Card Header dengan Tombol Aksi */
+        .card-header {
+            padding: 14px 24px;
+            background: #fafafa;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .terminal-btn.json-btn:hover {
-            background: rgba(240, 185, 11, 0.3);
+        #resultTitle { 
+            font-weight: 600; 
+            font-size: 14px; 
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
         }
 
-        .terminal-content {
-            font-family: 'Courier New', monospace;
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-action { 
+            background: #ffffff; 
+            border: 1px solid #e0e0e0 !important; 
+            border-radius: 16px;
+            font-size: 12px; 
+            padding: 6px 14px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .btn-action:hover { 
+            background: #f5f5f5; 
+            border-color: #d0d0d0;
+            transform: translateY(-1px);
+        }
+
+        .btn-action.active {
+            background: #1a1a1a;
+            color: white;
+            border-color: #1a1a1a !important;
+        }
+
+        /* Terminal Output Styling */
+        .terminal-style {
+            padding: 28px;
+            margin: 0;
+            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.7;
+            max-height: 600px;
+            overflow-y: auto;
             white-space: pre-wrap;
             word-wrap: break-word;
+            background: #fbfbf9;
+            color: #1e1e1e;
         }
 
+        /* Scrollbar Styling */
+        .terminal-style::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .terminal-style::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+
+        .terminal-style::-webkit-scrollbar-thumb {
+            background: #c0c0c0;
+            border-radius: 4px;
+        }
+
+        .terminal-style::-webkit-scrollbar-thumb:hover {
+            background: #a0a0a0;
+        }
+
+        /* Toast notification */
         .toast-message {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: var(--magnet);
-            color: #0b0e11;
+            background: #1a1a1a;
+            color: white;
             padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            z-index: 10000;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 9999;
             animation: slideIn 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         @keyframes slideIn {
@@ -1180,1334 +261,416 @@
             }
         }
 
-        .terminal-output .header-line {
-            color: var(--magnet);
-            font-weight: 700;
-            margin: 10px 0;
+        /* Footer */
+        .footer-note {
+            margin-top: 20px;
+            font-size: 12px; 
+            color: #aaa; 
             text-align: center;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
-        .terminal-output .section-title {
-            color: var(--yellow);
-            font-weight: 700;
-            margin: 15px 0 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
-            padding-bottom: 5px;
+        .footer-note span {
+            color: var(--accent-orange);
         }
 
-        .terminal-output .mwr-section {
-            color: var(--magnet);
-            border-bottom-color: var(--magnet);
+        /* Loading state */
+        .loading {
+            position: relative;
         }
 
-        .terminal-output .lvs-section {
-            color: var(--cyan);
-            border-bottom-color: var(--cyan);
+        .loading::after {
+            content: "...";
+            animation: dots 1.5s steps(4, end) infinite;
         }
 
-        .terminal-output .dtd-section {
-            color: var(--purple);
-            border-bottom-color: var(--purple);
+        @keyframes dots {
+            0%, 20% { content: "."; }
+            40% { content: ".."; }
+            60%, 100% { content: "..."; }
         }
 
-        .terminal-output .ier-section {
-            color: #ff6b6b;
-            border-bottom-color: #ff6b6b;
-        }
-
-        .terminal-output .line {
-            margin: 5px 0;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .terminal-output .label {
-            color: var(--text-dim);
-            width: 200px;
-        }
-
-        .terminal-output .value {
-            font-weight: 600;
-        }
-
-        .terminal-output .indent {
-            margin-left: 20px;
-        }
-
-        .terminal-output .green { color: var(--green); }
-        .terminal-output .red { color: var(--red); }
-        .terminal-output .yellow { color: var(--yellow); }
-        .terminal-output .purple { color: var(--purple); }
-        .terminal-output .orange { color: var(--orange); }
-        .terminal-output .blue { color: var(--blue); }
-        .terminal-output .pink { color: var(--pink); }
-        .terminal-output .cyan { color: var(--cyan); }
-        .terminal-output .magnet { color: var(--magnet); }
-
-        .terminal-output .divider {
-            border-top: 1px dashed rgba(255, 255, 255, 0.1);
-            margin: 20px 0;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(5px);
-            border-radius: 12px;
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 10px;
-            font-size: 0.75rem;
-        }
-
-        .features span {
-            padding: 4px 12px;
-            background: rgba(167, 139, 250, 0.1);
-            border-radius: 100px;
-            color: var(--magnet);
-        }
-
-        .features .mwr-feature {
-            background: rgba(167, 139, 250, 0.2);
-            color: var(--magnet);
-            font-weight: 600;
-            animation: pulseMWR 2s infinite;
-        }
-
-        .features .lvs-feature {
-            background: rgba(6, 182, 212, 0.2);
-            color: var(--cyan);
-            font-weight: 600;
-        }
-
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(11, 14, 17, 0.95);
-            backdrop-filter: blur(10px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        .loading-spinner {
-            text-align: center;
-        }
-
-        .loading-spinner i {
-            font-size: 48px;
-            color: var(--magnet);
-            margin-bottom: 20px;
-            animation: spin 1s linear infinite;
-            text-shadow: 0 0 20px var(--magnet);
-        }
-
-        .loading-spinner p {
-            font-size: 1rem;
-            color: var(--text-main);
-            letter-spacing: 1px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 12px;
-            }
-
-            header {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .symbol-selector {
-                flex-direction: column;
-            }
-
-            .input-controls {
-                flex-direction: column;
-            }
-
-            #customSymbolInput, .glass-select, .btn-primary, .btn-secondary, .btn-magnet, .btn-ghost {
-                width: 100%;
-            }
-
-            .header-card {
-                flex-direction: column;
-                align-items: start;
-                gap: 15px;
-            }
-
-            .price-section {
-                text-align: left;
-                width: 100%;
-            }
-
-            .price {
-                font-size: 1.8rem;
-            }
-
-            .main-opinion {
-                font-size: 2.5rem;
-            }
-
-            .metrics-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .advanced-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .phase-badge {
-                top: -10px;
-                right: 10px;
-                font-size: 0.7rem;
-                padding: 4px 15px;
-            }
-
-            .terminal-output .label {
-                width: 100%;
-                margin-bottom: 4px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-opinion {
-                font-size: 2rem;
-            }
-
-            .price {
-                font-size: 1.5rem;
-            }
-
-            .symbol {
-                font-size: 1.5rem;
-            }
-
-            .metrics-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-color);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--magnet);
-            border-radius: 3px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #8b5cf6;
-            box-shadow: 0 0 10px var(--magnet);
+        /* Responsive */
+        @media (max-width: 600px) {
+            .brand h1 { font-size: 32px; }
+            .search-container { flex-direction: column; padding: 16px; }
+            .btn-group { width: 100%; margin-top: 12px; }
+            .btn-group button { width: 100%; }
+            .card-header { flex-direction: column; gap: 12px; }
+            .action-buttons { width: 100%; justify-content: center; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <h1>DYLPREDICT<span class="version">V100</span><span class="sub-version">FAKE MAGNET</span><span class="mwr-badge">🧲 FMV</span><span class="lvs-badge">👻 LVS</span></h1>
-            </div>
-            
-            <div class="symbol-selector">
-                <div class="input-controls">
-                    <input type="text" id="customSymbolInput" placeholder="Symbol" value="">
-                    <select id="symbolSelect" class="glass-select">
-                        <option value="BTCUSDT">BTCUSDT</option>
-                        <option value="ETHUSDT">ETHUSDT</option>
-                        <option value="BNBUSDT">BNBUSDT</option>
-                        <option value="SOLUSDT">SOLUSDT</option>
-                        <option value="DOGEUSDT">DOGEUSDT</option>
-                        <option value="ARCUSDT">ARCUSDT</option>
-                        <option value="PIXELUSDT" selected>PIXELUSDT</option>
-                        <option value="SAHARAUSDT">SAHARAUSDT</option>
-                        <option value="SIRENUSDT">SIRENUSDT</option>
-                        <option value="POWERUSDT">POWERUSDT</option>
-                        <option value="PIPPINUSDT">PIPPINUSDT</option>
-                        <option value="KITEUSDT">KITEUSDT</option>
-                        <option value="ALICEUSDT">ALICEUSDT</option>
-                    </select>
-                </div>
-                <button id="analyzeCustomBtn" class="btn-primary">
-                    <i class="fas fa-chart-line"></i>
-                    Analyze
-                </button>
-                <button id="magnetModeBtn" class="btn-magnet">
-                    <i class="fas fa-magnet"></i>
-                    Magnet Scan
-                </button>
-                <button id="ghostModeBtn" class="btn-ghost">
-                    <i class="fas fa-ghost"></i>
-                    Ghost Scan
-                </button>
-                <button id="batchModeBtn" class="btn-secondary">
-                    <i class="fas fa-layer-group"></i>
-                    Batch
-                </button>
-            </div>
-        </header>
 
-        <div class="dashboard-container">
-            <div class="header-card">
-                <div class="phase-badge" id="phaseBadge">NEUTRAL</div>
-                <div class="symbol-info">
-                    <h1 class="symbol" id="mainSymbol">--</h1>
-                    <span class="timestamp" id="headerTime">--:--:--.---</span>
-                </div>
-                <div class="price-section">
-                    <span class="price-label">LIVE PRICE</span>
-                    <h2 class="price" id="priceValue">$0.00</h2>
-                </div>
-            </div>
+<div class="main-wrapper" id="wrapper">
+    <!-- Brand dengan icon khas Claude -->
+    <div class="brand">
+        <span>✳</span>
+        <h1>Back at it, Dylan</h1>
+    </div>
 
-            <section class="signal-hero neutral" id="signalHero">
-                <div class="main-opinion" id="opinionMain">NEUTRAL</div>
-                <div class="strategy-name" id="strategyDisplay">STRATEGY: --</div>
-                <div class="phase-reason" id="phaseReason">Enter a symbol and click Analyze</div>
-                <div class="confidence-bar" id="confidenceBar">
-                    <span id="confidenceLabel">CONFIDENCE: --</span>
-                    <div class="bar"><div class="fill" style="width: 0%" id="confidenceFill"></div></div>
-                </div>
-            </section>
-
-            <div class="metrics-grid">
-                <div class="card" id="marketBiasCard">
-                    <h3>Market Bias</h3>
-                    <div class="big-value" id="biasValue">--</div>
-                    <p id="biasDetail">--</p>
-                </div>
-
-                <div class="card" id="fakeMagnetCard">
-                    <h3>Fake Magnet <span class="mwr-badge" style="margin-left: 5px;">🎭</span></h3>
-                    <div class="score-display">
-                        <span class="score-num red" id="fakeMagnetStatus">INACTIVE</span>
-                        <span class="score-sub" id="fakeMagnetType">--</span>
-                    </div>
-                </div>
-
-                <div class="card" id="gravityCard">
-                    <h3>Gravity <span class="lvs-badge" style="margin-left: 5px;">⚡</span></h3>
-                    <div class="score-display">
-                        <span class="score-num orange" id="gravityStatus">INACTIVE</span>
-                        <span class="score-sub" id="gravityType">--</span>
-                    </div>
-                </div>
-
-                <div class="card" id="institutionalExitCard">
-                    <h3>Institutional Exit</h3>
-                    <div class="score-display">
-                        <span class="score-num" style="color: #ff6b6b;" id="institutionalExitStatus">INACTIVE</span>
-                        <span class="score-sub" id="institutionalExitReason">--</span>
-                    </div>
-                </div>
-
-                <div class="card" id="ttkCard">
-                    <h3>TTK Countdown</h3>
-                    <div class="big-value cyan" id="ttkMinutes">--</div>
-                    <p id="ttkUrgency">--</p>
-                </div>
-            </div>
-
-            <section class="details-section" id="detailsSection">
-                <div class="data-row">
-                    <span>Orderbook Ratio</span>
-                    <span class="val" id="obRatio">--</span>
-                </div>
-                <div class="data-row">
-                    <span>RSI (6)</span>
-                    <span class="val" id="rsiValue">--</span>
-                </div>
-                <div class="data-row">
-                    <span>Aggressive Ratio</span>
-                    <span class="val" id="aggRatio">--</span>
-                </div>
-                <div class="data-row">
-                    <span>Trade Flow</span>
-                    <span class="val" id="tradeFlow">--</span>
-                </div>
-                <div class="data-row">
-                    <span>Volume Ratio</span>
-                    <span class="val" id="volumeRatio">--</span>
-                </div>
-                <div class="data-row">
-                    <span>Premium</span>
-                    <span class="val" id="premium">--</span>
-                </div>
-                <div class="data-row">
-                    <span>Funding</span>
-                    <span class="val" id="funding">--</span>
-                </div>
-                <div class="data-row">
-                    <span>OI Δ5m</span>
-                    <span class="val" id="oiDelta">--</span>
-                </div>
-                <div class="data-row">
-                    <span>WMI Ratio</span>
-                    <span class="val" id="wmiRatio">--</span>
-                </div>
-                <div class="data-row">
-                    <span>Long Liq %</span>
-                    <span class="val" id="longLiqPercent">--</span>
-                </div>
-                <div class="data-row">
-                    <span>Short Liq %</span>
-                    <span class="val" id="shortLiqPercent">--</span>
-                </div>
-                <div class="data-row">
-                    <span>Nearest Liq</span>
-                    <span class="val" id="nearestLiq">--</span>
-                </div>
-            </section>
-
-            <div class="advanced-grid" id="advancedMetrics">
-                <div class="advanced-card mwr-card" id="limCard">
-                    <h4>⚖️ LIM Imbalance</h4>
-                    <div class="value" id="limBias">--</div>
-                    <div class="desc" id="limReason">--</div>
-                </div>
-                <div class="advanced-card lvs-card" id="lpcCard">
-                    <h4>💰 LPC Payout</h4>
-                    <div class="value" id="lpcBias">--</div>
-                    <div class="desc" id="lpcReason">--</div>
-                </div>
-                <div class="advanced-card fake-magnet-card" id="fmvCard">
-                    <h4>🎭 Fake Magnet (FMV)</h4>
-                    <div class="value" id="fmvBias">--</div>
-                    <div class="desc" id="fmvReason">--</div>
-                </div>
-                <div class="advanced-card gravity-card" id="lgoCard">
-                    <h4>⚡ Gravity (LGO)</h4>
-                    <div class="value" id="lgoBias">--</div>
-                    <div class="desc" id="lgoReason">--</div>
-                </div>
-                <div class="advanced-card" style="border-left-color: #ff6b6b;" id="ierCard">
-                    <h4>🏛️ Institutional Exit</h4>
-                    <div class="value" style="color: #ff6b6b;" id="ierBias">--</div>
-                    <div class="desc" id="ierReason">--</div>
-                </div>
-                <div class="advanced-card" id="fvcCard">
-                    <h4>🔍 FVC Flow Valid</h4>
-                    <div class="value" id="fvcBias">--</div>
-                    <div class="desc" id="fvcReason">--</div>
-                </div>
-                <div class="advanced-card" id="ghostCard">
-                    <h4>👻 Ghost Signal</h4>
-                    <div class="value cyan" id="ghostBias">--</div>
-                    <div class="desc" id="ghostReason">--</div>
-                </div>
-                <div class="advanced-card" id="trendIntegrityCard">
-                    <h4>📈 Trend Integrity</h4>
-                    <div class="value" id="trendBias">--</div>
-                    <div class="desc" id="trendReason">--</div>
-                </div>
-                <div class="advanced-card" id="energyCard">
-                    <h4>⚡ Energy V92</h4>
-                    <div class="value" id="energyBias">--</div>
-                    <div class="desc" id="energyReason">--</div>
-                </div>
-                <div class="advanced-card" id="cascadeCard">
-                    <h4>🌊 Cascade Time</h4>
-                    <div class="value" id="cascadeBias">--</div>
-                    <div class="desc" id="cascadeReason">--</div>
-                </div>
-                <div class="advanced-card" id="lepCard">
-                    <h4>🔄 LEP Energy</h4>
-                    <div class="value" id="lepBias">--</div>
-                    <div class="desc" id="lepReason">--</div>
-                </div>
-                <div class="advanced-card" id="stabilityCard">
-                    <h4>🛡️ Stability</h4>
-                    <div class="value" id="stabilityStatus">--</div>
-                    <div class="desc" id="stabilityReason">--</div>
-                </div>
-            </div>
-
-            <footer class="alert-box" id="alertBox">
-                <strong>🧲 MAGNET ALERT:</strong> <span id="alertMessage">Enter a symbol and click Analyze</span>
-            </footer>
-
-            <div class="terminal-output" id="terminalOutput">
-                <div class="terminal-header">
-                    <span class="terminal-title" id="terminalTitle">📊 TERMINAL OUTPUT V100</span>
-                    <div class="terminal-actions">
-                        <button class="terminal-btn analysis-btn" id="analysisViewBtn" onclick="showAnalysisView()">
-                            <i class="fas fa-chart-line"></i> Analysis
-                        </button>
-                        <button class="terminal-btn json-btn" id="jsonViewBtn" onclick="showJSONView()">
-                            <i class="fas fa-code"></i> JSON
-                        </button>
-                        <button class="terminal-btn" id="copyTerminalBtn" onclick="copyTerminalContent()">
-                            <i class="fas fa-copy"></i> Copy
-                        </button>
-                    </div>
-                </div>
-                <div class="terminal-content" id="terminalContent">
-                    <div class="header-line">================================================================================</div>
-                    <div class="line" style="justify-content: center;">Welcome to DylPredict V100 Fake Magnet Terminal</div>
-                    <div class="header-line">================================================================================</div>
-                    <div class="line" style="justify-content: center; margin-top: 20px;">Enter a symbol and click Analyze to begin</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer">
-            <div>DylPredict V100 • FAKE MAGNET EDITION • FMV + LGO + IER + LEP</div>
-            <div class="features">
-                <span class="mwr-feature">🎭 FMV Fake Magnet</span>
-                <span class="lvs-feature">⚡ LGO Gravity</span>
-                <span>🏛️ IER Exit</span>
-                <span>🔄 LEP Energy</span>
-                <span>🌊 Cascade</span>
-                <span>⏱️ TTK</span>
-                <span>👻 Ghost</span>
-                <span>🐋 WMI</span>
-                <span>⚡ Energy</span>
+    <!-- Search Area - Centered di awal, dengan input kosong -->
+    <div class="search-area">
+        <div class="search-container">
+            <input type="text" id="symbol" placeholder="Analyze a symbol..." value="">
+            <div class="btn-group">
+                <button class="btn-analyze" id="analyzeBtn">Analyze</button>
             </div>
         </div>
     </div>
 
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner">
-            <i class="fas fa-magnet"></i>
-            <p>Fake Magnet Scanner Active - Detecting Institutional Traps...</p>
+    <!-- Result Area - Muncul setelah analyze -->
+    <div class="result-wrapper" id="resultArea">
+        <div class="output-card" id="outputCard">
+            <!-- Header dengan kontrol professional -->
+            <div class="card-header">
+                <span id="resultTitle">Terminal Output</span>
+                <div class="action-buttons">
+                    <button class="btn-action" id="analysisBtn" onclick="showAnalysis()">📊 Analysis</button>
+                    <button class="btn-action" id="jsonBtn" onclick="showJSON()">🔍 JSON</button>
+                    <button class="btn-action" id="copyBtn" onclick="copyResult()">📋 Copy</button>
+                    <button class="btn-action" onclick="downloadResult()">⬇️ Download</button>
+                </div>
+            </div>
+            <!-- Terminal output area -->
+            <pre id="output" class="terminal-style">Analyzing...</pre>
         </div>
-    </div>
-
-    <script>
-        // Configuration
-        const API_URL = 'https://spotty-lizzie-dylpredict-2b047c63.koyeb.app';
         
-        // DOM Elements
-        const elements = {
-            symbolSelect: document.getElementById('symbolSelect'),
-            analyzeCustomBtn: document.getElementById('analyzeCustomBtn'),
-            magnetModeBtn: document.getElementById('magnetModeBtn'),
-            ghostModeBtn: document.getElementById('ghostModeBtn'),
-            batchModeBtn: document.getElementById('batchModeBtn'),
-            customSymbolInput: document.getElementById('customSymbolInput'),
-            loadingOverlay: document.getElementById('loadingOverlay'),
-            mainSymbol: document.getElementById('mainSymbol'),
-            headerTime: document.getElementById('headerTime'),
-            priceValue: document.getElementById('priceValue'),
-            signalHero: document.getElementById('signalHero'),
-            opinionMain: document.getElementById('opinionMain'),
-            strategyDisplay: document.getElementById('strategyDisplay'),
-            phaseReason: document.getElementById('phaseReason'),
-            confidenceFill: document.getElementById('confidenceFill'),
-            confidenceLabel: document.getElementById('confidenceLabel'),
-            biasValue: document.getElementById('biasValue'),
-            biasDetail: document.getElementById('biasDetail'),
-            fakeMagnetStatus: document.getElementById('fakeMagnetStatus'),
-            fakeMagnetType: document.getElementById('fakeMagnetType'),
-            gravityStatus: document.getElementById('gravityStatus'),
-            gravityType: document.getElementById('gravityType'),
-            institutionalExitStatus: document.getElementById('institutionalExitStatus'),
-            institutionalExitReason: document.getElementById('institutionalExitReason'),
-            engineScore: document.getElementById('engineScore'),
-            engineStatus: document.getElementById('engineStatus'),
-            ttkMinutes: document.getElementById('ttkMinutes'),
-            ttkUrgency: document.getElementById('ttkUrgency'),
-            obRatio: document.getElementById('obRatio'),
-            rsiValue: document.getElementById('rsiValue'),
-            aggRatio: document.getElementById('aggRatio'),
-            tradeFlow: document.getElementById('tradeFlow'),
-            volumeRatio: document.getElementById('volumeRatio'),
-            premium: document.getElementById('premium'),
-            funding: document.getElementById('funding'),
-            oiDelta: document.getElementById('oiDelta'),
-            wmiRatio: document.getElementById('wmiRatio'),
-            longLiqPercent: document.getElementById('longLiqPercent'),
-            shortLiqPercent: document.getElementById('shortLiqPercent'),
-            nearestLiq: document.getElementById('nearestLiq'),
-            marketPhase: document.getElementById('marketPhase'),
-            marketPhaseDesc: document.getElementById('marketPhaseDesc'),
-            wmiValue: document.getElementById('wmiValue'),
-            wmiDesc: document.getElementById('wmiDesc'),
-            confidenceLevel: document.getElementById('confidenceLevel'),
-            confidenceDesc: document.getElementById('confidenceDesc'),
-            longLiq: document.getElementById('longLiq'),
-            longLiqDesc: document.getElementById('longLiqDesc'),
-            shortLiq: document.getElementById('shortLiq'),
-            shortLiqDesc: document.getElementById('shortLiqDesc'),
-            limBias: document.getElementById('limBias'),
-            limReason: document.getElementById('limReason'),
-            lpcBias: document.getElementById('lpcBias'),
-            lpcReason: document.getElementById('lpcReason'),
-            fmvBias: document.getElementById('fmvBias'),
-            fmvReason: document.getElementById('fmvReason'),
-            lgoBias: document.getElementById('lgoBias'),
-            lgoReason: document.getElementById('lgoReason'),
-            ierBias: document.getElementById('ierBias'),
-            ierReason: document.getElementById('ierReason'),
-            fvcBias: document.getElementById('fvcBias'),
-            fvcReason: document.getElementById('fvcReason'),
-            ghostBias: document.getElementById('ghostBias'),
-            ghostReason: document.getElementById('ghostReason'),
-            trendBias: document.getElementById('trendBias'),
-            trendReason: document.getElementById('trendReason'),
-            energyBias: document.getElementById('energyBias'),
-            energyReason: document.getElementById('energyReason'),
-            cascadeBias: document.getElementById('cascadeBias'),
-            cascadeReason: document.getElementById('cascadeReason'),
-            lepBias: document.getElementById('lepBias'),
-            lepReason: document.getElementById('lepReason'),
-            stabilityStatus: document.getElementById('stabilityStatus'),
-            stabilityReason: document.getElementById('stabilityReason'),
-            alertBox: document.getElementById('alertBox'),
-            alertMessage: document.getElementById('alertMessage'),
-            phaseBadge: document.getElementById('phaseBadge'),
-            terminalOutput: document.getElementById('terminalOutput'),
-            terminalContent: document.getElementById('terminalContent'),
-            terminalTitle: document.getElementById('terminalTitle')
-        };
+        <!-- Footer note -->
+        <div class="footer-note">
+            <span>✳</span> DylPredict AI V87 • High-Confidence Neural Analysis
+        </div>
+    </div>
+</div>
 
-        // Store last analysis data for JSON view
-        let lastAnalysisData = null;
-        let currentView = 'analysis'; // 'analysis' or 'json'
+<script>
+    // Configuration
+    const BASE_URL = 'https://spotty-lizzie-dylpredict-2b047c63.koyeb.app';
+    
+    // DOM Elements
+    const wrapper = document.getElementById('wrapper');
+    const resultArea = document.getElementById('resultArea');
+    const outputEl = document.getElementById('output');
+    const cardEl = document.getElementById('outputCard');
+    const resultTitle = document.getElementById('resultTitle');
+    const symbolInput = document.getElementById('symbol');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const analysisBtn = document.getElementById('analysisBtn');
+    const jsonBtn = document.getElementById('jsonBtn');
+    const copyBtn = document.getElementById('copyBtn');
 
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('🧲 DylPredict V100 Fake Magnet Edition Initialized');
-            console.log('📡 API URL:', API_URL);
-            attachEventListeners();
-            
-            // Set default empty state
-            resetToDefault();
-        });
+    // Store last analysis data
+    let lastSymbol = '';
+    let lastTerminalOutput = '';
+    let lastJSONData = null;
+    let currentView = 'terminal'; // 'terminal' or 'json'
 
-        function resetToDefault() {
-            // Clear input
-            elements.customSymbolInput.value = '';
-            
-            // Reset display elements
-            elements.mainSymbol.textContent = '--';
-            elements.headerTime.textContent = '--:--:--.---';
-            elements.priceValue.textContent = '$0.00';
-            elements.opinionMain.textContent = 'NEUTRAL';
-            elements.strategyDisplay.textContent = 'STRATEGY: --';
-            elements.phaseReason.textContent = 'Enter a symbol and click Analyze';
-            elements.confidenceFill.style.width = '0%';
-            elements.confidenceLabel.textContent = 'CONFIDENCE: --';
-            
-            // Reset bias
-            elements.biasValue.textContent = '--';
-            elements.biasDetail.textContent = '--';
-            
-            // Reset special status
-            elements.fakeMagnetStatus.textContent = 'INACTIVE';
-            elements.fakeMagnetType.textContent = '--';
-            elements.gravityStatus.textContent = 'INACTIVE';
-            elements.gravityType.textContent = '--';
-            elements.institutionalExitStatus.textContent = 'INACTIVE';
-            elements.institutionalExitReason.textContent = '--';
-            
-            // Reset TTK
-            elements.ttkMinutes.textContent = '--';
-            elements.ttkUrgency.textContent = '--';
-            
-            // Reset details
-            elements.obRatio.textContent = '--';
-            elements.rsiValue.textContent = '--';
-            elements.aggRatio.textContent = '--';
-            elements.tradeFlow.textContent = '--';
-            elements.volumeRatio.textContent = '--';
-            elements.premium.textContent = '--';
-            elements.funding.textContent = '--';
-            elements.oiDelta.textContent = '--';
-            elements.wmiRatio.textContent = '--';
-            elements.longLiqPercent.textContent = '--';
-            elements.shortLiqPercent.textContent = '--';
-            elements.nearestLiq.textContent = '--';
-            
-            // Reset advanced
-            elements.limBias.textContent = '--';
-            elements.limReason.textContent = '--';
-            elements.lpcBias.textContent = '--';
-            elements.lpcReason.textContent = '--';
-            elements.fmvBias.textContent = '--';
-            elements.fmvReason.textContent = '--';
-            elements.lgoBias.textContent = '--';
-            elements.lgoReason.textContent = '--';
-            elements.ierBias.textContent = '--';
-            elements.ierReason.textContent = '--';
-            elements.fvcBias.textContent = '--';
-            elements.fvcReason.textContent = '--';
-            elements.ghostBias.textContent = '--';
-            elements.ghostReason.textContent = '--';
-            elements.trendBias.textContent = '--';
-            elements.trendReason.textContent = '--';
-            elements.energyBias.textContent = '--';
-            elements.energyReason.textContent = '--';
-            elements.cascadeBias.textContent = '--';
-            elements.cascadeReason.textContent = '--';
-            elements.lepBias.textContent = '--';
-            elements.lepReason.textContent = '--';
-            elements.stabilityStatus.textContent = '--';
-            elements.stabilityReason.textContent = '--';
-            
-            // Reset alert
-            elements.alertMessage.textContent = 'Enter a symbol and click Analyze';
-            elements.alertBox.className = 'alert-box';
-            
-            // Reset phase badge
-            elements.phaseBadge.textContent = 'NEUTRAL';
-            elements.phaseBadge.className = 'phase-badge';
-            
-            // Reset signal hero
-            elements.signalHero.className = 'signal-hero neutral';
-            
-            // Reset terminal
-            elements.terminalContent.innerHTML = `
-                <div class="header-line">================================================================================</div>
-                <div class="line" style="justify-content: center;">Welcome to DylPredict V100 Fake Magnet Terminal</div>
-                <div class="header-line">================================================================================</div>
-                <div class="line" style="justify-content: center; margin-top: 20px;">Enter a symbol and click Analyze to begin</div>
-            `;
-            
-            lastAnalysisData = null;
+    // ==================== MAIN FUNCTIONS ====================
+
+    async function handleAnalyze() {
+        const symbol = symbolInput.value.toUpperCase().trim();
+        if (!symbol) {
+            showToast('Please enter a symbol', 'error');
+            return;
         }
 
-        function attachEventListeners() {
-            elements.analyzeCustomBtn.addEventListener('click', () => {
-                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
-                if (symbol) {
-                    analyzeSymbol(symbol);
-                } else {
-                    alert('❌ Masukkan symbol coin! Contoh: PIXELUSDT');
-                }
-            });
+        lastSymbol = symbol;
 
-            elements.magnetModeBtn.addEventListener('click', () => {
-                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
-                if (symbol) {
-                    magnetScan(symbol);
-                } else {
-                    alert('❌ Masukkan symbol untuk magnet scan!');
-                }
-            });
+        // Animate: geser layout ke atas
+        wrapper.classList.add('has-result');
+        resultArea.style.display = 'block';
+        
+        // Trigger fade-in animation
+        setTimeout(() => {
+            resultArea.style.opacity = '1';
+            resultArea.style.transform = 'translateY(0)';
+        }, 50);
 
-            elements.ghostModeBtn.addEventListener('click', () => {
-                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
-                if (symbol) {
-                    ghostScan(symbol);
-                } else {
-                    alert('❌ Masukkan symbol untuk ghost scan!');
-                }
-            });
+        // Set loading state
+        outputEl.textContent = `📡 Gathering intelligence for ${symbol}...`;
+        resultTitle.textContent = `Analyzing ${symbol}`;
 
-            elements.customSymbolInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    elements.analyzeCustomBtn.click();
-                }
-            });
+        // Reset card border
+        cardEl.style.borderTop = '1px solid var(--border-color)';
+        cardEl.style.borderColor = 'var(--border-color)';
 
-            elements.symbolSelect.addEventListener('change', (e) => {
-                elements.customSymbolInput.value = e.target.value;
-            });
+        // Reset button states
+        analysisBtn.classList.remove('active');
+        jsonBtn.classList.remove('active');
 
-            elements.batchModeBtn.addEventListener('click', () => {
-                const symbols = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'PIXELUSDT', 'SAHARAUSDT', 'SIRENUSDT', 'POWERUSDT', 'PIPPINUSDT', 'KITEUSDT'];
-                analyzeBatch(symbols);
-            });
-        }
-
-        async function analyzeSymbol(symbol) {
-            showLoading('Analyzing with V100 Fake Magnet Detection...');
+        try {
+            // Fetch terminal output
+            const response = await fetch(`${BASE_URL}/analyze/${symbol}/terminal`);
             
-            try {
-                console.log(`🧲 Analyzing ${symbol} with V100 Fake Magnet Edition...`);
-                
-                const timestamp = Date.now();
-                const url = `${API_URL}/analyze/${symbol}?t=${timestamp}`;
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache'
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.success && result.data) {
-                    lastAnalysisData = result.data;
-                    currentView = 'analysis';
-                    updateDisplay(result.data);
-                    showToast('✅ Analysis complete!');
-                } else {
-                    throw new Error(result.error || `Failed to fetch data for ${symbol}`);
-                }
-                
-            } catch (error) {
-                console.error('❌ Analysis Failed:', error);
-                showError(error.message);
-            } finally {
-                hideLoading();
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
-        }
-
-        async function magnetScan(symbol) {
-            showLoading('🧲 MAGNET SCAN ACTIVE - Hunting for Fake Magnets...');
             
+            const text = await response.text();
+            
+            // Store terminal output
+            lastTerminalOutput = text;
+            currentView = 'terminal';
+            
+            // Display result
+            outputEl.textContent = text;
+            resultTitle.textContent = `Analysis: ${symbol}`;
+
+            // Also fetch JSON data for later use
             try {
-                console.log(`🧲 Magnet scanning ${symbol} for FMV...`);
-                
-                const timestamp = Date.now();
-                const url = `${API_URL}/magnet/${symbol}?t=${timestamp}`;
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache'
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.success && result.data) {
-                    lastAnalysisData = result.data;
-                    currentView = 'analysis';
-                    updateDisplay(result.data);
-                    showToast('🧲 Magnet scan complete!');
-                } else {
-                    // Fallback to regular analyze
-                    analyzeSymbol(symbol);
-                }
-                
-            } catch (error) {
-                console.error('❌ Magnet Scan Failed:', error);
-                analyzeSymbol(symbol); // Fallback
-            } finally {
-                hideLoading();
+                const jsonResponse = await fetch(`${BASE_URL}/analyze/${symbol}`);
+                const jsonData = await jsonResponse.json();
+                lastJSONData = jsonData;
+            } catch (e) {
+                console.log('JSON fetch failed, but terminal works');
             }
-        }
 
-        async function ghostScan(symbol) {
-            showLoading('👻 GHOST SCAN ACTIVE - Hunting for Ghost Signals...');
-            
-            try {
-                console.log(`👻 Ghost scanning ${symbol} for Ghost signals...`);
-                
-                const timestamp = Date.now();
-                const url = `${API_URL}/ghost/${symbol}?t=${timestamp}`;
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache'
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.success && result.data) {
-                    lastAnalysisData = result.data;
-                    currentView = 'analysis';
-                    updateDisplay(result.data);
-                    showToast('👻 Ghost scan complete!');
-                } else {
-                    // Fallback to regular analyze
-                    analyzeSymbol(symbol);
-                }
-                
-            } catch (error) {
-                console.error('❌ Ghost Scan Failed:', error);
-                analyzeSymbol(symbol); // Fallback
-            } finally {
-                hideLoading();
-            }
-        }
-
-        async function analyzeBatch(symbols) {
-            showLoading('Batch scanning for fake magnets & institutional exits...');
-            
-            try {
-                console.log(`🧲 Batch scanning: ${symbols.join(', ')}`);
-                
-                let summary = "🎭 FAKE MAGNET SCAN SUMMARY - V100 EDITION:\n\n";
-                let fakeMagnetCount = 0;
-                let gravityCount = 0;
-                let exitCount = 0;
-                
-                for (const symbol of symbols) {
-                    try {
-                        const response = await fetch(`${API_URL}/analyze/${symbol}?t=${Date.now()}`);
-                        const result = await response.json();
-                        
-                        if (result.success && result.data) {
-                            const data = result.data;
-                            const isFakeMagnet = data.fmv?.is_fake_magnet ? '🎭 FAKE!' : '       ';
-                            const isGravity = data.lgo?.is_overdrive ? '⚡ GRAVITY!' : '         ';
-                            const isExit = data.ier?.is_exit ? '🏛️ EXIT!' : '       ';
-                            
-                            if (data.fmv?.is_fake_magnet) fakeMagnetCount++;
-                            if (data.lgo?.is_overdrive) gravityCount++;
-                            if (data.ier?.is_exit) exitCount++;
-                            
-                            summary += `${isFakeMagnet} ${isGravity} ${isExit} ${symbol}: ${data.bias || 'NEUTRAL'} (${data.confidence || 'LOW'})\n`;
-                            if (data.fmv?.is_fake_magnet) {
-                                summary += `      └─ 🎭 ${data.fmv.reason}\n`;
-                            }
-                            if (data.lgo?.is_overdrive) {
-                                summary += `      └─ ⚡ ${data.lgo.reason}\n`;
-                            }
-                            if (data.ier?.is_exit) {
-                                summary += `      └─ 🏛️ ${data.ier.reason}\n`;
-                            }
-                        } else {
-                            summary += `${symbol}: FAILED\n`;
-                        }
-                    } catch (e) {
-                        summary += `${symbol}: ERROR\n`;
-                    }
-                }
-                
-                summary += `\n🎭 Fake Magnets Found: ${fakeMagnetCount}`;
-                summary += `\n⚡ Gravity Events Found: ${gravityCount}`;
-                summary += `\n🏛️ Institutional Exits Found: ${exitCount}`;
-                alert(summary);
-                showToast('✅ Batch scan complete!');
-                
-            } catch (error) {
-                console.error('❌ Batch Analysis Failed:', error);
-                showError(error.message);
-            } finally {
-                hideLoading();
-            }
-        }
-
-        function updateDisplay(data) {
-            console.log('🔄 Updating display with V100 data:', data);
-            
-            // Basic info
-            elements.mainSymbol.textContent = data.symbol || '--';
-            elements.headerTime.textContent = data.timestamp || data.time || '--:--:--.---';
-            elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}`;
-            
-            // Bias and signal
-            const bias = data.bias || 'NEUTRAL';
-            elements.opinionMain.textContent = bias;
-            
-            // Check for special signals
-            const isFakeMagnet = data.fmv?.is_fake_magnet || false;
-            const isGravity = data.lgo?.is_overdrive || false;
-            const isExit = data.ier?.is_exit || false;
-            const isGhost = data.ghost?.is_ghost || false;
-            
-            // Set signal hero class
-            if (isFakeMagnet) {
-                elements.signalHero.className = 'signal-hero bearish';
-                elements.phaseBadge.className = 'phase-badge institutional-exit';
-            } else if (isGravity) {
-                elements.signalHero.className = 'signal-hero bearish';
-                elements.phaseBadge.className = 'phase-badge lrr';
-            } else if (isExit) {
-                elements.signalHero.className = 'signal-hero bearish';
-                elements.phaseBadge.className = 'phase-badge institutional-exit';
+            // Smart Highlighting berdasarkan bias
+            if (text.includes("FINAL BIAS: SHORT")) {
+                cardEl.style.borderTop = `4px solid var(--short-border)`;
+                cardEl.style.borderColor = '#f5c2c2';
+            } else if (text.includes("FINAL BIAS: LONG")) {
+                cardEl.style.borderTop = `4px solid var(--long-border)`;
+                cardEl.style.borderColor = '#c2f5c2';
             } else {
-                elements.signalHero.className = `signal-hero ${bias.toLowerCase()}`;
+                cardEl.style.borderTop = '1px solid var(--border-color)';
+                cardEl.style.borderColor = 'var(--border-color)';
             }
-            
-            // Phase badge
-            const marketPhase = data.market_phase || 'NEUTRAL';
-            elements.phaseBadge.textContent = marketPhase;
-            if (marketPhase.includes('INSTITUTIONAL_EXIT')) {
-                elements.phaseBadge.classList.add('institutional-exit');
-            }
-            
-            // Strategy and reason
-            elements.strategyDisplay.textContent = `STRATEGY: ${isFakeMagnet ? 'FAKE MAGNET TRAP' : isGravity ? 'GRAVITY OVERDRIVE' : isExit ? 'INSTITUTIONAL EXIT' : marketPhase}`;
-            elements.phaseReason.textContent = data.phase_reason || data.reason || '--';
-            
-            // Confidence
-            let confidenceWidth = 0;
-            let confidenceText = 'CONFIDENCE: --';
-            const confidence = data.confidence || 'LOW';
-            
-            if (confidence === 'ABSOLUTE') {
-                confidenceWidth = 100;
-                confidenceText = 'CONFIDENCE: ABSOLUTE ☢️☢️☢️';
-            } else if (confidence === 'SUPREME') {
-                confidenceWidth = 95;
-                confidenceText = 'CONFIDENCE: SUPREME 🔥🔥🔥';
-            } else if (confidence === 'VERY_HIGH') {
-                confidenceWidth = 90;
-                confidenceText = 'CONFIDENCE: VERY HIGH 🔥🔥🔥';
-            } else if (confidence === 'HIGH') {
-                confidenceWidth = 75;
-                confidenceText = 'CONFIDENCE: HIGH 🔥🔥';
-            } else if (confidence === 'MEDIUM') {
-                confidenceWidth = 50;
-                confidenceText = 'CONFIDENCE: MEDIUM 🔥';
-            } else if (confidence === 'LOW') {
-                confidenceWidth = 25;
-                confidenceText = 'CONFIDENCE: LOW';
-            }
-            
-            elements.confidenceFill.style.width = `${confidenceWidth}%`;
-            elements.confidenceLabel.textContent = confidenceText;
-            
-            // Market Bias
-            elements.biasValue.textContent = bias;
-            elements.biasValue.className = `big-value ${bias.toLowerCase()}`;
-            elements.biasDetail.textContent = data.reason?.split('.')[0] || '--';
-            
-            // Special Status
-            elements.fakeMagnetStatus.textContent = isFakeMagnet ? 'ACTIVE' : 'INACTIVE';
-            elements.fakeMagnetStatus.className = `score-num ${isFakeMagnet ? 'red' : ''}`;
-            elements.fakeMagnetType.textContent = data.fmv?.fake_type || '--';
-            
-            elements.gravityStatus.textContent = isGravity ? 'ACTIVE' : 'INACTIVE';
-            elements.gravityStatus.className = `score-num ${isGravity ? 'orange' : ''}`;
-            elements.gravityType.textContent = data.lgo?.overdrive_type || '--';
-            
-            elements.institutionalExitStatus.textContent = isExit ? 'ACTIVE' : 'INACTIVE';
-            elements.institutionalExitStatus.className = 'score-num';
-            if (isExit) elements.institutionalExitStatus.style.color = '#ff6b6b';
-            elements.institutionalExitReason.textContent = data.ier?.exit_type || '--';
-            
-            // TTK Countdown
-            const ttkMinutes = data.ttk?.estimated_minutes || '--';
-            const ttkUrgency = data.ttk?.urgency || '--';
-            elements.ttkMinutes.textContent = ttkMinutes !== '--' ? ttkMinutes + 'm' : '--';
-            elements.ttkUrgency.textContent = ttkUrgency;
-            elements.ttkUrgency.className = ttkUrgency === 'IMMINENT' ? 'red' : ttkUrgency === 'HIGH' ? 'orange' : '';
-            
-            // Details
-            elements.obRatio.textContent = data.ob_ratio ? data.ob_ratio.toFixed(2) + 'x' : '--';
-            elements.obRatio.className = `val ${(data.ob_ratio || 1) > 1.5 ? 'green' : (data.ob_ratio || 1) < 0.6 ? 'red' : ''}`;
-            
-            const rsi6 = data.rsi6 || 50;
-            elements.rsiValue.textContent = rsi6.toFixed(1);
-            elements.rsiValue.className = `val ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}`;
-            
-            elements.aggRatio.textContent = data.aggressive_ratio ? data.aggressive_ratio.toFixed(2) + 'x' : '--';
-            elements.aggRatio.className = `val ${(data.aggressive_ratio || 1) < 0.3 ? 'cyan' : (data.aggressive_ratio || 1) > 2 ? 'warning' : ''}`;
-            
-            elements.tradeFlow.textContent = data.trade_flow ? data.trade_flow.toFixed(2) + 'x' : '--';
-            elements.tradeFlow.className = `val ${(data.trade_flow || 1) < 0.5 ? 'cyan' : (data.trade_flow || 1) > 2 ? 'warning' : ''}`;
-            
-            elements.volumeRatio.textContent = data.volume_ratio ? data.volume_ratio.toFixed(2) + 'x' : '--';
-            elements.premium.textContent = data.premium ? (data.premium * 100).toFixed(2) + '%' : '--';
-            elements.funding.textContent = data.funding ? (data.funding * 100).toFixed(4) + '%' : '--';
-            elements.oiDelta.textContent = data.oi_delta_5m ? data.oi_delta_5m.toFixed(2) + '%' : '--';
-            elements.oiDelta.className = `val ${(data.oi_delta_5m || 0) > 2 ? 'green' : (data.oi_delta_5m || 0) < -2 ? 'red' : ''}`;
-            
-            elements.wmiRatio.textContent = data.wmi_ratio ? data.wmi_ratio.toFixed(2) + 'x' : '--';
-            elements.wmiRatio.className = `val ${Math.abs(data.wmi_ratio || 0) > 50 ? 'cyan' : ''}`;
-            
-            elements.longLiqPercent.textContent = data.long_liq ? data.long_liq.toFixed(2) + '%' : '--';
-            elements.longLiqPercent.className = `val ${(data.long_liq || 100) < 0.5 ? 'red' : ''}`;
-            
-            elements.shortLiqPercent.textContent = data.short_liq ? data.short_liq.toFixed(2) + '%' : '--';
-            elements.shortLiqPercent.className = `val ${(data.short_liq || 100) < 0.5 ? 'green' : ''}`;
-            
-            elements.nearestLiq.textContent = data.nearest_liquidity || '--';
-            
-            // Advanced modules
-            if (data.lim) {
-                elements.limBias.textContent = data.lim.bias || '--';
-                elements.limReason.textContent = data.lim.reason?.substring(0, 50) + '...' || '--';
-            }
-            
-            if (data.lpc) {
-                elements.lpcBias.textContent = data.lpc.bias || '--';
-                elements.lpcReason.textContent = data.lpc.reason?.substring(0, 50) + '...' || '--';
-            }
-            
-            if (data.fmv) {
-                elements.fmvBias.textContent = data.fmv.bias || '--';
-                elements.fmvReason.textContent = data.fmv.reason?.substring(0, 50) + '...' || '--';
-            }
-            
-            if (data.lgo) {
-                elements.lgoBias.textContent = data.lgo.bias || '--';
-                elements.lgoReason.textContent = data.lgo.reason?.substring(0, 50) + '...' || '--';
-            }
-            
-            if (data.ier) {
-                elements.ierBias.textContent = data.ier.bias || '--';
-                elements.ierReason.textContent = data.ier.reason?.substring(0, 50) + '...' || '--';
-            }
-            
-            if (data.fvc) {
-                elements.fvcBias.textContent = data.fvc.bias || '--';
-                elements.fvcReason.textContent = data.fvc.reason?.substring(0, 50) + '...' || '--';
-            }
-            
-            if (data.ghost) {
-                elements.ghostBias.textContent = data.ghost.bias || '--';
-                elements.ghostReason.textContent = data.ghost.reasons?.join(' | ')?.substring(0, 50) + '...' || '--';
-            }
-            
-            if (data.trend_integrity) {
-                elements.trendBias.textContent = data.trend_integrity.bias_recommendation || '--';
-                elements.trendReason.textContent = data.trend_integrity.reason?.substring(0, 50) + '...' || '--';
-            }
-            
-            if (data.energy_v92) {
-                elements.energyBias.textContent = data.energy_v92.bias || '--';
-                elements.energyReason.textContent = data.energy_v92.reason?.substring(0, 50) + '...' || '--';
-            }
-            
-            if (data.cascade) {
-                elements.cascadeBias.textContent = data.cascade.bias || '--';
-                elements.cascadeReason.textContent = data.cascade.reason?.substring(0, 50) + '...' || '--';
-            }
-            
-            if (data.lep) {
-                elements.lepBias.textContent = data.lep.bias || '--';
-                elements.lepReason.textContent = data.lep.reason?.substring(0, 50) + '...' || '--';
-            }
-            
-            if (data.stability) {
-                elements.stabilityStatus.textContent = data.stability.engine_active ? 'ENGINE ACTIVE' : 'NORMAL';
-                elements.stabilityReason.textContent = data.stability.reason?.substring(0, 50) + '...' || '--';
-            }
-            
-            // Alert Box
-            let alertMsg = data.phase_reason || data.reason || 'No alert';
-            let alertClass = 'alert-box';
-            
-            if (isFakeMagnet) {
-                alertMsg = `🎭 FAKE MAGNET: ${data.fmv?.reason || 'Fake magnet detected!'}`;
-                alertClass = 'alert-box fake-magnet';
-            } else if (isGravity) {
-                alertMsg = `⚡ GRAVITY OVERDRIVE: ${data.lgo?.reason || 'Gravity overdrive detected!'}`;
-                alertClass = 'alert-box gravity';
-            } else if (isExit) {
-                alertMsg = `🏛️ INSTITUTIONAL EXIT: ${data.ier?.reason || 'Institutional exit detected!'}`;
-                alertClass = 'alert-box institutional-exit';
-            } else if (isGhost) {
-                alertMsg = `👻 GHOST SIGNAL: ${data.ghost?.reasons?.join(' | ') || 'Ghost signal detected!'}`;
-                alertClass = 'alert-box lvs-alert';
-            }
-            
-            elements.alertBox.className = alertClass;
-            elements.alertMessage.textContent = alertMsg;
-            
-            // Entry ready
-            if (data.entry_ready) {
-                elements.phaseBadge.textContent = '✅ READY TO ENTRY!';
-            }
-            
-            // Show terminal output based on current view
-            if (currentView === 'analysis') {
-                showAnalysisView();
-            } else {
-                showJSONView();
-            }
+
+            showToast(`✅ Analysis complete for ${symbol}`);
+
+        } catch (error) {
+            outputEl.textContent = `❌ Error: ${error.message}`;
+            cardEl.style.borderTop = '4px solid #ff6b6b';
+            console.error('Fetch error:', error);
+            showToast(`❌ Error: ${error.message}`, 'error');
+        }
+    }
+
+    // ==================== VIEW FUNCTIONS ====================
+
+    function showAnalysis() {
+        if (!lastSymbol) {
+            showToast('No analysis data available', 'error');
+            return;
         }
 
-        function showAnalysisView() {
-            if (!lastAnalysisData) return;
-            
-            currentView = 'analysis';
-            elements.terminalTitle.textContent = '📊 TERMINAL OUTPUT V100';
-            const data = lastAnalysisData;
-            
-            const isFakeMagnet = data.fmv?.is_fake_magnet || false;
-            const isGravity = data.lgo?.is_overdrive || false;
-            const isExit = data.ier?.is_exit || false;
-            const isGhost = data.ghost?.is_ghost || false;
-            
-            const longLiq = data.long_liq || 0;
-            const shortLiq = data.short_liq || 0;
-            const tradeFlow = data.trade_flow || 1.0;
-            const aggressiveRatio = data.aggressive_ratio || 1.0;
-            const rsi6 = data.rsi6 || 50;
-            const obRatio = data.ob_ratio || 1.0;
-            const oiDelta = data.oi_delta_5m || 0;
-            const wmiRatio = data.wmi_ratio || 0;
-            
-            elements.terminalContent.innerHTML = `
-                <div class="header-line">================================================================================</div>
-                <div class="line"><span class="label">SYMBOL :</span> <span class="value">${data.symbol || '--'}</span></div>
-                <div class="line"><span class="label">TIME   :</span> <span class="value">${data.timestamp || data.time || '--'}</span></div>
-                <div class="line"><span class="label">PRICE  :</span> <span class="value">$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.00'}</span></div>
-                <div class="header-line">================================================================================</div>
-                
-                <div class="section-title ier-section">🎭 V100 FAKE MAGNET DETECTION</div>
-                <div class="line"><span class="label">🎭 FMV Fake Magnet :</span> <span class="value ${isFakeMagnet ? 'red' : ''}">${isFakeMagnet ? 'ACTIVE' : 'INACTIVE'} (${data.fmv?.fake_type || 'NONE'})</span></div>
-                <div class="line"><span class="label">📋 FMV Reason :</span> <span class="value red">${data.fmv?.reason || 'No fake magnet'}</span></div>
-                <div class="line"><span class="label">⚡ LGO Gravity :</span> <span class="value ${isGravity ? 'orange' : ''}">${isGravity ? 'ACTIVE' : 'INACTIVE'} (${data.lgo?.overdrive_type || 'NONE'})</span></div>
-                <div class="line"><span class="label">📋 LGO Reason :</span> <span class="value orange">${data.lgo?.reason || 'No gravity'}</span></div>
-                <div class="line"><span class="label">🏛️ IER Exit :</span> <span class="value" style="${isExit ? 'color: #ff6b6b;' : ''}">${isExit ? 'ACTIVE' : 'INACTIVE'} (${data.ier?.exit_type || 'NONE'})</span></div>
-                <div class="line"><span class="label">📋 IER Reason :</span> <span class="value" style="${isExit ? 'color: #ff6b6b;' : ''}">${data.ier?.reason || 'No exit'}</span></div>
-                <div class="line"><span class="label">👻 Ghost Signal :</span> <span class="value ${isGhost ? 'cyan' : ''}">${isGhost ? 'ACTIVE' : 'INACTIVE'} (Score: ${data.ghost?.score || 0})</span></div>
-                <div class="line"><span class="label">📋 Ghost Reasons :</span> <span class="value cyan">${data.ghost?.reasons?.join(' | ') || 'No ghost'}</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title">⚖️ IMBALANCE & PAYOUT</div>
-                <div class="line"><span class="label">⚖️ LIM Imbalance :</span> <span class="value">${data.lim?.bias || 'NEUTRAL'} (Ratio ${data.lim?.imbalance_ratio?.toFixed(2) || 0}x)</span></div>
-                <div class="line"><span class="label">📋 LIM Reason :</span> <span class="value">${data.lim?.reason?.substring(0, 100) || '--'}</span></div>
-                <div class="line"><span class="label">💰 LPC Payout :</span> <span class="value">${data.lpc?.bias || 'NEUTRAL'} (Ratio ${data.lpc?.payout_ratio?.toFixed(2) || 0}x)</span></div>
-                <div class="line"><span class="label">📋 LPC Reason :</span> <span class="value">${data.lpc?.reason?.substring(0, 100) || '--'}</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title">🔍 FLOW VALIDATION</div>
-                <div class="line"><span class="label">🔍 FVC Flow Valid :</span> <span class="value ${data.fvc?.is_valid_squeeze ? 'green' : ''}">${data.fvc?.is_valid_squeeze ? 'YES' : 'NO'} (${data.fvc?.bias || 'NEUTRAL'})</span></div>
-                <div class="line"><span class="label">📋 FVC Reason :</span> <span class="value">${data.fvc?.reason || '--'}</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title">📊 TREND INTEGRITY</div>
-                <div class="line"><span class="label">📈 Trend Integrity :</span> <span class="value">${data.trend_integrity?.bias_recommendation || 'NEUTRAL'}</span></div>
-                <div class="line"><span class="label">📋 Trend Reason :</span> <span class="value">${data.trend_integrity?.reason || '--'}</span></div>
-                <div class="line"><span class="label">⚡ MACD Dead Zone :</span> <span class="value ${data.trend_integrity?.macd_dead_zone ? 'warning' : ''}">${data.trend_integrity?.macd_dead_zone ? 'YES' : 'NO'}</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title">⚡ ENERGY & CASCADE</div>
-                <div class="line"><span class="label">⚡ Energy V92 :</span> <span class="value">${data.energy_v92?.bias || 'NEUTRAL'}</span></div>
-                <div class="line"><span class="label">📋 Energy Reason :</span> <span class="value">${data.energy_v92?.reason || '--'}</span></div>
-                <div class="line"><span class="label">🌊 Cascade Time :</span> <span class="value">${data.cascade?.bias || 'NEUTRAL'}</span></div>
-                <div class="line"><span class="label">📋 Cascade Reason :</span> <span class="value">${data.cascade?.reason || '--'}</span></div>
-                <div class="line"><span class="label">🔄 LEP Energy :</span> <span class="value">${data.lep?.bias || 'NEUTRAL'}</span></div>
-                <div class="line"><span class="label">📋 LEP Reason :</span> <span class="value">${data.lep?.reason || '--'}</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title">📊 KEY METRICS</div>
-                <div class="line"><span class="label">🎯 Long Liq :</span> <span class="value ${longLiq < 0.5 ? 'red' : ''}">${longLiq.toFixed(2)}%</span></div>
-                <div class="line"><span class="label">🎯 Short Liq :</span> <span class="value ${shortLiq < 0.5 ? 'green' : ''}">${shortLiq.toFixed(2)}%</span></div>
-                <div class="line"><span class="label">📊 Trade Flow :</span> <span class="value ${tradeFlow > 1.5 ? 'green' : tradeFlow < 0.6 ? 'cyan' : ''}">${tradeFlow.toFixed(2)}x</span></div>
-                <div class="line"><span class="label">⚔️ Aggressive Ratio :</span> <span class="value ${aggressiveRatio > 1.5 ? 'green' : aggressiveRatio < 0.5 ? 'cyan' : ''}">${aggressiveRatio.toFixed(2)}x</span></div>
-                <div class="line"><span class="label">📈 RSI(6) :</span> <span class="value ${rsi6 > 70 ? 'warning' : rsi6 < 30 ? 'green' : ''}">${rsi6.toFixed(1)}</span></div>
-                <div class="line"><span class="label">📚 OB Ratio :</span> <span class="value ${obRatio > 1.5 ? 'green' : obRatio < 0.6 ? 'red' : ''}">${obRatio.toFixed(2)}x</span></div>
-                <div class="line"><span class="label">📈 OI Δ5m :</span> <span class="value ${oiDelta > 2 ? 'green' : oiDelta < -2 ? 'red' : ''}">${oiDelta.toFixed(2)}%</span></div>
-                <div class="line"><span class="label">🐋 WMI Ratio :</span> <span class="value ${Math.abs(wmiRatio) > 50 ? 'cyan' : ''}">${wmiRatio.toFixed(2)}x</span></div>
-                
-                <div class="divider"></div>
-                
-                <div class="section-title">🎯 TRADING SIGNAL</div>
-                <div class="line"><span class="label">${isFakeMagnet ? '🎭' : isGravity ? '⚡' : isExit ? '🏛️' : data.bias === 'LONG' ? '🟢' : data.bias === 'SHORT' ? '🔴' : '⚪'} BIAS :</span> <span class="value ${isFakeMagnet ? 'red' : isGravity ? 'orange' : isExit ? '#ff6b6b' : data.bias === 'LONG' ? 'green' : data.bias === 'SHORT' ? 'red' : ''}">${data.bias || 'NEUTRAL'}</span></div>
-                <div class="line"><span class="label">🔥 CONFIDENCE :</span> <span class="value ${data.confidence === 'ABSOLUTE' ? 'red' : data.confidence === 'SUPREME' ? 'green' : data.confidence === 'HIGH' ? 'warning' : ''}">${data.confidence || 'LOW'}</span></div>
-                <div class="line"><span class="label">⏳ ENTRY STATUS :</span> <span class="value ${data.entry_ready ? 'green' : ''}">${data.entry_status || 'WAITING'}</span></div>
-                
-                <div class="header-line">================================================================================</div>
-                <div class="line"><span class="value ${isFakeMagnet ? 'red' : isGravity ? 'orange' : isExit ? '#ff6b6b' : ''}">${data.phase_reason || data.reason || 'No analysis reason'}</span></div>
-                <div class="header-line">================================================================================</div>
-            `;
+        if (!lastTerminalOutput) {
+            // If we don't have terminal output, fetch it
+            fetchTerminalAgain();
+            return;
         }
 
-        function showJSONView() {
-            if (!lastAnalysisData) {
-                showToast('❌ No data available');
-                return;
-            }
+        currentView = 'terminal';
+        outputEl.textContent = lastTerminalOutput;
+        resultTitle.textContent = `Analysis: ${lastSymbol}`;
+        
+        // Update button states
+        analysisBtn.classList.add('active');
+        jsonBtn.classList.remove('active');
+        
+        showToast('Showing analysis view');
+    }
+
+    function showJSON() {
+        if (!lastSymbol) {
+            showToast('No analysis data available', 'error');
+            return;
+        }
+
+        if (lastJSONData) {
+            // If we have JSON data, show it
+            currentView = 'json';
+            outputEl.textContent = JSON.stringify(lastJSONData, null, 2);
+            resultTitle.textContent = `Raw JSON: ${lastSymbol}`;
+            
+            // Update button states
+            analysisBtn.classList.remove('active');
+            jsonBtn.classList.add('active');
+            
+            showToast('Showing JSON view');
+        } else {
+            // If we don't have JSON data, fetch it
+            fetchJSONAgain();
+        }
+    }
+
+    async function fetchTerminalAgain() {
+        if (!lastSymbol) return;
+        
+        outputEl.textContent = "📡 Loading terminal output...";
+        resultTitle.textContent = `Analysis: ${lastSymbol}`;
+        
+        try {
+            const response = await fetch(`${BASE_URL}/analyze/${lastSymbol}/terminal`);
+            const text = await response.text();
+            lastTerminalOutput = text;
+            
+            currentView = 'terminal';
+            outputEl.textContent = text;
+            analysisBtn.classList.add('active');
+            jsonBtn.classList.remove('active');
+        } catch (error) {
+            outputEl.textContent = `❌ Error: ${error.message}`;
+            showToast(`❌ Error: ${error.message}`, 'error');
+        }
+    }
+
+    async function fetchJSONAgain() {
+        if (!lastSymbol) return;
+        
+        outputEl.textContent = "📡 Loading JSON data...";
+        resultTitle.textContent = `Raw JSON: ${lastSymbol}`;
+        
+        try {
+            const response = await fetch(`${BASE_URL}/analyze/${lastSymbol}`);
+            const data = await response.json();
+            lastJSONData = data;
             
             currentView = 'json';
-            elements.terminalTitle.textContent = '📋 RAW JSON DATA';
-            elements.terminalContent.innerHTML = `<pre style="font-family: 'Courier New', monospace; white-space: pre-wrap;">${JSON.stringify(lastAnalysisData, null, 2)}</pre>`;
+            outputEl.textContent = JSON.stringify(data, null, 2);
+            analysisBtn.classList.remove('active');
+            jsonBtn.classList.add('active');
+        } catch (error) {
+            outputEl.textContent = `❌ Error: ${error.message}`;
+            showToast(`❌ Error: ${error.message}`, 'error');
         }
+    }
 
-        function copyTerminalContent() {
-            const content = elements.terminalContent.innerText || elements.terminalContent.textContent;
-            
-            navigator.clipboard.writeText(content).then(() => {
-                showToast('✅ Copied to clipboard!');
-                
-                // Visual feedback on button
-                const btn = document.getElementById('copyTerminalBtn');
-                const originalHTML = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                setTimeout(() => {
-                    btn.innerHTML = originalHTML;
-                }, 1500);
-            }).catch(err => {
-                console.error('Failed to copy:', err);
-                showToast('❌ Failed to copy');
-            });
-        }
+    // ==================== UTILITY FUNCTIONS ====================
 
-        function showToast(message) {
-            // Remove existing toast
-            const existingToast = document.querySelector('.toast-message');
-            if (existingToast) existingToast.remove();
+    function downloadResult() {
+        const text = outputEl.textContent;
+        const symbol = lastSymbol || 'analysis';
+        const view = currentView === 'json' ? 'json' : 'analysis';
+        const blob = new Blob([text], { type: 'text/plain' });
+        const anchor = document.createElement('a');
+        
+        anchor.download = `DylPredict_${symbol}_${view}_${new Date().toISOString().slice(0,10)}.txt`;
+        anchor.href = window.URL.createObjectURL(blob);
+        anchor.click();
+        
+        // Cleanup
+        window.URL.revokeObjectURL(anchor.href);
+        
+        showToast(`✅ Downloaded as ${anchor.download}`);
+    }
+
+    function copyResult() {
+        const text = outputEl.textContent;
+        
+        navigator.clipboard.writeText(text).then(() => {
+            // Visual feedback on button
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '✓ Copied!';
             
-            // Create new toast
-            const toast = document.createElement('div');
-            toast.className = 'toast-message';
-            toast.textContent = message;
-            document.body.appendChild(toast);
+            showToast('✅ Copied to clipboard!');
             
-            // Remove after 3 seconds
             setTimeout(() => {
-                toast.remove();
-            }, 3000);
+                copyBtn.innerHTML = originalText;
+            }, 1500);
+        }).catch(err => {
+            showToast('❌ Failed to copy: ' + err.message, 'error');
+        });
+    }
+
+    function showToast(message, type = 'success') {
+        // Remove existing toast
+        const existingToast = document.querySelector('.toast-message');
+        if (existingToast) existingToast.remove();
+        
+        // Create new toast
+        const toast = document.createElement('div');
+        toast.className = 'toast-message';
+        toast.textContent = message;
+        
+        // Style based on type
+        if (type === 'error') {
+            toast.style.background = '#d95757';
         }
+        
+        document.body.appendChild(toast);
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+            toast.remove();
+        }, 3000);
+    }
 
-        window.showAnalysisView = showAnalysisView;
-        window.showJSONView = showJSONView;
-        window.copyTerminalContent = copyTerminalContent;
+    // ==================== EVENT LISTENERS ====================
 
-        function showLoading(message = 'Analyzing with V100 Fake Magnet Detection...') {
-            elements.loadingOverlay.style.display = 'flex';
-            document.querySelector('.loading-spinner p').textContent = message;
+    // Analyze button click
+    analyzeBtn.addEventListener('click', handleAnalyze);
+
+    // Enter key untuk analyze
+    symbolInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            handleAnalyze();
         }
+    });
 
-        function hideLoading() {
-            elements.loadingOverlay.style.display = 'none';
-        }
+    // Memastikan saat halaman dimuat, tidak ada analisis otomatis dan input kosong
+    window.addEventListener('load', () => {
+        // Hapus value input agar kosong
+        symbolInput.value = '';
+        
+        // Reset stored data
+        lastSymbol = '';
+        lastTerminalOutput = '';
+        lastJSONData = null;
+        currentView = 'terminal';
+        
+        // Pastikan wrapper tidak memiliki class 'has-result'
+        wrapper.classList.remove('has-result');
+        
+        // Sembunyikan area hasil dengan animasi
+        resultArea.style.opacity = '0';
+        resultArea.style.transform = 'translateY(30px)';
+        resultArea.style.display = 'none';
+        
+        // Reset konten output ke default
+        outputEl.textContent = 'Analyzing...';
+        resultTitle.textContent = 'Terminal Output';
+        
+        // Reset border card
+        cardEl.style.borderTop = '1px solid var(--border-color)';
+        cardEl.style.borderColor = 'var(--border-color)';
+        
+        // Reset button states
+        analysisBtn.classList.remove('active');
+        jsonBtn.classList.remove('active');
+    });
 
-        function showError(message) {
-            console.error('❌', message);
-            elements.alertMessage.textContent = `❌ ERROR: ${message}`;
-            elements.alertBox.className = 'alert-box nuclear';
-        }
+    // Optional: Reset layout ketika user klik logo (hidden feature)
+    document.querySelector('.brand').addEventListener('dblclick', () => {
+        wrapper.classList.remove('has-result');
+        resultArea.style.opacity = '0';
+        resultArea.style.transform = 'translateY(30px)';
+        setTimeout(() => {
+            resultArea.style.display = 'none';
+        }, 500);
+        
+        // Kosongkan input juga (opsional)
+        symbolInput.value = '';
+        
+        // Reset stored data
+        lastSymbol = '';
+        lastTerminalOutput = '';
+        lastJSONData = null;
+        currentView = 'terminal';
+        
+        // Reset button states
+        analysisBtn.classList.remove('active');
+        jsonBtn.classList.remove('active');
+    });
 
-        window.dylpredict = {
-            analyze: analyzeSymbol,
-            magnetScan: magnetScan,
-            ghostScan: ghostScan,
-            batch: analyzeBatch,
-            version: 'V100 Fake Magnet Edition'
-        };
-    </script>
+    // Make functions global for onclick handlers
+    window.handleAnalyze = handleAnalyze;
+    window.showAnalysis = showAnalysis;
+    window.showJSON = showJSON;
+    window.copyResult = copyResult;
+    window.downloadResult = downloadResult;
+</script>
 </body>
 </html>
