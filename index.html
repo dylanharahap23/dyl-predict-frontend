@@ -88,7 +88,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             position: relative;
             z-index: 10;
@@ -518,6 +518,26 @@
             box-shadow: 0 0 25px rgba(0, 168, 107, 0.3);
         }
 
+        .btn-secondary {
+            background: var(--card-bg);
+            border: 1px solid var(--green);
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: var(--green);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-smooth);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-secondary:hover {
+            background: var(--green-pale);
+            transform: translateY(-2px);
+        }
+
         .dashboard-container {
             display: flex;
             flex-direction: column;
@@ -889,6 +909,26 @@
             box-shadow: 0 10px 30px rgba(0, 80, 0, 0.05);
         }
 
+        .details-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 100, 0, 0.1);
+        }
+
+        .details-title h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .details-title .badge-group {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
         .data-row {
             display: flex;
             justify-content: space-between;
@@ -1070,6 +1110,37 @@
 
         .alert-box.wdi-alert strong {
             color: #ffaa00;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            border: 1px solid rgba(0, 100, 0, 0.1);
+            transition: var(--transition-smooth);
+        }
+
+        .tab.active {
+            background: var(--green);
+            color: white;
+            border-color: var(--green);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         .footer {
@@ -1328,25 +1399,20 @@
                         <option value="SIGNUSDT">SIGNUSDT (V82 - API)</option>
                         <option value="SIRENUSDT">SIRENUSDT (V82 - LMG)</option>
                         <!-- V81 Test Cases -->
-                        <option value="KITEUSDT">KITEUSDT (V81 - LTG)</option>
                         <option value="HUMAUSDT">HUMAUSDT (V81 - ICD)</option>
                         <!-- V80 Test Cases -->
                         <option value="OPNUSDT">OPNUSDT (V80 - IER)</option>
                         <option value="BARDUSDT">BARDUSDT (V80 - IER)</option>
-                        <option value="RIVERUSDT">RIVERUSDT (V80 - RMG/FMV)</option>
                         <!-- V79 Test Cases -->
                         <option value="KITEUSDT">KITEUSDT (V79 - WTD)</option>
                         <!-- V78 Test Cases -->
-                        <option value="RIVERUSDT">RIVERUSDT (V78 - EZH)</option>
                         <option value="OPNUSDT">OPNUSDT (V78 - PSV)</option>
                         <!-- V77 Test Cases -->
                         <option value="HUSDT">HUSDT (V77 - OFF)</option>
-                        <option value="PHAUSDT">PHAUSDT (V77 - AEF)</option>
                         <!-- V76 Test Cases -->
                         <option value="HUMAUSDT">HUMAUSDT (V76 - PSR)</option>
                         <!-- V75 Test Cases -->
                         <option value="HUMAUSDT">HUMAUSDT (V75 - AMV)</option>
-                        <option value="RIVERUSDT">RIVERUSDT (V75 - LGO)</option>
                         <!-- V74 Test Cases -->
                         <option value="RIVERUSDT">RIVERUSDT (V74 - MDV)</option>
                         <!-- V73 Test Cases -->
@@ -1384,8 +1450,21 @@
                     <i class="fas fa-chart-line"></i>
                     Analyze
                 </button>
+                <button id="analyzeRealBtn" class="btn-secondary">
+                    <i class="fas fa-database"></i>
+                    Real Data
+                </button>
             </div>
         </header>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="v88">V88 - Whale Dominance</div>
+            <div class="tab" data-tab="real">Real Data</div>
+            <div class="tab" data-tab="wdi">WDI - Whale Index</div>
+            <div class="tab" data-tab="v87">V87 - Ghost Shell</div>
+            <div class="tab" data-tab="v86">V86 - Zero Gravity</div>
+            <div class="tab" data-tab="v85">V85 - Oversold Trap</div>
+        </div>
 
         <div class="dashboard-container">
             <div class="header-card">
@@ -1400,142 +1479,376 @@
                 </div>
             </div>
 
-            <section class="signal-hero bullish" id="signalHero">
-                <div class="main-opinion" id="opinionMain">LONG</div>
-                <div class="strategy-name" id="strategyDisplay">STRATEGY: WHALE_HUNT</div>
-                <div class="phase-reason" id="phaseReason">WDI_VETO: WMI 95.1x (SHORT_LIQ_WHALE) terdeteksi! Jarak 1.7% terlalu lezat untuk MM. OI turun (-1.7%) adalah bukti SHORT COVERING. DILARANG SHORT!</div>
-                <div class="confidence-bar" id="confidenceBar">
-                    <span id="confidenceLabel">CONFIDENCE: ABSOLUTE</span>
-                    <div class="bar"><div class="fill" style="width: 100%" id="confidenceFill"></div></div>
-                </div>
-            </section>
+            <!-- V88 - Whale Dominance Tab Content -->
+            <div class="tab-content active" id="tab-v88">
+                <section class="signal-hero bullish" id="signalHero">
+                    <div class="main-opinion" id="opinionMain">LONG</div>
+                    <div class="strategy-name" id="strategyDisplay">STRATEGY: WHALE_HUNT</div>
+                    <div class="phase-reason" id="phaseReason">WDI_VETO: WMI 95.1x (SHORT_LIQ_WHALE) terdeteksi! Jarak 1.7% terlalu lezat untuk MM. OI turun (-1.7%) adalah bukti SHORT COVERING. DILARANG SHORT!</div>
+                    <div class="confidence-bar" id="confidenceBar">
+                        <span id="confidenceLabel">CONFIDENCE: ABSOLUTE</span>
+                        <div class="bar"><div class="fill" style="width: 100%" id="confidenceFill"></div></div>
+                    </div>
+                </section>
 
-            <div class="metrics-grid">
-                <div class="card">
-                    <h3>MARKET BIAS</h3>
-                    <div class="big-value green" id="biasValue">LONG</div>
+                <div class="metrics-grid">
+                    <div class="card">
+                        <h3>MARKET BIAS</h3>
+                        <div class="big-value green" id="biasValue">LONG</div>
+                    </div>
+
+                    <div class="card">
+                        <h3>RSI (6)</h3>
+                        <div class="big-value" id="rsiValue">72.0</div>
+                    </div>
+
+                    <div class="card">
+                        <h3>TRADE FLOW</h3>
+                        <div class="big-value" id="tradeFlow">1.20x</div>
+                    </div>
+
+                    <div class="card">
+                        <h3>OI Δ5M</h3>
+                        <div class="big-value red" id="oiDelta">-1.70%</div>
+                    </div>
                 </div>
 
-                <div class="card">
-                    <h3>RSI (6)</h3>
-                    <div class="big-value" id="rsiValue">72.0</div>
-                </div>
-
-                <div class="card">
-                    <h3>TRADE FLOW</h3>
-                    <div class="big-value" id="tradeFlow">1.20x</div>
-                </div>
-
-                <div class="card">
-                    <h3>OI Δ5M</h3>
-                    <div class="big-value red" id="oiDelta">-1.70%</div>
-                </div>
+                <section class="details-section">
+                    <div class="details-title">
+                        <h3>V88 - Whale Dominance Metrics</h3>
+                        <div class="badge-group">
+                            <span class="badge wdi">WDI</span>
+                            <span class="badge odf">ODF</span>
+                            <span class="badge zgh">ZGH</span>
+                        </div>
+                    </div>
+                    <div class="data-row">
+                        <span>Orderbook Ratio</span>
+                        <span class="val" id="obRatio">1.05x</span>
+                    </div>
+                    <div class="data-row">
+                        <span>Aggressive Ratio</span>
+                        <span class="val" id="aggRatio">0.85x</span>
+                    </div>
+                    <div class="data-row">
+                        <span>Liquidation Target</span>
+                        <span class="val green" id="liqTarget">+1.70% (Short Liq)</span>
+                    </div>
+                    <div class="data-row">
+                        <span>WMI (Whale Mass Index)</span>
+                        <span class="val wdi" id="wmiValue">+95.1</span>
+                    </div>
+                    <div class="data-row">
+                        <span>Long Liq</span>
+                        <span class="val red" id="longLiq">12.4%</span>
+                    </div>
+                    <div class="data-row">
+                        <span>Short Liq</span>
+                        <span class="val green" id="shortLiq">1.70%</span>
+                    </div>
+                    <div class="data-row">
+                        <span>TTK (Time to Kill)</span>
+                        <span class="val" id="ttkMinutes">15m</span>
+                    </div>
+                    <div class="data-row">
+                        <span>MA10/MA20</span>
+                        <span class="val" id="maValue">0.845/0.832</span>
+                    </div>
+                    <div class="data-row">
+                        <span>OBV</span>
+                        <span class="val" id="obvValue">1,567</span>
+                    </div>
+                    <!-- V88 Module Status - PRIORITAS TERTINGGI! -->
+                    <div class="data-row">
+                        <span>WDI Status (V88)</span>
+                        <span class="val wdi" id="wdiStatus">ACTIVE (VETO!)</span>
+                    </div>
+                    <!-- V86 Module Status -->
+                    <div class="data-row">
+                        <span>ODF Status (V86)</span>
+                        <span class="val odf" id="odfStatus">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>ZGH Status (V86)</span>
+                        <span class="val odf" id="zghStatus">INACTIVE</span>
+                    </div>
+                    <!-- V85 Module Status -->
+                    <div class="data-row">
+                        <span>OTF Status (V85)</span>
+                        <span class="val green" id="otfStatus">INACTIVE</span>
+                    </div>
+                    <!-- V82 Module Status -->
+                    <div class="data-row">
+                        <span>LMG Status</span>
+                        <span class="val" id="lmgStatus">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>API Status</span>
+                        <span class="val" id="apiStatus">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>LTG Status</span>
+                        <span class="val" id="ltgStatus">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>ICD Status</span>
+                        <span class="val" id="icdStatus">INACTIVE</span>
+                    </div>
+                    <!-- V80 Module Status -->
+                    <div class="data-row">
+                        <span>IER Status</span>
+                        <span class="val" id="ierStatus">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>RMG Status</span>
+                        <span class="val" id="rmgStatus">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>FMV Status</span>
+                        <span class="val" id="fmvStatus">INACTIVE</span>
+                    </div>
+                    <!-- V75 Module Status -->
+                    <div class="data-row">
+                        <span>AMV Status</span>
+                        <span class="val purple" id="amvStatus">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>LGO Status</span>
+                        <span class="val pink" id="lgoStatus">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>MDV Status</span>
+                        <span class="val green" id="mdvStatus">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>CFK Status</span>
+                        <span class="val cfk" id="cfkStatus">INACTIVE</span>
+                    </div>
+                </section>
             </div>
 
-            <section class="details-section">
-                <div class="data-row">
-                    <span>Orderbook Ratio</span>
-                    <span class="val" id="obRatio">1.05x</span>
+            <!-- Real Data Tab Content -->
+            <div class="tab-content" id="tab-real">
+                <section class="signal-hero pending" id="realSignalHero">
+                    <div class="main-opinion" id="realOpinionMain">NEUTRAL</div>
+                    <div class="strategy-name">REAL-TIME DATA</div>
+                    <div class="phase-reason" id="realPhaseReason">Real-time data dari Binance API</div>
+                </section>
+
+                <div class="metrics-grid">
+                    <div class="card">
+                        <h3>24H CHANGE</h3>
+                        <div class="big-value" id="realChange24h">0.00%</div>
+                    </div>
+                    <div class="card">
+                        <h3>VOLUME 24H</h3>
+                        <div class="big-value" id="realVolume24h">0</div>
+                    </div>
+                    <div class="card">
+                        <h3>HIGH 24H</h3>
+                        <div class="big-value green" id="realHigh24h">$0.0000</div>
+                    </div>
+                    <div class="card">
+                        <h3>LOW 24H</h3>
+                        <div class="big-value red" id="realLow24h">$0.0000</div>
+                    </div>
                 </div>
-                <div class="data-row">
-                    <span>Aggressive Ratio</span>
-                    <span class="val" id="aggRatio">0.85x</span>
-                </div>
-                <div class="data-row">
-                    <span>Liquidation Target</span>
-                    <span class="val green" id="liqTarget">+1.70% (Short Liq)</span>
-                </div>
-                <div class="data-row">
-                    <span>WMI</span>
-                    <span class="val wdi" id="wmiValue">+95.1</span>
-                </div>
-                <div class="data-row">
-                    <span>Long Liq</span>
-                    <span class="val red" id="longLiq">12.4%</span>
-                </div>
-                <div class="data-row">
-                    <span>Short Liq</span>
-                    <span class="val green" id="shortLiq">1.70%</span>
-                </div>
-                <div class="data-row">
-                    <span>TTK</span>
-                    <span class="val" id="ttkMinutes">15m</span>
-                </div>
-                <div class="data-row">
-                    <span>MA10/MA20</span>
-                    <span class="val" id="maValue">0.845/0.832</span>
-                </div>
-                <div class="data-row">
-                    <span>OBV</span>
-                    <span class="val" id="obvValue">1,567</span>
-                </div>
-                <!-- V88 Module Status - PRIORITAS TERTINGGI! -->
-                <div class="data-row">
-                    <span>WDI Status (V88)</span>
-                    <span class="val wdi" id="wdiStatus">ACTIVE (VETO!)</span>
-                </div>
-                <!-- V86 Module Status -->
-                <div class="data-row">
-                    <span>ODF Status (V86)</span>
-                    <span class="val odf" id="odfStatus">INACTIVE</span>
-                </div>
-                <div class="data-row">
-                    <span>ZGH Status (V86)</span>
-                    <span class="val odf" id="zghStatus">INACTIVE</span>
-                </div>
-                <!-- V85 Module Status -->
-                <div class="data-row">
-                    <span>OTF Status (V85)</span>
-                    <span class="val green" id="otfStatus">INACTIVE</span>
-                </div>
-                <!-- V82 Module Status -->
-                <div class="data-row">
-                    <span>LMG Status</span>
-                    <span class="val" id="lmgStatus">INACTIVE</span>
-                </div>
-                <div class="data-row">
-                    <span>API Status</span>
-                    <span class="val" id="apiStatus">INACTIVE</span>
-                </div>
-                <div class="data-row">
-                    <span>LTG Status</span>
-                    <span class="val" id="ltgStatus">INACTIVE</span>
-                </div>
-                <div class="data-row">
-                    <span>ICD Status</span>
-                    <span class="val" id="icdStatus">INACTIVE</span>
-                </div>
-                <!-- V80 Module Status -->
-                <div class="data-row">
-                    <span>IER Status</span>
-                    <span class="val" id="ierStatus">INACTIVE</span>
-                </div>
-                <div class="data-row">
-                    <span>RMG Status</span>
-                    <span class="val" id="rmgStatus">INACTIVE</span>
-                </div>
-                <div class="data-row">
-                    <span>FMV Status</span>
-                    <span class="val" id="fmvStatus">INACTIVE</span>
-                </div>
-                <!-- V75 Module Status -->
-                <div class="data-row">
-                    <span>AMV Status</span>
-                    <span class="val purple" id="amvStatus">INACTIVE</span>
-                </div>
-                <div class="data-row">
-                    <span>LGO Status</span>
-                    <span class="val pink" id="lgoStatus">INACTIVE</span>
-                </div>
-                <div class="data-row">
-                    <span>MDV Status</span>
-                    <span class="val green" id="mdvStatus">INACTIVE</span>
-                </div>
-                <div class="data-row">
-                    <span>CFK Status</span>
-                    <span class="val cfk" id="cfkStatus">INACTIVE</span>
-                </div>
-            </section>
+
+                <section class="details-section">
+                    <div class="details-title">
+                        <h3>Real-time Market Data</h3>
+                        <span class="badge">BINANCE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>Orderbook Ratio</span>
+                        <span class="val" id="realObRatio">1.00x</span>
+                    </div>
+                    <div class="data-row">
+                        <span>RSI (6)</span>
+                        <span class="val" id="realRsi6">50.0</span>
+                    </div>
+                    <div class="data-row">
+                        <span>RSI (14)</span>
+                        <span class="val" id="realRsi14">50.0</span>
+                    </div>
+                    <div class="data-row">
+                        <span>5m Change</span>
+                        <span class="val" id="realChange5m">0.00%</span>
+                    </div>
+                    <div class="data-row">
+                        <span>1m Change</span>
+                        <span class="val" id="realChange1m">0.00%</span>
+                    </div>
+                    <div class="data-row">
+                        <span>MA10</span>
+                        <span class="val" id="realMa10">0.0000</span>
+                    </div>
+                    <div class="data-row">
+                        <span>MA20</span>
+                        <span class="val" id="realMa20">0.0000</span>
+                    </div>
+                    <div class="data-row">
+                        <span>Long Liq</span>
+                        <span class="val red" id="realLongLiq">0.00%</span>
+                    </div>
+                    <div class="data-row">
+                        <span>Short Liq</span>
+                        <span class="val green" id="realShortLiq">0.00%</span>
+                    </div>
+                    <div class="data-row">
+                        <span>Funding Rate</span>
+                        <span class="val" id="realFundingRate">0.000%</span>
+                    </div>
+                    <div class="data-row">
+                        <span>Premium</span>
+                        <span class="val" id="realPremium">0.000%</span>
+                    </div>
+                    <div class="data-row">
+                        <span>Open Interest</span>
+                        <span class="val" id="realOpenInterest">0</span>
+                    </div>
+                </section>
+            </div>
+
+            <!-- WDI - Whale Dominance Index Tab -->
+            <div class="tab-content" id="tab-wdi">
+                <section class="details-section">
+                    <div class="details-title">
+                        <h3>🐋 WDI - Whale Dominance Index (V88)</h3>
+                        <span class="badge wdi">PRIORITAS TERTINGGI</span>
+                    </div>
+                    <div class="data-row">
+                        <span>WMI Ratio</span>
+                        <span class="val wdi" id="wdiWmi">0.0</span>
+                    </div>
+                    <div class="data-row">
+                        <span>Short Dist</span>
+                        <span class="val green" id="wdiShortDist">0.00%</span>
+                    </div>
+                    <div class="data-row">
+                        <span>OI Delta</span>
+                        <span class="val" id="wdiOiDelta">0.00%</span>
+                    </div>
+                    <div class="data-row">
+                        <span>WDI Veto</span>
+                        <span class="val wdi" id="wdiVeto">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>Threshold WMI</span>
+                        <span class="val">90.0</span>
+                    </div>
+                    <div class="data-row">
+                        <span>Threshold Dist</span>
+                        <span class="val">2.0%</span>
+                    </div>
+                    <div class="data-row">
+                        <span>Threshold OI</span>
+                        <span class="val">&#60; 0 (negative)</span>
+                    </div>
+                    <div class="alert-box wdi-alert" id="wdiAlert">
+                        <strong>🐋 WDI INFO:</strong> <span id="wdiMessage">Menunggu data...</span>
+                    </div>
+                </section>
+            </div>
+
+            <!-- V87 - Ghost Shell Tab -->
+            <div class="tab-content" id="tab-v87">
+                <section class="details-section">
+                    <div class="details-title">
+                        <h3>👻 V87 - Ghost in the Shell</h3>
+                        <div class="badge-group">
+                            <span class="badge">SAD</span>
+                            <span class="badge">ZAS</span>
+                            <span class="badge">LCD</span>
+                            <span class="badge">LBD</span>
+                            <span class="badge">LIM</span>
+                        </div>
+                    </div>
+                    <div class="data-row">
+                        <span>SAD - Stealth Accumulation</span>
+                        <span class="val" id="v87Sad">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>ZAS - Zero Aggression</span>
+                        <span class="val" id="v87Zas">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>LCD - Compression</span>
+                        <span class="val" id="v87Lcd">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>LBD - Liquidity Bait</span>
+                        <span class="val" id="v87Lbd">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>LIM - Imbalance</span>
+                        <span class="val" id="v87Lim">INACTIVE</span>
+                    </div>
+                </section>
+            </div>
+
+            <!-- V86 - Zero Gravity Tab -->
+            <div class="tab-content" id="tab-v86">
+                <section class="details-section">
+                    <div class="details-title">
+                        <h3>☢️ V86 - Zero Gravity Horizon</h3>
+                        <div class="badge-group">
+                            <span class="badge odf">ODF</span>
+                            <span class="badge zgh">ZGH</span>
+                        </div>
+                    </div>
+                    <div class="data-row">
+                        <span>ODF - Overbought Distribution</span>
+                        <span class="val odf" id="v86Odf">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>ZGH - Zero Gravity</span>
+                        <span class="val odf" id="v86Zgh">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>RSI</span>
+                        <span class="val" id="v86Rsi">0.0</span>
+                    </div>
+                    <div class="data-row">
+                        <span>OI Delta</span>
+                        <span class="val" id="v86OiDelta">0.00%</span>
+                    </div>
+                    <div class="data-row">
+                        <span>Aggression</span>
+                        <span class="val" id="v86Agg">0.00x</span>
+                    </div>
+                </section>
+            </div>
+
+            <!-- V85 - Oversold Trap Tab -->
+            <div class="tab-content" id="tab-v85">
+                <section class="details-section">
+                    <div class="details-title">
+                        <h3>🔄 V85 - Oversold Trap Filter</h3>
+                        <span class="badge otf">OTF</span>
+                    </div>
+                    <div class="data-row">
+                        <span>OTF - Trap Status</span>
+                        <span class="val green" id="v85Otf">INACTIVE</span>
+                    </div>
+                    <div class="data-row">
+                        <span>Scenario</span>
+                        <span class="val" id="v85Scenario">NORMAL</span>
+                    </div>
+                    <div class="data-row">
+                        <span>RSI</span>
+                        <span class="val" id="v85Rsi">0.0</span>
+                    </div>
+                    <div class="data-row">
+                        <span>WMI</span>
+                        <span class="val" id="v85Wmi">0.0</span>
+                    </div>
+                    <div class="data-row">
+                        <span>Aggression</span>
+                        <span class="val" id="v85Agg">0.00x</span>
+                    </div>
+                </section>
+            </div>
 
             <footer class="alert-box wdi-alert" id="alertBox">
                 <strong>🐋 V88 ALERT:</strong> <span id="alertMessage">WDI_VETO: WMI 95.1x (SHORT_LIQ_WHALE) terdeteksi! Jarak 1.7% terlalu lezat untuk MM. OI turun (-1.7%) adalah bukti SHORT COVERING. DILARANG SHORT! MM lebih milih makan 'Ikan Paus' daripada 'Ikan Teri'!</span>
@@ -1556,12 +1869,13 @@
 
     <script>
         // Configuration
-        const API_URL = 'https://spotty-lizzie-dylpredict-2b047c63.koyeb.app';
+        const API_URL = ''; // Kosongkan untuk relative path, atau isi dengan URL backend jika berbeda
         
         // DOM Elements
         const elements = {
             symbolSelect: document.getElementById('symbolSelect'),
             analyzeCustomBtn: document.getElementById('analyzeCustomBtn'),
+            analyzeRealBtn: document.getElementById('analyzeRealBtn'),
             customSymbolInput: document.getElementById('customSymbolInput'),
             loadingOverlay: document.getElementById('loadingOverlay'),
             mainSymbol: document.getElementById('mainSymbol'),
@@ -1609,7 +1923,61 @@
             cfkStatus: document.getElementById('cfkStatus'),
             alertBox: document.getElementById('alertBox'),
             alertMessage: document.getElementById('alertMessage'),
-            phaseBadge: document.getElementById('phaseBadge')
+            phaseBadge: document.getElementById('phaseBadge'),
+            
+            // Real data elements
+            realSignalHero: document.getElementById('realSignalHero'),
+            realOpinionMain: document.getElementById('realOpinionMain'),
+            realPhaseReason: document.getElementById('realPhaseReason'),
+            realChange24h: document.getElementById('realChange24h'),
+            realVolume24h: document.getElementById('realVolume24h'),
+            realHigh24h: document.getElementById('realHigh24h'),
+            realLow24h: document.getElementById('realLow24h'),
+            realObRatio: document.getElementById('realObRatio'),
+            realRsi6: document.getElementById('realRsi6'),
+            realRsi14: document.getElementById('realRsi14'),
+            realChange5m: document.getElementById('realChange5m'),
+            realChange1m: document.getElementById('realChange1m'),
+            realMa10: document.getElementById('realMa10'),
+            realMa20: document.getElementById('realMa20'),
+            realLongLiq: document.getElementById('realLongLiq'),
+            realShortLiq: document.getElementById('realShortLiq'),
+            realFundingRate: document.getElementById('realFundingRate'),
+            realPremium: document.getElementById('realPremium'),
+            realOpenInterest: document.getElementById('realOpenInterest'),
+            
+            // WDI elements
+            wdiWmi: document.getElementById('wdiWmi'),
+            wdiShortDist: document.getElementById('wdiShortDist'),
+            wdiOiDelta: document.getElementById('wdiOiDelta'),
+            wdiVeto: document.getElementById('wdiVeto'),
+            wdiAlert: document.getElementById('wdiAlert'),
+            wdiMessage: document.getElementById('wdiMessage'),
+            
+            // V87 elements
+            v87Sad: document.getElementById('v87Sad'),
+            v87Zas: document.getElementById('v87Zas'),
+            v87Lcd: document.getElementById('v87Lcd'),
+            v87Lbd: document.getElementById('v87Lbd'),
+            v87Lim: document.getElementById('v87Lim'),
+            
+            // V86 elements
+            v86Odf: document.getElementById('v86Odf'),
+            v86Zgh: document.getElementById('v86Zgh'),
+            v86Rsi: document.getElementById('v86Rsi'),
+            v86OiDelta: document.getElementById('v86OiDelta'),
+            v86Agg: document.getElementById('v86Agg'),
+            
+            // V85 elements
+            v85Otf: document.getElementById('v85Otf'),
+            v85Scenario: document.getElementById('v85Scenario'),
+            v85Rsi: document.getElementById('v85Rsi'),
+            v85Wmi: document.getElementById('v85Wmi'),
+            v85Agg: document.getElementById('v85Agg'),
+            
+            // Tabs
+            tabs: document.querySelectorAll('.tab'),
+            tabContents: document.querySelectorAll('.tab-content')
         };
 
         // Fungsi untuk mendapatkan waktu Indonesia (WIB / GMT+7)
@@ -1617,7 +1985,6 @@
             const now = new Date();
             
             // Konversi ke GMT+7 (Indonesia)
-            // Gunakan toLocaleString dengan timezone Asia/Jakarta
             const options = {
                 timeZone: 'Asia/Jakarta',
                 hour12: false,
@@ -1642,6 +2009,22 @@
         setInterval(updateClock, 100);
         updateClock(); // Panggil segera
 
+        // Tab switching
+        elements.tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                elements.tabs.forEach(t => t.classList.remove('active'));
+                elements.tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(`tab-${tabId}`).classList.add('active');
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
             attachEventListeners();
             // Auto-analyze RIVERUSDT on load untuk demo V88
@@ -1656,6 +2039,15 @@
                 const symbol = elements.customSymbolInput.value.trim().toUpperCase();
                 if (symbol) {
                     analyzeSymbol(symbol);
+                } else {
+                    alert('Please enter a symbol!');
+                }
+            });
+
+            elements.analyzeRealBtn.addEventListener('click', () => {
+                const symbol = elements.customSymbolInput.value.trim().toUpperCase();
+                if (symbol) {
+                    fetchRealData(symbol);
                 } else {
                     alert('Please enter a symbol!');
                 }
@@ -1695,6 +2087,12 @@
                 
                 if (result.success && result.data) {
                     updateDisplay(result.data);
+                    
+                    // Also fetch WDI data
+                    fetchWDIData(symbol);
+                    
+                    // Switch to V88 tab
+                    document.querySelector('.tab[data-tab="v88"]').click();
                 } else {
                     throw new Error(result.error || `Failed to fetch data for ${symbol}`);
                 }
@@ -1704,6 +2102,72 @@
                 showError(error.message);
             } finally {
                 hideLoading();
+            }
+        }
+
+        async function fetchRealData(symbol) {
+            showLoading();
+            
+            try {
+                const timestamp = Date.now();
+                const url = `${API_URL}/real/${symbol}?t=${timestamp}`;
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Cache-Control': 'no-cache'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    updateRealDisplay(result.data);
+                    
+                    // Switch to Real Data tab
+                    document.querySelector('.tab[data-tab="real"]').click();
+                } else {
+                    throw new Error(result.error || `Failed to fetch real data for ${symbol}`);
+                }
+                
+            } catch (error) {
+                console.error('Real Data Fetch Failed:', error);
+                showError(error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function fetchWDIData(symbol) {
+            try {
+                const timestamp = Date.now();
+                const url = `${API_URL}/wdi/${symbol}?t=${timestamp}`;
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Cache-Control': 'no-cache'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    updateWDIDisplay(result.data);
+                }
+                
+            } catch (error) {
+                console.error('WDI Data Fetch Failed:', error);
             }
         }
 
@@ -2028,6 +2492,83 @@
             }
             
             elements.alertMessage.textContent = alertMsg;
+
+            // Update V87 elements
+            elements.v87Sad.textContent = data.sad?.is_active ? 'ACTIVE' : 'INACTIVE';
+            elements.v87Zas.textContent = data.zas_v87?.is_squeeze ? 'ACTIVE' : 'INACTIVE';
+            elements.v87Lcd.textContent = data.lcd?.is_compression ? 'ACTIVE' : 'INACTIVE';
+            elements.v87Lbd.textContent = data.lbd?.is_bait ? 'ACTIVE' : 'INACTIVE';
+            elements.v87Lim.textContent = data.lim?.bias !== 'NEUTRAL' ? 'ACTIVE' : 'INACTIVE';
+
+            // Update V86 elements
+            elements.v86Odf.textContent = data.odf?.active ? 'ACTIVE' : 'INACTIVE';
+            elements.v86Zgh.textContent = data.zgh?.is_ceiling ? 'ACTIVE' : 'INACTIVE';
+            elements.v86Rsi.textContent = (data.rsi6 || 0).toFixed(1);
+            elements.v86OiDelta.textContent = ((data.oi_delta_5m || 0) > 0 ? '+' : '') + (data.oi_delta_5m || 0).toFixed(2) + '%';
+            elements.v86Agg.textContent = (data.aggressive_ratio || 0).toFixed(2) + 'x';
+
+            // Update V85 elements
+            elements.v85Otf.textContent = data.otf?.is_trap ? 'ACTIVE' : 'INACTIVE';
+            elements.v85Scenario.textContent = data.otf?.scenario || 'NORMAL';
+            elements.v85Rsi.textContent = (data.rsi6 || 0).toFixed(1);
+            elements.v85Wmi.textContent = (data.wmi_ratio || 0).toFixed(1);
+            elements.v85Agg.textContent = (data.aggressive_ratio || 0).toFixed(2) + 'x';
+        }
+
+        function updateRealDisplay(data) {
+            elements.mainSymbol.textContent = data.symbol || 'RIVERUSDT';
+            elements.priceValue.textContent = `$${typeof data.price === 'number' ? data.price.toFixed(4) : data.price || '0.0000'}`;
+            
+            // Signal hero
+            const bias = data.opinion || 'NEUTRAL';
+            elements.realOpinionMain.textContent = bias;
+            elements.realSignalHero.className = `signal-hero ${bias.toLowerCase() === 'long' ? 'bullish' : bias.toLowerCase() === 'short' ? 'bearish' : 'pending'}`;
+            elements.realPhaseReason.textContent = data.reason || 'Real-time data from Binance';
+            
+            // Metrics
+            elements.realChange24h.textContent = (data.change_24h || 0).toFixed(2) + '%';
+            elements.realChange24h.className = `big-value ${(data.change_24h || 0) > 0 ? 'green' : (data.change_24h || 0) < 0 ? 'red' : ''}`;
+            
+            elements.realVolume24h.textContent = (data.volume_24h || 0).toFixed(0);
+            elements.realHigh24h.textContent = `$${(data.high_24h || 0).toFixed(4)}`;
+            elements.realLow24h.textContent = `$${(data.low_24h || 0).toFixed(4)}`;
+            
+            // Details
+            elements.realObRatio.textContent = (data.ob_ratio || 1.0).toFixed(2) + 'x';
+            elements.realRsi6.textContent = (data.rsi6 || 50).toFixed(1);
+            elements.realRsi14.textContent = (data.rsi14 || 50).toFixed(1);
+            
+            const change5m = data.change_5m || 0;
+            elements.realChange5m.textContent = (change5m > 0 ? '+' : '') + change5m.toFixed(2) + '%';
+            elements.realChange5m.className = `val ${change5m > 0 ? 'green' : change5m < 0 ? 'red' : ''}`;
+            
+            const change1m = data.change_1m || 0;
+            elements.realChange1m.textContent = (change1m > 0 ? '+' : '') + change1m.toFixed(2) + '%';
+            elements.realChange1m.className = `val ${change1m > 0 ? 'green' : change1m < 0 ? 'red' : ''}`;
+            
+            elements.realMa10.textContent = (data.ma10 || 0).toFixed(4);
+            elements.realMa20.textContent = (data.ma20 || 0).toFixed(4);
+            
+            const longLiq = data.long_liq || 0;
+            elements.realLongLiq.textContent = longLiq.toFixed(2) + '%';
+            elements.realLongLiq.className = `val ${longLiq < 0.5 ? 'red' : ''}`;
+            
+            const shortLiq = data.short_liq || 0;
+            elements.realShortLiq.textContent = shortLiq.toFixed(2) + '%';
+            elements.realShortLiq.className = `val ${shortLiq < 0.5 ? 'green' : ''}`;
+            
+            elements.realFundingRate.textContent = (data.funding_rate || 0).toFixed(4) + '%';
+            elements.realPremium.textContent = (data.premium || 0).toFixed(4) + '%';
+            elements.realOpenInterest.textContent = (data.open_interest || 0).toFixed(0);
+        }
+
+        function updateWDIDisplay(data) {
+            elements.wdiWmi.textContent = (data.wmi_ratio || 0).toFixed(1);
+            elements.wdiShortDist.textContent = (data.short_liq || 0).toFixed(2) + '%';
+            elements.wdiOiDelta.textContent = ((data.oi_delta_5m || 0) > 0 ? '+' : '') + (data.oi_delta_5m || 0).toFixed(2) + '%';
+            elements.wdiVeto.textContent = data.is_veto ? 'ACTIVE' : 'INACTIVE';
+            elements.wdiVeto.className = `val ${data.is_veto ? 'wdi' : ''}`;
+            elements.wdiMessage.textContent = data.wdi_reason || 'Menunggu data...';
         }
 
         function showLoading() {
