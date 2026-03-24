@@ -43,7 +43,6 @@
             box-sizing: border-box;
         }
 
-        /* State saat hasil muncul */
         .main-wrapper.has-result {
             justify-content: flex-start;
             padding-top: 60px;
@@ -531,7 +530,10 @@
             return;
         }
 
+        // Save last symbol to localStorage
+        localStorage.setItem('lastAnalyzedSymbol', symbol);
         lastSymbol = symbol;
+
         wrapper.classList.add('has-result');
         resultArea.style.display = 'block';
         setTimeout(() => {
@@ -578,10 +580,13 @@
             }
 
             showToast(`✅ Analysis complete for ${symbol} (auto-saved)`);
-            // Fetch and display history
-            await fetchAndDisplayHistory(symbol);
-            // Open sidebar slightly for visibility (optional)
-            if (!sidebar.classList.contains('open')) toggleSidebar();
+            
+            // Wait a bit for Drive indexing, then fetch history
+            setTimeout(() => {
+                fetchAndDisplayHistory(symbol);
+                // Auto-open sidebar if it's closed (optional)
+                if (!sidebar.classList.contains('open')) toggleSidebar();
+            }, 3000);
         } catch (error) {
             outputEl.textContent = `❌ Error: ${error.message}`;
             cardEl.style.borderTop = '4px solid #ff6b6b';
@@ -681,6 +686,17 @@
         });
     }
 
+    // ==================== RESTORE LAST SESSION ====================
+    async function restoreLastSession() {
+        const lastSymbolSaved = localStorage.getItem('lastAnalyzedSymbol');
+        if (lastSymbolSaved) {
+            symbolInput.value = lastSymbolSaved;
+            // Optionally fetch history without analyzing (to show saved files)
+            await fetchAndDisplayHistory(lastSymbolSaved);
+            // You could also auto-analyze, but let's not to avoid unexpected loads
+        }
+    }
+
     // ==================== EVENT LISTENERS ====================
     analyzeBtn.addEventListener('click', handleAnalyze);
     symbolInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleAnalyze(); });
@@ -695,7 +711,7 @@
     window.copyResult = copyResult;
     window.downloadResult = downloadResult;
 
-    // Initial reset
+    // Initial reset and session restore
     window.addEventListener('load', () => {
         symbolInput.value = '';
         lastSymbol = '';
@@ -714,6 +730,9 @@
         jsonBtn.classList.remove('active');
         historyListDiv.innerHTML = '<div class="loading-text">Select a symbol to see history</div>';
         if (sidebar.classList.contains('open')) toggleSidebar();
+        
+        // Restore last symbol and fetch its history
+        restoreLastSession();
     });
 
     // Double-click brand to reset layout
@@ -731,6 +750,8 @@
         jsonBtn.classList.remove('active');
         historyListDiv.innerHTML = '<div class="loading-text">Select a symbol to see history</div>';
         if (sidebar.classList.contains('open')) toggleSidebar();
+        // Clear stored symbol
+        localStorage.removeItem('lastAnalyzedSymbol');
     });
 </script>
 </body>
