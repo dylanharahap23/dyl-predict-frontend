@@ -18,6 +18,7 @@
             --long-border: #57d977;
             --short-bg: #f5c2c2;
             --long-bg: #c2f5c2;
+            --sidebar-width: 340px;
         }
 
         body, html { 
@@ -133,12 +134,12 @@
             transform: translateY(-1px);
         }
 
-        /* Result Card (Hidden by default) */
+        /* Result Card */
         .result-wrapper {
             width: 100%; 
             max-width: 900px;
             margin-top: 50px;
-            display: none; /* Muncul lewat JS */
+            display: none;
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -154,7 +155,6 @@
             transition: all 0.4s ease;
         }
 
-        /* Card Header dengan Tombol Aksi */
         .card-header {
             padding: 14px 24px;
             background: #fafafa;
@@ -200,7 +200,6 @@
             border-color: #1a1a1a !important;
         }
 
-        /* Terminal Output Styling */
         .terminal-style {
             padding: 28px;
             margin: 0;
@@ -215,21 +214,17 @@
             color: #1e1e1e;
         }
 
-        /* Scrollbar Styling */
         .terminal-style::-webkit-scrollbar {
             width: 8px;
         }
-
         .terminal-style::-webkit-scrollbar-track {
             background: #f0f0f0;
             border-radius: 4px;
         }
-
         .terminal-style::-webkit-scrollbar-thumb {
             background: #c0c0c0;
             border-radius: 4px;
         }
-
         .terminal-style::-webkit-scrollbar-thumb:hover {
             background: #a0a0a0;
         }
@@ -245,23 +240,16 @@
             border-radius: 30px;
             font-size: 14px;
             font-weight: 500;
-            z-index: 9999;
+            z-index: 10000;
             animation: slideIn 0.3s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
-        /* Footer */
         .footer-note {
             margin-top: 20px;
             font-size: 12px; 
@@ -269,28 +257,116 @@
             text-align: center;
             letter-spacing: 0.5px;
         }
-
         .footer-note span {
             color: var(--accent-orange);
         }
 
-        /* Loading state */
-        .loading {
-            position: relative;
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: var(--sidebar-width);
+            height: 100%;
+            background: var(--card-bg);
+            box-shadow: -2px 0 15px rgba(0,0,0,0.08);
+            z-index: 2000;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid var(--border-color);
+        }
+        .sidebar.open {
+            transform: translateX(0);
+        }
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            background: #fafafa;
+        }
+        .sidebar-header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .close-sidebar {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+        .history-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+        }
+        .history-item {
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        .history-item:hover {
+            background: #f9f9f9;
+        }
+        .history-item .filename {
+            font-weight: 500;
+            word-break: break-all;
+        }
+        .history-item .timestamp {
+            font-size: 11px;
+            color: #888;
+            margin-top: 4px;
+        }
+        .history-item .actions {
+            margin-top: 8px;
+            display: flex;
+            gap: 12px;
+        }
+        .history-item .actions a, .history-item .actions button {
+            font-size: 12px;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .history-item .actions a {
+            color: #1a73e8;
+        }
+        .history-item .actions button {
+            color: #ff4444;
+        }
+        .loading-text {
+            padding: 20px;
+            text-align: center;
+            color: #888;
+        }
+        .menu-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 2001;
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: background 0.2s;
+        }
+        .menu-icon:hover {
+            background: #f0f0f0;
         }
 
-        .loading::after {
-            content: "...";
-            animation: dots 1.5s steps(4, end) infinite;
-        }
-
-        @keyframes dots {
-            0%, 20% { content: "."; }
-            40% { content: ".."; }
-            60%, 100% { content: "..."; }
-        }
-
-        /* Responsive */
         @media (max-width: 600px) {
             .brand h1 { font-size: 32px; }
             .search-container { flex-direction: column; padding: 16px; }
@@ -298,19 +374,30 @@
             .btn-group button { width: 100%; }
             .card-header { flex-direction: column; gap: 12px; }
             .action-buttons { width: 100%; justify-content: center; }
+            .sidebar { width: 100%; max-width: 320px; }
         }
     </style>
 </head>
 <body>
 
+<div class="menu-icon" onclick="toggleSidebar()">☰</div>
+
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h3>📁 Recent History</h3>
+        <button class="close-sidebar" onclick="toggleSidebar()">✖</button>
+    </div>
+    <div id="historyListSidebar" class="history-list">
+        <div class="loading-text">Select a symbol to see history</div>
+    </div>
+</div>
+
 <div class="main-wrapper" id="wrapper">
-    <!-- Brand dengan icon khas -->
     <div class="brand">
         <span>✳</span>
         <h1>Back at it, Dylan</h1>
     </div>
 
-    <!-- Search Area - Centered di awal, dengan input kosong -->
     <div class="search-area">
         <div class="search-container">
             <input type="text" id="symbol" placeholder="Analyze a symbol..." value="">
@@ -320,33 +407,28 @@
         </div>
     </div>
 
-    <!-- Result Area - Muncul setelah analyze -->
     <div class="result-wrapper" id="resultArea">
         <div class="output-card" id="outputCard">
-            <!-- Header dengan kontrol professional -->
             <div class="card-header">
                 <span id="resultTitle">Terminal Output</span>
                 <div class="action-buttons">
-                    <button class="btn-action" id="analysisBtn" onclick="showAnalysis()">📊 Analysis</button>
-                    <button class="btn-action" id="jsonBtn" onclick="showJSON()">🔍 JSON</button>
-                    <button class="btn-action" id="copyBtn" onclick="copyResult()">📋 Copy</button>
-                    <button class="btn-action" onclick="downloadResult()">⬇️ Download</button>
+                    <button class="btn-action" id="analysisBtn">📊 Analysis</button>
+                    <button class="btn-action" id="jsonBtn">🔍 JSON</button>
+                    <button class="btn-action" id="copyBtn">📋 Copy</button>
+                    <button class="btn-action" id="downloadBtn">⬇️ Download</button>
                 </div>
             </div>
-            <!-- Terminal output area -->
             <pre id="output" class="terminal-style">Analyzing...</pre>
         </div>
-        
-        <!-- Footer note -->
         <div class="footer-note">
-            <span>✳</span> DylPredict AI V87 • High-Confidence Neural Analysis
+            <span>✳</span> DylPredict AI V87 • High-Confidence Neural Analysis • Auto-saved to Drive
         </div>
     </div>
 </div>
 
 <script>
     // Configuration
-    const BASE_URL = 'https://spotty-lizzie-dylpredict-2b047c63.koyeb.app';
+    const BASE_URL = 'https://spotty-lizzie-dylpredict-2b047c63.koyeb.app'; // Ganti dengan URL Koyeb kamu
     
     // DOM Elements
     const wrapper = document.getElementById('wrapper');
@@ -359,15 +441,89 @@
     const analysisBtn = document.getElementById('analysisBtn');
     const jsonBtn = document.getElementById('jsonBtn');
     const copyBtn = document.getElementById('copyBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const sidebar = document.getElementById('sidebar');
+    const historyListDiv = document.getElementById('historyListSidebar');
 
-    // Store last analysis data
+    // State
     let lastSymbol = '';
     let lastTerminalOutput = '';
     let lastJSONData = null;
     let currentView = 'terminal'; // 'terminal' or 'json'
 
-    // ==================== MAIN FUNCTIONS ====================
+    // ==================== HELPER FUNCTIONS ====================
+    function showToast(message, type = 'success') {
+        const existingToast = document.querySelector('.toast-message');
+        if (existingToast) existingToast.remove();
+        const toast = document.createElement('div');
+        toast.className = 'toast-message';
+        toast.textContent = message;
+        if (type === 'error') toast.style.background = '#d95757';
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
 
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function toggleSidebar() {
+        sidebar.classList.toggle('open');
+    }
+
+    // ==================== HISTORY FUNCTIONS ====================
+    async function fetchAndDisplayHistory(symbol) {
+        if (!symbol) {
+            historyListDiv.innerHTML = '<div class="loading-text">Select a symbol to see history</div>';
+            return;
+        }
+        historyListDiv.innerHTML = '<div class="loading-text">Loading history...</div>';
+        try {
+            const response = await fetch(`${BASE_URL}/history/${symbol}`);
+            const data = await response.json();
+            if (data.success && data.history && data.history.length > 0) {
+                historyListDiv.innerHTML = data.history.map(item => `
+                    <div class="history-item">
+                        <div class="filename">${escapeHtml(item.name)}</div>
+                        <div class="timestamp">${new Date(item.createdTime).toLocaleString()}</div>
+                        <div class="actions">
+                            <a href="${item.downloadUrl}" target="_blank">Download</a>
+                            <button onclick="deleteHistoryItem('${item.id}')">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                historyListDiv.innerHTML = '<div class="history-item">No saved analysis found.</div>';
+            }
+        } catch (error) {
+            console.error('History error:', error);
+            historyListDiv.innerHTML = '<div class="history-item">Error loading history.</div>';
+        }
+    }
+
+    window.deleteHistoryItem = async (fileId) => {
+        if (!confirm('Are you sure you want to delete this file?')) return;
+        try {
+            const response = await fetch(`${BASE_URL}/delete_file/${fileId}`, { method: 'DELETE' });
+            const data = await response.json();
+            if (data.success) {
+                showToast('File deleted successfully');
+                if (lastSymbol) fetchAndDisplayHistory(lastSymbol);
+            } else {
+                showToast('Delete failed: ' + data.error, 'error');
+            }
+        } catch (error) {
+            showToast('Error: ' + error.message, 'error');
+        }
+    };
+
+    // ==================== ANALYZE FUNCTION ====================
     async function handleAnalyze() {
         const symbol = symbolInput.value.toUpperCase().trim();
         if (!symbol) {
@@ -376,57 +532,40 @@
         }
 
         lastSymbol = symbol;
-
-        // Animate: geser layout ke atas
         wrapper.classList.add('has-result');
         resultArea.style.display = 'block';
-        
-        // Trigger fade-in animation
         setTimeout(() => {
             resultArea.style.opacity = '1';
             resultArea.style.transform = 'translateY(0)';
         }, 50);
 
-        // Set loading state
         outputEl.textContent = `📡 Gathering intelligence for ${symbol}...`;
         resultTitle.textContent = `Analyzing ${symbol}`;
-
-        // Reset card border
         cardEl.style.borderTop = '1px solid var(--border-color)';
         cardEl.style.borderColor = 'var(--border-color)';
-
-        // Reset button states
         analysisBtn.classList.remove('active');
         jsonBtn.classList.remove('active');
 
         try {
-            // Fetch terminal output
-            const response = await fetch(`${BASE_URL}/analyze/${symbol}/terminal`);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-            
-            const text = await response.text();
-            
-            // Store terminal output
+            // Fetch terminal output (auto-save triggered in backend via /analyze/<symbol>)
+            const terminalResponse = await fetch(`${BASE_URL}/analyze/${symbol}/terminal`);
+            if (!terminalResponse.ok) throw new Error(`HTTP ${terminalResponse.status}`);
+            const text = await terminalResponse.text();
             lastTerminalOutput = text;
             currentView = 'terminal';
-            
-            // Display result
             outputEl.textContent = text;
             resultTitle.textContent = `Analysis: ${symbol}`;
 
-            // Also fetch JSON data for later use
-            try {
-                const jsonResponse = await fetch(`${BASE_URL}/analyze/${symbol}`);
-                const jsonData = await jsonResponse.json();
-                lastJSONData = jsonData;
-            } catch (e) {
-                console.log('JSON fetch failed, but terminal works');
+            // Also fetch JSON data (for later view)
+            const jsonResponse = await fetch(`${BASE_URL}/analyze/${symbol}`);
+            const jsonData = await jsonResponse.json();
+            if (jsonData.success) {
+                lastJSONData = jsonData.data;
+            } else {
+                lastJSONData = null;
             }
 
-            // Smart Highlighting berdasarkan bias
+            // Highlight card based on bias
             if (text.includes("FINAL BIAS: SHORT")) {
                 cardEl.style.borderTop = `4px solid var(--short-border)`;
                 cardEl.style.borderColor = '#f5c2c2';
@@ -438,8 +577,11 @@
                 cardEl.style.borderColor = 'var(--border-color)';
             }
 
-            showToast(`✅ Analysis complete for ${symbol}`);
-
+            showToast(`✅ Analysis complete for ${symbol} (auto-saved)`);
+            // Fetch and display history
+            await fetchAndDisplayHistory(symbol);
+            // Open sidebar slightly for visibility (optional)
+            if (!sidebar.classList.contains('open')) toggleSidebar();
         } catch (error) {
             outputEl.textContent = `❌ Error: ${error.message}`;
             cardEl.style.borderTop = '4px solid #ff6b6b';
@@ -449,64 +591,39 @@
     }
 
     // ==================== VIEW FUNCTIONS ====================
-
     function showAnalysis() {
-        if (!lastSymbol) {
-            showToast('No analysis data available', 'error');
-            return;
-        }
-
-        if (!lastTerminalOutput) {
-            // If we don't have terminal output, fetch it
-            fetchTerminalAgain();
-            return;
-        }
-
+        if (!lastSymbol) { showToast('No analysis data', 'error'); return; }
+        if (!lastTerminalOutput) { fetchTerminalAgain(); return; }
         currentView = 'terminal';
         outputEl.textContent = lastTerminalOutput;
         resultTitle.textContent = `Analysis: ${lastSymbol}`;
-        
-        // Update button states
         analysisBtn.classList.add('active');
         jsonBtn.classList.remove('active');
-        
         showToast('Showing analysis view');
     }
 
     function showJSON() {
-        if (!lastSymbol) {
-            showToast('No analysis data available', 'error');
-            return;
-        }
-
+        if (!lastSymbol) { showToast('No analysis data', 'error'); return; }
         if (lastJSONData) {
-            // If we have JSON data, show it
             currentView = 'json';
             outputEl.textContent = JSON.stringify(lastJSONData, null, 2);
             resultTitle.textContent = `Raw JSON: ${lastSymbol}`;
-            
-            // Update button states
             analysisBtn.classList.remove('active');
             jsonBtn.classList.add('active');
-            
             showToast('Showing JSON view');
         } else {
-            // If we don't have JSON data, fetch it
             fetchJSONAgain();
         }
     }
 
     async function fetchTerminalAgain() {
         if (!lastSymbol) return;
-        
         outputEl.textContent = "📡 Loading terminal output...";
         resultTitle.textContent = `Analysis: ${lastSymbol}`;
-        
         try {
             const response = await fetch(`${BASE_URL}/analyze/${lastSymbol}/terminal`);
             const text = await response.text();
             lastTerminalOutput = text;
-            
             currentView = 'terminal';
             outputEl.textContent = text;
             analysisBtn.classList.add('active');
@@ -519,26 +636,25 @@
 
     async function fetchJSONAgain() {
         if (!lastSymbol) return;
-        
         outputEl.textContent = "📡 Loading JSON data...";
         resultTitle.textContent = `Raw JSON: ${lastSymbol}`;
-        
         try {
             const response = await fetch(`${BASE_URL}/analyze/${lastSymbol}`);
             const data = await response.json();
-            lastJSONData = data;
-            
-            currentView = 'json';
-            outputEl.textContent = JSON.stringify(data, null, 2);
-            analysisBtn.classList.remove('active');
-            jsonBtn.classList.add('active');
+            if (data.success) {
+                lastJSONData = data.data;
+                currentView = 'json';
+                outputEl.textContent = JSON.stringify(lastJSONData, null, 2);
+                analysisBtn.classList.remove('active');
+                jsonBtn.classList.add('active');
+            } else {
+                outputEl.textContent = `Error: ${data.error}`;
+            }
         } catch (error) {
             outputEl.textContent = `❌ Error: ${error.message}`;
             showToast(`❌ Error: ${error.message}`, 'error');
         }
     }
-
-    // ==================== UTILITY FUNCTIONS ====================
 
     function downloadResult() {
         const text = outputEl.textContent;
@@ -546,131 +662,76 @@
         const view = currentView === 'json' ? 'json' : 'analysis';
         const blob = new Blob([text], { type: 'text/plain' });
         const anchor = document.createElement('a');
-        
         anchor.download = `DylPredict_${symbol}_${view}_${new Date().toISOString().slice(0,10)}.txt`;
-        anchor.href = window.URL.createObjectURL(blob);
+        anchor.href = URL.createObjectURL(blob);
         anchor.click();
-        
-        // Cleanup
-        window.URL.revokeObjectURL(anchor.href);
-        
+        URL.revokeObjectURL(anchor.href);
         showToast(`✅ Downloaded as ${anchor.download}`);
     }
 
     function copyResult() {
         const text = outputEl.textContent;
-        
         navigator.clipboard.writeText(text).then(() => {
-            // Visual feedback on button
-            const originalText = copyBtn.innerHTML;
+            const original = copyBtn.innerHTML;
             copyBtn.innerHTML = '✓ Copied!';
-            
             showToast('✅ Copied to clipboard!');
-            
-            setTimeout(() => {
-                copyBtn.innerHTML = originalText;
-            }, 1500);
+            setTimeout(() => { copyBtn.innerHTML = original; }, 1500);
         }).catch(err => {
             showToast('❌ Failed to copy: ' + err.message, 'error');
         });
     }
 
-    function showToast(message, type = 'success') {
-        // Remove existing toast
-        const existingToast = document.querySelector('.toast-message');
-        if (existingToast) existingToast.remove();
-        
-        // Create new toast
-        const toast = document.createElement('div');
-        toast.className = 'toast-message';
-        toast.textContent = message;
-        
-        // Style based on type
-        if (type === 'error') {
-            toast.style.background = '#d95757';
-        }
-        
-        document.body.appendChild(toast);
-        
-        // Remove after 3 seconds
-        setTimeout(() => {
-            toast.remove();
-        }, 3000);
-    }
-
     // ==================== EVENT LISTENERS ====================
-
-    // Analyze button click
     analyzeBtn.addEventListener('click', handleAnalyze);
-
-    // Enter key untuk analyze
-    symbolInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            handleAnalyze();
-        }
-    });
-
-    // Memastikan saat halaman dimuat, tidak ada analisis otomatis dan input kosong
-    window.addEventListener('load', () => {
-        // Hapus value input agar kosong
-        symbolInput.value = '';
-        
-        // Reset stored data
-        lastSymbol = '';
-        lastTerminalOutput = '';
-        lastJSONData = null;
-        currentView = 'terminal';
-        
-        // Pastikan wrapper tidak memiliki class 'has-result'
-        wrapper.classList.remove('has-result');
-        
-        // Sembunyikan area hasil dengan animasi
-        resultArea.style.opacity = '0';
-        resultArea.style.transform = 'translateY(30px)';
-        resultArea.style.display = 'none';
-        
-        // Reset konten output ke default
-        outputEl.textContent = 'Analyzing...';
-        resultTitle.textContent = 'Terminal Output';
-        
-        // Reset border card
-        cardEl.style.borderTop = '1px solid var(--border-color)';
-        cardEl.style.borderColor = 'var(--border-color)';
-        
-        // Reset button states
-        analysisBtn.classList.remove('active');
-        jsonBtn.classList.remove('active');
-    });
-
-    // Optional: Reset layout ketika user klik logo (hidden feature)
-    document.querySelector('.brand').addEventListener('dblclick', () => {
-        wrapper.classList.remove('has-result');
-        resultArea.style.opacity = '0';
-        resultArea.style.transform = 'translateY(30px)';
-        setTimeout(() => {
-            resultArea.style.display = 'none';
-        }, 500);
-        
-        // Kosongkan input juga (opsional)
-        symbolInput.value = '';
-        
-        // Reset stored data
-        lastSymbol = '';
-        lastTerminalOutput = '';
-        lastJSONData = null;
-        currentView = 'terminal';
-        
-        // Reset button states
-        analysisBtn.classList.remove('active');
-        jsonBtn.classList.remove('active');
-    });
-
-    // Make functions global for onclick handlers
-    window.handleAnalyze = handleAnalyze;
+    symbolInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleAnalyze(); });
+    analysisBtn.addEventListener('click', showAnalysis);
+    jsonBtn.addEventListener('click', showJSON);
+    copyBtn.addEventListener('click', copyResult);
+    downloadBtn.addEventListener('click', downloadResult);
+    window.toggleSidebar = toggleSidebar;
+    window.deleteHistoryItem = deleteHistoryItem;
     window.showAnalysis = showAnalysis;
     window.showJSON = showJSON;
     window.copyResult = copyResult;
     window.downloadResult = downloadResult;
+
+    // Initial reset
+    window.addEventListener('load', () => {
+        symbolInput.value = '';
+        lastSymbol = '';
+        lastTerminalOutput = '';
+        lastJSONData = null;
+        currentView = 'terminal';
+        wrapper.classList.remove('has-result');
+        resultArea.style.opacity = '0';
+        resultArea.style.transform = 'translateY(30px)';
+        resultArea.style.display = 'none';
+        outputEl.textContent = 'Analyzing...';
+        resultTitle.textContent = 'Terminal Output';
+        cardEl.style.borderTop = '1px solid var(--border-color)';
+        cardEl.style.borderColor = 'var(--border-color)';
+        analysisBtn.classList.remove('active');
+        jsonBtn.classList.remove('active');
+        historyListDiv.innerHTML = '<div class="loading-text">Select a symbol to see history</div>';
+        if (sidebar.classList.contains('open')) toggleSidebar();
+    });
+
+    // Double-click brand to reset layout
+    document.querySelector('.brand').addEventListener('dblclick', () => {
+        wrapper.classList.remove('has-result');
+        resultArea.style.opacity = '0';
+        resultArea.style.transform = 'translateY(30px)';
+        setTimeout(() => { resultArea.style.display = 'none'; }, 500);
+        symbolInput.value = '';
+        lastSymbol = '';
+        lastTerminalOutput = '';
+        lastJSONData = null;
+        currentView = 'terminal';
+        analysisBtn.classList.remove('active');
+        jsonBtn.classList.remove('active');
+        historyListDiv.innerHTML = '<div class="loading-text">Select a symbol to see history</div>';
+        if (sidebar.classList.contains('open')) toggleSidebar();
+    });
 </script>
 </body>
 </html>
