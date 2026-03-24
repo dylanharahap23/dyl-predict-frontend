@@ -31,7 +31,6 @@
             overflow-x: hidden;
         }
 
-        /* Layout Center Wrapper */
         .main-wrapper {
             display: flex;
             flex-direction: column;
@@ -74,7 +73,6 @@
             font-weight: 600;
         }
 
-        /* Search Container */
         .search-area { 
             width: 100%; 
             max-width: 700px; 
@@ -133,7 +131,6 @@
             transform: translateY(-1px);
         }
 
-        /* Result Card */
         .result-wrapper {
             width: 100%; 
             max-width: 900px;
@@ -151,7 +148,6 @@
             padding: 0;
             overflow: hidden;
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.04);
-            transition: all 0.4s ease;
         }
 
         .card-header {
@@ -228,7 +224,6 @@
             background: #a0a0a0;
         }
 
-        /* Toast notification */
         .toast-message {
             position: fixed;
             bottom: 20px;
@@ -260,7 +255,6 @@
             color: var(--accent-orange);
         }
 
-        /* Sidebar */
         .sidebar {
             position: fixed;
             top: 0;
@@ -426,9 +420,9 @@
 </div>
 
 <script>
-    // Configuration
+    // ==================== CONFIGURATION ====================
     const BASE_URL = 'https://spotty-lizzie-dylpredict-2b047c63.koyeb.app'; // Ganti dengan URL Koyeb kamu
-    
+
     // DOM Elements
     const wrapper = document.getElementById('wrapper');
     const resultArea = document.getElementById('resultArea');
@@ -476,34 +470,57 @@
         sidebar.classList.toggle('open');
     }
 
-    // ==================== HISTORY FUNCTIONS ====================
-    async function fetchAndDisplayHistory(symbol) {
+    // ==================== HISTORY FUNCTIONS (POLLING) ====================
+    /**
+     * Fetches history with retry (polling) to handle Google Drive indexing delay.
+     * @param {string} symbol - Symbol to fetch history for.
+     * @param {number} maxAttempts - Maximum number of attempts.
+     * @param {number} baseDelay - Delay between attempts in ms.
+     * @returns {Promise<void>}
+     */
+    async function fetchHistoryWithRetry(symbol, maxAttempts = 6, baseDelay = 2000) {
         if (!symbol) {
             historyListDiv.innerHTML = '<div class="loading-text">Select a symbol to see history</div>';
             return;
         }
-        historyListDiv.innerHTML = '<div class="loading-text">Loading history...</div>';
-        try {
-            const response = await fetch(`${BASE_URL}/history/${symbol}`);
-            const data = await response.json();
-            if (data.success && data.history && data.history.length > 0) {
-                historyListDiv.innerHTML = data.history.map(item => `
-                    <div class="history-item">
-                        <div class="filename">${escapeHtml(item.name)}</div>
-                        <div class="timestamp">${new Date(item.createdTime).toLocaleString()}</div>
-                        <div class="actions">
-                            <a href="${item.downloadUrl}" target="_blank">Download</a>
-                            <button onclick="deleteHistoryItem('${item.id}')">Delete</button>
+
+        let attempt = 1;
+        while (attempt <= maxAttempts) {
+            try {
+                // Show loading message with attempt count
+                historyListDiv.innerHTML = `<div class="loading-text">Loading history... (${attempt}/${maxAttempts})</div>`;
+                const response = await fetch(`${BASE_URL}/history/${symbol}`);
+                const data = await response.json();
+
+                if (data.success && data.history && data.history.length > 0) {
+                    // Success - display files
+                    historyListDiv.innerHTML = data.history.map(item => `
+                        <div class="history-item">
+                            <div class="filename">${escapeHtml(item.name)}</div>
+                            <div class="timestamp">${new Date(item.createdTime).toLocaleString()}</div>
+                            <div class="actions">
+                                <a href="${item.downloadUrl}" target="_blank">Download</a>
+                                <button onclick="deleteHistoryItem('${item.id}')">Delete</button>
+                            </div>
                         </div>
-                    </div>
-                `).join('');
-            } else {
-                historyListDiv.innerHTML = '<div class="history-item">No saved analysis found.</div>';
+                    `).join('');
+                    return;
+                }
+            } catch (error) {
+                console.warn(`Attempt ${attempt} failed:`, error);
             }
-        } catch (error) {
-            console.error('History error:', error);
-            historyListDiv.innerHTML = '<div class="history-item">Error loading history.</div>';
+
+            // If not last attempt, wait before retrying
+            if (attempt < maxAttempts) {
+                // Exponential backoff: 2s, 3s, 5s, 8s, 13s, 21s...
+                const waitTime = baseDelay * Math.pow(1.5, attempt - 1);
+                await new Promise(resolve => setTimeout(resolve, waitTime));
+            }
+            attempt++;
         }
+
+        // After all attempts, show not found
+        historyListDiv.innerHTML = '<div class="history-item">No saved analysis found.</div>';
     }
 
     window.deleteHistoryItem = async (fileId) => {
@@ -513,7 +530,7 @@
             const data = await response.json();
             if (data.success) {
                 showToast('File deleted successfully');
-                if (lastSymbol) fetchAndDisplayHistory(lastSymbol);
+                if (lastSymbol) fetchHistoryWithRetry(lastSymbol, 3, 1000); // quick retry after delete
             } else {
                 showToast('Delete failed: ' + data.error, 'error');
             }
@@ -581,10 +598,10 @@
 
             showToast(`✅ Analysis complete for ${symbol} (auto-saved)`);
             
-            // Wait a bit for Drive indexing, then fetch history
+            // Give Drive a moment to index, then start polling history
             setTimeout(() => {
-                fetchAndDisplayHistory(symbol);
-                // Auto-open sidebar if it's closed (optional)
+                fetchHistoryWithRetry(symbol);
+                // Auto-open sidebar if closed
                 if (!sidebar.classList.contains('open')) toggleSidebar();
             }, 3000);
         } catch (error) {
@@ -691,9 +708,8 @@
         const lastSymbolSaved = localStorage.getItem('lastAnalyzedSymbol');
         if (lastSymbolSaved) {
             symbolInput.value = lastSymbolSaved;
-            // Optionally fetch history without analyzing (to show saved files)
-            await fetchAndDisplayHistory(lastSymbolSaved);
-            // You could also auto-analyze, but let's not to avoid unexpected loads
+            // Fetch history for the last symbol (with retry)
+            await fetchHistoryWithRetry(lastSymbolSaved);
         }
     }
 
@@ -730,12 +746,11 @@
         jsonBtn.classList.remove('active');
         historyListDiv.innerHTML = '<div class="loading-text">Select a symbol to see history</div>';
         if (sidebar.classList.contains('open')) toggleSidebar();
-        
-        // Restore last symbol and fetch its history
+
         restoreLastSession();
     });
 
-    // Double-click brand to reset layout
+    // Double-click brand to reset everything
     document.querySelector('.brand').addEventListener('dblclick', () => {
         wrapper.classList.remove('has-result');
         resultArea.style.opacity = '0';
@@ -750,7 +765,6 @@
         jsonBtn.classList.remove('active');
         historyListDiv.innerHTML = '<div class="loading-text">Select a symbol to see history</div>';
         if (sidebar.classList.contains('open')) toggleSidebar();
-        // Clear stored symbol
         localStorage.removeItem('lastAnalyzedSymbol');
     });
 </script>
