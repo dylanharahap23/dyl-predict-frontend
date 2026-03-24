@@ -443,6 +443,7 @@
     let lastTerminalOutput = '';
     let lastJSONData = null;
     let currentView = 'terminal'; // 'terminal' or 'json'
+    let refreshInterval = null;
 
     // ==================== HELPER FUNCTIONS ====================
     function showToast(message, type = 'success') {
@@ -470,45 +471,82 @@
         sidebar.classList.toggle('open');
     }
 
-    // ==================== ALL HISTORY (POLLING) ====================
-    async function fetchAllHistory(maxAttempts = 6, baseDelay = 2000) {
-        let attempt = 1;
-        while (attempt <= maxAttempts) {
-            try {
-                historyListDiv.innerHTML = `<div class="loading-text">Loading history... (${attempt}/${maxAttempts})</div>`;
-                const response = await fetch(`${BASE_URL}/history/all`);
-                const data = await response.json();
-                if (data.success && data.history && data.history.length > 0) {
-                    historyListDiv.innerHTML = data.history.map(item => `
-                        <div class="history-item">
-                            <div class="filename">${escapeHtml(item.name)}</div>
-                            <div class="timestamp">${new Date(item.createdTime).toLocaleString()}</div>
-                            <div class="actions">
-                                <a href="${item.downloadUrl}" target="_blank">Download</a>
-                                <button onclick="deleteHistoryItem('${item.id}')">Delete</button>
-                            </div>
-                        </div>
-                    `).join('');
-                    return;
-                }
-                // If no files, show message after all attempts
-                if (attempt === maxAttempts) {
-                    historyListDiv.innerHTML = '<div class="history-item">No saved analysis found.</div>';
-                }
-            } catch (error) {
-                console.warn(`Attempt ${attempt} failed:`, error);
-                if (attempt === maxAttempts) {
-                    historyListDiv.innerHTML = '<div class="history-item">Error loading history.</div>';
-                }
+    function renderHistory(history) {
+        if (!history || history.length === 0) {
+            historyListDiv.innerHTML = '<div class="history-item">No saved analysis found.</div>';
+            return;
+        }
+        
+        historyListDiv.innerHTML = history.map(item => {
+            const borderColor = item.bias === 'SHORT' ? '#d95757' : 
+                              item.bias === 'LONG' ? '#57d977' : '#e5e2da';
+            const timestamp = item.createdTime || item.timestamp;
+            const date = new Date(timestamp).toLocaleString();
+            
+            return `
+                <div class="history-item" style="border-left: 4px solid ${borderColor}; margin-bottom: 8px; padding-left: 10px;">
+                    <div class="filename"><b>${escapeHtml(item.symbol)}</b> - ${escapeHtml(item.bias || 'NEUTRAL')}</div>
+                    <div class="timestamp">${date}</div>
+                    <div class="actions">
+                        ${item.downloadUrl ? `<a href="${item.downloadUrl}" target="_blank">Download</a>` : ''}
+                        ${item.viewUrl ? `<a href="${item.viewUrl}" target="_blank">View</a>` : ''}
+                        <button onclick="deleteHistoryItem('${item.id}')">Delete</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // ==================== FAST HISTORY FROM RAM CACHE ====================
+    async function fetchGlobalHistory() {
+        try {
+            const response = await fetch(`${BASE_URL}/api/history/global?limit=50`);
+            const data = await response.json();
+            
+            if (data.success && data.history && data.history.length > 0) {
+                renderHistory(data.history);
+                console.log(`✅ Loaded ${data.count} items from RAM cache (${data.source})`);
+                return true;
             }
-            if (attempt < maxAttempts) {
-                const waitTime = baseDelay * Math.pow(1.5, attempt - 1);
-                await new Promise(resolve => setTimeout(resolve, waitTime));
-            }
-            attempt++;
+            return false;
+        } catch (error) {
+            console.warn('RAM cache fetch failed:', error);
+            return false;
         }
     }
 
+    // ==================== FALLBACK: HISTORY FROM DRIVE ====================
+    async function fetchDriveHistory() {
+        try {
+            const response = await fetch(`${BASE_URL}/history/all`);
+            const data = await response.json();
+            
+            if (data.success && data.history && data.history.length > 0) {
+                renderHistory(data.history);
+                console.log(`✅ Loaded ${data.count} items from Drive (${data.source})`);
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.error('Drive history fetch failed:', error);
+            return false;
+        }
+    }
+
+    // ==================== MAIN HISTORY FETCHER ====================
+    async function loadHistory() {
+        historyListDiv.innerHTML = '<div class="loading-text">Loading history...</div>';
+        
+        // Try RAM cache first (SUPER FAST)
+        const ramSuccess = await fetchGlobalHistory();
+        
+        // If RAM cache empty, fallback to Drive
+        if (!ramSuccess) {
+            await fetchDriveHistory();
+        }
+    }
+
+    // ==================== DELETE HISTORY ITEM ====================
     window.deleteHistoryItem = async (fileId) => {
         if (!confirm('Are you sure you want to delete this file?')) return;
         try {
@@ -516,8 +554,8 @@
             const data = await response.json();
             if (data.success) {
                 showToast('File deleted successfully');
-                // Refresh history list after deletion
-                fetchAllHistory(3, 1000);
+                // Reload history
+                loadHistory();
             } else {
                 showToast('Delete failed: ' + data.error, 'error');
             }
@@ -534,7 +572,7 @@
             return;
         }
 
-        // Save last symbol to localStorage (optional, for pre-filling input)
+        // Save last symbol to localStorage
         localStorage.setItem('lastAnalyzedSymbol', symbol);
         lastSymbol = symbol;
 
@@ -553,7 +591,7 @@
         jsonBtn.classList.remove('active');
 
         try {
-            // Fetch terminal output (auto-save triggered in backend via /analyze/<symbol>)
+            // Fetch terminal output (auto-save triggered in backend)
             const terminalResponse = await fetch(`${BASE_URL}/analyze/${symbol}/terminal`);
             if (!terminalResponse.ok) throw new Error(`HTTP ${terminalResponse.status}`);
             const text = await terminalResponse.text();
@@ -585,12 +623,12 @@
 
             showToast(`✅ Analysis complete for ${symbol} (auto-saved)`);
             
-            // Wait for Drive indexing, then refresh all history
+            // Wait a moment for RAM cache to update, then refresh history
             setTimeout(() => {
-                fetchAllHistory();
+                loadHistory();
                 // Auto-open sidebar if closed
                 if (!sidebar.classList.contains('open')) toggleSidebar();
-            }, 3000);
+            }, 1000);
         } catch (error) {
             outputEl.textContent = `❌ Error: ${error.message}`;
             cardEl.style.borderTop = '4px solid #ff6b6b';
@@ -698,6 +736,22 @@
         }
     }
 
+    // ==================== AUTO-REFRESH ====================
+    function startAutoRefresh() {
+        if (refreshInterval) clearInterval(refreshInterval);
+        // Refresh every 10 seconds (RAM cache is fast)
+        refreshInterval = setInterval(() => {
+            fetchGlobalHistory();
+        }, 10000);
+    }
+
+    function stopAutoRefresh() {
+        if (refreshInterval) {
+            clearInterval(refreshInterval);
+            refreshInterval = null;
+        }
+    }
+
     // ==================== EVENT LISTENERS ====================
     analyzeBtn.addEventListener('click', handleAnalyze);
     symbolInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleAnalyze(); });
@@ -712,7 +766,7 @@
     window.copyResult = copyResult;
     window.downloadResult = downloadResult;
 
-    // Initial reset and load all history
+    // Initial load and auto-refresh
     window.addEventListener('load', () => {
         symbolInput.value = '';
         lastSymbol = '';
@@ -733,7 +787,13 @@
         if (sidebar.classList.contains('open')) toggleSidebar();
 
         restoreLastSymbol();
-        fetchAllHistory(); // load all files from Drive
+        loadHistory();
+        startAutoRefresh();
+    });
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+        stopAutoRefresh();
     });
 
     // Double-click brand to reset everything
@@ -752,7 +812,7 @@
         historyListDiv.innerHTML = '<div class="loading-text">Loading history...</div>';
         if (sidebar.classList.contains('open')) toggleSidebar();
         localStorage.removeItem('lastAnalyzedSymbol');
-        fetchAllHistory(); // refresh history after reset
+        loadHistory();
     });
 </script>
 </body>
