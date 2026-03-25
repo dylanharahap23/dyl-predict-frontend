@@ -19,7 +19,6 @@
             --short-bg: #f5c2c2;
             --long-bg: #c2f5c2;
             --sidebar-width: 340px;
-            /* Cream colors for Claude-like sidebar */
             --cream-bg: #fef7e8;
             --cream-header: #fef0df;
             --cream-border: #e8e0d0;
@@ -52,16 +51,15 @@
             padding-top: 60px;
         }
 
-        /* Brand styling with logo image */
+        /* Brand styling: logo di atas teks */
         .brand {
             text-align: center;
             margin-bottom: 40px;
             transition: all 0.5s ease;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 14px;
-            flex-wrap: wrap;
         }
 
         .has-result .brand { 
@@ -70,15 +68,13 @@
         }
 
         .brand-logo {
-            height: 52px;
-            width: auto;
-            display: inline-block;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+            width: 100px;
+            height: auto;
+            max-width: 120px;
+            display: block;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.05));
             transition: all 0.2s ease;
-            /* Hilangkan background putih jika ada */
-            background: transparent;
-            mix-blend-mode: normal;
-            object-fit: contain;
         }
 
         h1 { 
@@ -409,14 +405,14 @@
 
         @media (max-width: 600px) {
             .brand h1 { font-size: 28px; }
-            .brand-logo { height: 42px; }
+            .brand-logo { width: 80px; }
             .search-container { flex-direction: column; padding: 16px; }
             .btn-group { width: 100%; margin-top: 12px; }
             .btn-group button { width: 100%; }
             .card-header { flex-direction: column; gap: 12px; }
             .action-buttons { width: 100%; justify-content: center; }
             .sidebar { width: 100%; max-width: 320px; }
-            .brand { gap: 8px; }
+            .brand { gap: 4px; }
         }
     </style>
 </head>
@@ -436,8 +432,8 @@
 
 <div class="main-wrapper" id="wrapper">
     <div class="brand">
-        <!-- Logo menggunakan URL RAW dari GitHub. Jika background putih masih terlihat, ganti dengan file PNG transparan. -->
-        <img src="https://raw.githubusercontent.com/dylanharahap23/dyl-predict-frontend/main/dyl%20predict.png" alt="DylPredict Logo" class="brand-logo">
+        <!-- Logo baru: di atas teks, dengan URL raw dari GitHub -->
+        <img src="https://raw.githubusercontent.com/dylanharahap23/dyl-predict-frontend/main/dyl%20predict%20LOGO.png" alt="DylPredict Logo" class="brand-logo">
         <h1>Back at it, Dylan</h1>
     </div>
 
