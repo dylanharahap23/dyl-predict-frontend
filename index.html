@@ -19,6 +19,11 @@
             --short-bg: #f5c2c2;
             --long-bg: #c2f5c2;
             --sidebar-width: 340px;
+            /* Cream colors for Claude-like sidebar */
+            --cream-bg: #fef7e8;
+            --cream-header: #fef0df;
+            --cream-border: #e8e0d0;
+            --cream-item: #fffcf5;
         }
 
         body, html { 
@@ -47,10 +52,16 @@
             padding-top: 60px;
         }
 
+        /* Brand styling with logo image */
         .brand {
             text-align: center;
             margin-bottom: 40px;
             transition: all 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
         }
 
         .has-result .brand { 
@@ -58,19 +69,22 @@
             margin-bottom: 20px; 
         }
 
-        .brand span { 
-            color: var(--accent-orange); 
-            font-size: 42px; 
+        .brand-logo {
+            height: 52px;
+            width: auto;
             display: inline-block;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+            transition: all 0.2s ease;
         }
 
         h1 { 
             font-family: 'Source Serif Pro', serif; 
             font-size: 40px; 
-            margin: 10px 0; 
+            margin: 0; 
             letter-spacing: -0.02em; 
             color: #1a1a1a;
             font-weight: 600;
+            line-height: 1.2;
         }
 
         .search-area { 
@@ -255,71 +269,87 @@
             color: var(--accent-orange);
         }
 
+        /* ========== CLAUDE-INSPIRED CREAM SIDEBAR ========== */
         .sidebar {
             position: fixed;
             top: 0;
             right: 0;
             width: var(--sidebar-width);
             height: 100%;
-            background: var(--card-bg);
-            box-shadow: -2px 0 15px rgba(0,0,0,0.08);
+            background: var(--cream-bg);
+            box-shadow: -2px 0 15px rgba(0,0,0,0.05);
             z-index: 2000;
             transform: translateX(100%);
             transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             display: flex;
             flex-direction: column;
-            border-left: 1px solid var(--border-color);
+            border-left: 1px solid var(--cream-border);
         }
         .sidebar.open {
             transform: translateX(0);
         }
         .sidebar-header {
             padding: 20px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--cream-border);
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: 600;
-            background: #fafafa;
+            background: var(--cream-header);
         }
         .sidebar-header h3 {
             margin: 0;
             font-size: 18px;
+            color: #4a3b2a;
+            font-weight: 500;
+            letter-spacing: -0.2px;
         }
         .close-sidebar {
             background: none;
             border: none;
             font-size: 20px;
             cursor: pointer;
-            color: var(--text-muted);
+            color: #9b8a70;
+            transition: color 0.2s;
+        }
+        .close-sidebar:hover {
+            color: #5e4b32;
         }
         .history-list {
             flex: 1;
             overflow-y: auto;
-            padding: 12px;
+            padding: 16px 12px;
+            background: var(--cream-bg);
         }
         .history-item {
-            padding: 12px;
-            border-bottom: 1px solid #f0f0f0;
-            font-size: 13px;
-            transition: background 0.2s;
+            padding: 14px 12px;
+            background: var(--cream-item);
+            border-radius: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+            border: 1px solid #f3ebdd;
+            transition: all 0.2s ease;
         }
         .history-item:hover {
-            background: #f9f9f9;
+            background: #fffef9;
+            border-color: #e0d5c2;
+            transform: translateX(-2px);
         }
         .history-item .filename {
-            font-weight: 500;
+            font-weight: 600;
             word-break: break-all;
+            color: #2c241a;
+            font-size: 14px;
         }
         .history-item .timestamp {
             font-size: 11px;
-            color: #888;
-            margin-top: 4px;
+            color: #9b8a70;
+            margin-top: 6px;
         }
         .history-item .actions {
-            margin-top: 8px;
+            margin-top: 10px;
             display: flex;
-            gap: 12px;
+            gap: 14px;
         }
         .history-item .actions a, .history-item .actions button {
             font-size: 12px;
@@ -327,17 +357,28 @@
             background: none;
             border: none;
             cursor: pointer;
+            font-weight: 500;
+            padding: 4px 0;
         }
         .history-item .actions a {
-            color: #1a73e8;
+            color: #b45f2b;
+        }
+        .history-item .actions a:hover {
+            color: #8b4a1c;
+            text-decoration: underline;
         }
         .history-item .actions button {
-            color: #ff4444;
+            color: #bc7a5c;
+        }
+        .history-item .actions button:hover {
+            color: #b0452a;
         }
         .loading-text {
-            padding: 20px;
+            padding: 24px;
             text-align: center;
-            color: #888;
+            color: #b7a177;
+            font-style: italic;
+            font-size: 13px;
         }
         .menu-icon {
             position: fixed;
@@ -353,21 +394,25 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.2s ease;
+            color: #3a2c1c;
         }
         .menu-icon:hover {
-            background: #f0f0f0;
+            background: #fef0e0;
+            transform: scale(1.02);
         }
 
         @media (max-width: 600px) {
-            .brand h1 { font-size: 32px; }
+            .brand h1 { font-size: 28px; }
+            .brand-logo { height: 42px; }
             .search-container { flex-direction: column; padding: 16px; }
             .btn-group { width: 100%; margin-top: 12px; }
             .btn-group button { width: 100%; }
             .card-header { flex-direction: column; gap: 12px; }
             .action-buttons { width: 100%; justify-content: center; }
             .sidebar { width: 100%; max-width: 320px; }
+            .brand { gap: 8px; }
         }
     </style>
 </head>
@@ -387,7 +432,8 @@
 
 <div class="main-wrapper" id="wrapper">
     <div class="brand">
-        <span>✳</span>
+        <!-- Logo replaced with user uploaded PNG (Claude-like style) -->
+        <img src="https://imgcdn.dev/i/YxRvq9" alt="DylPredict Logo" class="brand-logo">
         <h1>Back at it, Dylan</h1>
     </div>
 
@@ -473,24 +519,24 @@
 
     function renderHistory(history) {
         if (!history || history.length === 0) {
-            historyListDiv.innerHTML = '<div class="history-item">No saved analysis found.</div>';
+            historyListDiv.innerHTML = '<div class="history-item" style="background:#fef7e8; text-align:center;">✨ No saved analysis found. Start analyzing! ✨</div>';
             return;
         }
         
         historyListDiv.innerHTML = history.map(item => {
             const borderColor = item.bias === 'SHORT' ? '#d95757' : 
-                              item.bias === 'LONG' ? '#57d977' : '#e5e2da';
+                              item.bias === 'LONG' ? '#57d977' : '#e0cfb5';
             const timestamp = item.createdTime || item.timestamp;
             const date = new Date(timestamp).toLocaleString();
             
             return `
-                <div class="history-item" style="border-left: 4px solid ${borderColor}; margin-bottom: 8px; padding-left: 10px;">
-                    <div class="filename"><b>${escapeHtml(item.symbol)}</b> - ${escapeHtml(item.bias || 'NEUTRAL')}</div>
+                <div class="history-item" style="border-left: 4px solid ${borderColor};">
+                    <div class="filename"><b>${escapeHtml(item.symbol)}</b> · ${escapeHtml(item.bias || 'NEUTRAL')}</div>
                     <div class="timestamp">${date}</div>
                     <div class="actions">
-                        ${item.downloadUrl ? `<a href="${item.downloadUrl}" target="_blank">Download</a>` : ''}
-                        ${item.viewUrl ? `<a href="${item.viewUrl}" target="_blank">View</a>` : ''}
-                        <button onclick="deleteHistoryItem('${item.id}')">Delete</button>
+                        ${item.downloadUrl ? `<a href="${item.downloadUrl}" target="_blank">📥 Download</a>` : ''}
+                        ${item.viewUrl ? `<a href="${item.viewUrl}" target="_blank">👁️ View</a>` : ''}
+                        <button onclick="deleteHistoryItem('${item.id}')">🗑️ Delete</button>
                     </div>
                 </div>
             `;
@@ -535,7 +581,7 @@
 
     // ==================== MAIN HISTORY FETCHER ====================
     async function loadHistory() {
-        historyListDiv.innerHTML = '<div class="loading-text">Loading history...</div>';
+        historyListDiv.innerHTML = '<div class="loading-text">📂 Loading history...</div>';
         
         // Try RAM cache first (SUPER FAST)
         const ramSuccess = await fetchGlobalHistory();
@@ -553,7 +599,7 @@
             const response = await fetch(`${BASE_URL}/delete_file/${fileId}`, { method: 'DELETE' });
             const data = await response.json();
             if (data.success) {
-                showToast('File deleted successfully');
+                showToast('🗑️ File deleted successfully');
                 // Reload history
                 loadHistory();
             } else {
@@ -626,7 +672,7 @@
             // Wait a moment for RAM cache to update, then refresh history
             setTimeout(() => {
                 loadHistory();
-                // Auto-open sidebar if closed
+                // Auto-open sidebar if closed (claude-style convenience)
                 if (!sidebar.classList.contains('open')) toggleSidebar();
             }, 1000);
         } catch (error) {
@@ -646,7 +692,7 @@
         resultTitle.textContent = `Analysis: ${lastSymbol}`;
         analysisBtn.classList.add('active');
         jsonBtn.classList.remove('active');
-        showToast('Showing analysis view');
+        showToast('📊 Showing analysis view');
     }
 
     function showJSON() {
@@ -657,7 +703,7 @@
             resultTitle.textContent = `Raw JSON: ${lastSymbol}`;
             analysisBtn.classList.remove('active');
             jsonBtn.classList.add('active');
-            showToast('Showing JSON view');
+            showToast('🔍 Showing JSON view');
         } else {
             fetchJSONAgain();
         }
@@ -739,10 +785,10 @@
     // ==================== AUTO-REFRESH ====================
     function startAutoRefresh() {
         if (refreshInterval) clearInterval(refreshInterval);
-        // Refresh every 10 seconds (RAM cache is fast)
+        // Refresh every 12 seconds (RAM cache is fast)
         refreshInterval = setInterval(() => {
             fetchGlobalHistory();
-        }, 10000);
+        }, 12000);
     }
 
     function stopAutoRefresh() {
@@ -783,7 +829,7 @@
         cardEl.style.borderColor = 'var(--border-color)';
         analysisBtn.classList.remove('active');
         jsonBtn.classList.remove('active');
-        historyListDiv.innerHTML = '<div class="loading-text">Loading history...</div>';
+        historyListDiv.innerHTML = '<div class="loading-text">📂 Loading history...</div>';
         if (sidebar.classList.contains('open')) toggleSidebar();
 
         restoreLastSymbol();
@@ -797,23 +843,27 @@
     });
 
     // Double-click brand to reset everything
-    document.querySelector('.brand').addEventListener('dblclick', () => {
-        wrapper.classList.remove('has-result');
-        resultArea.style.opacity = '0';
-        resultArea.style.transform = 'translateY(30px)';
-        setTimeout(() => { resultArea.style.display = 'none'; }, 500);
-        symbolInput.value = '';
-        lastSymbol = '';
-        lastTerminalOutput = '';
-        lastJSONData = null;
-        currentView = 'terminal';
-        analysisBtn.classList.remove('active');
-        jsonBtn.classList.remove('active');
-        historyListDiv.innerHTML = '<div class="loading-text">Loading history...</div>';
-        if (sidebar.classList.contains('open')) toggleSidebar();
-        localStorage.removeItem('lastAnalyzedSymbol');
-        loadHistory();
-    });
+    const brandDiv = document.querySelector('.brand');
+    if (brandDiv) {
+        brandDiv.addEventListener('dblclick', () => {
+            wrapper.classList.remove('has-result');
+            resultArea.style.opacity = '0';
+            resultArea.style.transform = 'translateY(30px)';
+            setTimeout(() => { resultArea.style.display = 'none'; }, 500);
+            symbolInput.value = '';
+            lastSymbol = '';
+            lastTerminalOutput = '';
+            lastJSONData = null;
+            currentView = 'terminal';
+            analysisBtn.classList.remove('active');
+            jsonBtn.classList.remove('active');
+            historyListDiv.innerHTML = '<div class="loading-text">📂 Loading history...</div>';
+            if (sidebar.classList.contains('open')) toggleSidebar();
+            localStorage.removeItem('lastAnalyzedSymbol');
+            loadHistory();
+            showToast('✨ Dashboard reset. Ready for new analysis.');
+        });
+    }
 </script>
 </body>
 </html>
