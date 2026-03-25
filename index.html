@@ -75,6 +75,10 @@
             display: inline-block;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
             transition: all 0.2s ease;
+            /* Hilangkan background putih jika ada */
+            background: transparent;
+            mix-blend-mode: normal;
+            object-fit: contain;
         }
 
         h1 { 
@@ -432,7 +436,7 @@
 
 <div class="main-wrapper" id="wrapper">
     <div class="brand">
-        <!-- Logo menggunakan URL RAW dari GitHub -->
+        <!-- Logo menggunakan URL RAW dari GitHub. Jika background putih masih terlihat, ganti dengan file PNG transparan. -->
         <img src="https://raw.githubusercontent.com/dylanharahap23/dyl-predict-frontend/main/dyl%20predict.png" alt="DylPredict Logo" class="brand-logo">
         <h1>Back at it, Dylan</h1>
     </div>
