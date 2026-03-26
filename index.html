@@ -23,6 +23,8 @@
             --cream-header: #fef0df;
             --cream-border: #e8e0d0;
             --cream-item: #fffcf5;
+            --tab-active-bg: #ffffff;
+            --tab-inactive-bg: #f3efe8;
         }
 
         body, html { 
@@ -51,7 +53,7 @@
             padding-top: 60px;
         }
 
-        /* Brand styling: logo di atas teks */
+        /* Brand styling */
         .brand {
             text-align: center;
             margin-bottom: 40px;
@@ -87,9 +89,49 @@
             line-height: 1.2;
         }
 
+        /* Tabs */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            background: transparent;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 8px 20px;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+            border-radius: 30px;
+        }
+        .tab-btn.active {
+            background: var(--tab-active-bg);
+            color: #1a1a1a;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .tab-btn:hover:not(.active) {
+            background: var(--tab-inactive-bg);
+            color: #3a3a3a;
+        }
+
+        /* Panels */
+        .panel {
+            width: 100%;
+            max-width: 700px;
+            transition: all 0.3s ease;
+        }
+        .panel.hidden {
+            display: none;
+        }
+
         .search-area { 
             width: 100%; 
-            max-width: 700px; 
             transition: all 0.5s ease; 
         }
 
@@ -143,6 +185,87 @@
         .btn-analyze:hover {
             opacity: 0.85;
             transform: translateY(-1px);
+        }
+
+        /* Hot Coins Panel */
+        .hot-coins-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .hot-coins-header h3 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .refresh-hot-btn {
+            background: #f0ede8;
+            border: none;
+            border-radius: 30px;
+            padding: 6px 16px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .refresh-hot-btn:hover {
+            background: #e0dbd2;
+        }
+        .hot-coins-list {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .hot-coin-item {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .hot-coin-item:last-child {
+            border-bottom: none;
+        }
+        .hot-coin-item:hover {
+            background: #fefaf2;
+        }
+        .coin-symbol {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .coin-change {
+            font-size: 14px;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 30px;
+            background: #f3efe8;
+        }
+        .coin-change.positive {
+            color: #2c7a4d;
+            background: #e3f5e9;
+        }
+        .coin-change.negative {
+            color: #c0392b;
+            background: #ffe6e4;
+        }
+        .empty-hot {
+            padding: 40px;
+            text-align: center;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        .last-updated {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 12px;
+            text-align: right;
         }
 
         .result-wrapper {
@@ -269,7 +392,7 @@
             color: var(--accent-orange);
         }
 
-        /* ========== CLAUDE-INSPIRED CREAM SIDEBAR ========== */
+        /* Sidebar */
         .sidebar {
             position: fixed;
             top: 0;
@@ -413,6 +536,8 @@
             .action-buttons { width: 100%; justify-content: center; }
             .sidebar { width: 100%; max-width: 320px; }
             .brand { gap: 4px; }
+            .tabs { gap: 6px; }
+            .tab-btn { padding: 6px 16px; font-size: 14px; }
         }
     </style>
 </head>
@@ -432,20 +557,41 @@
 
 <div class="main-wrapper" id="wrapper">
     <div class="brand">
-        <!-- Logo baru: di atas teks, dengan URL raw dari GitHub -->
         <img src="https://raw.githubusercontent.com/dylanharahap23/dyl-predict-frontend/main/dyl%20predict%20LOGO.png" alt="DylPredict Logo" class="brand-logo">
         <h1>Back at it, Dylan</h1>
     </div>
 
-    <div class="search-area">
-        <div class="search-container">
-            <input type="text" id="symbol" placeholder="Analyze a symbol..." value="">
-            <div class="btn-group">
-                <button class="btn-analyze" id="analyzeBtn">Analyze</button>
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab-btn active" id="tabAnalyzerBtn">🔍 Analyzer</button>
+        <button class="tab-btn" id="tabHotCoinsBtn">🔥 Hot Coins</button>
+    </div>
+
+    <!-- Analyzer Panel -->
+    <div id="analyzerPanel" class="panel">
+        <div class="search-area">
+            <div class="search-container">
+                <input type="text" id="symbol" placeholder="Analyze a symbol..." value="">
+                <div class="btn-group">
+                    <button class="btn-analyze" id="analyzeBtn">Analyze</button>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Hot Coins Panel (initially hidden) -->
+    <div id="hotCoinsPanel" class="panel hidden">
+        <div class="hot-coins-header">
+            <h3>🔥 Coins with 1m change > 1%</h3>
+            <button class="refresh-hot-btn" id="refreshHotBtn">⟳ Refresh</button>
+        </div>
+        <div id="hotCoinsList" class="hot-coins-list">
+            <div class="empty-hot">Loading hot coins...</div>
+        </div>
+        <div id="lastUpdated" class="last-updated"></div>
+    </div>
+
+    <!-- Result Area -->
     <div class="result-wrapper" id="resultArea">
         <div class="output-card" id="outputCard">
             <div class="card-header">
@@ -483,13 +629,21 @@
     const downloadBtn = document.getElementById('downloadBtn');
     const sidebar = document.getElementById('sidebar');
     const historyListDiv = document.getElementById('historyListSidebar');
+    const tabAnalyzer = document.getElementById('tabAnalyzerBtn');
+    const tabHotCoins = document.getElementById('tabHotCoinsBtn');
+    const analyzerPanel = document.getElementById('analyzerPanel');
+    const hotCoinsPanel = document.getElementById('hotCoinsPanel');
+    const refreshHotBtn = document.getElementById('refreshHotBtn');
+    const hotCoinsListDiv = document.getElementById('hotCoinsList');
+    const lastUpdatedSpan = document.getElementById('lastUpdated');
 
     // State
     let lastSymbol = '';
     let lastTerminalOutput = '';
     let lastJSONData = null;
-    let currentView = 'terminal'; // 'terminal' or 'json'
+    let currentView = 'terminal';
     let refreshInterval = null;
+    let hotCoinsData = null;
 
     // ==================== HELPER FUNCTIONS ====================
     function showToast(message, type = 'success') {
@@ -517,6 +671,7 @@
         sidebar.classList.toggle('open');
     }
 
+    // ==================== HISTORY FUNCTIONS ====================
     function renderHistory(history) {
         if (!history || history.length === 0) {
             historyListDiv.innerHTML = '<div class="history-item" style="background:#fef7e8; text-align:center;">✨ No saved analysis found. Start analyzing! ✨</div>';
@@ -543,15 +698,12 @@
         }).join('');
     }
 
-    // ==================== FAST HISTORY FROM RAM CACHE ====================
     async function fetchGlobalHistory() {
         try {
             const response = await fetch(`${BASE_URL}/api/history/global?limit=50`);
             const data = await response.json();
-            
             if (data.success && data.history && data.history.length > 0) {
                 renderHistory(data.history);
-                console.log(`✅ Loaded ${data.count} items from RAM cache (${data.source})`);
                 return true;
             }
             return false;
@@ -561,15 +713,12 @@
         }
     }
 
-    // ==================== FALLBACK: HISTORY FROM DRIVE ====================
     async function fetchDriveHistory() {
         try {
             const response = await fetch(`${BASE_URL}/history/all`);
             const data = await response.json();
-            
             if (data.success && data.history && data.history.length > 0) {
                 renderHistory(data.history);
-                console.log(`✅ Loaded ${data.count} items from Drive (${data.source})`);
                 return true;
             }
             return false;
@@ -579,20 +728,12 @@
         }
     }
 
-    // ==================== MAIN HISTORY FETCHER ====================
     async function loadHistory() {
         historyListDiv.innerHTML = '<div class="loading-text">📂 Loading history...</div>';
-        
-        // Try RAM cache first (SUPER FAST)
         const ramSuccess = await fetchGlobalHistory();
-        
-        // If RAM cache empty, fallback to Drive
-        if (!ramSuccess) {
-            await fetchDriveHistory();
-        }
+        if (!ramSuccess) await fetchDriveHistory();
     }
 
-    // ==================== DELETE HISTORY ITEM ====================
     window.deleteHistoryItem = async (fileId) => {
         if (!confirm('Are you sure you want to delete this file?')) return;
         try {
@@ -600,7 +741,6 @@
             const data = await response.json();
             if (data.success) {
                 showToast('🗑️ File deleted successfully');
-                // Reload history
                 loadHistory();
             } else {
                 showToast('Delete failed: ' + data.error, 'error');
@@ -610,17 +750,76 @@
         }
     };
 
+    // ==================== HOT COINS ====================
+    async function fetchHotCoins() {
+        try {
+            const response = await fetch(`${BASE_URL}/api/hot_coins`);
+            const data = await response.json();
+            if (data.success) {
+                hotCoinsData = data.data;
+                renderHotCoins(data.data);
+                if (data.last_updated) {
+                    const date = new Date(data.last_updated);
+                    lastUpdatedSpan.textContent = `Last updated: ${date.toLocaleString()}`;
+                }
+                return true;
+            } else {
+                hotCoinsListDiv.innerHTML = '<div class="empty-hot">Failed to load hot coins.</div>';
+                return false;
+            }
+        } catch (error) {
+            console.error('Hot coins fetch error:', error);
+            hotCoinsListDiv.innerHTML = '<div class="empty-hot">Error loading hot coins. Check network.</div>';
+            return false;
+        }
+    }
+
+    function renderHotCoins(coins) {
+        if (!coins || coins.length === 0) {
+            hotCoinsListDiv.innerHTML = '<div class="empty-hot">No coins with 1m change > 1% at the moment.</div>';
+            return;
+        }
+        const html = coins.map(coin => {
+            const change = coin.change;
+            const changeClass = change > 0 ? 'positive' : (change < 0 ? 'negative' : '');
+            const changeSymbol = change > 0 ? '+' : '';
+            return `
+                <div class="hot-coin-item" data-symbol="${coin.symbol}">
+                    <span class="coin-symbol">${coin.symbol}</span>
+                    <span class="coin-change ${changeClass}">${changeSymbol}${change}%</span>
+                </div>
+            `;
+        }).join('');
+        hotCoinsListDiv.innerHTML = html;
+        // Add click event listeners
+        document.querySelectorAll('.hot-coin-item').forEach(el => {
+            el.addEventListener('click', () => {
+                const symbol = el.dataset.symbol;
+                if (symbol) {
+                    analyzeSymbol(symbol);
+                }
+            });
+        });
+    }
+
     // ==================== ANALYZE FUNCTION ====================
-    async function handleAnalyze() {
-        const symbol = symbolInput.value.toUpperCase().trim();
-        if (!symbol) {
+    async function analyzeSymbol(symbol) {
+        if (!symbol) return;
+        symbolInput.value = symbol;
+        await handleAnalyze(symbol);
+        // Switch to analyzer tab for better UX
+        switchToAnalyzer();
+    }
+
+    async function handleAnalyze(symbol = null) {
+        const sym = symbol || symbolInput.value.toUpperCase().trim();
+        if (!sym) {
             showToast('Please enter a symbol', 'error');
             return;
         }
 
-        // Save last symbol to localStorage
-        localStorage.setItem('lastAnalyzedSymbol', symbol);
-        lastSymbol = symbol;
+        localStorage.setItem('lastAnalyzedSymbol', sym);
+        lastSymbol = sym;
 
         wrapper.classList.add('has-result');
         resultArea.style.display = 'block';
@@ -629,33 +828,27 @@
             resultArea.style.transform = 'translateY(0)';
         }, 50);
 
-        outputEl.textContent = `📡 Gathering intelligence for ${symbol}...`;
-        resultTitle.textContent = `Analyzing ${symbol}`;
+        outputEl.textContent = `📡 Gathering intelligence for ${sym}...`;
+        resultTitle.textContent = `Analyzing ${sym}`;
         cardEl.style.borderTop = '1px solid var(--border-color)';
         cardEl.style.borderColor = 'var(--border-color)';
         analysisBtn.classList.remove('active');
         jsonBtn.classList.remove('active');
 
         try {
-            // Fetch terminal output (auto-save triggered in backend)
-            const terminalResponse = await fetch(`${BASE_URL}/analyze/${symbol}/terminal`);
+            const terminalResponse = await fetch(`${BASE_URL}/analyze/${sym}/terminal`);
             if (!terminalResponse.ok) throw new Error(`HTTP ${terminalResponse.status}`);
             const text = await terminalResponse.text();
             lastTerminalOutput = text;
             currentView = 'terminal';
             outputEl.textContent = text;
-            resultTitle.textContent = `Analysis: ${symbol}`;
+            resultTitle.textContent = `Analysis: ${sym}`;
 
-            // Also fetch JSON data (for later view)
-            const jsonResponse = await fetch(`${BASE_URL}/analyze/${symbol}`);
+            const jsonResponse = await fetch(`${BASE_URL}/analyze/${sym}`);
             const jsonData = await jsonResponse.json();
-            if (jsonData.success) {
-                lastJSONData = jsonData.data;
-            } else {
-                lastJSONData = null;
-            }
+            if (jsonData.success) lastJSONData = jsonData.data;
+            else lastJSONData = null;
 
-            // Highlight card based on bias
             if (text.includes("FINAL BIAS: SHORT")) {
                 cardEl.style.borderTop = `4px solid var(--short-border)`;
                 cardEl.style.borderColor = '#f5c2c2';
@@ -667,12 +860,10 @@
                 cardEl.style.borderColor = 'var(--border-color)';
             }
 
-            showToast(`✅ Analysis complete for ${symbol} (auto-saved)`);
+            showToast(`✅ Analysis complete for ${sym} (auto-saved)`);
             
-            // Wait a moment for RAM cache to update, then refresh history
             setTimeout(() => {
                 loadHistory();
-                // Auto-open sidebar if closed (claude-style convenience)
                 if (!sidebar.classList.contains('open')) toggleSidebar();
             }, 1000);
         } catch (error) {
@@ -774,20 +965,32 @@
         });
     }
 
-    // ==================== RESTORE LAST SYMBOL ====================
-    function restoreLastSymbol() {
-        const lastSymbolSaved = localStorage.getItem('lastAnalyzedSymbol');
-        if (lastSymbolSaved) {
-            symbolInput.value = lastSymbolSaved;
-        }
+    // ==================== TAB SWITCHING ====================
+    function switchToAnalyzer() {
+        tabAnalyzer.classList.add('active');
+        tabHotCoins.classList.remove('active');
+        analyzerPanel.classList.remove('hidden');
+        hotCoinsPanel.classList.add('hidden');
+        // Optionally, if result area is hidden, keep it as is.
+    }
+
+    function switchToHotCoins() {
+        tabHotCoins.classList.add('active');
+        tabAnalyzer.classList.remove('active');
+        analyzerPanel.classList.add('hidden');
+        hotCoinsPanel.classList.remove('hidden');
+        // Load hot coins if not loaded
+        if (!hotCoinsData) fetchHotCoins();
     }
 
     // ==================== AUTO-REFRESH ====================
     function startAutoRefresh() {
         if (refreshInterval) clearInterval(refreshInterval);
-        // Refresh every 12 seconds (RAM cache is fast)
         refreshInterval = setInterval(() => {
             fetchGlobalHistory();
+            if (!hotCoinsPanel.classList.contains('hidden')) {
+                fetchHotCoins();
+            }
         }, 12000);
     }
 
@@ -798,21 +1001,27 @@
         }
     }
 
+    // ==================== RESTORE LAST SYMBOL ====================
+    function restoreLastSymbol() {
+        const lastSymbolSaved = localStorage.getItem('lastAnalyzedSymbol');
+        if (lastSymbolSaved) symbolInput.value = lastSymbolSaved;
+    }
+
     // ==================== EVENT LISTENERS ====================
-    analyzeBtn.addEventListener('click', handleAnalyze);
+    analyzeBtn.addEventListener('click', () => handleAnalyze());
     symbolInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleAnalyze(); });
     analysisBtn.addEventListener('click', showAnalysis);
     jsonBtn.addEventListener('click', showJSON);
     copyBtn.addEventListener('click', copyResult);
     downloadBtn.addEventListener('click', downloadResult);
+    refreshHotBtn.addEventListener('click', fetchHotCoins);
+    tabAnalyzer.addEventListener('click', switchToAnalyzer);
+    tabHotCoins.addEventListener('click', switchToHotCoins);
+
     window.toggleSidebar = toggleSidebar;
     window.deleteHistoryItem = deleteHistoryItem;
-    window.showAnalysis = showAnalysis;
-    window.showJSON = showJSON;
-    window.copyResult = copyResult;
-    window.downloadResult = downloadResult;
 
-    // Initial load and auto-refresh
+    // Initialization
     window.addEventListener('load', () => {
         symbolInput.value = '';
         lastSymbol = '';
@@ -835,14 +1044,14 @@
         restoreLastSymbol();
         loadHistory();
         startAutoRefresh();
+        switchToAnalyzer(); // default tab
     });
 
-    // Cleanup on page unload
     window.addEventListener('beforeunload', () => {
         stopAutoRefresh();
     });
 
-    // Double-click brand to reset everything
+    // Double-click brand to reset
     const brandDiv = document.querySelector('.brand');
     if (brandDiv) {
         brandDiv.addEventListener('dblclick', () => {
