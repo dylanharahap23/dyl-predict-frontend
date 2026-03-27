@@ -836,6 +836,7 @@
         jsonBtn.classList.remove('active');
 
         try {
+            // Fetch terminal output
             const terminalResponse = await fetch(`${BASE_URL}/analyze/${sym}/terminal`);
             if (!terminalResponse.ok) throw new Error(`HTTP ${terminalResponse.status}`);
             const text = await terminalResponse.text();
@@ -844,11 +845,28 @@
             outputEl.textContent = text;
             resultTitle.textContent = `Analysis: ${sym}`;
 
+            // Fetch JSON data (direct object, not wrapped)
             const jsonResponse = await fetch(`${BASE_URL}/analyze/${sym}`);
-            const jsonData = await jsonResponse.json();
-            if (jsonData.success) lastJSONData = jsonData.data;
-            else lastJSONData = null;
+            
+            // Safety parsing with try-catch
+            const rawText = await jsonResponse.text();
+            console.log("RAW JSON:", rawText);
+            
+            let jsonData;
+            try {
+                jsonData = JSON.parse(rawText);
+            } catch (parseError) {
+                outputEl.textContent = "❌ Invalid JSON from server";
+                showToast("Invalid JSON response from server", "error");
+                return;
+            }
+            
+            // 🔥 FIX: Store entire JSON data directly (as per professor's instruction)
+            // The API now returns the analysis object directly, not wrapped in {success: true, data: ...}
+            // So we store the whole jsonData.
+            lastJSONData = jsonData;
 
+            // Determine border color based on bias in terminal output
             if (text.includes("FINAL BIAS: SHORT")) {
                 cardEl.style.borderTop = `4px solid var(--short-border)`;
                 cardEl.style.borderColor = '#f5c2c2';
@@ -924,16 +942,22 @@
         resultTitle.textContent = `Raw JSON: ${lastSymbol}`;
         try {
             const response = await fetch(`${BASE_URL}/analyze/${lastSymbol}`);
-            const data = await response.json();
-            if (data.success) {
-                lastJSONData = data.data;
-                currentView = 'json';
-                outputEl.textContent = JSON.stringify(lastJSONData, null, 2);
-                analysisBtn.classList.remove('active');
-                jsonBtn.classList.add('active');
-            } else {
-                outputEl.textContent = `Error: ${data.error}`;
+            const rawText = await response.text();
+            console.log("RAW JSON:", rawText);
+            let data;
+            try {
+                data = JSON.parse(rawText);
+            } catch {
+                outputEl.textContent = "❌ Invalid JSON from server";
+                showToast("Invalid JSON response", "error");
+                return;
             }
+            // Store the entire data as per fix
+            lastJSONData = data;
+            currentView = 'json';
+            outputEl.textContent = JSON.stringify(lastJSONData, null, 2);
+            analysisBtn.classList.remove('active');
+            jsonBtn.classList.add('active');
         } catch (error) {
             outputEl.textContent = `❌ Error: ${error.message}`;
             showToast(`❌ Error: ${error.message}`, 'error');
@@ -971,7 +995,6 @@
         tabHotCoins.classList.remove('active');
         analyzerPanel.classList.remove('hidden');
         hotCoinsPanel.classList.add('hidden');
-        // Optionally, if result area is hidden, keep it as is.
     }
 
     function switchToHotCoins() {
@@ -979,7 +1002,6 @@
         tabAnalyzer.classList.remove('active');
         analyzerPanel.classList.add('hidden');
         hotCoinsPanel.classList.remove('hidden');
-        // Load hot coins if not loaded
         if (!hotCoinsData) fetchHotCoins();
     }
 
@@ -1044,7 +1066,7 @@
         restoreLastSymbol();
         loadHistory();
         startAutoRefresh();
-        switchToAnalyzer(); // default tab
+        switchToAnalyzer();
     });
 
     window.addEventListener('beforeunload', () => {
