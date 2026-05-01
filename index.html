@@ -671,6 +671,18 @@
         sidebar.classList.toggle('open');
     }
 
+    // ==================== BIAS DARI JSON (PERBAIKAN UTAMA) ====================
+    function getFinalBiasFromResult(result) {
+        // Prioritas 1: bias_display (sudah atomic dari render_final_output)
+        const bias = result?.bias_display;
+        if (bias === 'LONG' || bias === 'SHORT' || bias === 'NEUTRAL') return bias;
+        // Prioritas 2: _final_bias_locked
+        const locked = result?._final_bias_locked;
+        if (locked === 'LONG' || locked === 'SHORT') return locked;
+        // Fallback
+        return result?.bias || 'NEUTRAL';
+    }
+
     // ==================== HISTORY FUNCTIONS ====================
     function renderHistory(history) {
         if (!history || history.length === 0) {
@@ -836,7 +848,7 @@
         jsonBtn.classList.remove('active');
 
         try {
-            // Fetch terminal output
+            // Fetch terminal output (tidak digunakan untuk bias)
             const terminalResponse = await fetch(`${BASE_URL}/analyze/${sym}/terminal`);
             if (!terminalResponse.ok) throw new Error(`HTTP ${terminalResponse.status}`);
             const text = await terminalResponse.text();
@@ -869,16 +881,18 @@
                 }
             }
             
-            // 🔥 FIX: Store entire JSON data directly (as per professor's instruction)
-            // The API now returns the analysis object directly, not wrapped in {success: true, data: ...}
             lastJSONData = jsonData;
 
-            // Determine border color based on bias in terminal output
-            if (text.includes("FINAL BIAS: SHORT")) {
-                cardEl.style.borderTop = `4px solid var(--short-border)`;
+            // 🔥🔥🔥 PERBAIKAN UTAMA: Ambil bias dari JSON (bias_display), bukan dari teks
+            const finalBias = getFinalBiasFromResult(lastJSONData);
+            resultTitle.textContent = `Analysis: ${sym} → ${finalBias} (JSON)`;
+
+            // Tentukan warna border berdasarkan finalBias
+            if (finalBias === 'SHORT') {
+                cardEl.style.borderTop = '4px solid var(--short-border)';
                 cardEl.style.borderColor = '#f5c2c2';
-            } else if (text.includes("FINAL BIAS: LONG")) {
-                cardEl.style.borderTop = `4px solid var(--long-border)`;
+            } else if (finalBias === 'LONG') {
+                cardEl.style.borderTop = '4px solid var(--long-border)';
                 cardEl.style.borderColor = '#c2f5c2';
             } else {
                 cardEl.style.borderTop = '1px solid var(--border-color)';
@@ -967,7 +981,6 @@
                     return;
                 }
             }
-            // Store the entire data as per fix
             lastJSONData = data;
             currentView = 'json';
             outputEl.textContent = JSON.stringify(lastJSONData, null, 2);
