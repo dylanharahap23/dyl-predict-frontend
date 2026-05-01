@@ -3,41 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DylPredict V87 | Professional Analytics</title>
+    <title>DylPredict Premium | Neural Signals</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
     <style>
         :root {
-            --bg-color: #f9f8f4;
-            --text-main: #292929;
-            --text-muted: #6b6b6b;
-            --accent-orange: #d97757;
-            --card-bg: #ffffff;
-            --border-color: #e5e2da;
+            --bg-color: #0a0a0a;
+            --text-main: #f0ede8;
+            --text-muted: #9b9484;
+            --accent-gold: #d4a84b;
+            --card-bg: rgba(255,255,255,0.04);
+            --border-color: rgba(255,255,255,0.06);
             --short-border: #d95757;
             --long-border: #57d977;
-            --short-bg: #f5c2c2;
-            --long-bg: #c2f5c2;
+            --short-bg: rgba(217,87,87,0.1);
+            --long-bg: rgba(87,217,119,0.1);
             --sidebar-width: 340px;
-            --cream-bg: #fef7e8;
-            --cream-header: #fef0df;
-            --cream-border: #e8e0d0;
-            --cream-item: #fffcf5;
-            --tab-active-bg: #ffffff;
-            --tab-inactive-bg: #f3efe8;
+            --cream-bg: rgba(10,10,10,0.95);
+            --cream-header: rgba(255,255,255,0.05);
+            --cream-border: rgba(255,255,255,0.08);
+            --cream-item: rgba(255,255,255,0.03);
+            --tab-active-bg: rgba(255,255,255,0.1);
+            --tab-inactive-bg: transparent;
+            --glass-bg: rgba(255,255,255,0.04);
+            --glass-blur: blur(12px);
         }
 
         body, html { 
             height: 100%; 
             margin: 0; 
             padding: 0;
-            background-color: var(--bg-color); 
+            background: #0a0a0a;
             font-family: 'Inter', sans-serif; 
             color: var(--text-main);
             overflow-x: hidden;
         }
 
         .main-wrapper {
+            position: relative;
+            z-index: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -46,11 +52,21 @@
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             padding: 20px;
             box-sizing: border-box;
+            background: transparent;
         }
 
         .main-wrapper.has-result {
             justify-content: flex-start;
             padding-top: 60px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         /* Brand styling */
@@ -63,30 +79,28 @@
             align-items: center;
             justify-content: center;
         }
-
         .has-result .brand { 
             transform: scale(0.8); 
             margin-bottom: 20px; 
         }
-
         .brand-logo {
             width: 100px;
             height: auto;
             max-width: 120px;
             display: block;
             margin-bottom: 12px;
-            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.05));
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
             transition: all 0.2s ease;
         }
-
         h1 { 
             font-family: 'Source Serif Pro', serif; 
             font-size: 40px; 
             margin: 0; 
             letter-spacing: -0.02em; 
-            color: #1a1a1a;
+            color: #f0ede8;
             font-weight: 600;
             line-height: 1.2;
+            animation: glitch 5s infinite linear alternate-reverse;
         }
 
         /* Tabs */
@@ -98,9 +112,11 @@
             background: transparent;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 8px;
+            width: 100%;
+            max-width: 700px;
         }
         .tab-btn {
-            background: none;
+            background: var(--tab-inactive-bg);
             border: none;
             font-size: 16px;
             font-weight: 500;
@@ -112,12 +128,12 @@
         }
         .tab-btn.active {
             background: var(--tab-active-bg);
-            color: #1a1a1a;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            color: #f0ede8;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
         .tab-btn:hover:not(.active) {
-            background: var(--tab-inactive-bg);
-            color: #3a3a3a;
+            background: rgba(255,255,255,0.05);
+            color: var(--accent-gold);
         }
 
         /* Panels */
@@ -129,402 +145,248 @@
         .panel.hidden {
             display: none;
         }
-
-        .search-area { 
-            width: 100%; 
-            transition: all 0.5s ease; 
-        }
-
+        .search-area { width: 100%; transition: all 0.5s ease; }
         .search-container {
-            background: var(--card-bg);
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--border-color);
             border-radius: 28px;
             padding: 8px 8px 8px 24px;
             display: flex;
             align-items: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             transition: box-shadow 0.3s ease, border-color 0.3s ease;
         }
-
         .search-container:focus-within {
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-            border-color: #d4d0c8;
+            box-shadow: 0 8px 30px rgba(212, 168, 75, 0.1);
+            border-color: var(--accent-gold);
         }
-
         input#symbol {
-            border: none; 
-            outline: none; 
-            flex-grow: 1;
-            font-size: 18px; 
-            background: transparent; 
-            padding: 14px 0;
-            color: var(--text-main);
-            font-weight: 400;
+            border: none; outline: none; flex-grow: 1;
+            font-size: 18px; background: transparent; padding: 14px 0;
+            color: var(--text-main); font-weight: 400;
         }
-
-        input#symbol::placeholder {
-            color: #b0b0b0;
-            font-weight: 300;
-        }
-
+        input#symbol::placeholder { color: #6b6b6b; font-weight: 300; }
         .btn-group button {
-            padding: 12px 28px; 
-            border-radius: 24px;
-            border: none; 
-            cursor: pointer; 
-            font-weight: 500;
-            font-size: 15px;
-            transition: all 0.2s ease;
+            padding: 12px 28px; border-radius: 24px;
+            border: none; cursor: pointer; font-weight: 500;
+            font-size: 15px; transition: all 0.2s ease;
         }
-
-        .btn-analyze { 
-            background: #1a1a1a; 
-            color: white; 
-        }
-
-        .btn-analyze:hover {
-            opacity: 0.85;
-            transform: translateY(-1px);
-        }
+        .btn-analyze { background: var(--accent-gold); color: #0a0a0a; }
+        .btn-analyze:hover { opacity: 0.85; transform: translateY(-1px); }
 
         /* Hot Coins Panel */
         .hot-coins-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
+            display: flex; justify-content: space-between; align-items: baseline;
+            margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
         }
-        .hot-coins-header h3 {
-            margin: 0;
-            font-size: 20px;
-            font-weight: 500;
-        }
+        .hot-coins-header h3 { margin: 0; font-size: 20px; font-weight: 500; color: #f0ede8; }
         .refresh-hot-btn {
-            background: #f0ede8;
-            border: none;
-            border-radius: 30px;
-            padding: 6px 16px;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            background: rgba(255,255,255,0.1); border: none; border-radius: 30px;
+            padding: 6px 16px; font-size: 13px; cursor: pointer; color: #f0ede8;
         }
-        .refresh-hot-btn:hover {
-            background: #e0dbd2;
-        }
+        .refresh-hot-btn:hover { background: rgba(255,255,255,0.2); }
         .hot-coins-list {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            overflow: hidden;
-            max-height: 500px;
-            overflow-y: auto;
+            background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-color); border-radius: 24px;
+            overflow: hidden; max-height: 500px; overflow-y: auto;
         }
         .hot-coin-item {
-            padding: 14px 20px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: background 0.2s ease;
+            padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer; transition: background 0.2s ease;
         }
-        .hot-coin-item:last-child {
-            border-bottom: none;
-        }
-        .hot-coin-item:hover {
-            background: #fefaf2;
-        }
-        .coin-symbol {
-            font-weight: 600;
-            font-size: 16px;
-        }
+        .hot-coin-item:last-child { border-bottom: none; }
+        .hot-coin-item:hover { background: rgba(212,168,75,0.1); }
+        .coin-symbol { font-weight: 600; font-size: 16px; }
         .coin-change {
-            font-size: 14px;
-            font-weight: 500;
-            padding: 4px 10px;
-            border-radius: 30px;
-            background: #f3efe8;
+            font-size: 14px; font-weight: 500; padding: 4px 10px;
+            border-radius: 30px; background: rgba(255,255,255,0.05);
         }
-        .coin-change.positive {
-            color: #2c7a4d;
-            background: #e3f5e9;
-        }
-        .coin-change.negative {
-            color: #c0392b;
-            background: #ffe6e4;
-        }
-        .empty-hot {
-            padding: 40px;
-            text-align: center;
-            color: var(--text-muted);
-            font-style: italic;
-        }
-        .last-updated {
-            font-size: 11px;
-            color: #aaa;
-            margin-top: 12px;
-            text-align: right;
-        }
+        .coin-change.positive { color: #57d977; background: rgba(87,217,119,0.15); }
+        .coin-change.negative { color: #ff6b6b; background: rgba(255,107,107,0.15); }
+        .empty-hot { padding: 40px; text-align: center; color: var(--text-muted); font-style: italic; }
+        .last-updated { font-size: 11px; color: #6b6b6b; margin-top: 12px; text-align: right; }
 
+        /* Result area */
         .result-wrapper {
-            width: 100%; 
-            max-width: 900px;
-            margin-top: 50px;
-            display: none;
-            opacity: 0;
-            transform: translateY(30px);
+            width: 100%; max-width: 900px; margin-top: 50px;
+            display: none; opacity: 0; transform: translateY(30px);
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
         .output-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 0;
-            overflow: hidden;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.04);
+            background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-color); border-radius: 24px;
+            padding: 0; overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
         }
-
         .card-header {
             padding: 14px 24px;
-            background: #fafafa;
+            background: rgba(255,255,255,0.03);
             border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: flex; justify-content: space-between; align-items: center;
         }
-
-        #resultTitle { 
-            font-weight: 600; 
-            font-size: 14px; 
-            color: var(--text-muted);
-            letter-spacing: 0.3px;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 8px;
-        }
-
+        #resultTitle { font-weight: 600; font-size: 14px; color: var(--text-muted); }
+        .action-buttons { display: flex; gap: 8px; }
         .btn-action { 
-            background: #ffffff; 
-            border: 1px solid #e0e0e0 !important; 
-            border-radius: 16px;
-            font-size: 12px; 
-            padding: 6px 14px;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-weight: 500;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
+            border-radius: 16px; font-size: 12px; padding: 6px 14px;
+            color: var(--text-muted); cursor: pointer; transition: all 0.2s ease;
         }
-
-        .btn-action:hover { 
-            background: #f5f5f5; 
-            border-color: #d0d0d0;
-            transform: translateY(-1px);
-        }
-
-        .btn-action.active {
-            background: #1a1a1a;
-            color: white;
-            border-color: #1a1a1a !important;
-        }
-
+        .btn-action:hover { background: rgba(255,255,255,0.1); }
+        .btn-action.active { background: var(--accent-gold); color: #0a0a0a; border-color: var(--accent-gold); }
         .terminal-style {
-            padding: 28px;
-            margin: 0;
+            padding: 28px; margin: 0;
             font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 1.7;
-            max-height: 600px;
-            overflow-y: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            background: #fbfbf9;
-            color: #1e1e1e;
+            font-size: 14px; line-height: 1.7; max-height: 600px; overflow-y: auto;
+            white-space: pre-wrap; word-wrap: break-word;
+            background: transparent; color: #f0ede8;
         }
-
-        .terminal-style::-webkit-scrollbar {
-            width: 8px;
-        }
-        .terminal-style::-webkit-scrollbar-track {
-            background: #f0f0f0;
-            border-radius: 4px;
-        }
-        .terminal-style::-webkit-scrollbar-thumb {
-            background: #c0c0c0;
-            border-radius: 4px;
-        }
-        .terminal-style::-webkit-scrollbar-thumb:hover {
-            background: #a0a0a0;
-        }
+        .terminal-style::after { content: '_'; animation: blink 1s infinite; }
 
         .toast-message {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #1a1a1a;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 500;
-            z-index: 10000;
-            animation: slideIn 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: fixed; bottom: 20px; right: 20px;
+            background: #1a1a1a; color: white; padding: 10px 20px;
+            border-radius: 30px; font-size: 14px; font-weight: 500;
+            z-index: 10000; animation: slideIn 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
-
         @keyframes slideIn {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
-
         .footer-note {
-            margin-top: 20px;
-            font-size: 12px; 
-            color: #aaa; 
-            text-align: center;
-            letter-spacing: 0.5px;
+            margin-top: 20px; font-size: 12px; color: #6b6b6b;
+            text-align: center; letter-spacing: 0.5px;
         }
-        .footer-note span {
-            color: var(--accent-orange);
-        }
+        .footer-note span { color: var(--accent-gold); }
 
         /* Sidebar */
         .sidebar {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: var(--sidebar-width);
-            height: 100%;
-            background: var(--cream-bg);
-            box-shadow: -2px 0 15px rgba(0,0,0,0.05);
-            z-index: 2000;
-            transform: translateX(100%);
+            position: fixed; top: 0; right: 0; width: var(--sidebar-width);
+            height: 100%; background: var(--cream-bg); backdrop-filter: blur(20px);
+            box-shadow: -2px 0 15px rgba(0,0,0,0.5);
+            z-index: 2000; transform: translateX(100%);
             transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            display: flex;
-            flex-direction: column;
+            display: flex; flex-direction: column;
             border-left: 1px solid var(--cream-border);
         }
-        .sidebar.open {
-            transform: translateX(0);
-        }
+        .sidebar.open { transform: translateX(0); }
         .sidebar-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--cream-border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            background: var(--cream-header);
+            padding: 20px; border-bottom: 1px solid var(--cream-border);
+            display: flex; justify-content: space-between; align-items: center;
+            font-weight: 600; background: var(--cream-header);
         }
-        .sidebar-header h3 {
-            margin: 0;
-            font-size: 18px;
-            color: #4a3b2a;
-            font-weight: 500;
-            letter-spacing: -0.2px;
-        }
-        .close-sidebar {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: #9b8a70;
-            transition: color 0.2s;
-        }
-        .close-sidebar:hover {
-            color: #5e4b32;
-        }
-        .history-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px 12px;
-            background: var(--cream-bg);
-        }
+        .sidebar-header h3 { margin: 0; font-size: 18px; color: var(--accent-gold); }
+        .close-sidebar { background: none; border: none; font-size: 20px; cursor: pointer; color: #9b9484; }
+        .close-sidebar:hover { color: var(--accent-gold); }
+        .history-list { flex: 1; overflow-y: auto; padding: 16px 12px; background: transparent; }
         .history-item {
-            padding: 14px 12px;
-            background: var(--cream-item);
-            border-radius: 16px;
-            margin-bottom: 12px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-            border: 1px solid #f3ebdd;
+            padding: 14px 12px; background: rgba(255,255,255,0.03);
+            border-radius: 16px; margin-bottom: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
             transition: all 0.2s ease;
+            border-left: 4px solid transparent;
         }
-        .history-item:hover {
-            background: #fffef9;
-            border-color: #e0d5c2;
-            transform: translateX(-2px);
-        }
-        .history-item .filename {
-            font-weight: 600;
-            word-break: break-all;
-            color: #2c241a;
-            font-size: 14px;
-        }
-        .history-item .timestamp {
-            font-size: 11px;
-            color: #9b8a70;
-            margin-top: 6px;
-        }
-        .history-item .actions {
-            margin-top: 10px;
-            display: flex;
-            gap: 14px;
-        }
+        .history-item:hover { background: rgba(255,255,255,0.05); border-color: rgba(212,168,75,0.2); }
+        .history-item .filename { font-weight: 600; word-break: break-all; color: #f0ede8; }
+        .history-item .timestamp { font-size: 11px; color: #9b9484; margin-top: 6px; }
+        .history-item .actions { margin-top: 10px; display: flex; gap: 14px; }
         .history-item .actions a, .history-item .actions button {
-            font-size: 12px;
-            text-decoration: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
-            padding: 4px 0;
+            font-size: 12px; text-decoration: none; background: none; border: none;
+            cursor: pointer; font-weight: 500; padding: 4px 0;
         }
-        .history-item .actions a {
-            color: #b45f2b;
-        }
-        .history-item .actions a:hover {
-            color: #8b4a1c;
-            text-decoration: underline;
-        }
-        .history-item .actions button {
-            color: #bc7a5c;
-        }
-        .history-item .actions button:hover {
-            color: #b0452a;
-        }
-        .loading-text {
-            padding: 24px;
-            text-align: center;
-            color: #b7a177;
-            font-style: italic;
-            font-size: 13px;
-        }
+        .history-item .actions a { color: var(--accent-gold); }
+        .history-item .actions a:hover { color: #e5c16a; text-decoration: underline; }
+        .history-item .actions button { color: #bc7a5c; }
+        .history-item .actions button:hover { color: #ff6b6b; }
+        .loading-text { padding: 24px; text-align: center; color: #9b9484; font-style: italic; }
         .menu-icon {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 2001;
-            background: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: all 0.2s ease;
-            color: #3a2c1c;
+            position: fixed; top: 20px; right: 20px; font-size: 24px;
+            cursor: pointer; z-index: 2001; background: rgba(255,255,255,0.1);
+            width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: all 0.2s ease; color: var(--accent-gold);
         }
-        .menu-icon:hover {
-            background: #fef0e0;
-            transform: scale(1.02);
+        .menu-icon:hover { background: rgba(212,168,75,0.2); transform: scale(1.02); }
+
+        /* Quote & Premium Sections */
+        .quote-section {
+            max-width: 680px; margin: 80px auto 60px;
+            text-align: center; opacity: 0; transform: translateY(30px);
+            animation: fadeSlideUp 1s ease forwards;
         }
+        .quote-line {
+            width: 60px; height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
+            margin: 0 auto 20px;
+        }
+        .signal-quote {
+            font-family: 'Source Serif Pro', serif; font-size: 22px;
+            color: rgba(255,255,255,0.85); line-height: 1.6; font-weight: 400;
+            border: none; padding: 0;
+        }
+        cite { display: block; margin-top: 20px; color: var(--accent-gold); font-style: normal; font-size: 14px; letter-spacing: 1px; }
+        .premium-section {
+            max-width: 900px; margin: 80px auto; padding: 0 20px; width: 100%;
+            opacity: 0; transform: translateY(30px);
+            animation: fadeSlideUp 1s ease 0.2s forwards;
+        }
+        .section-title {
+            font-family: 'Source Serif Pro', serif; font-size: 28px;
+            color: var(--accent-gold); margin-bottom: 30px; text-align: center;
+        }
+        .cards-grid {
+            display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+        }
+        .glass-card {
+            background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
+            padding: 30px; min-width: 200px; text-align: center;
+            font-weight: 500; position: relative; overflow: hidden;
+        }
+        .glass-card::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(transparent 70%, rgba(212,168,75,0.1));
+            animation: scanLine 4s linear infinite;
+        }
+        @keyframes scanLine {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+        .stats-grid {
+            display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;
+        }
+        .stat-item {
+            background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 12px; padding: 20px 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 18px;
+        }
+        .stat-number { display: block; font-size: 36px; font-weight: 600; color: var(--accent-gold); margin-bottom: 5px; }
+        .terminal-feed {
+            background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px; padding: 20px; font-family: monospace;
+            color: #57d977; max-height: 300px; overflow-y: auto;
+            backdrop-filter: blur(8px);
+        }
+
+        /* Animations */
+        @keyframes fadeSlideUp {
+            from { opacity:0; transform: translateY(30px); }
+            to   { opacity:1; transform: translateY(0); }
+        }
+        @keyframes glitch {
+            0%,100% { text-shadow: none; }
+            92%     { text-shadow: 2px 0 var(--accent-gold), -2px 0 #57d977; }
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
         @media (max-width: 600px) {
             .brand h1 { font-size: 28px; }
@@ -543,6 +405,8 @@
 </head>
 <body>
 
+<canvas id="bg-canvas" style="position:fixed; top:0; left:0; z-index:0;"></canvas>
+
 <div class="menu-icon" onclick="toggleSidebar()">☰</div>
 
 <div class="sidebar" id="sidebar">
@@ -556,60 +420,97 @@
 </div>
 
 <div class="main-wrapper" id="wrapper">
-    <div class="brand">
-        <img src="https://raw.githubusercontent.com/dylanharahap23/dyl-predict-frontend/main/dyl%20predict%20LOGO.png" alt="DylPredict Logo" class="brand-logo">
-        <h1>Back at it, Dylan</h1>
-    </div>
+    <div class="hero-content">
+        <div class="brand">
+            <img src="https://raw.githubusercontent.com/dylanharahap23/dyl-predict-frontend/main/dyl%20predict%20LOGO.png" alt="DylPredict Logo" class="brand-logo">
+            <h1>Back at it, Dylan</h1>
+        </div>
 
-    <!-- Tabs -->
-    <div class="tabs">
-        <button class="tab-btn active" id="tabAnalyzerBtn">🔍 Analyzer</button>
-        <button class="tab-btn" id="tabHotCoinsBtn">🔥 Hot Coins</button>
-    </div>
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" id="tabAnalyzerBtn">🔍 Analyzer</button>
+            <button class="tab-btn" id="tabHotCoinsBtn">🔥 Hot Coins</button>
+        </div>
 
-    <!-- Analyzer Panel -->
-    <div id="analyzerPanel" class="panel">
-        <div class="search-area">
-            <div class="search-container">
-                <input type="text" id="symbol" placeholder="Analyze a symbol..." value="">
-                <div class="btn-group">
-                    <button class="btn-analyze" id="analyzeBtn">Analyze</button>
+        <!-- Analyzer Panel -->
+        <div id="analyzerPanel" class="panel">
+            <div class="search-area">
+                <div class="search-container">
+                    <input type="text" id="symbol" placeholder="Analyze a symbol..." value="">
+                    <div class="btn-group">
+                        <button class="btn-analyze" id="analyzeBtn">Analyze</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Hot Coins Panel (initially hidden) -->
-    <div id="hotCoinsPanel" class="panel hidden">
-        <div class="hot-coins-header">
-            <h3>🔥 Coins with 1m change > 1%</h3>
-            <button class="refresh-hot-btn" id="refreshHotBtn">⟳ Refresh</button>
-        </div>
-        <div id="hotCoinsList" class="hot-coins-list">
-            <div class="empty-hot">Loading hot coins...</div>
-        </div>
-        <div id="lastUpdated" class="last-updated"></div>
-    </div>
-
-    <!-- Result Area -->
-    <div class="result-wrapper" id="resultArea">
-        <div class="output-card" id="outputCard">
-            <div class="card-header">
-                <span id="resultTitle">Terminal Output</span>
-                <div class="action-buttons">
-                    <button class="btn-action" id="analysisBtn">📊 Analysis</button>
-                    <button class="btn-action" id="jsonBtn">🔍 JSON</button>
-                    <button class="btn-action" id="copyBtn">📋 Copy</button>
-                    <button class="btn-action" id="downloadBtn">⬇️ Download</button>
-                </div>
+        <!-- Hot Coins Panel -->
+        <div id="hotCoinsPanel" class="panel hidden">
+            <div class="hot-coins-header">
+                <h3>🔥 Coins with 1m change > 1%</h3>
+                <button class="refresh-hot-btn" id="refreshHotBtn">⟳ Refresh</button>
             </div>
-            <pre id="output" class="terminal-style">Analyzing...</pre>
+            <div id="hotCoinsList" class="hot-coins-list">
+                <div class="empty-hot">Loading hot coins...</div>
+            </div>
+            <div id="lastUpdated" class="last-updated"></div>
         </div>
-        <div class="footer-note">
-            <span>✳</span> DylPredict AI V87 • High-Confidence Neural Analysis • Auto-saved to Drive
+
+        <!-- Quote Section -->
+        <section class="quote-section">
+            <div class="quote-line"></div>
+            <blockquote class="signal-quote">
+                "Price doesn't move to reward you—it moves to expose you. 
+                The crowd sees strength, we see bait; 
+                they chase the obvious, we hunt the trap."
+            </blockquote>
+            <cite>— DylPredict Signal Intelligence</cite>
+        </section>
+
+        <!-- Premium Sections -->
+        <section class="premium-section" id="how-it-works">
+            <h2 class="section-title">How It Works</h2>
+            <div class="cards-grid">
+                <div class="glass-card">🔍 Scan Market</div>
+                <div class="glass-card">⚡ Analyze Pattern</div>
+                <div class="glass-card">📡 Generate Signal</div>
+            </div>
+        </section>
+
+        <section class="premium-section" id="signal-stats">
+            <h2 class="section-title">Signal Stats</h2>
+            <div class="stats-grid">
+                <div class="stat-item"><span class="stat-number">24/7</span> Monitoring</div>
+                <div class="stat-item"><span class="stat-number">98.3%</span> Uptime</div>
+                <div class="stat-item"><span class="stat-number">500+</span> Assets</div>
+            </div>
+        </section>
+
+        <section class="premium-section" id="recent-signals">
+            <h2 class="section-title">Recent Signals</h2>
+            <div class="terminal-feed" id="signalFeed">-- Fetching signals --</div>
+        </section>
+
+        <!-- Result Area -->
+        <div class="result-wrapper" id="resultArea">
+            <div class="output-card" id="outputCard">
+                <div class="card-header">
+                    <span id="resultTitle">Terminal Output</span>
+                    <div class="action-buttons">
+                        <button class="btn-action" id="analysisBtn">📊 Analysis</button>
+                        <button class="btn-action" id="jsonBtn">🔍 JSON</button>
+                        <button class="btn-action" id="copyBtn">📋 Copy</button>
+                        <button class="btn-action" id="downloadBtn">⬇️ Download</button>
+                    </div>
+                </div>
+                <pre id="output" class="terminal-style">Analyzing...</pre>
+            </div>
+            <div class="footer-note">
+                <span>✳</span> DylPredict AI V87 • High-Confidence Neural Analysis • Auto-saved to Drive
+            </div>
         </div>
-    </div>
-</div>
+    </div><!-- end hero-content -->
+</div><!-- end main-wrapper -->
 
 <script>
     // ==================== CONFIGURATION ====================
@@ -645,7 +546,7 @@
     let refreshInterval = null;
     let hotCoinsData = null;
 
-    // ==================== HELPER FUNCTIONS ====================
+    // ==================== HELPER ====================
     function showToast(message, type = 'success') {
         const existingToast = document.querySelector('.toast-message');
         if (existingToast) existingToast.remove();
@@ -671,31 +572,26 @@
         sidebar.classList.toggle('open');
     }
 
-    // ==================== BIAS DARI JSON (PERBAIKAN UTAMA) ====================
+    // ==================== BIAS DARI JSON ====================
     function getFinalBiasFromResult(result) {
-        // Prioritas 1: bias_display (sudah atomic dari render_final_output)
         const bias = result?.bias_display;
         if (bias === 'LONG' || bias === 'SHORT' || bias === 'NEUTRAL') return bias;
-        // Prioritas 2: _final_bias_locked
         const locked = result?._final_bias_locked;
         if (locked === 'LONG' || locked === 'SHORT') return locked;
-        // Fallback
         return result?.bias || 'NEUTRAL';
     }
 
-    // ==================== HISTORY FUNCTIONS ====================
+    // ==================== HISTORY ====================
     function renderHistory(history) {
         if (!history || history.length === 0) {
-            historyListDiv.innerHTML = '<div class="history-item" style="background:#fef7e8; text-align:center;">✨ No saved analysis found. Start analyzing! ✨</div>';
+            historyListDiv.innerHTML = '<div class="history-item" style="text-align:center;">✨ No saved analysis found. Start analyzing! ✨</div>';
             return;
         }
-        
         historyListDiv.innerHTML = history.map(item => {
             const borderColor = item.bias === 'SHORT' ? '#d95757' : 
                               item.bias === 'LONG' ? '#57d977' : '#e0cfb5';
             const timestamp = item.createdTime || item.timestamp;
             const date = new Date(timestamp).toLocaleString();
-            
             return `
                 <div class="history-item" style="border-left: 4px solid ${borderColor};">
                     <div class="filename"><b>${escapeHtml(item.symbol)}</b> · ${escapeHtml(item.bias || 'NEUTRAL')}</div>
@@ -803,23 +699,19 @@
             `;
         }).join('');
         hotCoinsListDiv.innerHTML = html;
-        // Add click event listeners
         document.querySelectorAll('.hot-coin-item').forEach(el => {
             el.addEventListener('click', () => {
                 const symbol = el.dataset.symbol;
-                if (symbol) {
-                    analyzeSymbol(symbol);
-                }
+                if (symbol) analyzeSymbol(symbol);
             });
         });
     }
 
-    // ==================== ANALYZE FUNCTION ====================
+    // ==================== ANALYZE ====================
     async function analyzeSymbol(symbol) {
         if (!symbol) return;
         symbolInput.value = symbol;
         await handleAnalyze(symbol);
-        // Switch to analyzer tab for better UX
         switchToAnalyzer();
     }
 
@@ -829,17 +721,14 @@
             showToast('Please enter a symbol', 'error');
             return;
         }
-
         localStorage.setItem('lastAnalyzedSymbol', sym);
         lastSymbol = sym;
-
         wrapper.classList.add('has-result');
         resultArea.style.display = 'block';
         setTimeout(() => {
             resultArea.style.opacity = '1';
             resultArea.style.transform = 'translateY(0)';
         }, 50);
-
         outputEl.textContent = `📡 Gathering intelligence for ${sym}...`;
         resultTitle.textContent = `Analyzing ${sym}`;
         cardEl.style.borderTop = '1px solid var(--border-color)';
@@ -848,7 +737,6 @@
         jsonBtn.classList.remove('active');
 
         try {
-            // Fetch terminal output (tidak digunakan untuk bias)
             const terminalResponse = await fetch(`${BASE_URL}/analyze/${sym}/terminal`);
             if (!terminalResponse.ok) throw new Error(`HTTP ${terminalResponse.status}`);
             const text = await terminalResponse.text();
@@ -857,18 +745,13 @@
             outputEl.textContent = text;
             resultTitle.textContent = `Analysis: ${sym}`;
 
-            // Fetch JSON data (direct object, not wrapped)
             const jsonResponse = await fetch(`${BASE_URL}/analyze/${sym}`);
-            
-            // Safety parsing with try-catch
             const rawText = await jsonResponse.text();
             console.log("RAW JSON:", rawText);
-            
             let jsonData;
             try {
                 jsonData = JSON.parse(rawText);
             } catch (parseError) {
-                // Coba decode HTML entities jika gagal
                 try {
                     const decoded = rawText.replace(/\\u[\dA-F]{4}/gi, function (match) {
                         return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
@@ -880,14 +763,11 @@
                     return;
                 }
             }
-            
             lastJSONData = jsonData;
 
-            // 🔥🔥🔥 PERBAIKAN UTAMA: Ambil bias dari JSON (bias_display), bukan dari teks
             const finalBias = getFinalBiasFromResult(lastJSONData);
             resultTitle.textContent = `Analysis: ${sym} → ${finalBias} (JSON)`;
 
-            // Tentukan warna border berdasarkan finalBias
             if (finalBias === 'SHORT') {
                 cardEl.style.borderTop = '4px solid var(--short-border)';
                 cardEl.style.borderColor = '#f5c2c2';
@@ -900,7 +780,6 @@
             }
 
             showToast(`✅ Analysis complete for ${sym} (auto-saved)`);
-            
             setTimeout(() => {
                 loadHistory();
                 if (!sidebar.classList.contains('open')) toggleSidebar();
@@ -913,7 +792,7 @@
         }
     }
 
-    // ==================== VIEW FUNCTIONS ====================
+    // ==================== VIEWS ====================
     function showAnalysis() {
         if (!lastSymbol) { showToast('No analysis data', 'error'); return; }
         if (!lastTerminalOutput) { fetchTerminalAgain(); return; }
@@ -969,7 +848,6 @@
             try {
                 data = JSON.parse(rawText);
             } catch {
-                // Coba decode HTML entities jika gagal
                 try {
                     const decoded = rawText.replace(/\\u[\dA-F]{4}/gi, function (match) {
                         return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
@@ -1017,7 +895,7 @@
         });
     }
 
-    // ==================== TAB SWITCHING ====================
+    // ==================== TABS ====================
     function switchToAnalyzer() {
         tabAnalyzer.classList.add('active');
         tabHotCoins.classList.remove('active');
@@ -1033,7 +911,7 @@
         if (!hotCoinsData) fetchHotCoins();
     }
 
-    // ==================== AUTO-REFRESH ====================
+    // ==================== AUTO REFRESH ====================
     function startAutoRefresh() {
         if (refreshInterval) clearInterval(refreshInterval);
         refreshInterval = setInterval(() => {
@@ -1051,10 +929,89 @@
         }
     }
 
-    // ==================== RESTORE LAST SYMBOL ====================
     function restoreLastSymbol() {
         const lastSymbolSaved = localStorage.getItem('lastAnalyzedSymbol');
         if (lastSymbolSaved) symbolInput.value = lastSymbolSaved;
+    }
+
+    // ==================== THREE.JS ====================
+    let scene, camera, renderer, spine1, spine2, particles;
+    function initThree() {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 100);
+        camera.position.set(0, 0, 8);
+
+        renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setClearColor(0x0a0a0a, 1);
+
+        // Double helix
+        const points1 = [], points2 = [];
+        for (let i = 0; i < 200; i++) {
+            const t = i/200;
+            points1.push(new THREE.Vector3(Math.sin(t*Math.PI*6)*2, t*20-10, Math.cos(t*Math.PI*6)*2));
+            points2.push(new THREE.Vector3(Math.sin(t*Math.PI*6+Math.PI)*2, t*20-10, Math.cos(t*Math.PI*6+Math.PI)*2));
+        }
+        const curve1 = new THREE.CatmullRomCurve3(points1);
+        const tube1 = new THREE.TubeGeometry(curve1, 300, 0.04, 8, false);
+        const mat = new THREE.MeshBasicMaterial({ color: 0xd4a84b });
+        spine1 = new THREE.Mesh(tube1, mat); scene.add(spine1);
+        const curve2 = new THREE.CatmullRomCurve3(points2);
+        const tube2 = new THREE.TubeGeometry(curve2, 300, 0.04, 8, false);
+        spine2 = new THREE.Mesh(tube2, mat); scene.add(spine2);
+
+        // Particles
+        const geo = new THREE.BufferGeometry();
+        const positions = new Float32Array(800*3);
+        for (let i=0; i<800*3; i++) positions[i] = (Math.random()-0.5)*40;
+        geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        particles = new THREE.Points(geo, new THREE.PointsMaterial({ color: 0xffd700, size: 0.05, transparent: true, opacity:0.4 }));
+        scene.add(particles);
+
+        animate();
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        spine1.rotation.y += 0.003;
+        spine2.rotation.y += 0.003;
+        particles.rotation.y += 0.0005;
+        renderer.render(scene, camera);
+    }
+
+    window.addEventListener('scroll', () => {
+        const t = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+        if (camera) {
+            camera.position.y = -t * 10;
+            camera.position.z = 8 + t * 3;
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        if (camera && renderer) {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+    });
+
+    // ==================== RECENT SIGNALS ====================
+    async function loadRecentSignals() {
+        const feed = document.getElementById('signalFeed');
+        try {
+            const res = await fetch(BASE_URL + '/api/history/global?limit=5');
+            const data = await res.json();
+            if (data.success && data.history) {
+                feed.innerHTML = data.history.map(h => 
+                    `[${new Date(h.createdTime).toLocaleTimeString()}] ${h.symbol} → ${h.bias}`
+                ).join('<br>');
+            } else {
+                feed.innerHTML = 'No signals yet. Run an analysis!';
+            }
+        } catch(e) {
+            feed.innerHTML = '◈ Awaiting market data...';
+        }
     }
 
     // ==================== EVENT LISTENERS ====================
@@ -1093,8 +1050,10 @@
 
         restoreLastSymbol();
         loadHistory();
+        loadRecentSignals();
         startAutoRefresh();
         switchToAnalyzer();
+        initThree(); // Start 3D background
     });
 
     window.addEventListener('beforeunload', () => {
