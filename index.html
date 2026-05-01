@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DylPredict Premium | Neural Signals</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Three.js CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
     <style>
@@ -29,6 +28,17 @@
             --tab-inactive-bg: transparent;
             --glass-bg: rgba(255,255,255,0.04);
             --glass-blur: blur(12px);
+
+            /* pipeline widget color mapping */
+            --color-text-primary: var(--text-main);
+            --color-text-secondary: var(--text-muted);
+            --color-text-tertiary: #6b6b6b;
+            --color-border-tertiary: rgba(255,255,255,0.08);
+            --color-border-secondary: rgba(255,255,255,0.15);
+            --color-background-primary: rgba(255,255,255,0.04);
+            --color-background-secondary: rgba(255,255,255,0.07);
+            --color-background-tertiary: rgba(255,255,255,0.05);
+            --font-sans: 'Inter', sans-serif;
         }
 
         body, html { 
@@ -372,7 +382,6 @@
             margin-bottom: 6px; 
             display: block;
         }
-        /* scanLine fix */
         .glass-card::after {
             content: '';
             position: absolute;
@@ -422,6 +431,101 @@
             margin: 0 auto;
         }
 
+        /* =========== Pipeline Widget =========== */
+        .pipeline-embed {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .pipeline-embed .pipe-wrap {
+            padding: 2rem 0 1rem;
+            font-family: var(--font-sans);
+        }
+        .pipeline-embed .pipe-label {
+            font-size: 11px; font-weight: 500; letter-spacing: 1.5px;
+            color: var(--color-text-tertiary); text-align: center;
+            margin-bottom: 1.5rem; text-transform: uppercase;
+        }
+        .pipeline-embed .pipe-grid {
+            display: grid; grid-template-columns: 1fr; gap: 0;
+        }
+        .pipeline-embed .stage {
+            display: flex; align-items: stretch; cursor: pointer;
+            transition: all 0.18s ease;
+        }
+        .pipeline-embed .stage-left {
+            display: flex; flex-direction: column; align-items: center;
+            width: 44px; flex-shrink: 0;
+        }
+        .pipeline-embed .stage-num {
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 500; flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+        .pipeline-embed .stage-line {
+            width: 1.5px; flex: 1; min-height: 20px; margin: 3px 0;
+            transition: background 0.2s;
+        }
+        .pipeline-embed .stage-body {
+            flex: 1; padding: 0 0 0 12px; padding-bottom: 16px;
+        }
+        .pipeline-embed .stage-card {
+            border-radius: 10px;
+            border: 0.5px solid var(--color-border-tertiary);
+            background: rgba(255,255,255,0.04);
+            padding: 12px 16px;
+            transition: all 0.2s ease;
+        }
+        .pipeline-embed .stage.active .stage-card {
+            border-color: var(--color-border-secondary);
+            background: rgba(255,255,255,0.07);
+        }
+        .pipeline-embed .stage-row {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 8px;
+        }
+        .pipeline-embed .stage-title {
+            font-size: 14px; font-weight: 500; color: #f0ede8;
+        }
+        .pipeline-embed .stage-tag {
+            font-size: 11px; padding: 2px 8px; border-radius: 20px; white-space: nowrap;
+        }
+        .pipeline-embed .stage-desc {
+            font-size: 12px; color: #9b9484; margin-top: 6px; line-height: 1.5;
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+        .pipeline-embed .stage.active .stage-desc {
+            max-height: 80px; opacity: 1;
+        }
+        .pipeline-embed .stage-chips {
+            display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px;
+            max-height: 0; overflow: hidden; opacity: 0;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+        }
+        .pipeline-embed .stage.active .stage-chips {
+            max-height: 60px; opacity: 1;
+        }
+        .pipeline-embed .chip {
+            font-size: 11px; padding: 2px 8px; border-radius: 4px;
+            border: 0.5px solid rgba(255,255,255,0.1);
+            color: #9b9484; background: rgba(255,255,255,0.05);
+        }
+        .pipeline-embed .pipe-footer {
+            text-align: center; margin-top: 8px; font-size: 11px;
+            color: var(--color-text-tertiary);
+        }
+        .pulse-dot {
+            display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+            margin-right: 5px; vertical-align: middle;
+            animation: pd 1.6s ease-in-out infinite;
+        }
+        @keyframes pd {
+            0%,100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
         /* Animations */
         @keyframes fadeSlideUp {
             from { opacity:0; transform: translateY(30px); }
@@ -433,7 +537,28 @@
         }
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-        @media (max-width: 600px) {
+        /* Mobile responsive overrides */
+        @media (max-width: 768px) {
+            .quote-section { margin: 50px auto 40px; }
+            .signal-quote { font-size: 18px; }
+            .premium-section { margin: 40px auto; }
+            .section-title { font-size: 24px; margin-bottom: 20px; }
+            .cards-grid { flex-direction: column; align-items: center; }
+            .glass-card { min-width: auto; width: 100%; max-width: 300px; }
+            .stats-grid { flex-direction: column; align-items: center; }
+            .stat-item { width: 100%; max-width: 250px; }
+            .terminal-feed { font-size: 12px; }
+
+            /* Pipeline mobile */
+            .pipeline-embed .stage-left { width: 36px; }
+            .pipeline-embed .stage-num { width: 28px; height: 28px; font-size: 10px; }
+            .pipeline-embed .stage-title { font-size: 13px; }
+            .pipeline-embed .stage-tag { font-size: 10px; padding: 2px 6px; }
+            .pipeline-embed .stage-desc { font-size: 11px; }
+            .pipeline-embed .chip { font-size: 10px; padding: 1px 6px; }
+        }
+
+        @media (max-width: 480px) {
             .brand h1 { font-size: 28px; }
             .brand-logo { width: 80px; }
             .search-container { flex-direction: column; padding: 16px; }
@@ -445,7 +570,7 @@
             .brand { gap: 4px; }
             .tabs { gap: 6px; }
             .tab-btn { padding: 6px 16px; font-size: 14px; }
-            .cards-grid { flex-direction: column; align-items: center; }
+            .pipe-label { font-size: 10px; }
         }
     </style>
 </head>
@@ -513,10 +638,9 @@
             <cite>— DylPredict Signal Intelligence</cite>
         </section>
 
-        <!-- Section Divider -->
         <div class="section-divider"></div>
 
-        <!-- Premium Sections -->
+        <!-- How It Works -->
         <section class="premium-section reveal" id="how-it-works">
             <h2 class="section-title">How It Works</h2>
             <div class="cards-grid">
@@ -540,6 +664,7 @@
 
         <div class="section-divider"></div>
 
+        <!-- Signal Stats -->
         <section class="premium-section reveal" id="signal-stats">
             <h2 class="section-title">Signal Stats</h2>
             <div class="stats-grid">
@@ -551,6 +676,21 @@
 
         <div class="section-divider"></div>
 
+        <!-- Neural Pipeline -->
+        <section class="premium-section reveal" id="engine-pipeline">
+            <h2 class="section-title">How the Engine Thinks</h2>
+            <div class="pipeline-embed">
+                <div class="pipe-wrap">
+                    <div class="pipe-label">DylPredict V87 — Neural Signal Pipeline</div>
+                    <div class="pipe-grid" id="pipeline"></div>
+                    <div class="pipe-footer"><span class="pulse-dot" style="background:#57d977"></span>Engine active — click any stage to inspect</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Recent Signals -->
         <section class="premium-section reveal" id="recent-signals">
             <h2 class="section-title">Recent Signals</h2>
             <div class="terminal-feed" id="signalFeed">-- Fetching signals --</div>
@@ -574,14 +714,13 @@
                 <span>✳</span> DylPredict AI V87 • High-Confidence Neural Analysis • Auto-saved to Drive
             </div>
         </div>
-    </div><!-- end hero-content -->
-</div><!-- end main-wrapper -->
+    </div>
+</div>
 
 <script>
     // ==================== CONFIGURATION ====================
     const BASE_URL = 'https://spotty-lizzie-dylpredict-2b047c63.koyeb.app'; // Ganti dengan URL Koyeb kamu
 
-    // DOM Elements
     const wrapper = document.getElementById('wrapper');
     const resultArea = document.getElementById('resultArea');
     const outputEl = document.getElementById('output');
@@ -603,7 +742,6 @@
     const hotCoinsListDiv = document.getElementById('hotCoinsList');
     const lastUpdatedSpan = document.getElementById('lastUpdated');
 
-    // State
     let lastSymbol = '';
     let lastTerminalOutput = '';
     let lastJSONData = null;
@@ -611,8 +749,7 @@
     let refreshInterval = null;
     let hotCoinsData = null;
 
-    // ==================== HELPER ====================
-    function showToast(message, type = 'success') {
+    function showToast(message, type = 'success') { /* ... same as before ... */
         const existingToast = document.querySelector('.toast-message');
         if (existingToast) existingToast.remove();
         const toast = document.createElement('div');
@@ -633,11 +770,8 @@
         });
     }
 
-    function toggleSidebar() {
-        sidebar.classList.toggle('open');
-    }
+    function toggleSidebar() { sidebar.classList.toggle('open'); }
 
-    // ==================== BIAS DARI JSON ====================
     function getFinalBiasFromResult(result) {
         const bias = result?.bias_display;
         if (bias === 'LONG' || bias === 'SHORT' || bias === 'NEUTRAL') return bias;
@@ -646,7 +780,7 @@
         return result?.bias || 'NEUTRAL';
     }
 
-    // ==================== HISTORY ====================
+    // History functions (same as before) ...
     function renderHistory(history) {
         if (!history || history.length === 0) {
             historyListDiv.innerHTML = '<div class="history-item" style="text-align:center;">✨ No saved analysis found. Start analyzing! ✨</div>';
@@ -680,10 +814,7 @@
                 return true;
             }
             return false;
-        } catch (error) {
-            console.warn('RAM cache fetch failed:', error);
-            return false;
-        }
+        } catch (error) { console.warn('RAM cache fetch failed:', error); return false; }
     }
 
     async function fetchDriveHistory() {
@@ -695,10 +826,7 @@
                 return true;
             }
             return false;
-        } catch (error) {
-            console.error('Drive history fetch failed:', error);
-            return false;
-        }
+        } catch (error) { console.error('Drive history fetch failed:', error); return false; }
     }
 
     async function loadHistory() {
@@ -718,12 +846,10 @@
             } else {
                 showToast('Delete failed: ' + data.error, 'error');
             }
-        } catch (error) {
-            showToast('Error: ' + error.message, 'error');
-        }
+        } catch (error) { showToast('Error: ' + error.message, 'error'); }
     };
 
-    // ==================== HOT COINS ====================
+    // Hot coins (same as before) ...
     async function fetchHotCoins() {
         try {
             const response = await fetch(`${BASE_URL}/api/hot_coins`);
@@ -741,7 +867,6 @@
                 return false;
             }
         } catch (error) {
-            console.error('Hot coins fetch error:', error);
             hotCoinsListDiv.innerHTML = '<div class="empty-hot">Error loading hot coins. Check network.</div>';
             return false;
         }
@@ -756,12 +881,10 @@
             const change = coin.change;
             const changeClass = change > 0 ? 'positive' : (change < 0 ? 'negative' : '');
             const changeSymbol = change > 0 ? '+' : '';
-            return `
-                <div class="hot-coin-item" data-symbol="${coin.symbol}">
-                    <span class="coin-symbol">${coin.symbol}</span>
-                    <span class="coin-change ${changeClass}">${changeSymbol}${change}%</span>
-                </div>
-            `;
+            return `<div class="hot-coin-item" data-symbol="${coin.symbol}">
+                <span class="coin-symbol">${coin.symbol}</span>
+                <span class="coin-change ${changeClass}">${changeSymbol}${change}%</span>
+            </div>`;
         }).join('');
         hotCoinsListDiv.innerHTML = html;
         document.querySelectorAll('.hot-coin-item').forEach(el => {
@@ -772,7 +895,7 @@
         });
     }
 
-    // ==================== ANALYZE ====================
+    // Analyze
     async function analyzeSymbol(symbol) {
         if (!symbol) return;
         symbolInput.value = symbol;
@@ -782,24 +905,17 @@
 
     async function handleAnalyze(symbol = null) {
         const sym = symbol || symbolInput.value.toUpperCase().trim();
-        if (!sym) {
-            showToast('Please enter a symbol', 'error');
-            return;
-        }
+        if (!sym) { showToast('Please enter a symbol', 'error'); return; }
         localStorage.setItem('lastAnalyzedSymbol', sym);
         lastSymbol = sym;
         wrapper.classList.add('has-result');
         resultArea.style.display = 'block';
-        setTimeout(() => {
-            resultArea.style.opacity = '1';
-            resultArea.style.transform = 'translateY(0)';
-        }, 50);
+        setTimeout(() => { resultArea.style.opacity = '1'; resultArea.style.transform = 'translateY(0)'; }, 50);
         outputEl.textContent = `📡 Gathering intelligence for ${sym}...`;
         resultTitle.textContent = `Analyzing ${sym}`;
         cardEl.style.borderTop = '1px solid var(--border-color)';
         cardEl.style.borderColor = 'var(--border-color)';
-        analysisBtn.classList.remove('active');
-        jsonBtn.classList.remove('active');
+        analysisBtn.classList.remove('active'); jsonBtn.classList.remove('active');
 
         try {
             const terminalResponse = await fetch(`${BASE_URL}/analyze/${sym}/terminal`);
@@ -812,15 +928,11 @@
 
             const jsonResponse = await fetch(`${BASE_URL}/analyze/${sym}`);
             const rawText = await jsonResponse.text();
-            console.log("RAW JSON:", rawText);
             let jsonData;
-            try {
-                jsonData = JSON.parse(rawText);
-            } catch (parseError) {
+            try { jsonData = JSON.parse(rawText); } catch (parseError) {
                 try {
-                    const decoded = rawText.replace(/\\u[\dA-F]{4}/gi, function (match) {
-                        return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
-                    });
+                    const decoded = rawText.replace(/\\u[\dA-F]{4}/gi, m =>
+                        String.fromCharCode(parseInt(m.replace(/\\u/g, ''), 16)));
                     jsonData = JSON.parse(decoded);
                 } catch (secondError) {
                     outputEl.textContent = "❌ Invalid JSON from server";
@@ -829,60 +941,41 @@
                 }
             }
             lastJSONData = jsonData;
-
             const finalBias = getFinalBiasFromResult(lastJSONData);
             resultTitle.textContent = `Analysis: ${sym} → ${finalBias} (JSON)`;
-
-            if (finalBias === 'SHORT') {
-                cardEl.style.borderTop = '4px solid var(--short-border)';
-                cardEl.style.borderColor = '#f5c2c2';
-            } else if (finalBias === 'LONG') {
-                cardEl.style.borderTop = '4px solid var(--long-border)';
-                cardEl.style.borderColor = '#c2f5c2';
-            } else {
-                cardEl.style.borderTop = '1px solid var(--border-color)';
-                cardEl.style.borderColor = 'var(--border-color)';
-            }
+            if (finalBias === 'SHORT') { cardEl.style.borderTop = '4px solid var(--short-border)'; cardEl.style.borderColor = '#f5c2c2'; }
+            else if (finalBias === 'LONG') { cardEl.style.borderTop = '4px solid var(--long-border)'; cardEl.style.borderColor = '#c2f5c2'; }
+            else { cardEl.style.borderTop = '1px solid var(--border-color)'; cardEl.style.borderColor = 'var(--border-color)'; }
 
             showToast(`✅ Analysis complete for ${sym} (auto-saved)`);
-            setTimeout(() => {
-                loadHistory();
-                if (!sidebar.classList.contains('open')) toggleSidebar();
-            }, 1000);
+            setTimeout(() => { loadHistory(); if (!sidebar.classList.contains('open')) toggleSidebar(); }, 1000);
         } catch (error) {
             outputEl.textContent = `❌ Error: ${error.message}`;
             cardEl.style.borderTop = '4px solid #ff6b6b';
-            console.error('Fetch error:', error);
             showToast(`❌ Error: ${error.message}`, 'error');
         }
     }
 
-    // ==================== VIEWS ====================
+    // View toggles, etc. (same as before) ...
     function showAnalysis() {
         if (!lastSymbol) { showToast('No analysis data', 'error'); return; }
         if (!lastTerminalOutput) { fetchTerminalAgain(); return; }
         currentView = 'terminal';
         outputEl.textContent = lastTerminalOutput;
         resultTitle.textContent = `Analysis: ${lastSymbol}`;
-        analysisBtn.classList.add('active');
-        jsonBtn.classList.remove('active');
+        analysisBtn.classList.add('active'); jsonBtn.classList.remove('active');
         showToast('📊 Showing analysis view');
     }
-
     function showJSON() {
         if (!lastSymbol) { showToast('No analysis data', 'error'); return; }
         if (lastJSONData) {
             currentView = 'json';
             outputEl.textContent = JSON.stringify(lastJSONData, null, 2);
             resultTitle.textContent = `Raw JSON: ${lastSymbol}`;
-            analysisBtn.classList.remove('active');
-            jsonBtn.classList.add('active');
+            analysisBtn.classList.remove('active'); jsonBtn.classList.add('active');
             showToast('🔍 Showing JSON view');
-        } else {
-            fetchJSONAgain();
-        }
+        } else fetchJSONAgain();
     }
-
     async function fetchTerminalAgain() {
         if (!lastSymbol) return;
         outputEl.textContent = "📡 Loading terminal output...";
@@ -893,14 +986,9 @@
             lastTerminalOutput = text;
             currentView = 'terminal';
             outputEl.textContent = text;
-            analysisBtn.classList.add('active');
-            jsonBtn.classList.remove('active');
-        } catch (error) {
-            outputEl.textContent = `❌ Error: ${error.message}`;
-            showToast(`❌ Error: ${error.message}`, 'error');
-        }
+            analysisBtn.classList.add('active'); jsonBtn.classList.remove('active');
+        } catch (error) { outputEl.textContent = `❌ Error: ${error.message}`; showToast(`❌ Error: ${error.message}`, 'error'); }
     }
-
     async function fetchJSONAgain() {
         if (!lastSymbol) return;
         outputEl.textContent = "📡 Loading JSON data...";
@@ -908,31 +996,15 @@
         try {
             const response = await fetch(`${BASE_URL}/analyze/${lastSymbol}`);
             const rawText = await response.text();
-            console.log("RAW JSON:", rawText);
             let data;
-            try {
-                data = JSON.parse(rawText);
-            } catch {
-                try {
-                    const decoded = rawText.replace(/\\u[\dA-F]{4}/gi, function (match) {
-                        return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
-                    });
-                    data = JSON.parse(decoded);
-                } catch (secondError) {
-                    outputEl.textContent = "❌ Invalid JSON from server";
-                    showToast("Invalid JSON response", "error");
-                    return;
-                }
+            try { data = JSON.parse(rawText); } catch {
+                try { const decoded = rawText.replace(/\\u[\dA-F]{4}/gi, m => String.fromCharCode(parseInt(m.replace(/\\u/g, ''), 16))); data = JSON.parse(decoded); } catch (secondError) { outputEl.textContent = "❌ Invalid JSON from server"; showToast("Invalid JSON response", "error"); return; }
             }
             lastJSONData = data;
             currentView = 'json';
             outputEl.textContent = JSON.stringify(lastJSONData, null, 2);
-            analysisBtn.classList.remove('active');
-            jsonBtn.classList.add('active');
-        } catch (error) {
-            outputEl.textContent = `❌ Error: ${error.message}`;
-            showToast(`❌ Error: ${error.message}`, 'error');
-        }
+            analysisBtn.classList.remove('active'); jsonBtn.classList.add('active');
+        } catch (error) { outputEl.textContent = `❌ Error: ${error.message}`; showToast(`❌ Error: ${error.message}`, 'error'); }
     }
 
     function downloadResult() {
@@ -947,84 +1019,59 @@
         URL.revokeObjectURL(anchor.href);
         showToast(`✅ Downloaded as ${anchor.download}`);
     }
-
     function copyResult() {
-        const text = outputEl.textContent;
-        navigator.clipboard.writeText(text).then(() => {
+        navigator.clipboard.writeText(outputEl.textContent).then(() => {
             const original = copyBtn.innerHTML;
             copyBtn.innerHTML = '✓ Copied!';
             showToast('✅ Copied to clipboard!');
             setTimeout(() => { copyBtn.innerHTML = original; }, 1500);
-        }).catch(err => {
-            showToast('❌ Failed to copy: ' + err.message, 'error');
-        });
+        }).catch(err => showToast('❌ Failed to copy: ' + err.message, 'error'));
     }
 
-    // ==================== TABS ====================
     function switchToAnalyzer() {
-        tabAnalyzer.classList.add('active');
-        tabHotCoins.classList.remove('active');
-        analyzerPanel.classList.remove('hidden');
-        hotCoinsPanel.classList.add('hidden');
+        tabAnalyzer.classList.add('active'); tabHotCoins.classList.remove('active');
+        analyzerPanel.classList.remove('hidden'); hotCoinsPanel.classList.add('hidden');
     }
-
     function switchToHotCoins() {
-        tabHotCoins.classList.add('active');
-        tabAnalyzer.classList.remove('active');
-        analyzerPanel.classList.add('hidden');
-        hotCoinsPanel.classList.remove('hidden');
+        tabHotCoins.classList.add('active'); tabAnalyzer.classList.remove('active');
+        analyzerPanel.classList.add('hidden'); hotCoinsPanel.classList.remove('hidden');
         if (!hotCoinsData) fetchHotCoins();
     }
 
-    // ==================== AUTO REFRESH ====================
     function startAutoRefresh() {
         if (refreshInterval) clearInterval(refreshInterval);
         refreshInterval = setInterval(() => {
             fetchGlobalHistory();
-            if (!hotCoinsPanel.classList.contains('hidden')) {
-                fetchHotCoins();
-            }
+            if (!hotCoinsPanel.classList.contains('hidden')) fetchHotCoins();
         }, 12000);
     }
-
-    function stopAutoRefresh() {
-        if (refreshInterval) {
-            clearInterval(refreshInterval);
-            refreshInterval = null;
-        }
-    }
+    function stopAutoRefresh() { if (refreshInterval) { clearInterval(refreshInterval); refreshInterval = null; } }
 
     function restoreLastSymbol() {
         const lastSymbolSaved = localStorage.getItem('lastAnalyzedSymbol');
         if (lastSymbolSaved) symbolInput.value = lastSymbolSaved;
     }
 
-    // ==================== INTERSECTION OBSERVER ====================
+    // Intersection Observer for reveal animations
     function setupRevealObserver() {
         const revealElements = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.15 });
         revealElements.forEach(el => observer.observe(el));
     }
 
-    // ==================== THREE.JS ====================
+    // Three.js
     let scene, camera, renderer, spine1, spine2, particles;
     function initThree() {
         scene = new THREE.Scene();
         camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 100);
         camera.position.set(0, 0, 8);
-
         renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setClearColor(0x0a0a0a, 1);
 
-        // Double helix + glow
         const points1 = [], points2 = [];
         for (let i = 0; i < 200; i++) {
             const t = i/200;
@@ -1035,8 +1082,6 @@
         const tube1 = new THREE.TubeGeometry(curve1, 300, 0.06, 8, false);
         const mat = new THREE.MeshBasicMaterial({ color: 0xd4a84b });
         spine1 = new THREE.Mesh(tube1, mat); scene.add(spine1);
-
-        // Glow tube for helix 1
         const glowMat = new THREE.MeshBasicMaterial({ color: 0xd4a84b, transparent: true, opacity: 0.15 });
         const glowTube1 = new THREE.TubeGeometry(curve1, 300, 0.15, 8, false);
         scene.add(new THREE.Mesh(glowTube1, glowMat));
@@ -1045,7 +1090,6 @@
         const tube2 = new THREE.TubeGeometry(curve2, 300, 0.06, 8, false);
         spine2 = new THREE.Mesh(tube2, mat); scene.add(spine2);
 
-        // Particles
         const geo = new THREE.BufferGeometry();
         const positions = new Float32Array(800*3);
         for (let i=0; i<800*3; i++) positions[i] = (Math.random()-0.5)*40;
@@ -1066,12 +1110,8 @@
 
     window.addEventListener('scroll', () => {
         const t = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-        if (camera) {
-            camera.position.y = -t * 10;
-            camera.position.z = 8 + t * 3;
-        }
+        if (camera) { camera.position.y = -t * 10; camera.position.z = 8 + t * 3; }
     });
-
     window.addEventListener('resize', () => {
         if (camera && renderer) {
             camera.aspect = window.innerWidth / window.innerHeight;
@@ -1080,7 +1120,52 @@
         }
     });
 
-    // ==================== RECENT SIGNALS ====================
+    // Pipeline widget
+    const stages = [
+      { num:"01",color:"#378ADD",tagBg:"rgba(55,138,221,0.12)",tagColor:"#185FA5",tag:"Ingestion",title:"Data Acquisition & Indicators",desc:"Pulls live OHLCV data, funding rates, open interest, and volume delta from exchange APIs. Computes 40+ technical indicators including RSI, MACD, Bollinger Bands, VWAP, and ATR.",chips:["OHLCV","Funding Rate","Open Interest","Vol Delta","RSI","MACD","VWAP","ATR","Bollinger"] },
+      { num:"02",color:"#7F77DD",tagBg:"rgba(127,119,221,0.12)",tagColor:"#534AB7",tag:"Context",title:"Greeks + Market Phase",desc:"Derives implied volatility surface, delta-gamma exposure, and skew. Classifies current market phase: trending, mean-reverting, or transitional using regime detection.",chips:["Implied Vol","Delta","Gamma","Skew","Regime","Phase Classifier"] },
+      { num:"03",color:"#1D9E75",tagBg:"rgba(29,158,117,0.12)",tagColor:"#0F6E56",tag:"Detection",title:"Gate Chain — 14+ Detectors",desc:"A sequential gate system with 14+ independent pattern detectors. Each gate votes on market structure: liquidity sweeps, order blocks, FVGs, divergences, and absorption zones.",chips:["Liquidity Sweep","Order Block","FVG","Divergence","Absorption","Imbalance","CVD","Delta Flip"] },
+      { num:"04",color:"#D85A30",tagBg:"rgba(216,90,48,0.12)",tagColor:"#993C1D",tag:"Modeling",title:"Hawkes + Multivariate Predictor",desc:"Models self-exciting event clusters using Hawkes process to detect momentum cascades. Combined with multivariate regression across correlated assets for directional forecasting.",chips:["Hawkes Process","Event Clustering","Cross-Asset","Multivariate","Momentum"] },
+      { num:"05",color:"#BA7517",tagBg:"rgba(186,117,23,0.12)",tagColor:"#854F0B",tag:"Fusion",title:"Decision Aggregator",desc:"Collects weighted votes from all upstream modules. Applies confidence thresholding and conflict resolution. Only signals that pass quorum across independent evidence layers proceed.",chips:["Weighted Vote","Confidence Score","Quorum","Conflict Check","Signal Gate"] },
+      { num:"06",color:"#D4537E",tagBg:"rgba(212,83,126,0.12)",tagColor:"#993556",tag:"Memory",title:"Adversarial Pattern Memory",desc:"Maintains a rolling memory of failed patterns and false signals. Penalises recurring trap setups — engineered whipsaws, stop hunts, and fake breakouts — before output is generated.",chips:["Pattern DB","Stop Hunt","Fake Break","Whipsaw","Trap Detector","Adaptive Penalty"] },
+      { num:"07",color:"#888780",tagBg:"rgba(136,135,128,0.1)",tagColor:"#5F5E5A",tag:"Output",title:"Atomic Output Render",desc:"Compiles final LONG / SHORT / NEUTRAL bias with entry zones, invalidation levels, and confidence grade. Output is deterministic and audit-ready — every decision is traceable.",chips:["LONG","SHORT","NEUTRAL","Entry Zone","Invalidation","Confidence Grade","Audit Trail"] }
+    ];
+
+    const grid = document.getElementById('pipeline');
+    let activeIdx = null;
+
+    function renderPipeline() {
+      grid.innerHTML = '';
+      stages.forEach((s,i) => {
+        const isActive = activeIdx === i;
+        const isLast = i === stages.length-1;
+        const el = document.createElement('div');
+        el.className = 'stage' + (isActive ? ' active' : '');
+        el.innerHTML = `
+          <div class="stage-left">
+            <div class="stage-num" style="background:${s.tagBg};color:${s.color};border:0.5px solid ${s.color}33">${s.num}</div>
+            ${!isLast ? `<div class="stage-line" style="background:${isActive ? s.color+'55' : 'var(--color-border-tertiary)'}"></div>` : ''}
+          </div>
+          <div class="stage-body">
+            <div class="stage-card">
+              <div class="stage-row">
+                <span class="stage-title">${s.title}</span>
+                <span class="stage-tag" style="background:${s.tagBg};color:${s.color}">${s.tag}</span>
+              </div>
+              <div class="stage-desc">${s.desc}</div>
+              <div class="stage-chips">${s.chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>
+            </div>
+          </div>
+        `;
+        el.addEventListener('click', () => {
+          activeIdx = activeIdx === i ? null : i;
+          renderPipeline();
+        });
+        grid.appendChild(el);
+      });
+    }
+
+    // Recent Signals Feed
     async function loadRecentSignals() {
         const feed = document.getElementById('signalFeed');
         try {
@@ -1099,7 +1184,7 @@
         }
     }
 
-    // ==================== EVENT LISTENERS ====================
+    // Event listeners
     analyzeBtn.addEventListener('click', () => handleAnalyze());
     symbolInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleAnalyze(); });
     analysisBtn.addEventListener('click', showAnalysis);
@@ -1109,27 +1194,18 @@
     refreshHotBtn.addEventListener('click', fetchHotCoins);
     tabAnalyzer.addEventListener('click', switchToAnalyzer);
     tabHotCoins.addEventListener('click', switchToHotCoins);
-
     window.toggleSidebar = toggleSidebar;
     window.deleteHistoryItem = deleteHistoryItem;
 
-    // Initialization
     window.addEventListener('load', () => {
         symbolInput.value = '';
-        lastSymbol = '';
-        lastTerminalOutput = '';
-        lastJSONData = null;
-        currentView = 'terminal';
+        lastSymbol = ''; lastTerminalOutput = ''; lastJSONData = null; currentView = 'terminal';
         wrapper.classList.remove('has-result');
-        resultArea.style.opacity = '0';
-        resultArea.style.transform = 'translateY(30px)';
-        resultArea.style.display = 'none';
+        resultArea.style.opacity = '0'; resultArea.style.transform = 'translateY(30px)'; resultArea.style.display = 'none';
         outputEl.textContent = 'Analyzing...';
         resultTitle.textContent = 'Terminal Output';
-        cardEl.style.borderTop = '1px solid var(--border-color)';
-        cardEl.style.borderColor = 'var(--border-color)';
-        analysisBtn.classList.remove('active');
-        jsonBtn.classList.remove('active');
+        cardEl.style.borderTop = '1px solid var(--border-color)'; cardEl.style.borderColor = 'var(--border-color)';
+        analysisBtn.classList.remove('active'); jsonBtn.classList.remove('active');
         historyListDiv.innerHTML = '<div class="loading-text">📂 Loading history...</div>';
         if (sidebar.classList.contains('open')) toggleSidebar();
 
@@ -1138,29 +1214,23 @@
         loadRecentSignals();
         startAutoRefresh();
         switchToAnalyzer();
-        initThree(); // Start 3D background
-        setupRevealObserver(); // Mulai observer untuk animasi scroll
+        initThree();
+        setupRevealObserver();
+        renderPipeline();
     });
 
-    window.addEventListener('beforeunload', () => {
-        stopAutoRefresh();
-    });
+    window.addEventListener('beforeunload', () => stopAutoRefresh());
 
     // Double-click brand to reset
     const brandDiv = document.querySelector('.brand');
     if (brandDiv) {
         brandDiv.addEventListener('dblclick', () => {
             wrapper.classList.remove('has-result');
-            resultArea.style.opacity = '0';
-            resultArea.style.transform = 'translateY(30px)';
+            resultArea.style.opacity = '0'; resultArea.style.transform = 'translateY(30px)';
             setTimeout(() => { resultArea.style.display = 'none'; }, 500);
             symbolInput.value = '';
-            lastSymbol = '';
-            lastTerminalOutput = '';
-            lastJSONData = null;
-            currentView = 'terminal';
-            analysisBtn.classList.remove('active');
-            jsonBtn.classList.remove('active');
+            lastSymbol = ''; lastTerminalOutput = ''; lastJSONData = null; currentView = 'terminal';
+            analysisBtn.classList.remove('active'); jsonBtn.classList.remove('active');
             historyListDiv.innerHTML = '<div class="loading-text">📂 Loading history...</div>';
             if (sidebar.classList.contains('open')) toggleSidebar();
             localStorage.removeItem('lastAnalyzedSymbol');
