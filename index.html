@@ -317,8 +317,12 @@
         /* Quote & Premium Sections */
         .quote-section {
             max-width: 680px; margin: 80px auto 60px;
-            text-align: center; opacity: 0; transform: translateY(30px);
-            animation: fadeSlideUp 1s ease forwards;
+            text-align: center;
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .quote-section.visible {
+            opacity: 1; transform: translateY(0);
         }
         .quote-line {
             width: 60px; height: 1px;
@@ -332,9 +336,13 @@
         }
         cite { display: block; margin-top: 20px; color: var(--accent-gold); font-style: normal; font-size: 14px; letter-spacing: 1px; }
         .premium-section {
-            max-width: 900px; margin: 80px auto; padding: 0 20px; width: 100%;
+            max-width: 900px; margin: 50px auto;
+            padding: 0 20px; width: 100%;
             opacity: 0; transform: translateY(30px);
-            animation: fadeSlideUp 1s ease 0.2s forwards;
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .premium-section.visible {
+            opacity: 1; transform: translateY(0);
         }
         .section-title {
             font-family: 'Source Serif Pro', serif; font-size: 28px;
@@ -349,15 +357,36 @@
             border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
             padding: 30px; min-width: 200px; text-align: center;
             font-weight: 500; position: relative; overflow: hidden;
+            font-size: 14px;
+            color: var(--text-muted);
         }
+        .glass-card .card-icon { 
+            font-size: 28px; 
+            display: block; 
+            margin-bottom: 12px; 
+        }
+        .glass-card .card-title { 
+            font-size: 16px; 
+            font-weight: 600; 
+            color: var(--text-main); 
+            margin-bottom: 6px; 
+            display: block;
+        }
+        /* scanLine fix */
         .glass-card::after {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(transparent 70%, rgba(212,168,75,0.1));
-            animation: scanLine 4s linear infinite;
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(transparent, rgba(212,168,75,0.08), transparent);
+            animation: scanLine 3s linear infinite;
+            pointer-events: none;
         }
         @keyframes scanLine {
-            0% { top: 0; }
-            100% { top: 100%; }
+            0%   { top: -30%; }
+            100% { top: 110%; }
         }
         .stats-grid {
             display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;
@@ -369,12 +398,28 @@
             border: 1px solid rgba(255,255,255,0.1);
             font-size: 18px;
         }
-        .stat-number { display: block; font-size: 36px; font-weight: 600; color: var(--accent-gold); margin-bottom: 5px; }
+        .stat-number { 
+            display: block; 
+            font-family: 'SF Mono', monospace;
+            letter-spacing: -1px;
+            font-size: 42px;
+            font-weight: 600; 
+            color: var(--accent-gold); 
+            margin-bottom: 5px; 
+        }
         .terminal-feed {
             background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);
             border-radius: 12px; padding: 20px; font-family: monospace;
+            line-height: 2; font-size: 13px;
             color: #57d977; max-height: 300px; overflow-y: auto;
             backdrop-filter: blur(8px);
+        }
+        /* Section dividers */
+        .section-divider {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, rgba(212,168,75,0.3), transparent);
+            margin: 0 auto;
         }
 
         /* Animations */
@@ -400,6 +445,7 @@
             .brand { gap: 4px; }
             .tabs { gap: 6px; }
             .tab-btn { padding: 6px 16px; font-size: 14px; }
+            .cards-grid { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
@@ -457,7 +503,7 @@
         </div>
 
         <!-- Quote Section -->
-        <section class="quote-section">
+        <section class="quote-section reveal">
             <div class="quote-line"></div>
             <blockquote class="signal-quote">
                 "Price doesn't move to reward you—it moves to expose you. 
@@ -467,17 +513,34 @@
             <cite>— DylPredict Signal Intelligence</cite>
         </section>
 
+        <!-- Section Divider -->
+        <div class="section-divider"></div>
+
         <!-- Premium Sections -->
-        <section class="premium-section" id="how-it-works">
+        <section class="premium-section reveal" id="how-it-works">
             <h2 class="section-title">How It Works</h2>
             <div class="cards-grid">
-                <div class="glass-card">🔍 Scan Market</div>
-                <div class="glass-card">⚡ Analyze Pattern</div>
-                <div class="glass-card">📡 Generate Signal</div>
+                <div class="glass-card">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-title">Scan Market</span>
+                    500+ crypto assets tracked live
+                </div>
+                <div class="glass-card">
+                    <span class="card-icon">⚡</span>
+                    <span class="card-title">Analyze Pattern</span>
+                    Neural engine detects bias
+                </div>
+                <div class="glass-card">
+                    <span class="card-icon">📡</span>
+                    <span class="card-title">Generate Signal</span>
+                    Clear LONG/SHORT output
+                </div>
             </div>
         </section>
 
-        <section class="premium-section" id="signal-stats">
+        <div class="section-divider"></div>
+
+        <section class="premium-section reveal" id="signal-stats">
             <h2 class="section-title">Signal Stats</h2>
             <div class="stats-grid">
                 <div class="stat-item"><span class="stat-number">24/7</span> Monitoring</div>
@@ -486,7 +549,9 @@
             </div>
         </section>
 
-        <section class="premium-section" id="recent-signals">
+        <div class="section-divider"></div>
+
+        <section class="premium-section reveal" id="recent-signals">
             <h2 class="section-title">Recent Signals</h2>
             <div class="terminal-feed" id="signalFeed">-- Fetching signals --</div>
         </section>
@@ -934,6 +999,19 @@
         if (lastSymbolSaved) symbolInput.value = lastSymbolSaved;
     }
 
+    // ==================== INTERSECTION OBSERVER ====================
+    function setupRevealObserver() {
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+        revealElements.forEach(el => observer.observe(el));
+    }
+
     // ==================== THREE.JS ====================
     let scene, camera, renderer, spine1, spine2, particles;
     function initThree() {
@@ -946,7 +1024,7 @@
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setClearColor(0x0a0a0a, 1);
 
-        // Double helix
+        // Double helix + glow
         const points1 = [], points2 = [];
         for (let i = 0; i < 200; i++) {
             const t = i/200;
@@ -954,11 +1032,17 @@
             points2.push(new THREE.Vector3(Math.sin(t*Math.PI*6+Math.PI)*2, t*20-10, Math.cos(t*Math.PI*6+Math.PI)*2));
         }
         const curve1 = new THREE.CatmullRomCurve3(points1);
-        const tube1 = new THREE.TubeGeometry(curve1, 300, 0.04, 8, false);
+        const tube1 = new THREE.TubeGeometry(curve1, 300, 0.06, 8, false);
         const mat = new THREE.MeshBasicMaterial({ color: 0xd4a84b });
         spine1 = new THREE.Mesh(tube1, mat); scene.add(spine1);
+
+        // Glow tube for helix 1
+        const glowMat = new THREE.MeshBasicMaterial({ color: 0xd4a84b, transparent: true, opacity: 0.15 });
+        const glowTube1 = new THREE.TubeGeometry(curve1, 300, 0.15, 8, false);
+        scene.add(new THREE.Mesh(glowTube1, glowMat));
+
         const curve2 = new THREE.CatmullRomCurve3(points2);
-        const tube2 = new THREE.TubeGeometry(curve2, 300, 0.04, 8, false);
+        const tube2 = new THREE.TubeGeometry(curve2, 300, 0.06, 8, false);
         spine2 = new THREE.Mesh(tube2, mat); scene.add(spine2);
 
         // Particles
@@ -966,7 +1050,7 @@
         const positions = new Float32Array(800*3);
         for (let i=0; i<800*3; i++) positions[i] = (Math.random()-0.5)*40;
         geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        particles = new THREE.Points(geo, new THREE.PointsMaterial({ color: 0xffd700, size: 0.05, transparent: true, opacity:0.4 }));
+        particles = new THREE.Points(geo, new THREE.PointsMaterial({ color: 0xd4a84b, size: 0.08, transparent: true, opacity:0.6 }));
         scene.add(particles);
 
         animate();
@@ -1003,9 +1087,10 @@
             const res = await fetch(BASE_URL + '/api/history/global?limit=5');
             const data = await res.json();
             if (data.success && data.history) {
-                feed.innerHTML = data.history.map(h => 
-                    `[${new Date(h.createdTime).toLocaleTimeString()}] ${h.symbol} → ${h.bias}`
-                ).join('<br>');
+                feed.innerHTML = data.history.map(h => {
+                    const color = h.bias === 'LONG' ? '#57d977' : h.bias === 'SHORT' ? '#ff6b6b' : '#d4a84b';
+                    return `<span style="color:#6b6b6b">[${new Date(h.createdTime).toLocaleTimeString()}]</span> <b>${escapeHtml(h.symbol)}</b> <span style="color:${color}">→ ${h.bias}</span>`;
+                }).join('<br>');
             } else {
                 feed.innerHTML = 'No signals yet. Run an analysis!';
             }
@@ -1054,6 +1139,7 @@
         startAutoRefresh();
         switchToAnalyzer();
         initThree(); // Start 3D background
+        setupRevealObserver(); // Mulai observer untuk animasi scroll
     });
 
     window.addEventListener('beforeunload', () => {
