@@ -1,585 +1,707 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DylPredict Premium | Neural Signals</title>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@600&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    
-    <style>
-        :root {
-            --bg-color: #0a0a0a;
-            --text-main: #f0ede8;
-            --text-muted: #9b9484;
-            --accent-gold: #d4a84b;
-            --card-bg: rgba(255,255,255,0.04);
-            --border-color: rgba(255,255,255,0.06);
-            --short-border: #d95757;
-            --long-border: #57d977;
-            --short-bg: rgba(217,87,87,0.1);
-            --long-bg: rgba(87,217,119,0.1);
-            --sidebar-width: 340px;
-            --cream-bg: rgba(10,10,10,0.95);
-            --cream-header: rgba(255,255,255,0.05);
-            --cream-border: rgba(255,255,255,0.08);
-            --cream-item: rgba(255,255,255,0.03);
-            --tab-active-bg: rgba(255,255,255,0.1);
-            --tab-inactive-bg: transparent;
-            --glass-bg: rgba(255,255,255,0.04);
-            --glass-blur: blur(12px);
 
-            /* pipeline widget color mapping */
-            --color-text-primary: var(--text-main);
-            --color-text-secondary: var(--text-muted);
-            --color-text-tertiary: #6b6b6b;
-            --color-border-tertiary: rgba(255,255,255,0.08);
-            --color-border-secondary: rgba(255,255,255,0.15);
-            --color-background-primary: rgba(255,255,255,0.04);
-            --color-background-secondary: rgba(255,255,255,0.07);
-            --color-background-tertiary: rgba(255,255,255,0.05);
-            --font-sans: 'Inter', sans-serif;
+    <style>
+        /* ============================================================
+           ROOT VARIABLES
+        ============================================================ */
+        :root {
+            --bg:            #0a0a09;
+            --bg2:           #0f0f0e;
+            --bg3:           #141413;
+            --bg4:           #1a1a18;
+            --text-main:     #f0ede8;
+            --text-muted:    #9b9484;
+            --text-dim:      #5e5a53;
+            --accent-gold:   #d4a84b;
+            --gold-dim:      rgba(212,168,75,0.12);
+            --gold-line:     rgba(212,168,75,0.25);
+            --gold-glow:     rgba(212,168,75,0.06);
+            --card-bg:       rgba(255,255,255,0.04);
+            --card-bg2:      rgba(255,255,255,0.07);
+            --border:        rgba(255,255,255,0.06);
+            --border2:       rgba(255,255,255,0.10);
+            --border-gold:   rgba(212,168,75,0.18);
+            --short-border:  #d95757;
+            --long-border:   #57d977;
+            --sidebar-width: 340px;
+            --glass-blur:    blur(12px);
+            --font-main:     'Inter', sans-serif;
+            --font-display:  'Space Grotesk', sans-serif;
+            --font-mono:     'DM Mono', monospace;
         }
 
-        body, html { 
-            height: 100%; 
-            margin: 0; 
-            padding: 0;
-            background: #0a0a0a;
-            font-family: 'Inter', sans-serif; 
+        /* ============================================================
+           BASE
+        ============================================================ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body, html {
+            height: 100%;
+            background: var(--bg);
+            font-family: var(--font-main);
             color: var(--text-main);
             overflow-x: hidden;
         }
 
-        .main-wrapper {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            padding: 20px;
-            box-sizing: border-box;
-            background: transparent;
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+            opacity: 0.02;
+            pointer-events: none;
+            z-index: 0;
         }
 
+        /* ============================================================
+           THREE.JS CANVAS
+        ============================================================ */
+        #bg-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ============================================================
+           MENU ICON
+        ============================================================ */
+        .menu-icon {
+            position: fixed; top: 20px; right: 20px;
+            font-size: 20px; cursor: pointer; z-index: 2001;
+            background: var(--card-bg); backdrop-filter: var(--glass-blur);
+            width: 40px; height: 40px; border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+            transition: all 0.2s ease; color: var(--accent-gold);
+        }
+        .menu-icon:hover { background: var(--gold-dim); transform: scale(1.05); }
+
+        /* ============================================================
+           SIDEBAR
+        ============================================================ */
+        .sidebar {
+            position: fixed; top: 0; right: 0;
+            width: var(--sidebar-width); height: 100%;
+            background: rgba(10,10,9,0.97); backdrop-filter: blur(20px);
+            box-shadow: -2px 0 20px rgba(0,0,0,0.6);
+            z-index: 2000; transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            display: flex; flex-direction: column;
+            border-left: 1px solid var(--border-gold);
+        }
+        .sidebar.open { transform: translateX(0); }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255,255,255,0.03);
+        }
+        .sidebar-header h3 { margin: 0; font-size: 15px; color: var(--accent-gold); font-weight: 500; }
+        .close-sidebar {
+            background: none; border: none; font-size: 18px;
+            cursor: pointer; color: var(--text-muted);
+            transition: color 0.2s;
+        }
+        .close-sidebar:hover { color: var(--accent-gold); }
+
+        .history-list { flex: 1; overflow-y: auto; padding: 16px 12px; }
+        .history-list::-webkit-scrollbar { width: 3px; }
+        .history-list::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+        .history-item {
+            padding: 12px; background: var(--card-bg);
+            border-radius: 12px; margin-bottom: 10px;
+            border: 1px solid var(--border);
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .history-item:hover { background: var(--card-bg2); border-color: var(--border-gold); }
+        .history-item .filename { font-weight: 600; word-break: break-all; color: var(--text-main); font-size: 13px; }
+        .history-item .timestamp { font-size: 10px; color: var(--text-muted); margin-top: 5px; font-family: var(--font-mono); }
+        .history-item .actions { margin-top: 8px; display: flex; gap: 12px; }
+        .history-item .actions a,
+        .history-item .actions button {
+            font-size: 11px; text-decoration: none; background: none;
+            border: none; cursor: pointer; font-weight: 500; padding: 2px 0;
+        }
+        .history-item .actions a { color: var(--accent-gold); }
+        .history-item .actions a:hover { color: #e5c16a; text-decoration: underline; }
+        .history-item .actions button { color: #bc7a5c; }
+        .history-item .actions button:hover { color: #ff6b6b; }
+        .loading-text { padding: 24px; text-align: center; color: var(--text-muted); font-style: italic; font-size: 13px; }
+
+        /* ============================================================
+           MAIN WRAPPER
+        ============================================================ */
+        .main-wrapper {
+            position: relative; z-index: 1;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            min-height: 100vh;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 20px; box-sizing: border-box;
+            background: transparent;
+        }
         .main-wrapper.has-result {
             justify-content: flex-start;
             padding-top: 60px;
         }
 
         .hero-content {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            position: relative; z-index: 1;
+            width: 100%; display: flex;
+            flex-direction: column; align-items: center;
         }
 
-        /* Brand styling */
+        /* ============================================================
+           BRAND
+        ============================================================ */
         .brand {
-            text-align: center;
-            margin-bottom: 40px;
+            text-align: center; margin-bottom: 40px;
             transition: all 0.5s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
         }
-        .has-result .brand { 
-            transform: scale(0.8); 
-            margin-bottom: 20px; 
-        }
+        .has-result .brand { transform: scale(0.8); margin-bottom: 20px; }
+
         .brand-logo {
-            width: 100px;
-            height: auto;
-            max-width: 120px;
-            display: block;
-            margin-bottom: 12px;
-            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+            width: 100px; height: auto; max-width: 120px;
+            display: block; margin-bottom: 12px;
+            filter: drop-shadow(0 2px 12px rgba(212,168,75,0.15));
             transition: all 0.2s ease;
         }
-        h1 { 
-            font-family: 'Source Serif Pro', serif; 
-            font-size: 40px; 
-            margin: 0; 
-            letter-spacing: -0.02em; 
-            color: #f0ede8;
-            font-weight: 600;
-            line-height: 1.2;
+
+        .brand h1 {
+            font-family: 'Source Serif Pro', serif;
+            font-size: 40px; margin: 0;
+            letter-spacing: -0.02em; color: var(--text-main);
+            font-weight: 600; line-height: 1.2;
             animation: glitch 5s infinite linear alternate-reverse;
         }
 
-        /* Tabs */
+        /* ============================================================
+           TABS
+        ============================================================ */
         .tabs {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 30px;
-            background: transparent;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 8px;
-            width: 100%;
-            max-width: 700px;
+            display: flex; justify-content: center; gap: 12px;
+            margin-bottom: 30px; background: transparent;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px; width: 100%; max-width: 700px;
         }
         .tab-btn {
-            background: var(--tab-inactive-bg);
-            border: none;
-            font-size: 16px;
-            font-weight: 500;
-            padding: 8px 20px;
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: all 0.2s ease;
-            border-radius: 30px;
+            background: transparent; border: none; font-size: 15px;
+            font-weight: 500; padding: 8px 20px; cursor: pointer;
+            color: var(--text-muted); transition: all 0.2s ease; border-radius: 30px;
         }
         .tab-btn.active {
-            background: var(--tab-active-bg);
-            color: #f0ede8;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.08); color: var(--text-main);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
         .tab-btn:hover:not(.active) {
-            background: rgba(255,255,255,0.05);
-            color: var(--accent-gold);
+            background: rgba(255,255,255,0.04); color: var(--accent-gold);
         }
 
-        /* Panels */
-        .panel {
-            width: 100%;
-            max-width: 700px;
-            transition: all 0.3s ease;
-        }
-        .panel.hidden {
-            display: none;
-        }
+        /* ============================================================
+           PANELS
+        ============================================================ */
+        .panel { width: 100%; max-width: 700px; transition: all 0.3s ease; }
+        .panel.hidden { display: none; }
+
+        /* ============================================================
+           SEARCH
+        ============================================================ */
         .search-area { width: 100%; transition: all 0.5s ease; }
         .search-container {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
+            background: var(--card-bg); backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--border-color);
-            border-radius: 28px;
+            border: 1px solid var(--border); border-radius: 28px;
             padding: 8px 8px 8px 24px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            display: flex; align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
             transition: box-shadow 0.3s ease, border-color 0.3s ease;
         }
         .search-container:focus-within {
-            box-shadow: 0 8px 30px rgba(212, 168, 75, 0.1);
+            box-shadow: 0 8px 30px rgba(212,168,75,0.12);
             border-color: var(--accent-gold);
         }
         input#symbol {
             border: none; outline: none; flex-grow: 1;
-            font-size: 18px; background: transparent; padding: 14px 0;
-            color: var(--text-main); font-weight: 400;
+            font-size: 18px; background: transparent;
+            padding: 14px 0; color: var(--text-main); font-weight: 400;
+            font-family: var(--font-main);
         }
-        input#symbol::placeholder { color: #6b6b6b; font-weight: 300; }
-        .btn-group button {
-            padding: 12px 28px; border-radius: 24px;
-            border: none; cursor: pointer; font-weight: 500;
-            font-size: 15px; transition: all 0.2s ease;
-        }
-        .btn-analyze { background: var(--accent-gold); color: #0a0a0a; }
-        .btn-analyze:hover { opacity: 0.85; transform: translateY(-1px); }
+        input#symbol::placeholder { color: var(--text-dim); font-weight: 300; }
 
-        /* Hot Coins Panel */
+        .btn-group button {
+            padding: 12px 28px; border-radius: 24px; border: none;
+            cursor: pointer; font-weight: 600; font-size: 14px;
+            transition: all 0.2s ease; font-family: var(--font-main);
+            letter-spacing: 0.2px;
+        }
+        .btn-analyze {
+            background: var(--accent-gold); color: #0a0a09;
+        }
+        .btn-analyze:hover { opacity: 0.88; transform: translateY(-1px); }
+
+        /* ============================================================
+           HOT COINS
+        ============================================================ */
         .hot-coins-header {
             display: flex; justify-content: space-between; align-items: baseline;
             margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
         }
-        .hot-coins-header h3 { margin: 0; font-size: 20px; font-weight: 500; color: #f0ede8; }
+        .hot-coins-header h3 { margin: 0; font-size: 18px; font-weight: 500; color: var(--text-main); }
+
         .refresh-hot-btn {
-            background: rgba(255,255,255,0.1); border: none; border-radius: 30px;
-            padding: 6px 16px; font-size: 13px; cursor: pointer; color: #f0ede8;
+            background: rgba(255,255,255,0.08); border: 1px solid var(--border);
+            border-radius: 30px; padding: 6px 16px; font-size: 12px;
+            cursor: pointer; color: var(--text-muted); transition: all 0.2s;
+            font-family: var(--font-main);
         }
-        .refresh-hot-btn:hover { background: rgba(255,255,255,0.2); }
+        .refresh-hot-btn:hover { background: rgba(255,255,255,0.14); color: var(--text-main); }
+
         .hot-coins-list {
-            background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+            background: var(--card-bg); backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--border-color); border-radius: 24px;
+            border: 1px solid var(--border); border-radius: 20px;
             overflow: hidden; max-height: 500px; overflow-y: auto;
         }
+        .hot-coins-list::-webkit-scrollbar { width: 3px; }
+        .hot-coins-list::-webkit-scrollbar-thumb { background: var(--border2); }
+
         .hot-coin-item {
-            padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 14px 20px; border-bottom: 1px solid var(--border);
             display: flex; justify-content: space-between; align-items: center;
             cursor: pointer; transition: background 0.2s ease;
         }
         .hot-coin-item:last-child { border-bottom: none; }
-        .hot-coin-item:hover { background: rgba(212,168,75,0.1); }
-        .coin-symbol { font-weight: 600; font-size: 16px; }
+        .hot-coin-item:hover { background: var(--gold-dim); }
+        .coin-symbol { font-weight: 600; font-size: 15px; }
         .coin-change {
-            font-size: 14px; font-weight: 500; padding: 4px 10px;
-            border-radius: 30px; background: rgba(255,255,255,0.05);
+            font-size: 13px; font-weight: 500; padding: 4px 10px;
+            border-radius: 20px; background: rgba(255,255,255,0.05);
+            font-family: var(--font-mono);
         }
-        .coin-change.positive { color: #57d977; background: rgba(87,217,119,0.15); }
-        .coin-change.negative { color: #ff6b6b; background: rgba(255,107,107,0.15); }
-        .empty-hot { padding: 40px; text-align: center; color: var(--text-muted); font-style: italic; }
-        .last-updated { font-size: 11px; color: #6b6b6b; margin-top: 12px; text-align: right; }
+        .coin-change.positive { color: #57d977; background: rgba(87,217,119,0.12); }
+        .coin-change.negative { color: #ff6b6b; background: rgba(255,107,107,0.12); }
+        .empty-hot { padding: 40px; text-align: center; color: var(--text-muted); font-style: italic; font-size: 13px; }
+        .last-updated { font-size: 11px; color: var(--text-dim); margin-top: 10px; text-align: right; font-family: var(--font-mono); }
 
-        /* Result area */
-        .result-wrapper {
-            width: 100%; max-width: 900px; margin-top: 50px;
-            display: none; opacity: 0; transform: translateY(30px);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .output-card {
-            background: var(--glass-bg); backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--border-color); border-radius: 24px;
-            padding: 0; overflow: hidden;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
-        }
-        .card-header {
-            padding: 14px 24px;
-            background: rgba(255,255,255,0.03);
-            border-bottom: 1px solid var(--border-color);
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        #resultTitle { font-weight: 600; font-size: 14px; color: var(--text-muted); }
-        .action-buttons { display: flex; gap: 8px; }
-        .btn-action { 
-            background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
-            border-radius: 16px; font-size: 12px; padding: 6px 14px;
-            color: var(--text-muted); cursor: pointer; transition: all 0.2s ease;
-        }
-        .btn-action:hover { background: rgba(255,255,255,0.1); }
-        .btn-action.active { background: var(--accent-gold); color: #0a0a0a; border-color: var(--accent-gold); }
-        .terminal-style {
-            padding: 28px; margin: 0;
-            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
-            font-size: 14px; line-height: 1.7; max-height: 600px; overflow-y: auto;
-            white-space: pre-wrap; word-wrap: break-word;
-            background: transparent; color: #f0ede8;
-        }
-        .terminal-style::after { content: '_'; animation: blink 1s infinite; }
-
-        .toast-message {
-            position: fixed; bottom: 20px; right: 20px;
-            background: #1a1a1a; color: white; padding: 10px 20px;
-            border-radius: 30px; font-size: 14px; font-weight: 500;
-            z-index: 10000; animation: slideIn 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        }
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        .footer-note {
-            margin-top: 20px; font-size: 12px; color: #6b6b6b;
-            text-align: center; letter-spacing: 0.5px;
-        }
-        .footer-note span { color: var(--accent-gold); }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed; top: 0; right: 0; width: var(--sidebar-width);
-            height: 100%; background: var(--cream-bg); backdrop-filter: blur(20px);
-            box-shadow: -2px 0 15px rgba(0,0,0,0.5);
-            z-index: 2000; transform: translateX(100%);
-            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            display: flex; flex-direction: column;
-            border-left: 1px solid var(--cream-border);
-        }
-        .sidebar.open { transform: translateX(0); }
-        .sidebar-header {
-            padding: 20px; border-bottom: 1px solid var(--cream-border);
-            display: flex; justify-content: space-between; align-items: center;
-            font-weight: 600; background: var(--cream-header);
-        }
-        .sidebar-header h3 { margin: 0; font-size: 18px; color: var(--accent-gold); }
-        .close-sidebar { background: none; border: none; font-size: 20px; cursor: pointer; color: #9b9484; }
-        .close-sidebar:hover { color: var(--accent-gold); }
-        .history-list { flex: 1; overflow-y: auto; padding: 16px 12px; background: transparent; }
-        .history-item {
-            padding: 14px 12px; background: rgba(255,255,255,0.03);
-            border-radius: 16px; margin-bottom: 12px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.2s ease;
-            border-left: 4px solid transparent;
-        }
-        .history-item:hover { background: rgba(255,255,255,0.05); border-color: rgba(212,168,75,0.2); }
-        .history-item .filename { font-weight: 600; word-break: break-all; color: #f0ede8; }
-        .history-item .timestamp { font-size: 11px; color: #9b9484; margin-top: 6px; }
-        .history-item .actions { margin-top: 10px; display: flex; gap: 14px; }
-        .history-item .actions a, .history-item .actions button {
-            font-size: 12px; text-decoration: none; background: none; border: none;
-            cursor: pointer; font-weight: 500; padding: 4px 0;
-        }
-        .history-item .actions a { color: var(--accent-gold); }
-        .history-item .actions a:hover { color: #e5c16a; text-decoration: underline; }
-        .history-item .actions button { color: #bc7a5c; }
-        .history-item .actions button:hover { color: #ff6b6b; }
-        .loading-text { padding: 24px; text-align: center; color: #9b9484; font-style: italic; }
-        .menu-icon {
-            position: fixed; top: 20px; right: 20px; font-size: 24px;
-            cursor: pointer; z-index: 2001; background: rgba(255,255,255,0.1);
-            width: 40px; height: 40px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            transition: all 0.2s ease; color: var(--accent-gold);
-        }
-        .menu-icon:hover { background: rgba(212,168,75,0.2); transform: scale(1.02); }
-
-        /* Quote & Premium Sections */
+        /* ============================================================
+           QUOTE SECTION
+        ============================================================ */
         .quote-section {
             max-width: 680px; margin: 80px auto 60px;
             text-align: center;
             opacity: 0; transform: translateY(30px);
             transition: opacity 1s ease, transform 1s ease;
         }
-        .quote-section.visible {
-            opacity: 1; transform: translateY(0);
-        }
+        .quote-section.visible { opacity: 1; transform: translateY(0); }
+
         .quote-line {
             width: 60px; height: 1px;
             background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
-            margin: 0 auto 20px;
+            margin: 0 auto 24px;
         }
         .signal-quote {
-            font-family: 'Source Serif Pro', serif; font-size: 22px;
-            color: rgba(255,255,255,0.85); line-height: 1.6; font-weight: 400;
-            border: none; padding: 0;
+            font-family: 'Source Serif Pro', serif;
+            font-size: 22px; color: rgba(240,237,232,0.82);
+            line-height: 1.7; font-weight: 400; border: none; padding: 0;
+            font-style: italic;
         }
-        cite { display: block; margin-top: 20px; color: var(--accent-gold); font-style: normal; font-size: 14px; letter-spacing: 1px; }
+        cite {
+            display: block; margin-top: 22px; color: var(--accent-gold);
+            font-style: normal; font-size: 12px; letter-spacing: 2px;
+            text-transform: uppercase; font-family: var(--font-mono);
+        }
+
+        /* ============================================================
+           PREMIUM SECTIONS
+        ============================================================ */
         .premium-section {
             max-width: 900px; margin: 50px auto;
             padding: 0 20px; width: 100%;
             opacity: 0; transform: translateY(30px);
             transition: opacity 1s ease, transform 1s ease;
         }
-        .premium-section.visible {
-            opacity: 1; transform: translateY(0);
-        }
+        .premium-section.visible { opacity: 1; transform: translateY(0); }
+
         .section-title {
-            font-family: 'Source Serif Pro', serif; font-size: 28px;
-            color: var(--accent-gold); margin-bottom: 30px; text-align: center;
+            font-family: 'Source Serif Pro', serif;
+            font-size: 28px; color: var(--accent-gold);
+            margin-bottom: 30px; text-align: center; font-weight: 600;
         }
-        .cards-grid {
-            display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
-        }
-        .glass-card {
-            background: var(--glass-bg); backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
-            padding: 30px; min-width: 200px; text-align: center;
-            font-weight: 500; position: relative; overflow: hidden;
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-        .glass-card .card-icon { 
-            font-size: 28px; 
-            display: block; 
-            margin-bottom: 12px; 
-        }
-        .glass-card .card-title { 
-            font-size: 16px; 
-            font-weight: 600; 
-            color: var(--text-main); 
-            margin-bottom: 6px; 
-            display: block;
-        }
-        .glass-card::after {
-            content: '';
-            position: absolute;
-            top: -30%;
-            left: 0;
-            width: 100%;
-            height: 30%;
-            background: linear-gradient(transparent, rgba(212,168,75,0.08), transparent);
-            animation: scanLine 3s linear infinite;
-            pointer-events: none;
-        }
-        @keyframes scanLine {
-            0%   { top: -30%; }
-            100% { top: 110%; }
-        }
-        .stats-grid {
-            display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;
-        }
-        .stat-item {
-            background: var(--glass-bg); backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border-radius: 12px; padding: 20px 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-            font-size: 18px;
-        }
-        .stat-number { 
-            display: block; 
-            font-family: 'SF Mono', monospace;
-            letter-spacing: -1px;
-            font-size: 42px;
-            font-weight: 600; 
-            color: var(--accent-gold); 
-            margin-bottom: 5px; 
-        }
-        .terminal-feed {
-            background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px; padding: 20px; font-family: monospace;
-            line-height: 2; font-size: 13px;
-            color: #57d977; max-height: 300px; overflow-y: auto;
-            backdrop-filter: blur(8px);
-        }
-        /* Section dividers */
+
+        /* Section divider */
         .section-divider {
-            width: 1px;
-            height: 60px;
-            background: linear-gradient(to bottom, transparent, rgba(212,168,75,0.3), transparent);
+            width: 1px; height: 60px;
+            background: linear-gradient(to bottom, transparent, var(--gold-line), transparent);
             margin: 0 auto;
         }
 
-        /* =========== Pipeline Widget =========== */
-        .pipeline-embed {
-            width: 100%;
-            max-width: 700px;
-            margin: 0 auto;
+        /* ============================================================
+           HOW IT WORKS CARDS
+        ============================================================ */
+        .cards-grid {
+            display: flex; gap: 20px;
+            justify-content: center; flex-wrap: wrap;
         }
-        .pipeline-embed .pipe-wrap {
-            padding: 2rem 0 1rem;
-            font-family: var(--font-sans);
+        .glass-card {
+            background: var(--card-bg); backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border); border-radius: 16px;
+            padding: 28px 24px; min-width: 200px; flex: 1; max-width: 260px;
+            text-align: center; position: relative; overflow: hidden;
+            font-size: 13px; color: var(--text-muted);
+            transition: border-color 0.3s ease;
         }
-        .pipeline-embed .pipe-label {
-            font-size: 11px; font-weight: 500; letter-spacing: 1.5px;
-            color: var(--color-text-tertiary); text-align: center;
-            margin-bottom: 1.5rem; text-transform: uppercase;
+        .glass-card:hover { border-color: var(--border-gold); }
+        .glass-card .card-icon { font-size: 26px; display: block; margin-bottom: 12px; }
+        .glass-card .card-title {
+            font-size: 15px; font-weight: 600; color: var(--text-main);
+            margin-bottom: 6px; display: block;
         }
-        .pipeline-embed .pipe-grid {
-            display: grid; grid-template-columns: 1fr; gap: 0;
+        .glass-card::after {
+            content: ''; position: absolute;
+            top: -30%; left: 0; width: 100%; height: 30%;
+            background: linear-gradient(transparent, rgba(212,168,75,0.07), transparent);
+            animation: scanLine 3.5s linear infinite; pointer-events: none;
         }
-        .pipeline-embed .stage {
-            display: flex; align-items: stretch; cursor: pointer;
-            transition: all 0.18s ease;
+        @keyframes scanLine { 0% { top: -30%; } 100% { top: 110%; } }
+
+        /* ============================================================
+           SIGNAL STATS
+        ============================================================ */
+        .stats-grid {
+            display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
         }
-        .pipeline-embed .stage-left {
+        .stat-item {
+            background: var(--card-bg); backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 14px; padding: 22px 32px;
+            border: 1px solid var(--border); text-align: center;
+            font-size: 14px; color: var(--text-muted);
+            transition: border-color 0.3s;
+        }
+        .stat-item:hover { border-color: var(--border-gold); }
+        .stat-number {
+            display: block; font-family: var(--font-mono);
+            letter-spacing: -2px; font-size: 40px; font-weight: 500;
+            color: var(--accent-gold); margin-bottom: 6px;
+        }
+
+        /* ============================================================
+           NEURAL PIPELINE SECTION (Space Grotesk / DM Mono)
+        ============================================================ */
+        .pipeline-wrap {
+            width: 100%; max-width: 760px; margin: 0 auto;
+        }
+
+        /* header row */
+        .pl-header {
+            display: flex; align-items: center; gap: 14px; margin-bottom: 2.5rem;
+        }
+        .pl-header-line {
+            flex: 1; height: 1px;
+            background: linear-gradient(to right, var(--border-gold), transparent);
+        }
+        .pl-header-label {
+            font-family: var(--font-mono); font-size: 10px;
+            letter-spacing: 2.5px; text-transform: uppercase;
+            color: var(--text-dim); white-space: nowrap;
+        }
+
+        /* stats bar */
+        .pl-stats {
+            display: flex; gap: 0; justify-content: center;
+            margin-bottom: 2.5rem; flex-wrap: wrap;
+        }
+        .pl-stat {
+            flex: 1; min-width: 100px; max-width: 160px;
+            text-align: center; padding: 16px 12px;
+            background: var(--card-bg); border: 0.5px solid var(--border);
+            position: relative;
+        }
+        .pl-stat:first-child { border-radius: 12px 0 0 12px; }
+        .pl-stat:last-child  { border-radius: 0 12px 12px 0; }
+        .pl-stat + .pl-stat { border-left: none; }
+        .pl-stat-val {
+            display: block; font-family: var(--font-display);
+            font-size: 22px; font-weight: 600; color: var(--accent-gold);
+            letter-spacing: -0.03em;
+        }
+        .pl-stat-lbl {
+            display: block; font-family: var(--font-mono);
+            font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+            color: var(--text-dim); margin-top: 4px;
+        }
+
+        /* pipeline list */
+        .pl-list { display: flex; flex-direction: column; gap: 0; }
+
+        .pl-stage {
+            display: flex; align-items: stretch;
+            cursor: pointer; transition: all 0.18s ease;
+        }
+
+        /* spine */
+        .pl-spine {
+            width: 52px; flex-shrink: 0;
             display: flex; flex-direction: column; align-items: center;
-            width: 44px; flex-shrink: 0;
+            padding-top: 2px;
         }
-        .pipeline-embed .stage-num {
-            width: 32px; height: 32px; border-radius: 50%;
+        .pl-node {
+            width: 36px; height: 36px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 12px; font-weight: 500; flex-shrink: 0;
-            transition: all 0.2s ease;
+            font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+            flex-shrink: 0; transition: all 0.25s ease; position: relative; z-index: 1;
         }
-        .pipeline-embed .stage-line {
-            width: 1.5px; flex: 1; min-height: 20px; margin: 3px 0;
-            transition: background 0.2s;
+        .pl-stage.active .pl-node {
+            box-shadow: 0 0 0 6px var(--node-glow, rgba(212,168,75,0.1));
         }
-        .pipeline-embed .stage-body {
-            flex: 1; padding: 0 0 0 12px; padding-bottom: 16px;
+        .pl-connector {
+            width: 1px; flex: 1; min-height: 18px;
+            margin: 4px 0; transition: background 0.25s ease;
         }
-        .pipeline-embed .stage-card {
-            border-radius: 10px;
-            border: 0.5px solid var(--color-border-tertiary);
-            background: rgba(255,255,255,0.04);
-            padding: 12px 16px;
-            transition: all 0.2s ease;
+
+        /* card */
+        .pl-body { flex: 1; padding: 0 0 18px 16px; }
+        .pl-card {
+            border-radius: 14px; border: 0.5px solid var(--border);
+            background: var(--bg2); padding: 15px 20px;
+            transition: all 0.25s ease; position: relative; overflow: hidden;
         }
-        .pipeline-embed .stage.active .stage-card {
-            border-color: var(--color-border-secondary);
-            background: rgba(255,255,255,0.07);
+        .pl-stage.active .pl-card {
+            border-color: var(--card-border, var(--border));
+            background: var(--bg3);
         }
-        .pipeline-embed .stage-row {
-            display: flex; align-items: center; justify-content: space-between;
-            gap: 8px;
+        .pl-card-header {
+            display: flex; align-items: center;
+            justify-content: space-between; gap: 12px;
         }
-        .pipeline-embed .stage-title {
-            font-size: 14px; font-weight: 500; color: #f0ede8;
+        .pl-title {
+            font-family: var(--font-display); font-size: 14px; font-weight: 500;
+            color: var(--text-main); letter-spacing: -0.01em; transition: color 0.2s;
         }
-        .pipeline-embed .stage-tag {
-            font-size: 11px; padding: 2px 8px; border-radius: 20px; white-space: nowrap;
+        .pl-stage.active .pl-title { color: var(--card-color, var(--accent-gold)); }
+
+        .pl-badge {
+            font-family: var(--font-mono); font-size: 9px; font-weight: 500;
+            padding: 3px 10px; border-radius: 20px; white-space: nowrap;
+            letter-spacing: 0.8px; text-transform: uppercase; flex-shrink: 0;
         }
-        .pipeline-embed .stage-desc {
-            font-size: 12px; color: #9b9484; margin-top: 6px; line-height: 1.5;
-            max-height: 0; overflow: hidden; transition: max-height 0.3s ease, opacity 0.3s ease;
+
+        /* chevron */
+        .pl-chevron {
+            width: 14px; height: 14px; flex-shrink: 0;
+            color: var(--text-dim); transition: transform 0.25s ease, color 0.2s;
+        }
+        .pl-stage.active .pl-chevron {
+            transform: rotate(180deg); color: var(--card-color, var(--accent-gold));
+        }
+
+        /* expand */
+        .pl-expand {
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease;
             opacity: 0;
         }
-        .pipeline-embed .stage.active .stage-desc {
-            max-height: 80px; opacity: 1;
+        .pl-stage.active .pl-expand { max-height: 700px; opacity: 1; }
+
+        .pl-desc {
+            font-size: 12px; color: var(--text-muted);
+            margin-top: 10px; line-height: 1.7; font-weight: 300;
         }
-        .pipeline-embed .stage-chips {
-            display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px;
-            max-height: 0; overflow: hidden; opacity: 0;
-            transition: max-height 0.3s ease, opacity 0.3s ease;
+        .pl-chips {
+            display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px;
         }
-        .pipeline-embed .stage.active .stage-chips {
-            max-height: 60px; opacity: 1;
+        .pl-chip {
+            font-family: var(--font-mono); font-size: 10px;
+            padding: 3px 9px; border-radius: 5px;
+            border: 0.5px solid var(--border2); color: var(--text-dim);
+            background: var(--bg4); letter-spacing: 0.2px;
+            transition: border-color 0.2s, color 0.2s;
         }
-        .pipeline-embed .chip {
-            font-size: 11px; padding: 2px 8px; border-radius: 4px;
-            border: 0.5px solid rgba(255,255,255,0.1);
-            color: #9b9484; background: rgba(255,255,255,0.05);
+        .pl-stage.active .pl-chip { color: var(--text-muted); }
+
+        /* substages */
+        .pl-sub {
+            margin-top: 14px; border-left: 1px solid var(--border2); padding-left: 14px;
         }
-        .pipeline-embed .pipe-footer {
-            text-align: center; margin-top: 8px; font-size: 11px;
-            color: var(--color-text-tertiary);
+        .pl-sub-item {
+            display: flex; align-items: baseline; gap: 8px;
+            padding: 5px 0; font-size: 12px; color: var(--text-muted);
+            font-weight: 300; border-bottom: 0.5px solid var(--border);
+            font-family: var(--font-main); line-height: 1.5;
+        }
+        .pl-sub-item:last-child { border-bottom: none; }
+        .pl-sub-badge {
+            font-family: var(--font-mono); font-size: 9px; font-weight: 500;
+            padding: 2px 7px; border-radius: 4px; flex-shrink: 0;
+            letter-spacing: 0.5px; text-transform: uppercase;
+        }
+        .badge-gate   { background: rgba(139,127,221,0.15); color: #a89fe8; }
+        .badge-guard  { background: rgba(216,90,48,0.15);   color: #e07d5e; }
+        .badge-detect { background: rgba(29,158,117,0.15);  color: #4ec69a; }
+
+        /* pipeline footer */
+        .pl-footer {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            margin-top: 2rem; font-family: var(--font-mono); font-size: 10px;
+            color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase;
         }
         .pulse-dot {
             display: inline-block; width: 6px; height: 6px; border-radius: 50%;
-            margin-right: 5px; vertical-align: middle;
-            animation: pd 1.6s ease-in-out infinite;
+            animation: pdot 2s ease-in-out infinite;
         }
-        @keyframes pd {
-            0%,100% { opacity: 0.3; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.2); }
+        @keyframes pdot {
+            0%,100% { opacity: 0.35; transform: scale(0.85); }
+            50%      { opacity: 1;    transform: scale(1.2); }
         }
 
-        /* Animations */
-        @keyframes fadeSlideUp {
-            from { opacity:0; transform: translateY(30px); }
-            to   { opacity:1; transform: translateY(0); }
+        /* ============================================================
+           TERMINAL FEED
+        ============================================================ */
+        .terminal-feed {
+            background: rgba(0,0,0,0.5); border: 1px solid var(--border2);
+            border-radius: 14px; padding: 20px;
+            font-family: var(--font-mono); line-height: 2; font-size: 12px;
+            color: #57d977; max-height: 280px; overflow-y: auto;
+            backdrop-filter: blur(8px);
         }
+        .terminal-feed::-webkit-scrollbar { width: 3px; }
+        .terminal-feed::-webkit-scrollbar-thumb { background: var(--border2); }
+
+        /* ============================================================
+           RESULT AREA
+        ============================================================ */
+        .result-wrapper {
+            width: 100%; max-width: 900px; margin-top: 50px;
+            display: none; opacity: 0; transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .output-card {
+            background: var(--card-bg); backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border); border-radius: 22px;
+            padding: 0; overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.35);
+        }
+        .card-header {
+            padding: 14px 22px; background: rgba(255,255,255,0.03);
+            border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        #resultTitle { font-weight: 500; font-size: 13px; color: var(--text-muted); font-family: var(--font-mono); }
+        .action-buttons { display: flex; gap: 8px; }
+        .btn-action {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+            border-radius: 14px; font-size: 12px; padding: 6px 14px;
+            color: var(--text-muted); cursor: pointer; transition: all 0.2s ease;
+        }
+        .btn-action:hover { background: rgba(255,255,255,0.1); }
+        .btn-action.active {
+            background: var(--accent-gold); color: #0a0a09;
+            border-color: var(--accent-gold);
+        }
+        .terminal-style {
+            padding: 28px; margin: 0;
+            font-family: var(--font-mono); font-size: 13px;
+            line-height: 1.75; max-height: 600px; overflow-y: auto;
+            white-space: pre-wrap; word-wrap: break-word;
+            background: transparent; color: var(--text-main);
+        }
+        .terminal-style::-webkit-scrollbar { width: 4px; }
+        .terminal-style::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+        .terminal-style::after { content: '_'; animation: blink 1s infinite; }
+
+        .footer-note {
+            margin-top: 18px; font-size: 11px; color: var(--text-dim);
+            text-align: center; letter-spacing: 0.5px; font-family: var(--font-mono);
+        }
+        .footer-note span { color: var(--accent-gold); }
+
+        /* ============================================================
+           TOAST
+        ============================================================ */
+        .toast-message {
+            position: fixed; bottom: 24px; right: 24px;
+            background: var(--bg4); color: var(--text-main);
+            padding: 10px 20px; border-radius: 30px;
+            border: 1px solid var(--border2);
+            font-size: 13px; font-weight: 500; z-index: 10000;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to   { transform: translateX(0); opacity: 1; }
+        }
+
+        /* ============================================================
+           ANIMATIONS
+        ============================================================ */
         @keyframes glitch {
             0%,100% { text-shadow: none; }
             92%     { text-shadow: 2px 0 var(--accent-gold), -2px 0 #57d977; }
         }
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
 
-        /* Mobile responsive overrides */
+        /* ============================================================
+           RESPONSIVE
+        ============================================================ */
         @media (max-width: 768px) {
             .quote-section { margin: 50px auto 40px; }
             .signal-quote { font-size: 18px; }
             .premium-section { margin: 40px auto; }
-            .section-title { font-size: 24px; margin-bottom: 20px; }
+            .section-title { font-size: 22px; margin-bottom: 20px; }
             .cards-grid { flex-direction: column; align-items: center; }
             .glass-card { min-width: auto; width: 100%; max-width: 300px; }
             .stats-grid { flex-direction: column; align-items: center; }
-            .stat-item { width: 100%; max-width: 250px; }
-            .terminal-feed { font-size: 12px; }
-
-            /* Pipeline mobile */
-            .pipeline-embed .stage-left { width: 36px; }
-            .pipeline-embed .stage-num { width: 28px; height: 28px; font-size: 10px; }
-            .pipeline-embed .stage-title { font-size: 13px; }
-            .pipeline-embed .stage-tag { font-size: 10px; padding: 2px 6px; }
-            .pipeline-embed .stage-desc { font-size: 11px; }
-            .pipeline-embed .chip { font-size: 10px; padding: 1px 6px; }
+            .stat-item { width: 100%; max-width: 260px; }
+            .pl-stats { gap: 8px; flex-direction: column; align-items: center; }
+            .pl-stat { border-radius: 10px !important; border: 0.5px solid var(--border) !important; min-width: 160px; }
         }
-
         @media (max-width: 480px) {
             .brand h1 { font-size: 28px; }
             .brand-logo { width: 80px; }
             .search-container { flex-direction: column; padding: 16px; }
             .btn-group { width: 100%; margin-top: 12px; }
             .btn-group button { width: 100%; }
-            .card-header { flex-direction: column; gap: 12px; }
+            .card-header { flex-direction: column; gap: 10px; }
             .action-buttons { width: 100%; justify-content: center; }
             .sidebar { width: 100%; max-width: 320px; }
-            .brand { gap: 4px; }
             .tabs { gap: 6px; }
-            .tab-btn { padding: 6px 16px; font-size: 14px; }
-            .pipe-label { font-size: 10px; }
+            .tab-btn { padding: 6px 14px; font-size: 13px; }
+            .pl-spine { width: 40px; }
+            .pl-node { width: 30px; height: 30px; font-size: 10px; }
+            .pl-title { font-size: 13px; }
         }
     </style>
 </head>
 <body>
 
-<canvas id="bg-canvas" style="position:fixed; top:0; left:0; z-index:0;"></canvas>
+<canvas id="bg-canvas"></canvas>
 
 <div class="menu-icon" onclick="toggleSidebar()">☰</div>
 
+<!-- ============================================================
+     SIDEBAR
+============================================================ -->
 <div class="sidebar" id="sidebar">
     <div class="sidebar-header">
         <h3>📁 Recent History</h3>
@@ -590,10 +712,16 @@
     </div>
 </div>
 
+<!-- ============================================================
+     MAIN
+============================================================ -->
 <div class="main-wrapper" id="wrapper">
     <div class="hero-content">
+
+        <!-- Brand -->
         <div class="brand">
-            <img src="https://raw.githubusercontent.com/dylanharahap23/dyl-predict-frontend/main/dyl%20predict%20LOGO.png" alt="DylPredict Logo" class="brand-logo">
+            <img src="https://raw.githubusercontent.com/dylanharahap23/dyl-predict-frontend/main/dyl%20predict%20LOGO.png"
+                 alt="DylPredict Logo" class="brand-logo">
             <h1>Back at it, Dylan</h1>
         </div>
 
@@ -618,7 +746,7 @@
         <!-- Hot Coins Panel -->
         <div id="hotCoinsPanel" class="panel hidden">
             <div class="hot-coins-header">
-                <h3>🔥 Coins with 1m change > 1%</h3>
+                <h3>🔥 Coins with 1m change &gt; 1%</h3>
                 <button class="refresh-hot-btn" id="refreshHotBtn">⟳ Refresh</button>
             </div>
             <div id="hotCoinsList" class="hot-coins-list">
@@ -627,12 +755,12 @@
             <div id="lastUpdated" class="last-updated"></div>
         </div>
 
-        <!-- Quote Section -->
+        <!-- Quote -->
         <section class="quote-section reveal">
             <div class="quote-line"></div>
             <blockquote class="signal-quote">
-                "Price doesn't move to reward you—it moves to expose you. 
-                The crowd sees strength, we see bait; 
+                "Price doesn't move to reward you—it moves to expose you.
+                The crowd sees strength, we see bait;
                 they chase the obvious, we hunt the trap."
             </blockquote>
             <cite>— DylPredict Signal Intelligence</cite>
@@ -657,33 +785,65 @@
                 <div class="glass-card">
                     <span class="card-icon">📡</span>
                     <span class="card-title">Generate Signal</span>
-                    Clear LONG/SHORT output
+                    Clear LONG / SHORT output
                 </div>
             </div>
         </section>
 
         <div class="section-divider"></div>
 
-        <!-- Signal Stats -->
+        <!-- Stats -->
         <section class="premium-section reveal" id="signal-stats">
             <h2 class="section-title">Signal Stats</h2>
             <div class="stats-grid">
-                <div class="stat-item"><span class="stat-number">24/7</span> Monitoring</div>
-                <div class="stat-item"><span class="stat-number">98.3%</span> Uptime</div>
-                <div class="stat-item"><span class="stat-number">500+</span> Assets</div>
+                <div class="stat-item"><span class="stat-number">24/7</span>Monitoring</div>
+                <div class="stat-item"><span class="stat-number">98.3%</span>Uptime</div>
+                <div class="stat-item"><span class="stat-number">500+</span>Assets Tracked</div>
             </div>
         </section>
 
         <div class="section-divider"></div>
 
-        <!-- Neural Pipeline -->
+        <!-- ========================================================
+             NEURAL SIGNAL ENGINE — REFINED VERSION
+        ======================================================== -->
         <section class="premium-section reveal" id="engine-pipeline">
             <h2 class="section-title">How the Engine Thinks</h2>
-            <div class="pipeline-embed">
-                <div class="pipe-wrap">
-                    <div class="pipe-label">DylPredict V87 — Neural Signal Pipeline</div>
-                    <div class="pipe-grid" id="pipeline"></div>
-                    <div class="pipe-footer"><span class="pulse-dot" style="background:#57d977"></span>Engine active — click any stage to inspect</div>
+
+            <div class="pipeline-wrap">
+
+                <!-- header -->
+                <div class="pl-header">
+                    <span class="pl-header-label">Neural signal pipeline</span>
+                    <div class="pl-header-line"></div>
+                </div>
+
+                <!-- stat bar -->
+                <div class="pl-stats">
+                    <div class="pl-stat">
+                        <span class="pl-stat-val">40+</span>
+                        <span class="pl-stat-lbl">Indicators</span>
+                    </div>
+                    <div class="pl-stat">
+                        <span class="pl-stat-val">14</span>
+                        <span class="pl-stat-lbl">Gate Chain</span>
+                    </div>
+                    <div class="pl-stat">
+                        <span class="pl-stat-val">7</span>
+                        <span class="pl-stat-lbl">Modules</span>
+                    </div>
+                    <div class="pl-stat">
+                        <span class="pl-stat-val">≥60%</span>
+                        <span class="pl-stat-lbl">Min Confidence</span>
+                    </div>
+                </div>
+
+                <!-- stages rendered by JS -->
+                <div class="pl-list" id="plList"></div>
+
+                <div class="pl-footer">
+                    <span class="pulse-dot" style="background:#57d977;"></span>
+                    Engine active &mdash; click any stage to inspect
                 </div>
             </div>
         </section>
@@ -693,7 +853,7 @@
         <!-- Recent Signals -->
         <section class="premium-section reveal" id="recent-signals">
             <h2 class="section-title">Recent Signals</h2>
-            <div class="terminal-feed" id="signalFeed">-- Fetching signals --</div>
+            <div class="terminal-feed" id="signalFeed">◈ Awaiting market data...</div>
         </section>
 
         <!-- Result Area -->
@@ -714,530 +874,595 @@
                 <span>✳</span> DylPredict AI V87 • High-Confidence Neural Analysis • Auto-saved to Drive
             </div>
         </div>
-    </div>
-</div>
+
+    </div><!-- /hero-content -->
+</div><!-- /main-wrapper -->
 
 <script>
-    // ==================== CONFIGURATION ====================
-    const BASE_URL = 'https://spotty-lizzie-dylpredict-2b047c63.koyeb.app'; // Ganti dengan URL Koyeb kamu
+/* ================================================================
+   CONFIG
+================================================================ */
+const BASE_URL = 'https://spotty-lizzie-dylpredict-2b047c63.koyeb.app';
 
-    const wrapper = document.getElementById('wrapper');
-    const resultArea = document.getElementById('resultArea');
-    const outputEl = document.getElementById('output');
-    const cardEl = document.getElementById('outputCard');
-    const resultTitle = document.getElementById('resultTitle');
-    const symbolInput = document.getElementById('symbol');
-    const analyzeBtn = document.getElementById('analyzeBtn');
-    const analysisBtn = document.getElementById('analysisBtn');
-    const jsonBtn = document.getElementById('jsonBtn');
-    const copyBtn = document.getElementById('copyBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const sidebar = document.getElementById('sidebar');
-    const historyListDiv = document.getElementById('historyListSidebar');
-    const tabAnalyzer = document.getElementById('tabAnalyzerBtn');
-    const tabHotCoins = document.getElementById('tabHotCoinsBtn');
-    const analyzerPanel = document.getElementById('analyzerPanel');
-    const hotCoinsPanel = document.getElementById('hotCoinsPanel');
-    const refreshHotBtn = document.getElementById('refreshHotBtn');
-    const hotCoinsListDiv = document.getElementById('hotCoinsList');
-    const lastUpdatedSpan = document.getElementById('lastUpdated');
+/* ================================================================
+   DOM REFS
+================================================================ */
+const wrapper       = document.getElementById('wrapper');
+const resultArea    = document.getElementById('resultArea');
+const outputEl      = document.getElementById('output');
+const cardEl        = document.getElementById('outputCard');
+const resultTitle   = document.getElementById('resultTitle');
+const symbolInput   = document.getElementById('symbol');
+const analyzeBtn    = document.getElementById('analyzeBtn');
+const analysisBtn   = document.getElementById('analysisBtn');
+const jsonBtn       = document.getElementById('jsonBtn');
+const copyBtn       = document.getElementById('copyBtn');
+const downloadBtn   = document.getElementById('downloadBtn');
+const sidebar       = document.getElementById('sidebar');
+const historyListDiv= document.getElementById('historyListSidebar');
+const tabAnalyzer   = document.getElementById('tabAnalyzerBtn');
+const tabHotCoins   = document.getElementById('tabHotCoinsBtn');
+const analyzerPanel = document.getElementById('analyzerPanel');
+const hotCoinsPanel = document.getElementById('hotCoinsPanel');
+const refreshHotBtn = document.getElementById('refreshHotBtn');
+const hotCoinsListDiv = document.getElementById('hotCoinsList');
+const lastUpdatedSpan = document.getElementById('lastUpdated');
 
-    let lastSymbol = '';
-    let lastTerminalOutput = '';
-    let lastJSONData = null;
-    let currentView = 'terminal';
-    let refreshInterval = null;
-    let hotCoinsData = null;
+/* ================================================================
+   STATE
+================================================================ */
+let lastSymbol = '', lastTerminalOutput = '', lastJSONData = null;
+let currentView = 'terminal', refreshInterval = null, hotCoinsData = null;
 
-    function showToast(message, type = 'success') { /* ... same as before ... */
-        const existingToast = document.querySelector('.toast-message');
-        if (existingToast) existingToast.remove();
-        const toast = document.createElement('div');
-        toast.className = 'toast-message';
-        toast.textContent = message;
-        if (type === 'error') toast.style.background = '#d95757';
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
+/* ================================================================
+   HELPERS
+================================================================ */
+function showToast(msg, type='success') {
+    document.querySelector('.toast-message')?.remove();
+    const t = document.createElement('div');
+    t.className = 'toast-message';
+    t.textContent = msg;
+    if (type === 'error') t.style.background = '#d95757';
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3000);
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+}
+
+function toggleSidebar() { sidebar.classList.toggle('open'); }
+
+function getFinalBiasFromResult(r) {
+    const b = r?.bias_display;
+    if (b==='LONG'||b==='SHORT'||b==='NEUTRAL') return b;
+    const l = r?._final_bias_locked;
+    if (l==='LONG'||l==='SHORT') return l;
+    return r?.bias || 'NEUTRAL';
+}
+
+/* ================================================================
+   HISTORY
+================================================================ */
+function renderHistory(history) {
+    if (!history || !history.length) {
+        historyListDiv.innerHTML = '<div class="loading-text">✨ No saved analysis found.</div>';
+        return;
     }
+    historyListDiv.innerHTML = history.map(item => {
+        const bc = item.bias==='SHORT'?'#d95757': item.bias==='LONG'?'#57d977':'#6b6b6b';
+        const date = new Date(item.createdTime||item.timestamp).toLocaleString();
+        return `<div class="history-item" style="border-left-color:${bc}">
+            <div class="filename"><b>${escapeHtml(item.symbol)}</b> · ${escapeHtml(item.bias||'NEUTRAL')}</div>
+            <div class="timestamp">${date}</div>
+            <div class="actions">
+                ${item.downloadUrl?`<a href="${item.downloadUrl}" target="_blank">📥 Download</a>`:''}
+                ${item.viewUrl?`<a href="${item.viewUrl}" target="_blank">👁️ View</a>`:''}
+                <button onclick="deleteHistoryItem('${item.id}')">🗑️ Delete</button>
+            </div>
+        </div>`;
+    }).join('');
+}
 
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
+async function fetchGlobalHistory() {
+    try {
+        const r = await fetch(`${BASE_URL}/api/history/global?limit=50`);
+        const d = await r.json();
+        if (d.success && d.history?.length) { renderHistory(d.history); return true; }
+        return false;
+    } catch(e) { return false; }
+}
 
-    function toggleSidebar() { sidebar.classList.toggle('open'); }
+async function fetchDriveHistory() {
+    try {
+        const r = await fetch(`${BASE_URL}/history/all`);
+        const d = await r.json();
+        if (d.success && d.history?.length) { renderHistory(d.history); return true; }
+        return false;
+    } catch(e) { return false; }
+}
 
-    function getFinalBiasFromResult(result) {
-        const bias = result?.bias_display;
-        if (bias === 'LONG' || bias === 'SHORT' || bias === 'NEUTRAL') return bias;
-        const locked = result?._final_bias_locked;
-        if (locked === 'LONG' || locked === 'SHORT') return locked;
-        return result?.bias || 'NEUTRAL';
-    }
+async function loadHistory() {
+    historyListDiv.innerHTML = '<div class="loading-text">📂 Loading history...</div>';
+    if (!await fetchGlobalHistory()) await fetchDriveHistory();
+}
 
-    // History functions (same as before) ...
-    function renderHistory(history) {
-        if (!history || history.length === 0) {
-            historyListDiv.innerHTML = '<div class="history-item" style="text-align:center;">✨ No saved analysis found. Start analyzing! ✨</div>';
-            return;
+window.deleteHistoryItem = async (fileId) => {
+    if (!confirm('Delete this file?')) return;
+    try {
+        const r = await fetch(`${BASE_URL}/delete_file/${fileId}`, { method:'DELETE' });
+        const d = await r.json();
+        if (d.success) { showToast('🗑️ Deleted'); loadHistory(); }
+        else showToast('Delete failed: '+d.error, 'error');
+    } catch(e) { showToast('Error: '+e.message, 'error'); }
+};
+
+/* ================================================================
+   HOT COINS
+================================================================ */
+async function fetchHotCoins() {
+    try {
+        const r = await fetch(`${BASE_URL}/api/hot_coins`);
+        const d = await r.json();
+        if (d.success) {
+            hotCoinsData = d.data;
+            renderHotCoins(d.data);
+            if (d.last_updated) lastUpdatedSpan.textContent = `Last updated: ${new Date(d.last_updated).toLocaleString()}`;
+            return true;
         }
-        historyListDiv.innerHTML = history.map(item => {
-            const borderColor = item.bias === 'SHORT' ? '#d95757' : 
-                              item.bias === 'LONG' ? '#57d977' : '#e0cfb5';
-            const timestamp = item.createdTime || item.timestamp;
-            const date = new Date(timestamp).toLocaleString();
-            return `
-                <div class="history-item" style="border-left: 4px solid ${borderColor};">
-                    <div class="filename"><b>${escapeHtml(item.symbol)}</b> · ${escapeHtml(item.bias || 'NEUTRAL')}</div>
-                    <div class="timestamp">${date}</div>
-                    <div class="actions">
-                        ${item.downloadUrl ? `<a href="${item.downloadUrl}" target="_blank">📥 Download</a>` : ''}
-                        ${item.viewUrl ? `<a href="${item.viewUrl}" target="_blank">👁️ View</a>` : ''}
-                        <button onclick="deleteHistoryItem('${item.id}')">🗑️ Delete</button>
+        hotCoinsListDiv.innerHTML = '<div class="empty-hot">Failed to load.</div>';
+        return false;
+    } catch(e) {
+        hotCoinsListDiv.innerHTML = '<div class="empty-hot">Error loading. Check network.</div>';
+        return false;
+    }
+}
+
+function renderHotCoins(coins) {
+    if (!coins?.length) { hotCoinsListDiv.innerHTML='<div class="empty-hot">No coins with 1m change > 1% right now.</div>'; return; }
+    hotCoinsListDiv.innerHTML = coins.map(c => {
+        const cls = c.change>0?'positive': c.change<0?'negative':'';
+        const sym = c.change>0?'+':'';
+        return `<div class="hot-coin-item" data-symbol="${c.symbol}">
+            <span class="coin-symbol">${c.symbol}</span>
+            <span class="coin-change ${cls}">${sym}${c.change}%</span>
+        </div>`;
+    }).join('');
+    document.querySelectorAll('.hot-coin-item').forEach(el =>
+        el.addEventListener('click', () => { if(el.dataset.symbol) analyzeSymbol(el.dataset.symbol); })
+    );
+}
+
+/* ================================================================
+   ANALYZE
+================================================================ */
+async function analyzeSymbol(symbol) {
+    if (!symbol) return;
+    symbolInput.value = symbol;
+    await handleAnalyze(symbol);
+    switchToAnalyzer();
+}
+
+async function handleAnalyze(symbol=null) {
+    const sym = symbol || symbolInput.value.toUpperCase().trim();
+    if (!sym) { showToast('Please enter a symbol','error'); return; }
+    localStorage.setItem('lastAnalyzedSymbol', sym);
+    lastSymbol = sym;
+    wrapper.classList.add('has-result');
+    resultArea.style.display = 'block';
+    setTimeout(() => { resultArea.style.opacity='1'; resultArea.style.transform='translateY(0)'; }, 50);
+    outputEl.textContent = `📡 Gathering intelligence for ${sym}...`;
+    resultTitle.textContent = `Analyzing ${sym}`;
+    cardEl.style.borderTop = '1px solid var(--border)';
+    cardEl.style.borderColor = 'var(--border)';
+    analysisBtn.classList.remove('active');
+    jsonBtn.classList.remove('active');
+
+    try {
+        const termRes = await fetch(`${BASE_URL}/analyze/${sym}/terminal`);
+        if (!termRes.ok) throw new Error(`HTTP ${termRes.status}`);
+        const text = await termRes.text();
+        lastTerminalOutput = text;
+        currentView = 'terminal';
+        outputEl.textContent = text;
+        resultTitle.textContent = `Analysis: ${sym}`;
+
+        const jsonRes = await fetch(`${BASE_URL}/analyze/${sym}`);
+        const raw = await jsonRes.text();
+        let jsonData;
+        try { jsonData = JSON.parse(raw); }
+        catch {
+            try { jsonData = JSON.parse(raw.replace(/\\u[\dA-F]{4}/gi, m => String.fromCharCode(parseInt(m.slice(2),16)))); }
+            catch { outputEl.textContent='❌ Invalid JSON from server'; showToast('Invalid JSON','error'); return; }
+        }
+        lastJSONData = jsonData;
+        const bias = getFinalBiasFromResult(lastJSONData);
+        resultTitle.textContent = `Analysis: ${sym} → ${bias}`;
+        if (bias==='SHORT') { cardEl.style.borderTop='4px solid var(--short-border)'; cardEl.style.borderColor='rgba(217,87,87,0.2)'; }
+        else if (bias==='LONG') { cardEl.style.borderTop='4px solid var(--long-border)'; cardEl.style.borderColor='rgba(87,217,119,0.2)'; }
+        else { cardEl.style.borderTop='1px solid var(--border)'; cardEl.style.borderColor='var(--border)'; }
+        showToast(`✅ Analysis complete: ${sym}`);
+        setTimeout(() => { loadHistory(); if (!sidebar.classList.contains('open')) toggleSidebar(); }, 1000);
+    } catch(e) {
+        outputEl.textContent = `❌ Error: ${e.message}`;
+        cardEl.style.borderTop = '4px solid #ff6b6b';
+        showToast(`❌ ${e.message}`, 'error');
+    }
+}
+
+/* ================================================================
+   VIEW TOGGLES
+================================================================ */
+function showAnalysis() {
+    if (!lastSymbol) { showToast('No data','error'); return; }
+    if (!lastTerminalOutput) { fetchTerminalAgain(); return; }
+    currentView='terminal'; outputEl.textContent=lastTerminalOutput;
+    resultTitle.textContent=`Analysis: ${lastSymbol}`;
+    analysisBtn.classList.add('active'); jsonBtn.classList.remove('active');
+}
+function showJSON() {
+    if (!lastSymbol) { showToast('No data','error'); return; }
+    if (lastJSONData) {
+        currentView='json'; outputEl.textContent=JSON.stringify(lastJSONData,null,2);
+        resultTitle.textContent=`Raw JSON: ${lastSymbol}`;
+        analysisBtn.classList.remove('active'); jsonBtn.classList.add('active');
+    } else fetchJSONAgain();
+}
+async function fetchTerminalAgain() {
+    if (!lastSymbol) return;
+    outputEl.textContent='📡 Loading...'; resultTitle.textContent=`Analysis: ${lastSymbol}`;
+    try {
+        const r=await fetch(`${BASE_URL}/analyze/${lastSymbol}/terminal`);
+        lastTerminalOutput=await r.text();
+        currentView='terminal'; outputEl.textContent=lastTerminalOutput;
+        analysisBtn.classList.add('active'); jsonBtn.classList.remove('active');
+    } catch(e) { outputEl.textContent=`❌ ${e.message}`; }
+}
+async function fetchJSONAgain() {
+    if (!lastSymbol) return;
+    outputEl.textContent='📡 Loading...'; resultTitle.textContent=`Raw JSON: ${lastSymbol}`;
+    try {
+        const r=await fetch(`${BASE_URL}/analyze/${lastSymbol}`);
+        const raw=await r.text();
+        let data;
+        try { data=JSON.parse(raw); } catch { data=JSON.parse(raw.replace(/\\u[\dA-F]{4}/gi,m=>String.fromCharCode(parseInt(m.slice(2),16)))); }
+        lastJSONData=data; currentView='json';
+        outputEl.textContent=JSON.stringify(lastJSONData,null,2);
+        analysisBtn.classList.remove('active'); jsonBtn.classList.add('active');
+    } catch(e) { outputEl.textContent=`❌ ${e.message}`; }
+}
+function downloadResult() {
+    const blob=new Blob([outputEl.textContent],{type:'text/plain'});
+    const a=document.createElement('a');
+    a.download=`DylPredict_${lastSymbol||'analysis'}_${currentView==='json'?'json':'analysis'}_${new Date().toISOString().slice(0,10)}.txt`;
+    a.href=URL.createObjectURL(blob); a.click(); URL.revokeObjectURL(a.href);
+    showToast(`✅ Downloaded`);
+}
+function copyResult() {
+    navigator.clipboard.writeText(outputEl.textContent).then(() => {
+        const orig=copyBtn.innerHTML; copyBtn.innerHTML='✓ Copied!';
+        showToast('✅ Copied'); setTimeout(()=>{copyBtn.innerHTML=orig;},1500);
+    }).catch(e=>showToast('❌ '+e.message,'error'));
+}
+
+/* ================================================================
+   TABS
+================================================================ */
+function switchToAnalyzer() {
+    tabAnalyzer.classList.add('active'); tabHotCoins.classList.remove('active');
+    analyzerPanel.classList.remove('hidden'); hotCoinsPanel.classList.add('hidden');
+}
+function switchToHotCoins() {
+    tabHotCoins.classList.add('active'); tabAnalyzer.classList.remove('active');
+    analyzerPanel.classList.add('hidden'); hotCoinsPanel.classList.remove('hidden');
+    if (!hotCoinsData) fetchHotCoins();
+}
+
+/* ================================================================
+   AUTO REFRESH
+================================================================ */
+function startAutoRefresh() {
+    if (refreshInterval) clearInterval(refreshInterval);
+    refreshInterval = setInterval(() => {
+        fetchGlobalHistory();
+        if (!hotCoinsPanel.classList.contains('hidden')) fetchHotCoins();
+    }, 12000);
+}
+function stopAutoRefresh() { if(refreshInterval){clearInterval(refreshInterval);refreshInterval=null;} }
+
+/* ================================================================
+   SCROLL REVEAL
+================================================================ */
+function setupRevealObserver() {
+    const obs = new IntersectionObserver(entries =>
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }),
+        { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+/* ================================================================
+   THREE.JS
+================================================================ */
+let scene, camera, renderer, spine1, spine2, particles;
+function initThree() {
+    scene    = new THREE.Scene();
+    camera   = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 100);
+    camera.position.set(0, 0, 8);
+
+    renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), antialias:true, alpha:true });
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    renderer.setClearColor(0x0a0a09, 1);
+
+    const mat  = new THREE.MeshBasicMaterial({ color: 0xd4a84b });
+    const gMat = new THREE.MeshBasicMaterial({ color: 0xd4a84b, transparent:true, opacity:0.12 });
+
+    const pts1=[], pts2=[];
+    for (let i=0;i<200;i++) {
+        const t=i/200;
+        pts1.push(new THREE.Vector3(Math.sin(t*Math.PI*6)*2, t*20-10, Math.cos(t*Math.PI*6)*2));
+        pts2.push(new THREE.Vector3(Math.sin(t*Math.PI*6+Math.PI)*2, t*20-10, Math.cos(t*Math.PI*6+Math.PI)*2));
+    }
+    const c1=new THREE.CatmullRomCurve3(pts1);
+    const c2=new THREE.CatmullRomCurve3(pts2);
+    spine1=new THREE.Mesh(new THREE.TubeGeometry(c1,300,0.06,8,false), mat);   scene.add(spine1);
+    spine2=new THREE.Mesh(new THREE.TubeGeometry(c2,300,0.06,8,false), mat);   scene.add(spine2);
+    scene.add(new THREE.Mesh(new THREE.TubeGeometry(c1,300,0.16,8,false), gMat));
+    scene.add(new THREE.Mesh(new THREE.TubeGeometry(c2,300,0.16,8,false), gMat));
+
+    const geo = new THREE.BufferGeometry();
+    const pos = new Float32Array(800*3);
+    for (let i=0;i<800*3;i++) pos[i]=(Math.random()-.5)*40;
+    geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+    particles = new THREE.Points(geo, new THREE.PointsMaterial({ color:0xd4a84b, size:0.08, transparent:true, opacity:0.5 }));
+    scene.add(particles);
+
+    (function animate(){ requestAnimationFrame(animate);
+        spine1.rotation.y+=0.003; spine2.rotation.y+=0.003;
+        particles.rotation.y+=0.0005;
+        renderer.render(scene,camera);
+    })();
+}
+
+window.addEventListener('scroll', () => {
+    const t = scrollY/(document.body.scrollHeight-innerHeight)||0;
+    if (camera) { camera.position.y=-t*10; camera.position.z=8+t*3; }
+});
+window.addEventListener('resize', () => {
+    if (!camera||!renderer) return;
+    camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth,innerHeight);
+});
+
+/* ================================================================
+   PIPELINE DATA + RENDER
+================================================================ */
+const plStages = [
+    {
+        num:"01", color:"#378ADD", tagBg:"rgba(55,138,221,0.12)", tagColor:"#5BA3E8",
+        tag:"Ingestion", title:"Data Acquisition & Indicator Computation",
+        desc:"Pulls real-time market data: OHLCV, funding rates, open interest, order book depth, and trade tape. Computes 40+ technical indicators including multi-timeframe RSI, Stochastic K/D/J, OBV, MACD, VWAP, and order book energy (up/down pressure ratio).",
+        chips:["OHLCV 1m/5m","Funding Rate","Open Interest","Order Book","Trade Tape","RSI 6/14/5m","Stoch K/D/J","OBV","MACD","VWAP","ATR","Book Energy"],
+        sub: null
+    },
+    {
+        num:"02", color:"#8b7fdd", tagBg:"rgba(139,127,221,0.12)", tagColor:"#a89fe8",
+        tag:"Context", title:"Market Phase Classifier + Greeks Screener",
+        desc:"Classifies current market phase — PREP · BAIT · KILL — based on volatility, volume profile, and OBV structure. Runs a Greeks Screener (Theta · Vega · Delta · Gamma) to determine crowding direction, kill-side bias, and nearest 7% liquidity cluster.",
+        chips:["Phase PREP/BAIT/KILL","Theta decay","Vega IV spike","Delta crowding","Gamma execution","liq_7pct","who_dies_first"],
+        sub:[
+            { type:"detect", text:"PREP detected: silent accumulation before major impulse — all entries blocked" },
+            { type:"detect", text:"BAIT detected: thin-volume fake move — only commander-level entries permitted" },
+            { type:"detect", text:"KILL confirmed: real momentum with OBV & Greeks confluence" }
+        ]
+    },
+    {
+        num:"03", color:"#1d9e75", tagBg:"rgba(29,158,117,0.12)", tagColor:"#4ec69a",
+        tag:"Detection", title:"Gate Chain — 14 Chained Detectors",
+        desc:"The core of the system: 14 sequential gates with strict priority scoring (−99999 to −20000). Each gate independently detects a specific liquidation pattern — crash bounces, vacuum pumps, squeeze baits, post-squeeze distributions. Adversarial guards are integrated at every level.",
+        chips:["Extreme Crash Bounce","Thin Book Vacuum","Overbought Liq Bait","Fake Squeeze","Hawkes Invalid","RSI5m Pullback","Dip in Uptrend","Post-Squeeze Dist","Ask Wall Squeeze","Double Sweep Block"],
+        sub:[
+            { type:"gate",  text:"−99999 · Extreme Crash Bounce v2  (Greeks-guarded)" },
+            { type:"gate",  text:"−43000 · Thin Book Vacuum Pump  (bearish confirms + squeeze exempt)" },
+            { type:"gate",  text:"−42100 · Oversold OBV Distribution Continuation" },
+            { type:"gate",  text:"−42000 · Overbought Liquidity Bait  (liq_7pct + momentum guard)" },
+            { type:"gate",  text:"−40000 · LIQ Absolute + apply_liq_absolute_with_rsi_guard  (energy/agg guard)" },
+            { type:"gate",  text:"−31800 · Fake Squeeze Bait" },
+            { type:"gate",  text:"−31500 · Hawkes Squeeze Invalid  (min prob 0.60, LIQ_HUNT exempt)" },
+            { type:"gate",  text:"−31200 · RSI5M Pullback Setup" },
+            { type:"gate",  text:"−31100 · Dip in Uptrend" },
+            { type:"guard", text:"Guard: Stoch + OBV overrides Hawkes · liq_7pct bypasses overbought bait" },
+            { type:"guard", text:"Guard: Exchange Hard Block  (risk ≥ 6, RSI5m dip, Greeks contradiction)" },
+            { type:"guard", text:"Guard: Post-Squeeze Exhaustion voided if LONG_TRADERS_DIE + OFI SHORT" }
+        ]
+    },
+    {
+        num:"04", color:"#d85a30", tagBg:"rgba(216,90,48,0.12)", tagColor:"#e07d5e",
+        tag:"Modeling", title:"Hawkes Process + Multivariate Liquidation Predictor",
+        desc:"Models liquidation event clusters as a multivariate Hawkes process with self- and cross-excitation. Predicts which side gets swept first at ≥60% probability — below this threshold, the prediction is discarded and no signal is emitted.",
+        chips:["Hawkes Multivariate","Self-excitation","Cross-excitation","Branching Ratio","LIQ_HUNT Exempt","Min Prob 0.60"],
+        sub:[
+            { type:"detect", text:"Recursively updates LONG_LIQ & SHORT_LIQ intensity on every tick" },
+            { type:"guard",  text:"Guard: Stoch overflow + OBV distribution → overrides Hawkes direction" },
+            { type:"guard",  text:"Guard: LIQUIDATION_HUNT + RSI all-TF oversold → exempts Hawkes SHORT signal" },
+            { type:"guard",  text:"Guard: confidence < 0.25 or prob < 0.60 → prediction suppressed entirely" }
+        ]
+    },
+    {
+        num:"05", color:"#c98a1a", tagBg:"rgba(201,138,26,0.12)", tagColor:"#daa935",
+        tag:"Fusion", title:"Decision Aggregator — Absolute Commander v2",
+        desc:"Collects weighted votes from all upstream modules. Applies confidence thresholding and conflict resolution. Only signals that achieve quorum across independent evidence layers proceed. Three hard locks can override any downstream instruction.",
+        chips:["Weighted Vote","Quorum","Conflict Resolver","Physics Lock","Greeks Exec Lock","LIQ Absolute Lock"],
+        sub:[
+            { type:"gate",   text:"Physics Lock: Hawkes / Exhaustion + liquidity confirmed → cannot be overridden" },
+            { type:"gate",   text:"Greeks Execution Lock: gamma_executing + speed > 2 → direction sealed" },
+            { type:"gate",   text:"LIQ Absolute Lock: short_liq < 1% + OBV / Volume validation" },
+            { type:"detect", text:"Vote aggregator weights — GREEKS_LIQ7PCT ±10 · GREEKS_CONFIRMED ±8 · LIQUIDITY_LAW ±10" },
+            { type:"guard",  text:"Conditional unlock only if no _override_critical_lock active and regime ≠ SKIP" }
+        ]
+    },
+    {
+        num:"06", color:"#c94e76", tagBg:"rgba(201,78,118,0.12)", tagColor:"#e07090",
+        tag:"Memory", title:"Adversarial Pattern Memory + Slow Kill Detector",
+        desc:"Maintains a rolling memory of losing patterns, false signals, and recurring traps. Penalises engineered whipsaws, stop hunts, and fake breakouts before output is generated. Equipped with Adaptive Risk Adjustment and psychological grind detection.",
+        chips:["Pattern DB","Stop Hunt","Fake Breakout","Whipsaw","Sequential Dump","Psychological Grind"],
+        sub:[
+            { type:"detect", text:"SequentialDumpTracker: logs >5% dump within 30 min → tightens bounce detector threshold" },
+            { type:"detect", text:"SlowKillDetector: identifies psychological setups (2–10 hr grind) → size 30% or NO TRADE" },
+            { type:"detect", text:"CleanThenSqueeze: RSI floor + distribution complete → patient LONG, size 40%" },
+            { type:"guard",  text:"Adversarial Rotation Detector: >80% signals unidirectional in 15 min → position discount applied" }
+        ]
+    },
+    {
+        num:"07", color:"#888780", tagBg:"rgba(136,135,128,0.10)", tagColor:"#aaa89f",
+        tag:"Output", title:"Atomic Output Render — Deterministic & Audit-Ready",
+        desc:"Compiles the final LONG / SHORT / NEUTRAL bias with entry zones, invalidation levels, and confidence grade. Output is fully deterministic — every decision is traceable through an atomic snapshot. Bots must read bias_display from JSON, not parse raw terminal text.",
+        chips:["bias_display","_final_bias_locked","Atomic Snapshot","Audit Trail","Analysis ID","Confidence Grade"],
+        sub:[
+            { type:"detect", text:"render_final_output(): forces bias_display = _final_bias_locked — single source of truth" },
+            { type:"detect", text:"Bots MUST read bias_display from JSON — never parse the 'FINAL BIAS' text field" },
+            { type:"guard",  text:"Signal Consistency Validator: blocks internal contradictions before execution" },
+            { type:"guard",  text:"AdversarialPatternMemory: loss feedback → auto-adjusts size for the same symbol" }
+        ]
+    }
+];
+
+let plActiveIdx = null;
+
+function renderPipeline() {
+    const list = document.getElementById('plList');
+    list.innerHTML = '';
+    plStages.forEach((s, i) => {
+        const active = plActiveIdx === i;
+        const last   = i === plStages.length - 1;
+        const el     = document.createElement('div');
+        el.className = 'pl-stage' + (active ? ' active' : '');
+        el.style.setProperty('--card-color',  s.color);
+        el.style.setProperty('--card-border', s.color + '30');
+        el.style.setProperty('--node-glow',   s.tagBg);
+
+        const connLine = last ? '' : `
+            <div class="pl-connector" style="background: linear-gradient(to bottom,
+                ${active ? s.color+'50' : 'rgba(255,255,255,0.07)'}, transparent);"></div>`;
+
+        const subHtml = s.sub ? `
+            <div class="pl-sub">
+                ${s.sub.map(it=>`
+                    <div class="pl-sub-item">
+                        <span class="pl-sub-badge badge-${it.type}">${it.type}</span>
+                        <span>${it.text}</span>
+                    </div>`).join('')}
+            </div>` : '';
+
+        el.innerHTML = `
+            <div class="pl-spine">
+                <div class="pl-node" style="background:${s.tagBg}; color:${s.color}; border:0.5px solid ${s.color}40;">${s.num}</div>
+                ${connLine}
+            </div>
+            <div class="pl-body">
+                <div class="pl-card">
+                    <div class="pl-card-header">
+                        <span class="pl-title">${s.title}</span>
+                        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+                            <span class="pl-badge" style="background:${s.tagBg};color:${s.color};">${s.tag}</span>
+                            <svg class="pl-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+                                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 6l5 5 5-5"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="pl-expand">
+                        <div class="pl-desc">${s.desc}</div>
+                        <div class="pl-chips">${s.chips.map(c=>`<span class="pl-chip">${c}</span>`).join('')}</div>
+                        ${subHtml}
                     </div>
                 </div>
-            `;
-        }).join('');
-    }
-
-    async function fetchGlobalHistory() {
-        try {
-            const response = await fetch(`${BASE_URL}/api/history/global?limit=50`);
-            const data = await response.json();
-            if (data.success && data.history && data.history.length > 0) {
-                renderHistory(data.history);
-                return true;
-            }
-            return false;
-        } catch (error) { console.warn('RAM cache fetch failed:', error); return false; }
-    }
-
-    async function fetchDriveHistory() {
-        try {
-            const response = await fetch(`${BASE_URL}/history/all`);
-            const data = await response.json();
-            if (data.success && data.history && data.history.length > 0) {
-                renderHistory(data.history);
-                return true;
-            }
-            return false;
-        } catch (error) { console.error('Drive history fetch failed:', error); return false; }
-    }
-
-    async function loadHistory() {
-        historyListDiv.innerHTML = '<div class="loading-text">📂 Loading history...</div>';
-        const ramSuccess = await fetchGlobalHistory();
-        if (!ramSuccess) await fetchDriveHistory();
-    }
-
-    window.deleteHistoryItem = async (fileId) => {
-        if (!confirm('Are you sure you want to delete this file?')) return;
-        try {
-            const response = await fetch(`${BASE_URL}/delete_file/${fileId}`, { method: 'DELETE' });
-            const data = await response.json();
-            if (data.success) {
-                showToast('🗑️ File deleted successfully');
-                loadHistory();
-            } else {
-                showToast('Delete failed: ' + data.error, 'error');
-            }
-        } catch (error) { showToast('Error: ' + error.message, 'error'); }
-    };
-
-    // Hot coins (same as before) ...
-    async function fetchHotCoins() {
-        try {
-            const response = await fetch(`${BASE_URL}/api/hot_coins`);
-            const data = await response.json();
-            if (data.success) {
-                hotCoinsData = data.data;
-                renderHotCoins(data.data);
-                if (data.last_updated) {
-                    const date = new Date(data.last_updated);
-                    lastUpdatedSpan.textContent = `Last updated: ${date.toLocaleString()}`;
-                }
-                return true;
-            } else {
-                hotCoinsListDiv.innerHTML = '<div class="empty-hot">Failed to load hot coins.</div>';
-                return false;
-            }
-        } catch (error) {
-            hotCoinsListDiv.innerHTML = '<div class="empty-hot">Error loading hot coins. Check network.</div>';
-            return false;
-        }
-    }
-
-    function renderHotCoins(coins) {
-        if (!coins || coins.length === 0) {
-            hotCoinsListDiv.innerHTML = '<div class="empty-hot">No coins with 1m change > 1% at the moment.</div>';
-            return;
-        }
-        const html = coins.map(coin => {
-            const change = coin.change;
-            const changeClass = change > 0 ? 'positive' : (change < 0 ? 'negative' : '');
-            const changeSymbol = change > 0 ? '+' : '';
-            return `<div class="hot-coin-item" data-symbol="${coin.symbol}">
-                <span class="coin-symbol">${coin.symbol}</span>
-                <span class="coin-change ${changeClass}">${changeSymbol}${change}%</span>
             </div>`;
-        }).join('');
-        hotCoinsListDiv.innerHTML = html;
-        document.querySelectorAll('.hot-coin-item').forEach(el => {
-            el.addEventListener('click', () => {
-                const symbol = el.dataset.symbol;
-                if (symbol) analyzeSymbol(symbol);
-            });
-        });
-    }
 
-    // Analyze
-    async function analyzeSymbol(symbol) {
-        if (!symbol) return;
-        symbolInput.value = symbol;
-        await handleAnalyze(symbol);
-        switchToAnalyzer();
-    }
-
-    async function handleAnalyze(symbol = null) {
-        const sym = symbol || symbolInput.value.toUpperCase().trim();
-        if (!sym) { showToast('Please enter a symbol', 'error'); return; }
-        localStorage.setItem('lastAnalyzedSymbol', sym);
-        lastSymbol = sym;
-        wrapper.classList.add('has-result');
-        resultArea.style.display = 'block';
-        setTimeout(() => { resultArea.style.opacity = '1'; resultArea.style.transform = 'translateY(0)'; }, 50);
-        outputEl.textContent = `📡 Gathering intelligence for ${sym}...`;
-        resultTitle.textContent = `Analyzing ${sym}`;
-        cardEl.style.borderTop = '1px solid var(--border-color)';
-        cardEl.style.borderColor = 'var(--border-color)';
-        analysisBtn.classList.remove('active'); jsonBtn.classList.remove('active');
-
-        try {
-            const terminalResponse = await fetch(`${BASE_URL}/analyze/${sym}/terminal`);
-            if (!terminalResponse.ok) throw new Error(`HTTP ${terminalResponse.status}`);
-            const text = await terminalResponse.text();
-            lastTerminalOutput = text;
-            currentView = 'terminal';
-            outputEl.textContent = text;
-            resultTitle.textContent = `Analysis: ${sym}`;
-
-            const jsonResponse = await fetch(`${BASE_URL}/analyze/${sym}`);
-            const rawText = await jsonResponse.text();
-            let jsonData;
-            try { jsonData = JSON.parse(rawText); } catch (parseError) {
-                try {
-                    const decoded = rawText.replace(/\\u[\dA-F]{4}/gi, m =>
-                        String.fromCharCode(parseInt(m.replace(/\\u/g, ''), 16)));
-                    jsonData = JSON.parse(decoded);
-                } catch (secondError) {
-                    outputEl.textContent = "❌ Invalid JSON from server";
-                    showToast("Invalid JSON response from server", "error");
-                    return;
-                }
-            }
-            lastJSONData = jsonData;
-            const finalBias = getFinalBiasFromResult(lastJSONData);
-            resultTitle.textContent = `Analysis: ${sym} → ${finalBias} (JSON)`;
-            if (finalBias === 'SHORT') { cardEl.style.borderTop = '4px solid var(--short-border)'; cardEl.style.borderColor = '#f5c2c2'; }
-            else if (finalBias === 'LONG') { cardEl.style.borderTop = '4px solid var(--long-border)'; cardEl.style.borderColor = '#c2f5c2'; }
-            else { cardEl.style.borderTop = '1px solid var(--border-color)'; cardEl.style.borderColor = 'var(--border-color)'; }
-
-            showToast(`✅ Analysis complete for ${sym} (auto-saved)`);
-            setTimeout(() => { loadHistory(); if (!sidebar.classList.contains('open')) toggleSidebar(); }, 1000);
-        } catch (error) {
-            outputEl.textContent = `❌ Error: ${error.message}`;
-            cardEl.style.borderTop = '4px solid #ff6b6b';
-            showToast(`❌ Error: ${error.message}`, 'error');
-        }
-    }
-
-    // View toggles, etc. (same as before) ...
-    function showAnalysis() {
-        if (!lastSymbol) { showToast('No analysis data', 'error'); return; }
-        if (!lastTerminalOutput) { fetchTerminalAgain(); return; }
-        currentView = 'terminal';
-        outputEl.textContent = lastTerminalOutput;
-        resultTitle.textContent = `Analysis: ${lastSymbol}`;
-        analysisBtn.classList.add('active'); jsonBtn.classList.remove('active');
-        showToast('📊 Showing analysis view');
-    }
-    function showJSON() {
-        if (!lastSymbol) { showToast('No analysis data', 'error'); return; }
-        if (lastJSONData) {
-            currentView = 'json';
-            outputEl.textContent = JSON.stringify(lastJSONData, null, 2);
-            resultTitle.textContent = `Raw JSON: ${lastSymbol}`;
-            analysisBtn.classList.remove('active'); jsonBtn.classList.add('active');
-            showToast('🔍 Showing JSON view');
-        } else fetchJSONAgain();
-    }
-    async function fetchTerminalAgain() {
-        if (!lastSymbol) return;
-        outputEl.textContent = "📡 Loading terminal output...";
-        resultTitle.textContent = `Analysis: ${lastSymbol}`;
-        try {
-            const response = await fetch(`${BASE_URL}/analyze/${lastSymbol}/terminal`);
-            const text = await response.text();
-            lastTerminalOutput = text;
-            currentView = 'terminal';
-            outputEl.textContent = text;
-            analysisBtn.classList.add('active'); jsonBtn.classList.remove('active');
-        } catch (error) { outputEl.textContent = `❌ Error: ${error.message}`; showToast(`❌ Error: ${error.message}`, 'error'); }
-    }
-    async function fetchJSONAgain() {
-        if (!lastSymbol) return;
-        outputEl.textContent = "📡 Loading JSON data...";
-        resultTitle.textContent = `Raw JSON: ${lastSymbol}`;
-        try {
-            const response = await fetch(`${BASE_URL}/analyze/${lastSymbol}`);
-            const rawText = await response.text();
-            let data;
-            try { data = JSON.parse(rawText); } catch {
-                try { const decoded = rawText.replace(/\\u[\dA-F]{4}/gi, m => String.fromCharCode(parseInt(m.replace(/\\u/g, ''), 16))); data = JSON.parse(decoded); } catch (secondError) { outputEl.textContent = "❌ Invalid JSON from server"; showToast("Invalid JSON response", "error"); return; }
-            }
-            lastJSONData = data;
-            currentView = 'json';
-            outputEl.textContent = JSON.stringify(lastJSONData, null, 2);
-            analysisBtn.classList.remove('active'); jsonBtn.classList.add('active');
-        } catch (error) { outputEl.textContent = `❌ Error: ${error.message}`; showToast(`❌ Error: ${error.message}`, 'error'); }
-    }
-
-    function downloadResult() {
-        const text = outputEl.textContent;
-        const symbol = lastSymbol || 'analysis';
-        const view = currentView === 'json' ? 'json' : 'analysis';
-        const blob = new Blob([text], { type: 'text/plain' });
-        const anchor = document.createElement('a');
-        anchor.download = `DylPredict_${symbol}_${view}_${new Date().toISOString().slice(0,10)}.txt`;
-        anchor.href = URL.createObjectURL(blob);
-        anchor.click();
-        URL.revokeObjectURL(anchor.href);
-        showToast(`✅ Downloaded as ${anchor.download}`);
-    }
-    function copyResult() {
-        navigator.clipboard.writeText(outputEl.textContent).then(() => {
-            const original = copyBtn.innerHTML;
-            copyBtn.innerHTML = '✓ Copied!';
-            showToast('✅ Copied to clipboard!');
-            setTimeout(() => { copyBtn.innerHTML = original; }, 1500);
-        }).catch(err => showToast('❌ Failed to copy: ' + err.message, 'error'));
-    }
-
-    function switchToAnalyzer() {
-        tabAnalyzer.classList.add('active'); tabHotCoins.classList.remove('active');
-        analyzerPanel.classList.remove('hidden'); hotCoinsPanel.classList.add('hidden');
-    }
-    function switchToHotCoins() {
-        tabHotCoins.classList.add('active'); tabAnalyzer.classList.remove('active');
-        analyzerPanel.classList.add('hidden'); hotCoinsPanel.classList.remove('hidden');
-        if (!hotCoinsData) fetchHotCoins();
-    }
-
-    function startAutoRefresh() {
-        if (refreshInterval) clearInterval(refreshInterval);
-        refreshInterval = setInterval(() => {
-            fetchGlobalHistory();
-            if (!hotCoinsPanel.classList.contains('hidden')) fetchHotCoins();
-        }, 12000);
-    }
-    function stopAutoRefresh() { if (refreshInterval) { clearInterval(refreshInterval); refreshInterval = null; } }
-
-    function restoreLastSymbol() {
-        const lastSymbolSaved = localStorage.getItem('lastAnalyzedSymbol');
-        if (lastSymbolSaved) symbolInput.value = lastSymbolSaved;
-    }
-
-    // Intersection Observer for reveal animations
-    function setupRevealObserver() {
-        const revealElements = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-        }, { threshold: 0.15 });
-        revealElements.forEach(el => observer.observe(el));
-    }
-
-    // Three.js
-    let scene, camera, renderer, spine1, spine2, particles;
-    function initThree() {
-        scene = new THREE.Scene();
-        camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 100);
-        camera.position.set(0, 0, 8);
-        renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.setClearColor(0x0a0a0a, 1);
-
-        const points1 = [], points2 = [];
-        for (let i = 0; i < 200; i++) {
-            const t = i/200;
-            points1.push(new THREE.Vector3(Math.sin(t*Math.PI*6)*2, t*20-10, Math.cos(t*Math.PI*6)*2));
-            points2.push(new THREE.Vector3(Math.sin(t*Math.PI*6+Math.PI)*2, t*20-10, Math.cos(t*Math.PI*6+Math.PI)*2));
-        }
-        const curve1 = new THREE.CatmullRomCurve3(points1);
-        const tube1 = new THREE.TubeGeometry(curve1, 300, 0.06, 8, false);
-        const mat = new THREE.MeshBasicMaterial({ color: 0xd4a84b });
-        spine1 = new THREE.Mesh(tube1, mat); scene.add(spine1);
-        const glowMat = new THREE.MeshBasicMaterial({ color: 0xd4a84b, transparent: true, opacity: 0.15 });
-        const glowTube1 = new THREE.TubeGeometry(curve1, 300, 0.15, 8, false);
-        scene.add(new THREE.Mesh(glowTube1, glowMat));
-
-        const curve2 = new THREE.CatmullRomCurve3(points2);
-        const tube2 = new THREE.TubeGeometry(curve2, 300, 0.06, 8, false);
-        spine2 = new THREE.Mesh(tube2, mat); scene.add(spine2);
-
-        const geo = new THREE.BufferGeometry();
-        const positions = new Float32Array(800*3);
-        for (let i=0; i<800*3; i++) positions[i] = (Math.random()-0.5)*40;
-        geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        particles = new THREE.Points(geo, new THREE.PointsMaterial({ color: 0xd4a84b, size: 0.08, transparent: true, opacity:0.6 }));
-        scene.add(particles);
-
-        animate();
-    }
-
-    function animate() {
-        requestAnimationFrame(animate);
-        spine1.rotation.y += 0.003;
-        spine2.rotation.y += 0.003;
-        particles.rotation.y += 0.0005;
-        renderer.render(scene, camera);
-    }
-
-    window.addEventListener('scroll', () => {
-        const t = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-        if (camera) { camera.position.y = -t * 10; camera.position.z = 8 + t * 3; }
-    });
-    window.addEventListener('resize', () => {
-        if (camera && renderer) {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
-    });
-
-    // Pipeline widget
-    const stages = [
-      { num:"01",color:"#378ADD",tagBg:"rgba(55,138,221,0.12)",tagColor:"#185FA5",tag:"Ingestion",title:"Data Acquisition & Indicators",desc:"Pulls live OHLCV data, funding rates, open interest, and volume delta from exchange APIs. Computes 40+ technical indicators including RSI, MACD, Bollinger Bands, VWAP, and ATR.",chips:["OHLCV","Funding Rate","Open Interest","Vol Delta","RSI","MACD","VWAP","ATR","Bollinger"] },
-      { num:"02",color:"#7F77DD",tagBg:"rgba(127,119,221,0.12)",tagColor:"#534AB7",tag:"Context",title:"Greeks + Market Phase",desc:"Derives implied volatility surface, delta-gamma exposure, and skew. Classifies current market phase: trending, mean-reverting, or transitional using regime detection.",chips:["Implied Vol","Delta","Gamma","Skew","Regime","Phase Classifier"] },
-      { num:"03",color:"#1D9E75",tagBg:"rgba(29,158,117,0.12)",tagColor:"#0F6E56",tag:"Detection",title:"Gate Chain — 14+ Detectors",desc:"A sequential gate system with 14+ independent pattern detectors. Each gate votes on market structure: liquidity sweeps, order blocks, FVGs, divergences, and absorption zones.",chips:["Liquidity Sweep","Order Block","FVG","Divergence","Absorption","Imbalance","CVD","Delta Flip"] },
-      { num:"04",color:"#D85A30",tagBg:"rgba(216,90,48,0.12)",tagColor:"#993C1D",tag:"Modeling",title:"Hawkes + Multivariate Predictor",desc:"Models self-exciting event clusters using Hawkes process to detect momentum cascades. Combined with multivariate regression across correlated assets for directional forecasting.",chips:["Hawkes Process","Event Clustering","Cross-Asset","Multivariate","Momentum"] },
-      { num:"05",color:"#BA7517",tagBg:"rgba(186,117,23,0.12)",tagColor:"#854F0B",tag:"Fusion",title:"Decision Aggregator",desc:"Collects weighted votes from all upstream modules. Applies confidence thresholding and conflict resolution. Only signals that pass quorum across independent evidence layers proceed.",chips:["Weighted Vote","Confidence Score","Quorum","Conflict Check","Signal Gate"] },
-      { num:"06",color:"#D4537E",tagBg:"rgba(212,83,126,0.12)",tagColor:"#993556",tag:"Memory",title:"Adversarial Pattern Memory",desc:"Maintains a rolling memory of failed patterns and false signals. Penalises recurring trap setups — engineered whipsaws, stop hunts, and fake breakouts — before output is generated.",chips:["Pattern DB","Stop Hunt","Fake Break","Whipsaw","Trap Detector","Adaptive Penalty"] },
-      { num:"07",color:"#888780",tagBg:"rgba(136,135,128,0.1)",tagColor:"#5F5E5A",tag:"Output",title:"Atomic Output Render",desc:"Compiles final LONG / SHORT / NEUTRAL bias with entry zones, invalidation levels, and confidence grade. Output is deterministic and audit-ready — every decision is traceable.",chips:["LONG","SHORT","NEUTRAL","Entry Zone","Invalidation","Confidence Grade","Audit Trail"] }
-    ];
-
-    const grid = document.getElementById('pipeline');
-    let activeIdx = null;
-
-    function renderPipeline() {
-      grid.innerHTML = '';
-      stages.forEach((s,i) => {
-        const isActive = activeIdx === i;
-        const isLast = i === stages.length-1;
-        const el = document.createElement('div');
-        el.className = 'stage' + (isActive ? ' active' : '');
-        el.innerHTML = `
-          <div class="stage-left">
-            <div class="stage-num" style="background:${s.tagBg};color:${s.color};border:0.5px solid ${s.color}33">${s.num}</div>
-            ${!isLast ? `<div class="stage-line" style="background:${isActive ? s.color+'55' : 'var(--color-border-tertiary)'}"></div>` : ''}
-          </div>
-          <div class="stage-body">
-            <div class="stage-card">
-              <div class="stage-row">
-                <span class="stage-title">${s.title}</span>
-                <span class="stage-tag" style="background:${s.tagBg};color:${s.color}">${s.tag}</span>
-              </div>
-              <div class="stage-desc">${s.desc}</div>
-              <div class="stage-chips">${s.chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>
-            </div>
-          </div>
-        `;
         el.addEventListener('click', () => {
-          activeIdx = activeIdx === i ? null : i;
-          renderPipeline();
+            plActiveIdx = plActiveIdx === i ? null : i;
+            renderPipeline();
         });
-        grid.appendChild(el);
-      });
-    }
-
-    // Recent Signals Feed
-    async function loadRecentSignals() {
-        const feed = document.getElementById('signalFeed');
-        try {
-            const res = await fetch(BASE_URL + '/api/history/global?limit=5');
-            const data = await res.json();
-            if (data.success && data.history) {
-                feed.innerHTML = data.history.map(h => {
-                    const color = h.bias === 'LONG' ? '#57d977' : h.bias === 'SHORT' ? '#ff6b6b' : '#d4a84b';
-                    return `<span style="color:#6b6b6b">[${new Date(h.createdTime).toLocaleTimeString()}]</span> <b>${escapeHtml(h.symbol)}</b> <span style="color:${color}">→ ${h.bias}</span>`;
-                }).join('<br>');
-            } else {
-                feed.innerHTML = 'No signals yet. Run an analysis!';
-            }
-        } catch(e) {
-            feed.innerHTML = '◈ Awaiting market data...';
-        }
-    }
-
-    // Event listeners
-    analyzeBtn.addEventListener('click', () => handleAnalyze());
-    symbolInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleAnalyze(); });
-    analysisBtn.addEventListener('click', showAnalysis);
-    jsonBtn.addEventListener('click', showJSON);
-    copyBtn.addEventListener('click', copyResult);
-    downloadBtn.addEventListener('click', downloadResult);
-    refreshHotBtn.addEventListener('click', fetchHotCoins);
-    tabAnalyzer.addEventListener('click', switchToAnalyzer);
-    tabHotCoins.addEventListener('click', switchToHotCoins);
-    window.toggleSidebar = toggleSidebar;
-    window.deleteHistoryItem = deleteHistoryItem;
-
-    window.addEventListener('load', () => {
-        symbolInput.value = '';
-        lastSymbol = ''; lastTerminalOutput = ''; lastJSONData = null; currentView = 'terminal';
-        wrapper.classList.remove('has-result');
-        resultArea.style.opacity = '0'; resultArea.style.transform = 'translateY(30px)'; resultArea.style.display = 'none';
-        outputEl.textContent = 'Analyzing...';
-        resultTitle.textContent = 'Terminal Output';
-        cardEl.style.borderTop = '1px solid var(--border-color)'; cardEl.style.borderColor = 'var(--border-color)';
-        analysisBtn.classList.remove('active'); jsonBtn.classList.remove('active');
-        historyListDiv.innerHTML = '<div class="loading-text">📂 Loading history...</div>';
-        if (sidebar.classList.contains('open')) toggleSidebar();
-
-        restoreLastSymbol();
-        loadHistory();
-        loadRecentSignals();
-        startAutoRefresh();
-        switchToAnalyzer();
-        initThree();
-        setupRevealObserver();
-        renderPipeline();
+        list.appendChild(el);
     });
+}
 
-    window.addEventListener('beforeunload', () => stopAutoRefresh());
+/* ================================================================
+   RECENT SIGNALS
+================================================================ */
+async function loadRecentSignals() {
+    const feed = document.getElementById('signalFeed');
+    try {
+        const r = await fetch(`${BASE_URL}/api/history/global?limit=5`);
+        const d = await r.json();
+        if (d.success && d.history?.length) {
+            feed.innerHTML = d.history.map(h => {
+                const c = h.bias==='LONG'?'#57d977': h.bias==='SHORT'?'#ff6b6b':'#d4a84b';
+                return `<span style="color:var(--text-dim)">[${new Date(h.createdTime).toLocaleTimeString()}]</span> `
+                     + `<b style="color:var(--text-main)">${escapeHtml(h.symbol)}</b> `
+                     + `<span style="color:${c}">→ ${h.bias}</span>`;
+            }).join('<br>');
+        } else {
+            feed.innerHTML = 'No signals yet. Run an analysis!';
+        }
+    } catch(e) { feed.innerHTML = '◈ Awaiting market data...'; }
+}
 
-    // Double-click brand to reset
-    const brandDiv = document.querySelector('.brand');
-    if (brandDiv) {
-        brandDiv.addEventListener('dblclick', () => {
-            wrapper.classList.remove('has-result');
-            resultArea.style.opacity = '0'; resultArea.style.transform = 'translateY(30px)';
-            setTimeout(() => { resultArea.style.display = 'none'; }, 500);
-            symbolInput.value = '';
-            lastSymbol = ''; lastTerminalOutput = ''; lastJSONData = null; currentView = 'terminal';
-            analysisBtn.classList.remove('active'); jsonBtn.classList.remove('active');
-            historyListDiv.innerHTML = '<div class="loading-text">📂 Loading history...</div>';
-            if (sidebar.classList.contains('open')) toggleSidebar();
-            localStorage.removeItem('lastAnalyzedSymbol');
-            loadHistory();
-            showToast('✨ Dashboard reset. Ready for new analysis.');
-        });
-    }
+/* ================================================================
+   EVENT LISTENERS
+================================================================ */
+analyzeBtn.addEventListener('click', () => handleAnalyze());
+symbolInput.addEventListener('keypress', e => { if(e.key==='Enter') handleAnalyze(); });
+analysisBtn.addEventListener('click', showAnalysis);
+jsonBtn.addEventListener('click', showJSON);
+copyBtn.addEventListener('click', copyResult);
+downloadBtn.addEventListener('click', downloadResult);
+refreshHotBtn.addEventListener('click', fetchHotCoins);
+tabAnalyzer.addEventListener('click', switchToAnalyzer);
+tabHotCoins.addEventListener('click', switchToHotCoins);
+window.toggleSidebar = toggleSidebar;
+
+/* ================================================================
+   INIT
+================================================================ */
+window.addEventListener('load', () => {
+    symbolInput.value = ''; lastSymbol=''; lastTerminalOutput=''; lastJSONData=null; currentView='terminal';
+    wrapper.classList.remove('has-result');
+    resultArea.style.opacity='0'; resultArea.style.transform='translateY(30px)'; resultArea.style.display='none';
+    outputEl.textContent='Analyzing...'; resultTitle.textContent='Terminal Output';
+    cardEl.style.borderTop='1px solid var(--border)'; cardEl.style.borderColor='var(--border)';
+    analysisBtn.classList.remove('active'); jsonBtn.classList.remove('active');
+    historyListDiv.innerHTML='<div class="loading-text">📂 Loading history...</div>';
+    if (sidebar.classList.contains('open')) toggleSidebar();
+
+    const saved = localStorage.getItem('lastAnalyzedSymbol');
+    if (saved) symbolInput.value = saved;
+
+    loadHistory();
+    loadRecentSignals();
+    startAutoRefresh();
+    switchToAnalyzer();
+    initThree();
+    setupRevealObserver();
+    renderPipeline();
+});
+
+window.addEventListener('beforeunload', stopAutoRefresh);
+
+/* Brand double-click reset */
+document.querySelector('.brand').addEventListener('dblclick', () => {
+    wrapper.classList.remove('has-result');
+    resultArea.style.opacity='0'; resultArea.style.transform='translateY(30px)';
+    setTimeout(()=>{resultArea.style.display='none';},500);
+    symbolInput.value=''; lastSymbol=''; lastTerminalOutput=''; lastJSONData=null; currentView='terminal';
+    analysisBtn.classList.remove('active'); jsonBtn.classList.remove('active');
+    if(sidebar.classList.contains('open')) toggleSidebar();
+    localStorage.removeItem('lastAnalyzedSymbol');
+    loadHistory();
+    showToast('✨ Dashboard reset.');
+});
 </script>
 </body>
 </html>
