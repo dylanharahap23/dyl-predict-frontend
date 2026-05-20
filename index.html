@@ -300,7 +300,7 @@
                 <div class="pl-stats">
                     <div class="pl-stat"><span class="pl-stat-val">50+</span><span class="pl-stat-lbl">Trap Rules</span></div>
                     <div class="pl-stat"><span class="pl-stat-val">9</span><span class="pl-stat-lbl">Core Stages</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">5</span><span class="pl-stat-lbl">Recent Families</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">7</span><span class="pl-stat-lbl">Recent Families</span></div>
                     <div class="pl-stat"><span class="pl-stat-val">Kelly</span><span class="pl-stat-lbl">Risk Layer</span></div>
                     <div class="pl-stat"><span class="pl-stat-val">Atomic</span><span class="pl-stat-lbl">JSON Output</span></div>
                 </div>
@@ -809,9 +809,11 @@ const plStages = [
         tagBg: 'rgba(216,90,48,0.12)',
         tag: 'Lecturer',
         title: 'Final Lecturer Reverse Overlay',
-        desc: 'The highest-value anti-adversarial layer. It reads the final temporary bias and flips it only when a precise trap fingerprint appears. Newest additions include no-buyer funding dump, bullish-book real squeeze, KILL flow reversal, accumulation ghost pre-kill distribution, and pending ultra short-liq squeeze protection.',
-        chips: ['KILL Flow Reversal','Extreme Funding No Buyer','Bullish Book Real Squeeze','Accum Ghost PreKill','Pending Ultra Short-Liq','Double Sweep','Post-Sweep Bid Reload','No-Buyer Continuation','Dry OFI Downside'],
+        desc: 'The highest-value anti-adversarial layer. It reads the final temporary bias and flips it only when a precise trap fingerprint appears. Newest additions include terminal short-liq fade, accumulation ask-wall stale energy, no-buyer funding dump, bullish-book real squeeze, KILL flow reversal, accumulation ghost pre-kill distribution, and pending ultra short-liq squeeze protection.',
+        chips: ['Terminal Short-Liq Fade','Accum Ask-Wall Stale Energy','KILL Flow Reversal','Extreme Funding No Buyer','Bullish Book Real Squeeze','Accum Ghost PreKill','Pending Ultra Short-Liq','Double Sweep','Post-Sweep Bid Reload','No-Buyer Continuation','Dry OFI Downside'],
         sub: [
+            { type: 'new', text: 'Terminal short-liq fade: LECTURER_LIQ_HUNT_TERMINAL_SHORT_LIQ_FADE_SHORT.' },
+            { type: 'new', text: 'Accumulation ask-wall stale energy: LECTURER_ACCUM_ASK_WALL_STALE_ENERGY_SHORT.' },
             { type: 'new', text: 'No-buyer funding dump: LECTURER_LIQ_HUNT_EXTREME_FUNDING_NO_BUYER_SHORT.' },
             { type: 'new', text: 'Bullish-book real squeeze: LECTURER_MANIP_PREP_BULLISH_BOOK_REAL_SQUEEZE_LONG.' },
             { type: 'new', text: 'KILL flow reversal: LECTURER_KILL_ACTIVE_SQUEEZE_FLOW_REVERSAL_SHORT.' },
@@ -821,7 +823,7 @@ const plStages = [
         ],
         matrix: [
             ['Force LONG', 'bid reload, perfect OFI/agg, clean REAL squeeze'],
-            ['Force SHORT', 'no buyer, continuation dump, terminal flow reversal'],
+            ['Force SHORT', 'ask-wall supply, no buyer, terminal short-liq fade'],
             ['Hard block', 'adversarial veto or post-sweep distribution without edge'],
             ['Do nothing', 'if fingerprint is incomplete']
         ]
@@ -838,13 +840,14 @@ const plStages = [
             { type: 'gate', text: 'pre_kill SHORT + no buyer + HFT/Algo SHORT => SHORT continuation.' },
             { type: 'gate', text: 'pre_kill SHORT + perfect LONG flow + bullish book + REAL squeeze => LONG bid reload.' },
             { type: 'gate', text: 'pre_kill LONG + ultra-close short_liq + active buyers + unconsumed magnet => LONG until sweep confirmation.' },
+            { type: 'gate', text: 'pre_kill LONG + short_liq near + ask wall extreme + OFI SHORT + terminal score wins => SHORT fade.' },
             { type: 'gate', text: 'long_swept + post_sweep_distribution + OFI neutral => no-buyer SHORT.' },
             { type: 'gate', text: 'long_swept + bid reload + exchange/Greeks LONG => rebound LONG.' }
         ],
         matrix: [
             ['Near long_liq + no buyer', 'SHORT'],
             ['Near long_liq + perfect bid reload', 'LONG'],
-            ['short_liq at magnet + weak flow', 'SHORT'],
+            ['short_liq near + ask wall + weak flow', 'SHORT'],
             ['short_liq pending + strong flow', 'LONG'],
             ['ultra short-liq + unconsumed magnet', 'do not trust terminal SHORT yet'],
             ['short-liq consumed + buyers gone', 'SHORT can reopen']
@@ -923,6 +926,8 @@ const plStages = [
         chips: ['saved snapshots','known wins','known losses','narrow fingerprint','no broad funding rule','no single-signal rule','weekly replay','threshold tuning'],
         sub: [
             { type: 'new', text: 'Opposite-pattern rules are scoped to separate fingerprints so they do not collide.' },
+            { type: 'new', text: 'Terminal short-liq fade requires ask wall, bearish book, OFI SHORT, overbought RSI/Stoch, negative pro-risk, and non-executing gamma.' },
+            { type: 'new', text: 'Accumulation ask-wall stale energy requires stale LONG pressure, neutral OFI, bearish book, terminal-vacuum block, and weak pro-risk.' },
             { type: 'new', text: 'KILL flow reversal requires active volume, weak agg/flow, OFI SHORT, and gamma BOTH_POSSIBLE.' },
             { type: 'new', text: 'Accumulation ghost guard also blocks anti-paralysis LONG probes.' },
             { type: 'new', text: 'Pending ultra short-liq guard cancels stale terminal SHORT when the sweep has not actually consumed the magnet.' },
