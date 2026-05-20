@@ -150,7 +150,7 @@
         .pl-chevron { width: 14px; height: 14px; flex-shrink: 0; color: var(--text-dim); transition: transform 0.25s ease, color 0.2s; }
         .pl-stage.active .pl-chevron { transform: rotate(180deg); color: var(--card-color, var(--accent-gold)); }
         .pl-expand { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease; opacity: 0; }
-        .pl-stage.active .pl-expand { max-height: 700px; opacity: 1; }
+        .pl-stage.active .pl-expand { max-height: 1200px; opacity: 1; }
         .pl-desc { font-size: 12px; color: var(--text-muted); margin-top: 10px; line-height: 1.7; font-weight: 300; }
         .pl-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
         .pl-chip { font-family: var(--font-mono); font-size: 10px; padding: 3px 9px; border-radius: 5px; border: 0.5px solid var(--border2); color: var(--text-dim); background: var(--bg4); letter-spacing: 0.2px; transition: border-color 0.2s, color 0.2s; }
@@ -162,6 +162,12 @@
         .badge-gate   { background: rgba(139,127,221,0.15); color: #a89fe8; }
         .badge-guard  { background: rgba(216,90,48,0.15);   color: #e07d5e; }
         .badge-detect { background: rgba(29,158,117,0.15);  color: #4ec69a; }
+        .badge-risk   { background: rgba(201,138,26,0.15);  color: #daa935; }
+        .badge-new    { background: rgba(212,168,75,0.16);  color: #e0bd6b; }
+        .pl-matrix { margin-top: 14px; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
+        .pl-matrix-card { border: 1px solid var(--border); border-radius: 7px; background: rgba(0,0,0,0.14); padding: 10px; }
+        .pl-matrix-card b { display: block; margin-bottom: 4px; color: var(--text-main); font-size: 12px; }
+        .pl-matrix-card span { color: var(--text-dim); font-family: var(--font-mono); font-size: 10px; }
         .pl-footer { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 2rem; font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase; }
         .pulse-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; animation: pdot 2s ease-in-out infinite; }
         @keyframes pdot { 0%,100% { opacity: 0.35; transform: scale(0.85); } 50% { opacity: 1; transform: scale(1.2); } }
@@ -187,7 +193,7 @@
         @keyframes glitch { 0%,100% { text-shadow: none; } 92% { text-shadow: 2px 0 var(--accent-gold), -2px 0 #57d977; } }
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 768px) { .quote-section { margin: 50px auto 40px; } .signal-quote { font-size: 18px; } .premium-section { margin: 40px auto; } .section-title { font-size: 22px; margin-bottom: 20px; } .cards-grid { flex-direction: column; align-items: center; } .glass-card { min-width: auto; width: 100%; max-width: 300px; } .stats-grid { flex-direction: column; align-items: center; } .stat-item { width: 100%; max-width: 260px; } .pl-stats { gap: 8px; flex-direction: column; align-items: center; } .pl-stat { border-radius: 10px !important; border: 0.5px solid var(--border) !important; min-width: 160px; } }
+        @media (max-width: 768px) { .quote-section { margin: 50px auto 40px; } .signal-quote { font-size: 18px; } .premium-section { margin: 40px auto; } .section-title { font-size: 22px; margin-bottom: 20px; } .cards-grid { flex-direction: column; align-items: center; } .glass-card { min-width: auto; width: 100%; max-width: 300px; } .stats-grid { flex-direction: column; align-items: center; } .stat-item { width: 100%; max-width: 260px; } .pl-stats { gap: 8px; flex-direction: column; align-items: center; } .pl-stat { border-radius: 10px !important; border: 0.5px solid var(--border) !important; min-width: 160px; } .pl-matrix { grid-template-columns: 1fr; } }
         @media (max-width: 480px) { .brand h1 { font-size: 28px; } .brand-logo { width: 80px; } .search-container { flex-direction: column; padding: 16px; } .btn-group { width: 100%; margin-top: 12px; } .btn-group button { width: 100%; } .card-header { flex-direction: column; gap: 10px; } .action-buttons { width: 100%; justify-content: center; } .sidebar { width: 100%; max-width: 320px; } .tabs { gap: 6px; } .tab-btn { padding: 6px 14px; font-size: 13px; } .pl-spine { width: 40px; } .pl-node { width: 30px; height: 30px; font-size: 10px; } .pl-title { font-size: 13px; } }
     </style>
 </head>
@@ -290,15 +296,16 @@
         <section class="premium-section reveal" id="engine-pipeline">
             <h2 class="section-title">How the Engine Thinks</h2>
             <div class="pipeline-wrap">
-                <div class="pl-header"><span class="pl-header-label">Neural signal pipeline</span><div class="pl-header-line"></div></div>
+                <div class="pl-header"><span class="pl-header-label">Updated neural signal pipeline</span><div class="pl-header-line"></div></div>
                 <div class="pl-stats">
-                    <div class="pl-stat"><span class="pl-stat-val">40+</span><span class="pl-stat-lbl">Indicators</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">14</span><span class="pl-stat-lbl">Gate Chain</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">7</span><span class="pl-stat-lbl">Modules</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">≥60%</span><span class="pl-stat-lbl">Min Confidence</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">50+</span><span class="pl-stat-lbl">Trap Rules</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">9</span><span class="pl-stat-lbl">Core Stages</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">5</span><span class="pl-stat-lbl">Recent Families</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">Kelly</span><span class="pl-stat-lbl">Risk Layer</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">Atomic</span><span class="pl-stat-lbl">JSON Output</span></div>
                 </div>
                 <div class="pl-list" id="plList"></div>
-                <div class="pl-footer"><span class="pulse-dot" style="background:#57d977;"></span>Engine active &mdash; click any stage to inspect</div>
+                <div class="pl-footer"><span class="pulse-dot" style="background:#57d977;"></span>Pipeline data loaded &mdash; engine active &mdash; click any stage to inspect</div>
             </div>
         </section>
 
@@ -733,27 +740,274 @@ window.addEventListener('resize', () => {
 /* ================================================================
    PIPELINE RENDER
 ================================================================ */
-const plStages = [ /* Data sama seperti sebelumnya, dipotong agar tidak terlalu panjang */ ];
-// (Saya sertakan data pipeline yang sudah ada di file asli, tetapi di sini saya tulis ulang secara minimal agar kode tetap ringkas)
-// Untuk keperluan final, Anda bisa copy-paste plStages dari file asli Anda. Saya akan sertakan versi lengkapnya.
-plStages.length = 0; // placeholder, silakan isi dengan data asli jika perlu.
-// NOTE: Karena ruang terbatas, asumsikan plStages sudah didefinisikan di file asli Anda.
-// Di sini saya hanya akan memberikan fungsi renderPipeline yang menggunakan plStages yang sudah ada di window.
-// Pastikan di file final Anda, plStages didefinisikan dengan lengkap (40+ baris).
-function renderPipeline() {
-    // Implementasi render pipeline (sama seperti sebelumnya)
-    // Anda bisa copy dari file asli.
-}
-// Agar tidak error, kita isi plStages dengan data minimal (sementara)
-window.plStages = [
-    { num:"01", color:"#378ADD", tag:"Ingestion", title:"Data Acquisition", desc:"..." },
-    // ... tambahkan lainnya jika perlu
+const plStages = [
+    {
+        num: '01',
+        color: '#378ADD',
+        tagBg: 'rgba(55,138,221,0.12)',
+        tag: 'Ingestion',
+        title: 'Raw Snapshot + Base Metric Computation',
+        desc: 'Builds the market snapshot from OHLCV, order book, trade tape, funding, liquidation distances, and exchange risk. This layer computes RSI, Stoch, OBV, volume ratio, OFI, agg/flow, up/down energy, bid/ask slopes, and the raw phase context used by every later gate.',
+        chips: ['OHLCV','RSI 6/14/5m','Stoch K/D/J','OBV','volume_ratio','actual_volume_ratio','OFI','agg/flow','up/down energy','long_liq','short_liq','funding'],
+        sub: [
+            { type: 'detect', text: 'Computes liquidation distances and identifies the nearest sweep target.' },
+            { type: 'detect', text: 'Builds book context from ask_bid_ratio, book_bias, bid_slope, and ask_slope.' },
+            { type: 'detect', text: 'Normalizes participation into GHOST, AMBIGUOUS, GENUINE, or ACTIVE_SQUEEZE.' }
+        ],
+        matrix: [
+            ['GHOST', 'low actual participation; flow can be spoofed'],
+            ['GENUINE', 'executed volume confirms the tape'],
+            ['ACTIVE_SQUEEZE', 'high kinetic volume; must check direction'],
+            ['AMBIGUOUS', 'do not trust one signal alone']
+        ]
+    },
+    {
+        num: '02',
+        color: '#8b7fdd',
+        tagBg: 'rgba(139,127,221,0.12)',
+        tag: 'Context',
+        title: 'Regime, Phase, Greeks, and Hawkes Context',
+        desc: 'Classifies PREP, BAIT, KILL, LIQUIDATION_HUNT, MANIPULATION, and ACCUMULATION. Greeks reads crowding, kill direction, gamma execution, Vega bait, and who-dies-first. Hawkes reads multi-timeframe pressure, intensity, freshness, and exhaustion state.',
+        chips: ['PREP','BAIT','KILL','LIQUIDATION_HUNT','MANIPULATION','ACCUMULATION','Greeks','Gamma','Vega','Hawkes MTF','EXHAUSTED_LAGGING_MACRO'],
+        sub: [
+            { type: 'detect', text: 'Greeks produces bias, kill_direction, who_dies_first, liq_7pct, gamma_executing, and kill_speed.' },
+            { type: 'detect', text: 'Hawkes produces MTF direction, hot timeframes, signed pressure, cascade ratio, and exhaustion status.' },
+            { type: 'guard', text: 'Hawkes macro is treated as stale when exhaustion appears and live flow disagrees.' },
+            { type: 'guard', text: 'Gamma executing is not enough if who_dies_first remains BOTH_POSSIBLE.' }
+        ],
+        matrix: [
+            ['Greeks strong', 'useful only when kill side is committed'],
+            ['Hawkes fresh', 'trend pressure is still usable'],
+            ['Hawkes exhausted', 'macro can be lagging residue'],
+            ['Vega BAIT', 'often spoofable unless confirmed by flow']
+        ]
+    },
+    {
+        num: '03',
+        color: '#1d9e75',
+        tagBg: 'rgba(29,158,117,0.12)',
+        tag: 'Detectors',
+        title: 'Structural Detector Stack',
+        desc: 'Runs the major structural detectors: squeeze lifecycle, MM repricing LONG, short squeeze ignition v2, terminal blowoff short detector, liquidation hunt dump classifier, hidden distribution, magnet consumed, and squeeze quality veto. These produce candidates, not final truth.',
+        chips: ['Lifecycle','MM_REPRICING_LONG','SHORT_SQUEEZE_IGNITION_V2','Terminal Blowoff','LIQ_HUNT_DUMP','Hidden Distribution','Magnet Consumed','Squeeze Quality'],
+        sub: [
+            { type: 'detect', text: 'Squeeze lifecycle compares early_score against terminal_score.' },
+            { type: 'detect', text: 'Short squeeze ignition exposes long_swept, post_flush, and post_sweep_distribution.' },
+            { type: 'detect', text: 'Terminal blowoff marks post-move supply and fake continuation.' },
+            { type: 'guard', text: 'Squeeze quality is demoted if flow/book proves the opposite side.' }
+        ],
+        matrix: [
+            ['early > terminal', 'continuation possible'],
+            ['terminal > early', 'fade or block continuation'],
+            ['long_swept true', 'target likely already taken'],
+            ['post_sweep_distribution', 'check buyer/no-buyer before bounce']
+        ]
+    },
+    {
+        num: '04',
+        color: '#d85a30',
+        tagBg: 'rgba(216,90,48,0.12)',
+        tag: 'Lecturer',
+        title: 'Final Lecturer Reverse Overlay',
+        desc: 'The highest-value anti-adversarial layer. It reads the final temporary bias and flips it only when a precise trap fingerprint appears. Newest additions include no-buyer funding dump, bullish-book real squeeze, KILL flow reversal, accumulation ghost pre-kill distribution, and pending ultra short-liq squeeze protection.',
+        chips: ['KILL Flow Reversal','Extreme Funding No Buyer','Bullish Book Real Squeeze','Accum Ghost PreKill','Pending Ultra Short-Liq','Double Sweep','Post-Sweep Bid Reload','No-Buyer Continuation','Dry OFI Downside'],
+        sub: [
+            { type: 'new', text: 'No-buyer funding dump: LECTURER_LIQ_HUNT_EXTREME_FUNDING_NO_BUYER_SHORT.' },
+            { type: 'new', text: 'Bullish-book real squeeze: LECTURER_MANIP_PREP_BULLISH_BOOK_REAL_SQUEEZE_LONG.' },
+            { type: 'new', text: 'KILL flow reversal: LECTURER_KILL_ACTIVE_SQUEEZE_FLOW_REVERSAL_SHORT.' },
+            { type: 'new', text: 'Accumulation ghost pre-kill distribution: LECTURER_ACCUM_GHOST_PREKILL_DISTRIBUTION_SHORT.' },
+            { type: 'new', text: 'Pending ultra short-liq squeeze: LECTURER_PENDING_ULTRA_SHORT_LIQ_SQUEEZE_LONG.' },
+            { type: 'guard', text: 'No broad override: every rule requires regime, phase, flow, sweep-state, and risk fingerprint.' }
+        ],
+        matrix: [
+            ['Force LONG', 'bid reload, perfect OFI/agg, clean REAL squeeze'],
+            ['Force SHORT', 'no buyer, continuation dump, terminal flow reversal'],
+            ['Hard block', 'adversarial veto or post-sweep distribution without edge'],
+            ['Do nothing', 'if fingerprint is incomplete']
+        ]
+    },
+    {
+        num: '05',
+        color: '#c98a1a',
+        tagBg: 'rgba(201,138,26,0.12)',
+        tag: 'Sweeps',
+        title: 'Sweep-State and Liquidation Timing Matrix',
+        desc: 'Separates timing leg from final direction. A nearby long_liq can mean real downside sweep, or a fake-down entry before pump. A nearby short_liq can mean genuine squeeze, or a consumed magnet before dump. The engine now requires buyer/no-buyer evidence and consumed/not-consumed proof before trusting the magnet.',
+        chips: ['pre_kill_sweep_bias','long_swept','post_flush','post_sweep_distribution','magnet consumed','magnet unconsumed','bid reload','no buyer','terminal magnet'],
+        sub: [
+            { type: 'gate', text: 'pre_kill SHORT + no buyer + HFT/Algo SHORT => SHORT continuation.' },
+            { type: 'gate', text: 'pre_kill SHORT + perfect LONG flow + bullish book + REAL squeeze => LONG bid reload.' },
+            { type: 'gate', text: 'pre_kill LONG + ultra-close short_liq + active buyers + unconsumed magnet => LONG until sweep confirmation.' },
+            { type: 'gate', text: 'long_swept + post_sweep_distribution + OFI neutral => no-buyer SHORT.' },
+            { type: 'gate', text: 'long_swept + bid reload + exchange/Greeks LONG => rebound LONG.' }
+        ],
+        matrix: [
+            ['Near long_liq + no buyer', 'SHORT'],
+            ['Near long_liq + perfect bid reload', 'LONG'],
+            ['short_liq at magnet + weak flow', 'SHORT'],
+            ['short_liq pending + strong flow', 'LONG'],
+            ['ultra short-liq + unconsumed magnet', 'do not trust terminal SHORT yet'],
+            ['short-liq consumed + buyers gone', 'SHORT can reopen']
+        ]
+    },
+    {
+        num: '06',
+        color: '#c94e76',
+        tagBg: 'rgba(201,78,118,0.12)',
+        tag: 'Risk',
+        title: 'Professional Risk + Adaptive Kelly',
+        desc: 'Computes expectancy, payoff ratio, raw Kelly, fractional Kelly, risk-of-ruin proxy, Sharpe proxy, volatility proxy, and sizing caps. Pro-risk does not blindly decide direction, but it blocks stale overrides and forces tiny sizing when the math is toxic.',
+        chips: ['Expectancy','Kelly raw','0.25 Kelly','Risk of Ruin','Sharpe proxy','Volatility cap','Position multiplier','Size floor'],
+        sub: [
+            { type: 'risk', text: 'Negative expectancy + RoR 1.0 supports hard blocks in no-buyer or distribution contexts.' },
+            { type: 'risk', text: 'Kelly <= 0 caps size unless a narrow structural exception is active.' },
+            { type: 'risk', text: 'High volatility reduces size even when direction is valid.' },
+            { type: 'guard', text: 'Pro-risk is contextual, not a global direction signal.' }
+        ],
+        matrix: [
+            ['E > 0', 'edge can scale'],
+            ['E < 0 + RoR high', 'block or micro-size'],
+            ['Kelly <= 0', 'size floor only with exception'],
+            ['Volatility high', 'cap position']
+        ]
+    },
+    {
+        num: '07',
+        color: '#57b46f',
+        tagBg: 'rgba(87,180,111,0.12)',
+        tag: 'Probe',
+        title: 'Anti-Paralysis and Probabilistic Execution',
+        desc: 'Prevents the engine from freezing when the only problem is timing. It can convert soft WAIT states into tiny probes, but cannot override hard invalidation such as terminal distribution, exchange critical conflict, or accumulation ghost pre-kill distribution.',
+        chips: ['WAIT_SWEEP','WAIT_EDGE','ARMED_PROBE','probabilistic score','toxicity','liq_edge','timing penalty','hard invalidation'],
+        sub: [
+            { type: 'gate', text: 'Soft timing uncertainty can become ARMED_PROBE.' },
+            { type: 'guard', text: 'ACCUM ghost pre-kill distribution is now hard invalidation.' },
+            { type: 'guard', text: 'Terminal blowoff high-priority cannot be softened by anti-paralysis.' },
+            { type: 'risk', text: 'Probe size stays small and Kelly-capped.' }
+        ],
+        matrix: [
+            ['Soft block', 'may probe'],
+            ['Hard block', 'stays blocked'],
+            ['WAIT_SWEEP', 'needs sweep exception'],
+            ['ARMED_PROBE', 'micro size only']
+        ]
+    },
+    {
+        num: '08',
+        color: '#d4a84b',
+        tagBg: 'rgba(212,168,75,0.12)',
+        tag: 'Output',
+        title: 'Atomic Final Output Renderer',
+        desc: 'Synchronizes the final bias fields and renders a deterministic JSON/terminal output. The bot should consume bias_display or _final_bias_locked from JSON, not parse terminal text. Every final decision carries source, reason, confidence, entry status, and size.',
+        chips: ['bias','bias_display','_final_bias_locked','_override_critical_source','confidence','entry_allowed','entry_reason','execution_state','analysis_id'],
+        sub: [
+            { type: 'detect', text: 'render_final_output applies final gates and syncs bias_display.' },
+            { type: 'detect', text: 'Reason string records all override layers for audit.' },
+            { type: 'guard', text: 'Safety gates can still set WAIT/HARD_BLOCK after a directional rule.' },
+            { type: 'risk', text: 'position_multiplier is capped by pro-risk and Kelly.' }
+        ],
+        matrix: [
+            ['ARMED', 'entry allowed'],
+            ['ARMED_REDUCED', 'small risk-capped entry'],
+            ['ARMED_PROBE', 'micro entry'],
+            ['HARD_BLOCKED', 'no entry']
+        ]
+    },
+    {
+        num: '09',
+        color: '#888780',
+        tagBg: 'rgba(136,135,128,0.12)',
+        tag: 'Replay',
+        title: 'Regression Memory and Maintenance Loop',
+        desc: 'Every new adversarial pattern should become a narrow fingerprint and then be replayed against known corrected wins/losses. The best rules fix one loss without touching unrelated wins. Broad rules that trust only funding, Hawkes, Greeks, or RSI are rejected.',
+        chips: ['saved snapshots','known wins','known losses','narrow fingerprint','no broad funding rule','no single-signal rule','weekly replay','threshold tuning'],
+        sub: [
+            { type: 'new', text: 'Opposite-pattern rules are scoped to separate fingerprints so they do not collide.' },
+            { type: 'new', text: 'KILL flow reversal requires active volume, weak agg/flow, OFI SHORT, and gamma BOTH_POSSIBLE.' },
+            { type: 'new', text: 'Accumulation ghost guard also blocks anti-paralysis LONG probes.' },
+            { type: 'new', text: 'Pending ultra short-liq guard cancels stale terminal SHORT when the sweep has not actually consumed the magnet.' },
+            { type: 'guard', text: 'A rule is accepted only if it has explicit regime, phase, flow, sweep, and risk conditions.' }
+        ],
+        matrix: [
+            ['Good rule', 'narrow and replay-safe'],
+            ['Bad rule', 'one-signal global override'],
+            ['Fix process', 'snapshot -> fingerprint -> replay'],
+            ['Survival', 'block toxic setups first']
+        ]
+    }
 ];
-renderPipeline = function() {
+
+let plActive = new Set([0, 3]);
+
+function plSubHtml(items) {
+    if (!items || !items.length) return '';
+    return `<div class="pl-sub">${items.map(item => `
+        <div class="pl-sub-item">
+            <span class="pl-sub-badge badge-${escapeHtml(item.type)}">${escapeHtml(item.type)}</span>
+            <span>${escapeHtml(item.text)}</span>
+        </div>
+    `).join('')}</div>`;
+}
+
+function plMatrixHtml(items) {
+    if (!items || !items.length) return '';
+    return `<div class="pl-matrix">${items.map(item => `
+        <div class="pl-matrix-card">
+            <b>${escapeHtml(item[0])}</b>
+            <span>${escapeHtml(item[1])}</span>
+        </div>
+    `).join('')}</div>`;
+}
+
+function renderPipeline() {
     const list = document.getElementById('plList');
     if (!list) return;
-    list.innerHTML = '<div class="loading-text">Pipeline data loaded</div>';
-};
+    list.innerHTML = plStages.map((stage, index) => {
+        const isActive = plActive.has(index);
+        const isLast = index === plStages.length - 1;
+        const connector = isLast ? '' : `
+            <div class="pl-connector" style="background: linear-gradient(to bottom, ${isActive ? stage.color + '66' : 'rgba(255,255,255,0.07)'}, transparent);"></div>
+        `;
+        return `
+            <section class="pl-stage ${isActive ? 'active' : ''}"
+                style="--card-color:${stage.color};--card-border:${stage.color}55;--node-glow:${stage.tagBg};--chip-border:${stage.color}44;"
+                data-pl-index="${index}">
+                <div class="pl-spine">
+                    <div class="pl-node" style="background:${stage.tagBg};color:${stage.color};border:1px solid ${stage.color}44;">${escapeHtml(stage.num)}</div>
+                    ${connector}
+                </div>
+                <div class="pl-body">
+                    <div class="pl-card">
+                        <div class="pl-card-header">
+                            <span class="pl-title">${escapeHtml(stage.title)}</span>
+                            <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+                                <span class="pl-badge" style="background:${stage.tagBg};color:${stage.color};">${escapeHtml(stage.tag)}</span>
+                                <svg class="pl-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M3 6l5 5 5-5"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="pl-expand">
+                            <div class="pl-desc">${escapeHtml(stage.desc)}</div>
+                            <div class="pl-chips">${stage.chips.map(chip => `<span class="pl-chip">${escapeHtml(chip)}</span>`).join('')}</div>
+                            ${plSubHtml(stage.sub)}
+                            ${plMatrixHtml(stage.matrix)}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        `;
+    }).join('');
+
+    list.querySelectorAll('.pl-stage').forEach(stageEl => {
+        stageEl.addEventListener('click', () => {
+            const index = Number(stageEl.dataset.plIndex);
+            if (plActive.has(index)) plActive.delete(index);
+            else plActive.add(index);
+            renderPipeline();
+        });
+    });
+}
 
 /* ================================================================
    RECENT SIGNALS
