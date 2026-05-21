@@ -150,7 +150,7 @@
         .pl-chevron { width: 14px; height: 14px; flex-shrink: 0; color: var(--text-dim); transition: transform 0.25s ease, color 0.2s; }
         .pl-stage.active .pl-chevron { transform: rotate(180deg); color: var(--card-color, var(--accent-gold)); }
         .pl-expand { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease; opacity: 0; }
-        .pl-stage.active .pl-expand { max-height: 1200px; opacity: 1; }
+        .pl-stage.active .pl-expand { max-height: 1600px; opacity: 1; }
         .pl-desc { font-size: 12px; color: var(--text-muted); margin-top: 10px; line-height: 1.7; font-weight: 300; }
         .pl-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
         .pl-chip { font-family: var(--font-mono); font-size: 10px; padding: 3px 9px; border-radius: 5px; border: 0.5px solid var(--border2); color: var(--text-dim); background: var(--bg4); letter-spacing: 0.2px; transition: border-color 0.2s, color 0.2s; }
@@ -298,10 +298,10 @@
             <div class="pipeline-wrap">
                 <div class="pl-header"><span class="pl-header-label">Updated neural signal pipeline</span><div class="pl-header-line"></div></div>
                 <div class="pl-stats">
-                    <div class="pl-stat"><span class="pl-stat-val">50+</span><span class="pl-stat-lbl">Trap Rules</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">9</span><span class="pl-stat-lbl">Core Stages</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">7</span><span class="pl-stat-lbl">Recent Families</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">Kelly</span><span class="pl-stat-lbl">Risk Layer</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">80</span><span class="pl-stat-lbl">Lecturer Rules</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">10</span><span class="pl-stat-lbl">Core Stages</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">15+</span><span class="pl-stat-lbl">Trap Families</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">0.25K</span><span class="pl-stat-lbl">Risk Layer</span></div>
                     <div class="pl-stat"><span class="pl-stat-val">Atomic</span><span class="pl-stat-lbl">JSON Output</span></div>
                 </div>
                 <div class="pl-list" id="plList"></div>
@@ -809,8 +809,8 @@ const plStages = [
         tagBg: 'rgba(216,90,48,0.12)',
         tag: 'Lecturer',
         title: 'Final Lecturer Reverse Overlay',
-        desc: 'The highest-value anti-adversarial layer. It reads the final temporary bias and flips it only when a precise trap fingerprint appears. Newest additions include terminal short-liq fade, accumulation ask-wall stale energy, no-buyer funding dump, bullish-book real squeeze, KILL flow reversal, accumulation ghost pre-kill distribution, and pending ultra short-liq squeeze protection.',
-        chips: ['Terminal Short-Liq Fade','Accum Ask-Wall Stale Energy','KILL Flow Reversal','Extreme Funding No Buyer','Bullish Book Real Squeeze','Accum Ghost PreKill','Pending Ultra Short-Liq','Double Sweep','Post-Sweep Bid Reload','No-Buyer Continuation','Dry OFI Downside'],
+        desc: 'The highest-value anti-adversarial layer. It reads the final temporary bias and flips it only when a precise trap fingerprint appears. This layer now separates old lecturer corrections from the newest meta-trap patches so broad Greek, Hawkes, RSI, funding, or OFI anchors cannot hijack the final direction alone.',
+        chips: ['Terminal Short-Liq Fade','Accum Ask-Wall Stale Energy','KILL Flow Reversal','Extreme Funding No Buyer','Bullish Book Real Squeeze','Accum Ghost PreKill','Pending Ultra Short-Liq','Delta Parity Trap','False Squeeze Ignition','Ghost Sweep Spring','Double Sweep','Post-Sweep Bid Reload'],
         sub: [
             { type: 'new', text: 'Terminal short-liq fade: LECTURER_LIQ_HUNT_TERMINAL_SHORT_LIQ_FADE_SHORT.' },
             { type: 'new', text: 'Accumulation ask-wall stale energy: LECTURER_ACCUM_ASK_WALL_STALE_ENERGY_SHORT.' },
@@ -819,6 +819,9 @@ const plStages = [
             { type: 'new', text: 'KILL flow reversal: LECTURER_KILL_ACTIVE_SQUEEZE_FLOW_REVERSAL_SHORT.' },
             { type: 'new', text: 'Accumulation ghost pre-kill distribution: LECTURER_ACCUM_GHOST_PREKILL_DISTRIBUTION_SHORT.' },
             { type: 'new', text: 'Pending ultra short-liq squeeze: LECTURER_PENDING_ULTRA_SHORT_LIQ_SQUEEZE_LONG.' },
+            { type: 'new', text: 'Delta parity trap: LECTURER_ACCUM_KILL_GREEK_DELTA_PARITY_TRAP_LONG.' },
+            { type: 'new', text: 'False squeeze ignition: LECTURER_ACCUM_BAIT_FALSE_SQUEEZE_IGNITION_SHORT.' },
+            { type: 'new', text: 'Extreme funding ghost spring: LECTURER_EXTREME_FUNDING_GHOST_SWEEP_SPOOF_LONG.' },
             { type: 'guard', text: 'No broad override: every rule requires regime, phase, flow, sweep-state, and risk fingerprint.' }
         ],
         matrix: [
@@ -855,6 +858,33 @@ const plStages = [
     },
     {
         num: '06',
+        color: '#6bb6a8',
+        tagBg: 'rgba(107,182,168,0.12)',
+        tag: 'Latest',
+        title: 'Latest Meta-Trap Patch Layer',
+        desc: 'Captures the newest refined fingerprints from MITO, PROVE, ESPORTS, EDEN, FIDA, BILL, NIL, and BUSDT replays. The goal is not to add a bigger hammer; each patch only fires when the same adversarial fingerprint is present, then regression memory checks that previous corrected wins stay intact.',
+        chips: ['MITO Ghost Sweep','PROVE Funding PreKill','ESPORTS False Ignition','4h Cascade Fade','Delta-Gamma Parity','Oversold OFI Continuation','MM Repricing Reversal','High Up-Energy Fake Pump Guard','Extreme Funding Block','Exchange Critical Guard'],
+        sub: [
+            { type: 'new', text: 'MITO 09:01 spring: LECTURER_EXTREME_FUNDING_GHOST_SWEEP_SPOOF_LONG protects CRITICAL exchange LONG plus extreme negative funding from fake post-sweep SHORT.' },
+            { type: 'new', text: 'PROVE pre-kill squeeze: LECTURER_LIQ_HUNT_EXTREME_FUNDING_PREKILL_SQUEEZE_LONG blocks SHORT when funding is extremely negative and short-liq sweep is still pending.' },
+            { type: 'new', text: 'ESPORTS fake oversold bounce: LECTURER_ACCUM_BAIT_FALSE_SQUEEZE_IGNITION_SHORT cancels SHORT_SQUEEZE_IGNITION_V2 when OFI is absolute SHORT and RSI5m is not real capitulation.' },
+            { type: 'new', text: 'MITO 07:30 bear trap: LECTURER_DISTRIBUTION_BAIT_4H_SHORT_CASCADE_FADE_LONG fades stale 4h SHORT when lower timeframes, flow, and funding point to squeeze.' },
+            { type: 'new', text: 'EDEN Greek parity trap: LECTURER_ACCUM_KILL_GREEK_DELTA_PARITY_TRAP_LONG stops no-neutral Greeks from killing a real accumulation squeeze.' },
+            { type: 'new', text: 'FIDA oversold continuation: LECTURER_ACCUM_BAIT_OVERSOLD_OFI_SHORT_CONTINUATION_SHORT blocks fake bottom-pick LONG when OFI and distribution say continuation.' },
+            { type: 'new', text: 'BILL terminal reversal: LECTURER_TERMINAL_MM_REPRICING_REVERSAL_SHORT treats bid stack and OFI as distribution support after the short-liq magnet.' },
+            { type: 'guard', text: 'BUSDT high up-energy fake pump remains protected by HIGH_UP_ENERGY_FAKE_PUMP and LECTURER_HIGH_UP_ENERGY_EXCHANGE_SHORT when ask wall, exchange SHORT, and ultra-close short_liq agree.' }
+        ],
+        matrix: [
+            ['MITO ghost spring', 'LONG only with CRITICAL exchange LONG, extreme negative funding, ghost volume, squeeze veto, and fake post-sweep SHORT'],
+            ['PROVE pre-kill', 'LONG only while short-liq sweep is pending and extreme funding says shorts are overcrowded'],
+            ['ESPORTS false bounce', 'SHORT when BAIT fake-down has genuine participation, OFI SHORT 1.00, weak agg/flow, and no real capitulation'],
+            ['4h cascade fade', 'LONG when 4h SHORT is stale but lower TF pressure, funding, and flow have already flipped'],
+            ['Terminal repricing', 'SHORT when bid stack is distribution support after magnet cosmetics'],
+            ['Fake-pump guard', 'keeps BUSDT-style HIGH_UP_ENERGY_FAKE_PUMP SHORT untouched']
+        ]
+    },
+    {
+        num: '07',
         color: '#c94e76',
         tagBg: 'rgba(201,78,118,0.12)',
         tag: 'Risk',
@@ -875,7 +905,7 @@ const plStages = [
         ]
     },
     {
-        num: '07',
+        num: '08',
         color: '#57b46f',
         tagBg: 'rgba(87,180,111,0.12)',
         tag: 'Probe',
@@ -896,7 +926,7 @@ const plStages = [
         ]
     },
     {
-        num: '08',
+        num: '09',
         color: '#d4a84b',
         tagBg: 'rgba(212,168,75,0.12)',
         tag: 'Output',
@@ -917,7 +947,7 @@ const plStages = [
         ]
     },
     {
-        num: '09',
+        num: '10',
         color: '#888780',
         tagBg: 'rgba(136,135,128,0.12)',
         tag: 'Replay',
@@ -931,6 +961,9 @@ const plStages = [
             { type: 'new', text: 'KILL flow reversal requires active volume, weak agg/flow, OFI SHORT, and gamma BOTH_POSSIBLE.' },
             { type: 'new', text: 'Accumulation ghost guard also blocks anti-paralysis LONG probes.' },
             { type: 'new', text: 'Pending ultra short-liq guard cancels stale terminal SHORT when the sweep has not actually consumed the magnet.' },
+            { type: 'new', text: 'Extreme funding ghost spring protects MITO-style fake post-sweep SHORT but does not touch BUSDT high up-energy fake pump SHORT.' },
+            { type: 'new', text: 'False squeeze ignition separates ESPORTS loss from SWARMS win by requiring genuine participation plus absolute SHORT flow.' },
+            { type: 'new', text: 'Pre-kill funding squeeze separates PROVE LONG from no-buyer funding dumps by requiring pending short-liq execution.' },
             { type: 'guard', text: 'A rule is accepted only if it has explicit regime, phase, flow, sweep, and risk conditions.' }
         ],
         matrix: [
@@ -942,7 +975,7 @@ const plStages = [
     }
 ];
 
-let plActive = new Set([0, 3]);
+let plActive = new Set([0, 3, 5]);
 
 function plSubHtml(items) {
     if (!items || !items.length) return '';
