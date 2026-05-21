@@ -862,25 +862,25 @@ const plStages = [
         tagBg: 'rgba(107,182,168,0.12)',
         tag: 'Latest',
         title: 'Latest Meta-Trap Patch Layer',
-        desc: 'Captures the newest refined fingerprints from MITO, PROVE, ESPORTS, EDEN, FIDA, BILL, NIL, and BUSDT replays. The goal is not to add a bigger hammer; each patch only fires when the same adversarial fingerprint is present, then regression memory checks that previous corrected wins stay intact.',
-        chips: ['MITO Ghost Sweep','PROVE Funding PreKill','ESPORTS False Ignition','4h Cascade Fade','Delta-Gamma Parity','Oversold OFI Continuation','MM Repricing Reversal','High Up-Energy Fake Pump Guard','Extreme Funding Block','Exchange Critical Guard'],
+        desc: 'Captures the newest refined fingerprints from the latest replay set without exposing specific asset examples. The goal is not to add a bigger hammer; each patch only fires when the same adversarial fingerprint is present, then regression memory checks that previous corrected wins stay intact.',
+        chips: ['Ghost Sweep Spring','Funding PreKill Squeeze','False Squeeze Ignition','4h Cascade Fade','Delta-Gamma Parity','Oversold OFI Continuation','MM Repricing Reversal','High Up-Energy Fake Pump Guard','Extreme Funding Block','Exchange Critical Guard'],
         sub: [
-            { type: 'new', text: 'MITO 09:01 spring: LECTURER_EXTREME_FUNDING_GHOST_SWEEP_SPOOF_LONG protects CRITICAL exchange LONG plus extreme negative funding from fake post-sweep SHORT.' },
-            { type: 'new', text: 'PROVE pre-kill squeeze: LECTURER_LIQ_HUNT_EXTREME_FUNDING_PREKILL_SQUEEZE_LONG blocks SHORT when funding is extremely negative and short-liq sweep is still pending.' },
-            { type: 'new', text: 'ESPORTS fake oversold bounce: LECTURER_ACCUM_BAIT_FALSE_SQUEEZE_IGNITION_SHORT cancels SHORT_SQUEEZE_IGNITION_V2 when OFI is absolute SHORT and RSI5m is not real capitulation.' },
-            { type: 'new', text: 'MITO 07:30 bear trap: LECTURER_DISTRIBUTION_BAIT_4H_SHORT_CASCADE_FADE_LONG fades stale 4h SHORT when lower timeframes, flow, and funding point to squeeze.' },
-            { type: 'new', text: 'EDEN Greek parity trap: LECTURER_ACCUM_KILL_GREEK_DELTA_PARITY_TRAP_LONG stops no-neutral Greeks from killing a real accumulation squeeze.' },
-            { type: 'new', text: 'FIDA oversold continuation: LECTURER_ACCUM_BAIT_OVERSOLD_OFI_SHORT_CONTINUATION_SHORT blocks fake bottom-pick LONG when OFI and distribution say continuation.' },
-            { type: 'new', text: 'BILL terminal reversal: LECTURER_TERMINAL_MM_REPRICING_REVERSAL_SHORT treats bid stack and OFI as distribution support after the short-liq magnet.' },
-            { type: 'guard', text: 'BUSDT high up-energy fake pump remains protected by HIGH_UP_ENERGY_FAKE_PUMP and LECTURER_HIGH_UP_ENERGY_EXCHANGE_SHORT when ask wall, exchange SHORT, and ultra-close short_liq agree.' }
+            { type: 'new', text: 'Ghost sweep spring: LECTURER_EXTREME_FUNDING_GHOST_SWEEP_SPOOF_LONG protects CRITICAL exchange LONG plus extreme negative funding from fake post-sweep SHORT.' },
+            { type: 'new', text: 'Pre-kill funding squeeze: LECTURER_LIQ_HUNT_EXTREME_FUNDING_PREKILL_SQUEEZE_LONG blocks SHORT when funding is extremely negative and short-liq sweep is still pending.' },
+            { type: 'new', text: 'False oversold bounce: LECTURER_ACCUM_BAIT_FALSE_SQUEEZE_IGNITION_SHORT cancels SHORT_SQUEEZE_IGNITION_V2 when OFI is absolute SHORT and RSI5m is not real capitulation.' },
+            { type: 'new', text: '4h bear-trap fade: LECTURER_DISTRIBUTION_BAIT_4H_SHORT_CASCADE_FADE_LONG fades stale 4h SHORT when lower timeframes, flow, and funding point to squeeze.' },
+            { type: 'new', text: 'Greek parity trap: LECTURER_ACCUM_KILL_GREEK_DELTA_PARITY_TRAP_LONG stops no-neutral Greeks from killing a real accumulation squeeze.' },
+            { type: 'new', text: 'Oversold continuation: LECTURER_ACCUM_BAIT_OVERSOLD_OFI_SHORT_CONTINUATION_SHORT blocks fake bottom-pick LONG when OFI and distribution say continuation.' },
+            { type: 'new', text: 'Terminal repricing reversal: LECTURER_TERMINAL_MM_REPRICING_REVERSAL_SHORT treats bid stack and OFI as distribution support after the short-liq magnet.' },
+            { type: 'guard', text: 'High up-energy fake pump remains protected by HIGH_UP_ENERGY_FAKE_PUMP and LECTURER_HIGH_UP_ENERGY_EXCHANGE_SHORT when ask wall, exchange SHORT, and ultra-close short_liq agree.' }
         ],
         matrix: [
-            ['MITO ghost spring', 'LONG only with CRITICAL exchange LONG, extreme negative funding, ghost volume, squeeze veto, and fake post-sweep SHORT'],
-            ['PROVE pre-kill', 'LONG only while short-liq sweep is pending and extreme funding says shorts are overcrowded'],
-            ['ESPORTS false bounce', 'SHORT when BAIT fake-down has genuine participation, OFI SHORT 1.00, weak agg/flow, and no real capitulation'],
+            ['Ghost sweep spring', 'LONG only with CRITICAL exchange LONG, extreme negative funding, ghost volume, squeeze veto, and fake post-sweep SHORT'],
+            ['Pre-kill funding', 'LONG only while short-liq sweep is pending and extreme funding says shorts are overcrowded'],
+            ['False squeeze bounce', 'SHORT when BAIT fake-down has genuine participation, OFI SHORT 1.00, weak agg/flow, and no real capitulation'],
             ['4h cascade fade', 'LONG when 4h SHORT is stale but lower TF pressure, funding, and flow have already flipped'],
             ['Terminal repricing', 'SHORT when bid stack is distribution support after magnet cosmetics'],
-            ['Fake-pump guard', 'keeps BUSDT-style HIGH_UP_ENERGY_FAKE_PUMP SHORT untouched']
+            ['Fake-pump guard', 'keeps HIGH_UP_ENERGY_FAKE_PUMP SHORT untouched']
         ]
     },
     {
@@ -961,9 +961,9 @@ const plStages = [
             { type: 'new', text: 'KILL flow reversal requires active volume, weak agg/flow, OFI SHORT, and gamma BOTH_POSSIBLE.' },
             { type: 'new', text: 'Accumulation ghost guard also blocks anti-paralysis LONG probes.' },
             { type: 'new', text: 'Pending ultra short-liq guard cancels stale terminal SHORT when the sweep has not actually consumed the magnet.' },
-            { type: 'new', text: 'Extreme funding ghost spring protects MITO-style fake post-sweep SHORT but does not touch BUSDT high up-energy fake pump SHORT.' },
-            { type: 'new', text: 'False squeeze ignition separates ESPORTS loss from SWARMS win by requiring genuine participation plus absolute SHORT flow.' },
-            { type: 'new', text: 'Pre-kill funding squeeze separates PROVE LONG from no-buyer funding dumps by requiring pending short-liq execution.' },
+            { type: 'new', text: 'Extreme funding ghost spring protects fake post-sweep SHORT but does not touch high up-energy fake pump SHORT.' },
+            { type: 'new', text: 'False squeeze ignition separates failed oversold-bounce traps from clean dump wins by requiring genuine participation plus absolute SHORT flow.' },
+            { type: 'new', text: 'Pre-kill funding squeeze separates valid LONG squeeze setups from no-buyer funding dumps by requiring pending short-liq execution.' },
             { type: 'guard', text: 'A rule is accepted only if it has explicit regime, phase, flow, sweep, and risk conditions.' }
         ],
         matrix: [
