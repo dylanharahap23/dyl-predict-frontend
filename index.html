@@ -144,7 +144,7 @@
         .pl-card { border-radius: 14px; border: 0.5px solid var(--border); background: var(--bg2); padding: 15px 20px; transition: all 0.25s ease; position: relative; overflow: hidden; }
         .pl-stage.active .pl-card { border-color: var(--card-border, var(--border)); background: var(--bg3); }
         .pl-card-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-        .pl-title { font-family: var(--font-display); font-size: 14px; font-weight: 500; color: var(--text-main); letter-spacing: -0.01em; transition: color 0.2s; }
+        .pl-title { font-family: var(--font-display); font-size: 14px; font-weight: 500; color: var(--text-main); letter-spacing: -0.01em; transition: color 0.2s; overflow-wrap: anywhere; }
         .pl-stage.active .pl-title { color: var(--card-color, var(--accent-gold)); }
         .pl-badge { font-family: var(--font-mono); font-size: 9px; font-weight: 500; padding: 3px 10px; border-radius: 20px; white-space: nowrap; letter-spacing: 0.8px; text-transform: uppercase; flex-shrink: 0; }
         .pl-chevron { width: 14px; height: 14px; flex-shrink: 0; color: var(--text-dim); transition: transform 0.25s ease, color 0.2s; }
@@ -153,7 +153,7 @@
         .pl-stage.active .pl-expand { max-height: 1600px; opacity: 1; }
         .pl-desc { font-size: 12px; color: var(--text-muted); margin-top: 10px; line-height: 1.7; font-weight: 300; }
         .pl-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
-        .pl-chip { font-family: var(--font-mono); font-size: 10px; padding: 3px 9px; border-radius: 5px; border: 0.5px solid var(--border2); color: var(--text-dim); background: var(--bg4); letter-spacing: 0.2px; transition: border-color 0.2s, color 0.2s; }
+        .pl-chip { font-family: var(--font-mono); font-size: 10px; padding: 3px 9px; border-radius: 5px; border: 0.5px solid var(--border2); color: var(--text-dim); background: var(--bg4); letter-spacing: 0.2px; transition: border-color 0.2s, color 0.2s; max-width: 100%; overflow-wrap: anywhere; }
         .pl-stage.active .pl-chip { color: var(--text-muted); }
         .pl-sub { margin-top: 14px; border-left: 1px solid var(--border2); padding-left: 14px; }
         .pl-sub-item { display: flex; align-items: baseline; gap: 8px; padding: 5px 0; font-size: 12px; color: var(--text-muted); font-weight: 300; border-bottom: 0.5px solid var(--border); font-family: var(--font-main); line-height: 1.5; }
@@ -194,7 +194,7 @@
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
         @media (max-width: 768px) { .quote-section { margin: 50px auto 40px; } .signal-quote { font-size: 18px; } .premium-section { margin: 40px auto; } .section-title { font-size: 22px; margin-bottom: 20px; } .cards-grid { flex-direction: column; align-items: center; } .glass-card { min-width: auto; width: 100%; max-width: 300px; } .stats-grid { flex-direction: column; align-items: center; } .stat-item { width: 100%; max-width: 260px; } .pl-stats { gap: 8px; flex-direction: column; align-items: center; } .pl-stat { border-radius: 10px !important; border: 0.5px solid var(--border) !important; min-width: 160px; } .pl-matrix { grid-template-columns: 1fr; } }
-        @media (max-width: 480px) { .brand h1 { font-size: 28px; } .brand-logo { width: 80px; } .search-container { flex-direction: column; padding: 16px; } .btn-group { width: 100%; margin-top: 12px; } .btn-group button { width: 100%; } .card-header { flex-direction: column; gap: 10px; } .action-buttons { width: 100%; justify-content: center; } .sidebar { width: 100%; max-width: 320px; } .tabs { gap: 6px; } .tab-btn { padding: 6px 14px; font-size: 13px; } .pl-spine { width: 40px; } .pl-node { width: 30px; height: 30px; font-size: 10px; } .pl-title { font-size: 13px; } }
+        @media (max-width: 480px) { .brand h1 { font-size: 28px; } .brand-logo { width: 80px; } .search-container { flex-direction: column; padding: 16px; } .btn-group { width: 100%; margin-top: 12px; } .btn-group button { width: 100%; } .card-header { flex-direction: column; gap: 10px; } .action-buttons { width: 100%; justify-content: center; } .sidebar { width: 100%; max-width: 320px; } .tabs { gap: 6px; } .tab-btn { padding: 6px 14px; font-size: 13px; } .pl-spine { width: 40px; } .pl-node { width: 30px; height: 30px; font-size: 10px; } .pl-body { padding-left: 10px; } .pl-card { padding: 13px 14px; } .pl-card-header { align-items: flex-start; } .pl-title { font-size: 13px; line-height: 1.35; } .pl-desc { font-size: 11px; line-height: 1.55; } .pl-sub-item { font-size: 11px; } }
     </style>
 </head>
 <body>
@@ -296,16 +296,16 @@
         <section class="premium-section reveal" id="engine-pipeline">
             <h2 class="section-title">How the Engine Thinks</h2>
             <div class="pipeline-wrap">
-                <div class="pl-header"><span class="pl-header-label">Updated neural signal pipeline</span><div class="pl-header-line"></div></div>
+                <div class="pl-header"><span class="pl-header-label">Compact neural pipeline</span><div class="pl-header-line"></div></div>
                 <div class="pl-stats">
-                    <div class="pl-stat"><span class="pl-stat-val">80</span><span class="pl-stat-lbl">Lecturer Rules</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">10</span><span class="pl-stat-lbl">Core Stages</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">15+</span><span class="pl-stat-lbl">Trap Families</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">0.25K</span><span class="pl-stat-lbl">Risk Layer</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">Atomic</span><span class="pl-stat-lbl">JSON Output</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">90+</span><span class="pl-stat-lbl">Rules</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">10</span><span class="pl-stat-lbl">Stages</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">15+</span><span class="pl-stat-lbl">Traps</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">250</span><span class="pl-stat-lbl">Risk</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">JSON</span><span class="pl-stat-lbl">Output</span></div>
                 </div>
                 <div class="pl-list" id="plList"></div>
-                <div class="pl-footer"><span class="pulse-dot" style="background:#57d977;"></span>Pipeline data loaded &mdash; engine active &mdash; click any stage to inspect</div>
+                <div class="pl-footer"><span class="pulse-dot" style="background:#57d977;"></span>Engine active &mdash; tap a stage</div>
             </div>
         </section>
 
@@ -808,27 +808,19 @@ const plStages = [
         color: '#d85a30',
         tagBg: 'rgba(216,90,48,0.12)',
         tag: 'Lecturer',
-        title: 'Final Lecturer Reverse Overlay',
-        desc: 'The highest-value anti-adversarial layer. It reads the final temporary bias and flips it only when a precise trap fingerprint appears. This layer now separates old lecturer corrections from the newest meta-trap patches so broad Greek, Hawkes, RSI, funding, or OFI anchors cannot hijack the final direction alone.',
-        chips: ['Terminal Short-Liq Fade','Accum Ask-Wall Stale Energy','KILL Flow Reversal','Extreme Funding No Buyer','Bullish Book Real Squeeze','Accum Ghost PreKill','Pending Ultra Short-Liq','Delta Parity Trap','False Squeeze Ignition','Ghost Sweep Spring','Double Sweep','Post-Sweep Bid Reload'],
+        title: 'Final Overlay',
+        desc: 'Last directional layer. It flips only on exact trap fingerprints, so Greeks, Hawkes, RSI, funding, or OFI cannot hijack the final bias alone.',
+        chips: ['Terminal Fade','Bid Reload','Ghost Flow','Real Squeeze','False Squeeze','Double Sweep','Post-Sweep'],
         sub: [
-            { type: 'new', text: 'Terminal short-liq fade: LECTURER_LIQ_HUNT_TERMINAL_SHORT_LIQ_FADE_SHORT.' },
-            { type: 'new', text: 'Accumulation ask-wall stale energy: LECTURER_ACCUM_ASK_WALL_STALE_ENERGY_SHORT.' },
-            { type: 'new', text: 'No-buyer funding dump: LECTURER_LIQ_HUNT_EXTREME_FUNDING_NO_BUYER_SHORT.' },
-            { type: 'new', text: 'Bullish-book real squeeze: LECTURER_MANIP_PREP_BULLISH_BOOK_REAL_SQUEEZE_LONG.' },
-            { type: 'new', text: 'KILL flow reversal: LECTURER_KILL_ACTIVE_SQUEEZE_FLOW_REVERSAL_SHORT.' },
-            { type: 'new', text: 'Accumulation ghost pre-kill distribution: LECTURER_ACCUM_GHOST_PREKILL_DISTRIBUTION_SHORT.' },
-            { type: 'new', text: 'Pending ultra short-liq squeeze: LECTURER_PENDING_ULTRA_SHORT_LIQ_SQUEEZE_LONG.' },
-            { type: 'new', text: 'Delta parity trap: LECTURER_ACCUM_KILL_GREEK_DELTA_PARITY_TRAP_LONG.' },
-            { type: 'new', text: 'False squeeze ignition: LECTURER_ACCUM_BAIT_FALSE_SQUEEZE_IGNITION_SHORT.' },
-            { type: 'new', text: 'Extreme funding ghost spring: LECTURER_EXTREME_FUNDING_GHOST_SWEEP_SPOOF_LONG.' },
-            { type: 'guard', text: 'No broad override: every rule requires regime, phase, flow, sweep-state, and risk fingerprint.' }
+            { type: 'new', text: 'Terminal fade, bid reload, ghost flow, and false squeeze are separated.' },
+            { type: 'new', text: 'New guards protect post-sweep, pending short-liq, and stale Hawkes locks.' },
+            { type: 'guard', text: 'Every flip needs regime, phase, flow, sweep-state, and risk proof.' }
         ],
         matrix: [
-            ['Force LONG', 'bid reload, perfect OFI/agg, clean REAL squeeze'],
-            ['Force SHORT', 'ask-wall supply, no buyer, terminal short-liq fade'],
-            ['Hard block', 'adversarial veto or post-sweep distribution without edge'],
-            ['Do nothing', 'if fingerprint is incomplete']
+            ['LONG', 'real squeeze or bid reload'],
+            ['SHORT', 'post-sweep or no-buyer dump'],
+            ['BLOCK', 'conflict without clean edge'],
+            ['WAIT', 'fingerprint incomplete']
         ]
     },
     {
@@ -836,24 +828,20 @@ const plStages = [
         color: '#c98a1a',
         tagBg: 'rgba(201,138,26,0.12)',
         tag: 'Sweeps',
-        title: 'Sweep-State and Liquidation Timing Matrix',
-        desc: 'Separates timing leg from final direction. A nearby long_liq can mean real downside sweep, or a fake-down entry before pump. A nearby short_liq can mean genuine squeeze, or a consumed magnet before dump. The engine now requires buyer/no-buyer evidence and consumed/not-consumed proof before trusting the magnet.',
-        chips: ['pre_kill_sweep_bias','long_swept','post_flush','post_sweep_distribution','magnet consumed','magnet unconsumed','bid reload','no buyer','terminal magnet'],
+        title: 'Sweep Timing',
+        desc: 'Separates the first sweep from the final direction. A near magnet matters only with swept/not-swept and buyer/no-buyer proof.',
+        chips: ['pre_kill','long_swept','post_sweep','magnet','bid reload','no buyer'],
         sub: [
-            { type: 'gate', text: 'pre_kill SHORT + no buyer + HFT/Algo SHORT => SHORT continuation.' },
-            { type: 'gate', text: 'pre_kill SHORT + perfect LONG flow + bullish book + REAL squeeze => LONG bid reload.' },
-            { type: 'gate', text: 'pre_kill LONG + ultra-close short_liq + active buyers + unconsumed magnet => LONG until sweep confirmation.' },
-            { type: 'gate', text: 'pre_kill LONG + short_liq near + ask wall extreme + OFI SHORT + terminal score wins => SHORT fade.' },
-            { type: 'gate', text: 'long_swept + post_sweep_distribution + OFI neutral => no-buyer SHORT.' },
-            { type: 'gate', text: 'long_swept + bid reload + exchange/Greeks LONG => rebound LONG.' }
+            { type: 'gate', text: 'pre_kill SHORT + no buyer => SHORT continuation.' },
+            { type: 'gate', text: 'pre_kill SHORT + real bid reload => LONG rebound.' },
+            { type: 'gate', text: 'short_liq pending + no sellers => keep LONG until magnet.' },
+            { type: 'gate', text: 'post_sweep_distribution + weak buyers => SHORT.' }
         ],
         matrix: [
-            ['Near long_liq + no buyer', 'SHORT'],
-            ['Near long_liq + perfect bid reload', 'LONG'],
-            ['short_liq near + ask wall + weak flow', 'SHORT'],
-            ['short_liq pending + strong flow', 'LONG'],
-            ['ultra short-liq + unconsumed magnet', 'do not trust terminal SHORT yet'],
-            ['short-liq consumed + buyers gone', 'SHORT can reopen']
+            ['near long_liq', 'SHORT unless reload'],
+            ['bid reload', 'LONG rebound'],
+            ['short_liq pending', 'LONG until consumed'],
+            ['buyers gone', 'SHORT reopens']
         ]
     },
     {
@@ -861,26 +849,21 @@ const plStages = [
         color: '#6bb6a8',
         tagBg: 'rgba(107,182,168,0.12)',
         tag: 'Latest',
-        title: 'Latest Meta-Trap Patch Layer',
-        desc: 'Captures the newest refined fingerprints from the latest replay set without exposing specific asset examples. The goal is not to add a bigger hammer; each patch only fires when the same adversarial fingerprint is present, then regression memory checks that previous corrected wins stay intact.',
-        chips: ['Ghost Sweep Spring','Funding PreKill Squeeze','False Squeeze Ignition','4h Cascade Fade','Delta-Gamma Parity','Oversold OFI Continuation','MM Repricing Reversal','High Up-Energy Fake Pump Guard','Extreme Funding Block','Exchange Critical Guard'],
+        title: 'Latest Patches',
+        desc: 'Narrow meta-trap fixes from replay. Each patch must fix one fingerprint without touching old wins.',
+        chips: ['Micro Cascade','Stale Hawkes','Vacuum Squeeze','Bid Trap','Funding Exception','Replay Safe'],
         sub: [
-            { type: 'new', text: 'Ghost sweep spring: LECTURER_EXTREME_FUNDING_GHOST_SWEEP_SPOOF_LONG protects CRITICAL exchange LONG plus extreme negative funding from fake post-sweep SHORT.' },
-            { type: 'new', text: 'Pre-kill funding squeeze: LECTURER_LIQ_HUNT_EXTREME_FUNDING_PREKILL_SQUEEZE_LONG blocks SHORT when funding is extremely negative and short-liq sweep is still pending.' },
-            { type: 'new', text: 'False oversold bounce: LECTURER_ACCUM_BAIT_FALSE_SQUEEZE_IGNITION_SHORT cancels SHORT_SQUEEZE_IGNITION_V2 when OFI is absolute SHORT and RSI5m is not real capitulation.' },
-            { type: 'new', text: '4h bear-trap fade: LECTURER_DISTRIBUTION_BAIT_4H_SHORT_CASCADE_FADE_LONG fades stale 4h SHORT when lower timeframes, flow, and funding point to squeeze.' },
-            { type: 'new', text: 'Greek parity trap: LECTURER_ACCUM_KILL_GREEK_DELTA_PARITY_TRAP_LONG stops no-neutral Greeks from killing a real accumulation squeeze.' },
-            { type: 'new', text: 'Oversold continuation: LECTURER_ACCUM_BAIT_OVERSOLD_OFI_SHORT_CONTINUATION_SHORT blocks fake bottom-pick LONG when OFI and distribution say continuation.' },
-            { type: 'new', text: 'Terminal repricing reversal: LECTURER_TERMINAL_MM_REPRICING_REVERSAL_SHORT treats bid stack and OFI as distribution support after the short-liq magnet.' },
-            { type: 'guard', text: 'High up-energy fake pump remains protected by HIGH_UP_ENERGY_FAKE_PUMP and LECTURER_HIGH_UP_ENERGY_EXCHANGE_SHORT when ask wall, exchange SHORT, and ultra-close short_liq agree.' }
+            { type: 'new', text: 'Post-sweep micro cascade cancels fake funding LONG.' },
+            { type: 'new', text: 'Stale 4h Hawkes lock is cancelled when 1h is active SHORT.' },
+            { type: 'new', text: 'KILL-phase pending short-liq vacuum protects real LONG squeeze.' },
+            { type: 'new', text: 'Oversold bid-reload trap catches fake LONG support near long_liq.' },
+            { type: 'guard', text: 'Replay must keep prior 50+ corrected cases intact.' }
         ],
         matrix: [
-            ['Ghost sweep spring', 'LONG only with CRITICAL exchange LONG, extreme negative funding, ghost volume, squeeze veto, and fake post-sweep SHORT'],
-            ['Pre-kill funding', 'LONG only while short-liq sweep is pending and extreme funding says shorts are overcrowded'],
-            ['False squeeze bounce', 'SHORT when BAIT fake-down has genuine participation, OFI SHORT 1.00, weak agg/flow, and no real capitulation'],
-            ['4h cascade fade', 'LONG when 4h SHORT is stale but lower TF pressure, funding, and flow have already flipped'],
-            ['Terminal repricing', 'SHORT when bid stack is distribution support after magnet cosmetics'],
-            ['Fake-pump guard', 'keeps HIGH_UP_ENERGY_FAKE_PUMP SHORT untouched']
+            ['Micro cascade', 'SHORT after swept long_liq'],
+            ['Stale Hawkes', '1h beats old 4h'],
+            ['Vacuum squeeze', 'LONG if short_liq pending'],
+            ['Bid trap', 'SHORT if reload is fake']
         ]
     },
     {
@@ -888,14 +871,13 @@ const plStages = [
         color: '#c94e76',
         tagBg: 'rgba(201,78,118,0.12)',
         tag: 'Risk',
-        title: 'Professional Risk + Adaptive Kelly',
-        desc: 'Computes expectancy, payoff ratio, raw Kelly, fractional Kelly, risk-of-ruin proxy, Sharpe proxy, volatility proxy, and sizing caps. Pro-risk does not blindly decide direction, but it blocks stale overrides and forces tiny sizing when the math is toxic.',
-        chips: ['Expectancy','Kelly raw','0.25 Kelly','Risk of Ruin','Sharpe proxy','Volatility cap','Position multiplier','Size floor'],
+        title: 'Risk + Kelly',
+        desc: 'Computes expectancy, Kelly, RoR, Sharpe proxy, volatility, and size caps. It controls risk, not blind direction.',
+        chips: ['Expectancy','Kelly','RoR','Sharpe','Vol cap','Size cap'],
         sub: [
-            { type: 'risk', text: 'Negative expectancy + RoR 1.0 supports hard blocks in no-buyer or distribution contexts.' },
-            { type: 'risk', text: 'Kelly <= 0 caps size unless a narrow structural exception is active.' },
-            { type: 'risk', text: 'High volatility reduces size even when direction is valid.' },
-            { type: 'guard', text: 'Pro-risk is contextual, not a global direction signal.' }
+            { type: 'risk', text: 'Negative E + RoR high can block toxic entries.' },
+            { type: 'risk', text: 'Kelly <= 0 keeps size tiny unless structure is certain.' },
+            { type: 'risk', text: 'High volatility caps valid trades.' }
         ],
         matrix: [
             ['E > 0', 'edge can scale'],
@@ -909,14 +891,13 @@ const plStages = [
         color: '#57b46f',
         tagBg: 'rgba(87,180,111,0.12)',
         tag: 'Probe',
-        title: 'Anti-Paralysis and Probabilistic Execution',
-        desc: 'Prevents the engine from freezing when the only problem is timing. It can convert soft WAIT states into tiny probes, but cannot override hard invalidation such as terminal distribution, exchange critical conflict, or accumulation ghost pre-kill distribution.',
-        chips: ['WAIT_SWEEP','WAIT_EDGE','ARMED_PROBE','probabilistic score','toxicity','liq_edge','timing penalty','hard invalidation'],
+        title: 'Probe Gate',
+        desc: 'Converts soft WAIT into tiny probes only when no hard invalidation is active.',
+        chips: ['WAIT','Probe','Toxicity','Timing','Hard Block'],
         sub: [
-            { type: 'gate', text: 'Soft timing uncertainty can become ARMED_PROBE.' },
-            { type: 'guard', text: 'ACCUM ghost pre-kill distribution is now hard invalidation.' },
-            { type: 'guard', text: 'Terminal blowoff high-priority cannot be softened by anti-paralysis.' },
-            { type: 'risk', text: 'Probe size stays small and Kelly-capped.' }
+            { type: 'gate', text: 'Soft timing uncertainty may become ARMED_PROBE.' },
+            { type: 'guard', text: 'Hard blocks stay blocked.' },
+            { type: 'risk', text: 'Probe size remains Kelly-capped.' }
         ],
         matrix: [
             ['Soft block', 'may probe'],
@@ -930,14 +911,13 @@ const plStages = [
         color: '#d4a84b',
         tagBg: 'rgba(212,168,75,0.12)',
         tag: 'Output',
-        title: 'Atomic Final Output Renderer',
-        desc: 'Synchronizes the final bias fields and renders a deterministic JSON/terminal output. The bot should consume bias_display or _final_bias_locked from JSON, not parse terminal text. Every final decision carries source, reason, confidence, entry status, and size.',
-        chips: ['bias','bias_display','_final_bias_locked','_override_critical_source','confidence','entry_allowed','entry_reason','execution_state','analysis_id'],
+        title: 'Final JSON',
+        desc: 'Syncs final bias fields and renders deterministic JSON/terminal output. Bots should read JSON bias fields, not terminal text.',
+        chips: ['bias','bias_display','locked','source','confidence','entry','size','analysis_id'],
         sub: [
-            { type: 'detect', text: 'render_final_output applies final gates and syncs bias_display.' },
-            { type: 'detect', text: 'Reason string records all override layers for audit.' },
-            { type: 'guard', text: 'Safety gates can still set WAIT/HARD_BLOCK after a directional rule.' },
-            { type: 'risk', text: 'position_multiplier is capped by pro-risk and Kelly.' }
+            { type: 'detect', text: 'render_final_output applies final gates.' },
+            { type: 'detect', text: 'Reason records the active source.' },
+            { type: 'risk', text: 'Size is capped by risk and Kelly.' }
         ],
         matrix: [
             ['ARMED', 'entry allowed'],
@@ -951,20 +931,13 @@ const plStages = [
         color: '#888780',
         tagBg: 'rgba(136,135,128,0.12)',
         tag: 'Replay',
-        title: 'Regression Memory and Maintenance Loop',
-        desc: 'Every new adversarial pattern should become a narrow fingerprint and then be replayed against known corrected wins/losses. The best rules fix one loss without touching unrelated wins. Broad rules that trust only funding, Hawkes, Greeks, or RSI are rejected.',
-        chips: ['saved snapshots','known wins','known losses','narrow fingerprint','no broad funding rule','no single-signal rule','weekly replay','threshold tuning'],
+        title: 'Replay Loop',
+        desc: 'Every new trap becomes a narrow fingerprint, then gets replayed against known wins and losses.',
+        chips: ['Snapshots','Wins','Losses','Fingerprint','Replay','No broad rule'],
         sub: [
-            { type: 'new', text: 'Opposite-pattern rules are scoped to separate fingerprints so they do not collide.' },
-            { type: 'new', text: 'Terminal short-liq fade requires ask wall, bearish book, OFI SHORT, overbought RSI/Stoch, negative pro-risk, and non-executing gamma.' },
-            { type: 'new', text: 'Accumulation ask-wall stale energy requires stale LONG pressure, neutral OFI, bearish book, terminal-vacuum block, and weak pro-risk.' },
-            { type: 'new', text: 'KILL flow reversal requires active volume, weak agg/flow, OFI SHORT, and gamma BOTH_POSSIBLE.' },
-            { type: 'new', text: 'Accumulation ghost guard also blocks anti-paralysis LONG probes.' },
-            { type: 'new', text: 'Pending ultra short-liq guard cancels stale terminal SHORT when the sweep has not actually consumed the magnet.' },
-            { type: 'new', text: 'Extreme funding ghost spring protects fake post-sweep SHORT but does not touch high up-energy fake pump SHORT.' },
-            { type: 'new', text: 'False squeeze ignition separates failed oversold-bounce traps from clean dump wins by requiring genuine participation plus absolute SHORT flow.' },
-            { type: 'new', text: 'Pre-kill funding squeeze separates valid LONG squeeze setups from no-buyer funding dumps by requiring pending short-liq execution.' },
-            { type: 'guard', text: 'A rule is accepted only if it has explicit regime, phase, flow, sweep, and risk conditions.' }
+            { type: 'new', text: 'Opposite rules stay scoped so they do not collide.' },
+            { type: 'new', text: 'Latest set replays 50+ corrected cases.' },
+            { type: 'guard', text: 'A rule is accepted only with regime, phase, flow, sweep, and risk conditions.' }
         ],
         matrix: [
             ['Good rule', 'narrow and replay-safe'],
