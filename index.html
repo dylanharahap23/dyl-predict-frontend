@@ -123,25 +123,22 @@
         .stat-item { background: var(--card-bg); backdrop-filter: var(--glass-blur); border-radius: 14px; padding: 22px 32px; border: 1px solid var(--border); text-align: center; font-size: 14px; color: var(--text-muted); transition: border-color 0.3s; }
         .stat-item:hover { border-color: var(--border-gold); }
         .stat-number { display: block; font-family: var(--font-mono); letter-spacing: -2px; font-size: 40px; font-weight: 500; color: var(--accent-gold); margin-bottom: 6px; }
-        .pipeline-wrap { width: 100%; max-width: 760px; margin: 0 auto; }
-        .pl-header { display: flex; align-items: center; gap: 14px; margin-bottom: 2.5rem; }
+        .pipeline-wrap { width: 100%; max-width: 680px; margin: 0 auto; }
+        .pl-header { display: flex; align-items: center; gap: 14px; margin-bottom: 1.4rem; }
         .pl-header-line { flex: 1; height: 1px; background: linear-gradient(to right, var(--border-gold), transparent); }
         .pl-header-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-dim); white-space: nowrap; }
-        .pl-stats { display: flex; gap: 0; justify-content: center; margin-bottom: 2.5rem; flex-wrap: wrap; }
-        .pl-stat { flex: 1; min-width: 100px; max-width: 160px; text-align: center; padding: 16px 12px; background: var(--card-bg); border: 0.5px solid var(--border); position: relative; }
-        .pl-stat:first-child { border-radius: 12px 0 0 12px; }
-        .pl-stat:last-child  { border-radius: 0 12px 12px 0; }
-        .pl-stat + .pl-stat { border-left: none; }
-        .pl-stat-val { display: block; font-family: var(--font-display); font-size: 22px; font-weight: 600; color: var(--accent-gold); letter-spacing: -0.03em; }
-        .pl-stat-lbl { display: block; font-family: var(--font-mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-dim); margin-top: 4px; }
+        .pl-stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 7px; margin-bottom: 1.4rem; }
+        .pl-stat { text-align: center; padding: 10px 6px; background: var(--card-bg); border: 0.5px solid var(--border); border-radius: 9px; position: relative; min-width: 0; }
+        .pl-stat-val { display: block; font-family: var(--font-display); font-size: 17px; font-weight: 600; color: var(--accent-gold); letter-spacing: 0; }
+        .pl-stat-lbl { display: block; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 1.1px; text-transform: uppercase; color: var(--text-dim); margin-top: 4px; }
         .pl-list { display: flex; flex-direction: column; gap: 0; }
         .pl-stage { display: flex; align-items: stretch; cursor: pointer; transition: all 0.18s ease; }
-        .pl-spine { width: 52px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; padding-top: 2px; }
-        .pl-node { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 11px; font-weight: 500; flex-shrink: 0; transition: all 0.25s ease; position: relative; z-index: 1; }
+        .pl-spine { width: 46px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; padding-top: 2px; }
+        .pl-node { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 10px; font-weight: 500; flex-shrink: 0; transition: all 0.25s ease; position: relative; z-index: 1; }
         .pl-stage.active .pl-node { box-shadow: 0 0 0 6px var(--node-glow, rgba(212,168,75,0.1)); }
         .pl-connector { width: 1px; flex: 1; min-height: 18px; margin: 4px 0; transition: background 0.25s ease; }
-        .pl-body { flex: 1; padding: 0 0 18px 16px; }
-        .pl-card { border-radius: 14px; border: 0.5px solid var(--border); background: var(--bg2); padding: 15px 20px; transition: all 0.25s ease; position: relative; overflow: hidden; }
+        .pl-body { flex: 1; padding: 0 0 12px 12px; }
+        .pl-card { border-radius: 10px; border: 0.5px solid var(--border); background: var(--bg2); padding: 12px 14px; transition: all 0.25s ease; position: relative; overflow: hidden; }
         .pl-stage.active .pl-card { border-color: var(--card-border, var(--border)); background: var(--bg3); }
         .pl-card-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
         .pl-title { font-family: var(--font-display); font-size: 14px; font-weight: 500; color: var(--text-main); letter-spacing: -0.01em; transition: color 0.2s; overflow-wrap: anywhere; }
@@ -151,12 +148,12 @@
         .pl-stage.active .pl-chevron { transform: rotate(180deg); color: var(--card-color, var(--accent-gold)); }
         .pl-expand { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease; opacity: 0; }
         .pl-stage.active .pl-expand { max-height: 1600px; opacity: 1; }
-        .pl-desc { font-size: 12px; color: var(--text-muted); margin-top: 10px; line-height: 1.7; font-weight: 300; }
-        .pl-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
-        .pl-chip { font-family: var(--font-mono); font-size: 10px; padding: 3px 9px; border-radius: 5px; border: 0.5px solid var(--border2); color: var(--text-dim); background: var(--bg4); letter-spacing: 0.2px; transition: border-color 0.2s, color 0.2s; max-width: 100%; overflow-wrap: anywhere; }
+        .pl-desc { font-size: 11px; color: var(--text-muted); margin-top: 8px; line-height: 1.5; font-weight: 300; }
+        .pl-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 9px; }
+        .pl-chip { font-family: var(--font-mono); font-size: 9px; padding: 3px 7px; border-radius: 5px; border: 0.5px solid var(--border2); color: var(--text-dim); background: var(--bg4); letter-spacing: 0.2px; transition: border-color 0.2s, color 0.2s; max-width: 100%; overflow-wrap: anywhere; }
         .pl-stage.active .pl-chip { color: var(--text-muted); }
-        .pl-sub { margin-top: 14px; border-left: 1px solid var(--border2); padding-left: 14px; }
-        .pl-sub-item { display: flex; align-items: baseline; gap: 8px; padding: 5px 0; font-size: 12px; color: var(--text-muted); font-weight: 300; border-bottom: 0.5px solid var(--border); font-family: var(--font-main); line-height: 1.5; }
+        .pl-sub { margin-top: 10px; border-left: 1px solid var(--border2); padding-left: 10px; }
+        .pl-sub-item { display: flex; align-items: baseline; gap: 7px; padding: 3px 0; font-size: 11px; color: var(--text-muted); font-weight: 300; border-bottom: 0.5px solid var(--border); font-family: var(--font-main); line-height: 1.45; }
         .pl-sub-item:last-child { border-bottom: none; }
         .pl-sub-badge { font-family: var(--font-mono); font-size: 9px; font-weight: 500; padding: 2px 7px; border-radius: 4px; flex-shrink: 0; letter-spacing: 0.5px; text-transform: uppercase; }
         .badge-gate   { background: rgba(139,127,221,0.15); color: #a89fe8; }
@@ -193,8 +190,8 @@
         @keyframes glitch { 0%,100% { text-shadow: none; } 92% { text-shadow: 2px 0 var(--accent-gold), -2px 0 #57d977; } }
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 768px) { .quote-section { margin: 50px auto 40px; } .signal-quote { font-size: 18px; } .premium-section { margin: 40px auto; } .section-title { font-size: 22px; margin-bottom: 20px; } .cards-grid { flex-direction: column; align-items: center; } .glass-card { min-width: auto; width: 100%; max-width: 300px; } .stats-grid { flex-direction: column; align-items: center; } .stat-item { width: 100%; max-width: 260px; } .pl-stats { gap: 8px; flex-direction: column; align-items: center; } .pl-stat { border-radius: 10px !important; border: 0.5px solid var(--border) !important; min-width: 160px; } .pl-matrix { grid-template-columns: 1fr; } }
-        @media (max-width: 480px) { .brand h1 { font-size: 28px; } .brand-logo { width: 80px; } .search-container { flex-direction: column; padding: 16px; } .btn-group { width: 100%; margin-top: 12px; } .btn-group button { width: 100%; } .card-header { flex-direction: column; gap: 10px; } .action-buttons { width: 100%; justify-content: center; } .sidebar { width: 100%; max-width: 320px; } .tabs { gap: 6px; } .tab-btn { padding: 6px 14px; font-size: 13px; } .pl-spine { width: 40px; } .pl-node { width: 30px; height: 30px; font-size: 10px; } .pl-body { padding-left: 10px; } .pl-card { padding: 13px 14px; } .pl-card-header { align-items: flex-start; } .pl-title { font-size: 13px; line-height: 1.35; } .pl-desc { font-size: 11px; line-height: 1.55; } .pl-sub-item { font-size: 11px; } }
+        @media (max-width: 768px) { .quote-section { margin: 50px auto 40px; } .signal-quote { font-size: 18px; } .premium-section { margin: 34px auto; padding: 0 14px; } .section-title { font-size: 22px; margin-bottom: 18px; } .cards-grid { flex-direction: column; align-items: center; } .glass-card { min-width: auto; width: 100%; max-width: 300px; } .stats-grid { flex-direction: column; align-items: center; } .stat-item { width: 100%; max-width: 260px; } .pl-stats { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 5px; } .pl-stat { padding: 8px 4px; } .pl-matrix { display: none; } }
+        @media (max-width: 480px) { .brand h1 { font-size: 28px; } .brand-logo { width: 80px; } .search-container { flex-direction: column; padding: 16px; } .btn-group { width: 100%; margin-top: 12px; } .btn-group button { width: 100%; } .card-header { flex-direction: column; gap: 10px; } .action-buttons { width: 100%; justify-content: center; } .sidebar { width: 100%; max-width: 320px; } .tabs { gap: 6px; } .tab-btn { padding: 6px 14px; font-size: 13px; } .pl-header { margin-bottom: 1rem; } .pl-header-label { font-size: 9px; letter-spacing: 1.8px; } .pl-stats { gap: 4px; } .pl-stat { padding: 7px 2px; border-radius: 8px; } .pl-stat-val { font-size: 14px; } .pl-stat-lbl { font-size: 7px; letter-spacing: .6px; } .pl-spine { width: 34px; } .pl-node { width: 26px; height: 26px; font-size: 9px; } .pl-body { padding-left: 8px; padding-bottom: 9px; } .pl-card { padding: 10px 11px; } .pl-card-header { align-items: flex-start; gap: 8px; } .pl-title { font-size: 12px; line-height: 1.3; } .pl-badge { font-size: 8px; padding: 2px 7px; } .pl-desc { font-size: 10px; line-height: 1.45; } .pl-chip { font-size: 8px; padding: 2px 6px; } .pl-sub { display: none; } .pl-footer { font-size: 10px; } }
     </style>
 </head>
 <body>
@@ -296,7 +293,7 @@
         <section class="premium-section reveal" id="engine-pipeline">
             <h2 class="section-title">How the Engine Thinks</h2>
             <div class="pipeline-wrap">
-                <div class="pl-header"><span class="pl-header-label">Compact neural pipeline</span><div class="pl-header-line"></div></div>
+                <div class="pl-header"><span class="pl-header-label">Latest compact logic stack</span><div class="pl-header-line"></div></div>
                 <div class="pl-stats">
                     <div class="pl-stat"><span class="pl-stat-val">90+</span><span class="pl-stat-lbl">Rules</span></div>
                     <div class="pl-stat"><span class="pl-stat-val">10</span><span class="pl-stat-lbl">Stages</span></div>
@@ -305,7 +302,7 @@
                     <div class="pl-stat"><span class="pl-stat-val">JSON</span><span class="pl-stat-lbl">Output</span></div>
                 </div>
                 <div class="pl-list" id="plList"></div>
-                <div class="pl-footer"><span class="pulse-dot" style="background:#57d977;"></span>Engine active &mdash; tap a stage</div>
+                <div class="pl-footer"><span class="pulse-dot" style="background:#57d977;"></span>Latest gates active &mdash; tap a stage</div>
             </div>
         </section>
 
@@ -740,7 +737,7 @@ window.addEventListener('resize', () => {
 /* ================================================================
    PIPELINE RENDER
 ================================================================ */
-const plStages = [
+const legacyPipelineStages = [
     {
         num: '01',
         color: '#378ADD',
@@ -851,10 +848,11 @@ const plStages = [
         tag: 'Latest',
         title: 'Latest Patches',
         desc: 'Narrow meta-trap fixes from replay. Each patch must fix one fingerprint without touching old wins.',
-        chips: ['Micro Cascade','Stale Hawkes','Vacuum Squeeze','Bid Trap','Funding Exception','Replay Safe'],
+        chips: ['Micro Cascade','Stale Hawkes','Echo Pullback','Vacuum Squeeze','Bid Trap','Funding Exception','Replay Safe'],
         sub: [
             { type: 'new', text: 'Post-sweep micro cascade cancels fake funding LONG.' },
             { type: 'new', text: 'Stale 4h Hawkes lock is cancelled when 1h is active SHORT.' },
+            { type: 'new', text: 'Echo-not-ignition + RSI5m overbought cancels stale SHORT.' },
             { type: 'new', text: 'KILL-phase pending short-liq vacuum protects real LONG squeeze.' },
             { type: 'new', text: 'Oversold bid-reload trap catches fake LONG support near long_liq.' },
             { type: 'guard', text: 'Replay must keep prior 50+ corrected cases intact.' }
@@ -862,6 +860,7 @@ const plStages = [
         matrix: [
             ['Micro cascade', 'SHORT after swept long_liq'],
             ['Stale Hawkes', '1h beats old 4h'],
+            ['Echo pullback', 'LONG when SHORT is residual'],
             ['Vacuum squeeze', 'LONG if short_liq pending'],
             ['Bid trap', 'SHORT if reload is fake']
         ]
@@ -948,7 +947,140 @@ const plStages = [
     }
 ];
 
-let plActive = new Set([0, 3, 5]);
+const plStages = [
+    {
+        num: '01',
+        color: '#378ADD',
+        tagBg: 'rgba(55,138,221,0.12)',
+        tag: 'Input',
+        title: 'Raw Snapshot',
+        desc: 'Compute price, volume, OFI, OBV, energy, book ratio, funding, liquidation distance, and BTC fields.',
+        chips: ['price','OFI','OBV','energy','liq','BTC'],
+        sub: [
+            { type: 'detect', text: 'Normalize raw market and distance data.' },
+            { type: 'detect', text: 'Mark nearest long/short liquidation pools.' }
+        ]
+    },
+    {
+        num: '02',
+        color: '#57a6d9',
+        tagBg: 'rgba(87,166,217,0.12)',
+        tag: 'BTC',
+        title: 'BTC Anchor',
+        desc: 'Classify BTC dump, hidden distribution, local oversold bounce, and pump support before altcoin logic.',
+        chips: ['1m','15m','1h','4h','RSI','energy'],
+        sub: [
+            { type: 'gate', text: 'BTC dump active can block fragile LONG setups.' },
+            { type: 'gate', text: 'BTC local oversold can block late SHORT flips.' }
+        ]
+    },
+    {
+        num: '03',
+        color: '#8b7fdd',
+        tagBg: 'rgba(139,127,221,0.12)',
+        tag: 'Context',
+        title: 'Regime Lens',
+        desc: 'Read LIQ_HUNT, ACCUMULATION, MANIPULATION, DISTRIBUTION, BAIT, KILL, and PREP before interpreting signals.',
+        chips: ['regime','phase','Greeks','Hawkes'],
+        sub: [
+            { type: 'gate', text: 'Each regime changes what crowded, ghost, and Hawkes mean.' },
+            { type: 'guard', text: 'Greeks and Hawkes cannot decide alone.' }
+        ]
+    },
+    {
+        num: '04',
+        color: '#c050c8',
+        tagBg: 'rgba(192,80,200,0.12)',
+        tag: 'Hard',
+        title: 'No-Override Gates',
+        desc: 'Smart block, Greeks contradiction, hidden distribution, Markov veto, and BTC danger stop overrides first.',
+        chips: ['blocked','contradict','hidden','markov'],
+        sub: [
+            { type: 'guard', text: 'Toxic setups return early before lecturer logic.' },
+            { type: 'guard', text: 'Lecturer cannot reopen a sealed hard block.' }
+        ]
+    },
+    {
+        num: '05',
+        color: '#1d9e75',
+        tagBg: 'rgba(29,158,117,0.12)',
+        tag: 'Sweep',
+        title: 'Sweep Matrix',
+        desc: 'Separate pre-sweep, at-magnet, post-sweep, long_swept, short_liq, and long_liq timing.',
+        chips: ['pre-kill','magnet','swept','post'],
+        sub: [
+            { type: 'detect', text: 'Pending short-liq can protect LONG from fake SHORT.' },
+            { type: 'detect', text: 'Consumed magnets reopen post-sweep reversal checks.' }
+        ]
+    },
+    {
+        num: '06',
+        color: '#d28c2d',
+        tagBg: 'rgba(210,140,45,0.12)',
+        tag: 'Flow',
+        title: 'Flow vs Energy',
+        desc: 'Compare OFI, agg, up/down energy, volume ratio, bid/ask stack, and ghost supply.',
+        chips: ['OFI','agg','up','down','ghost'],
+        sub: [
+            { type: 'detect', text: 'Spot phantom pump, quiet accumulation, and hidden distribution.' },
+            { type: 'guard', text: 'Executed flow beats spoofed book pressure.' }
+        ]
+    },
+    {
+        num: '07',
+        color: '#9c82ff',
+        tagBg: 'rgba(156,130,255,0.12)',
+        tag: 'Hawkes',
+        title: 'Freshness Check',
+        desc: 'Trust fresh multi-TF pressure, downgrade residual macro, pyramid echo, and 4h versus 1h conflicts.',
+        chips: ['fresh','echo','4h','1h','pyramid'],
+        sub: [
+            { type: 'guard', text: 'Echo is not a fresh ignition signal.' },
+            { type: 'guard', text: 'Macro pressure must survive timing checks.' }
+        ]
+    },
+    {
+        num: '08',
+        color: '#d85a30',
+        tagBg: 'rgba(216,90,48,0.12)',
+        tag: 'Traps',
+        title: 'Trap Fingerprints',
+        desc: 'Patch BTC sweep-dump, dead-cat bounce, ghost reload, terminal blowoff, VETO_TO_SHORT_FLIP, and spoof walls.',
+        chips: ['sweep-dump','dead-cat','reload','blowoff'],
+        sub: [
+            { type: 'guard', text: 'Latest losses become narrow fingerprints.' },
+            { type: 'guard', text: 'Opposite traps stay scoped by regime and timing.' }
+        ]
+    },
+    {
+        num: '09',
+        color: '#c98a1a',
+        tagBg: 'rgba(201,138,26,0.12)',
+        tag: 'Risk',
+        title: 'Risk Sizing',
+        desc: 'Size only after structure passes. Kelly, RoR, caps, probe-only, reduce-only, and hard block decide exposure.',
+        chips: ['Kelly','RoR','probe','reduce','block'],
+        sub: [
+            { type: 'risk', text: 'Bad edge blocks or shrinks exposure.' },
+            { type: 'risk', text: 'High certainty exceptions still stay controlled.' }
+        ]
+    },
+    {
+        num: '10',
+        color: '#d4a84b',
+        tagBg: 'rgba(212,168,75,0.12)',
+        tag: 'Output',
+        title: 'Atomic JSON',
+        desc: 'Emit final bias, confidence, entry_allowed, position_multiplier, guard source, reasons, and BTC context.',
+        chips: ['bias','size','source','reason','JSON'],
+        sub: [
+            { type: 'detect', text: 'Final render applies the sealed gate stack.' },
+            { type: 'guard', text: 'Regression memory protects old wins.' }
+        ]
+    }
+];
+
+let plActive = new Set([0]);
 
 function plSubHtml(items) {
     if (!items || !items.length) return '';
