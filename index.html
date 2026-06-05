@@ -295,11 +295,11 @@
             <div class="pipeline-wrap">
                 <div class="pl-header"><span class="pl-header-label">Latest compact logic stack</span><div class="pl-header-line"></div></div>
                 <div class="pl-stats">
-                    <div class="pl-stat"><span class="pl-stat-val">90+</span><span class="pl-stat-lbl">Rules</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">120+</span><span class="pl-stat-lbl">Rules</span></div>
                     <div class="pl-stat"><span class="pl-stat-val">10</span><span class="pl-stat-lbl">Stages</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">15+</span><span class="pl-stat-lbl">Traps</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">250</span><span class="pl-stat-lbl">Risk</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">JSON</span><span class="pl-stat-lbl">Output</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">30+</span><span class="pl-stat-lbl">Traps</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">BTC</span><span class="pl-stat-lbl">Anchor</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">SYNC</span><span class="pl-stat-lbl">JSON</span></div>
                 </div>
                 <div class="pl-list" id="plList"></div>
                 <div class="pl-footer"><span class="pulse-dot" style="background:#57d977;"></span>Latest gates active &mdash; tap a stage</div>
@@ -953,12 +953,12 @@ const plStages = [
         color: '#378ADD',
         tagBg: 'rgba(55,138,221,0.12)',
         tag: 'Input',
-        title: 'Raw Snapshot',
-        desc: 'Compute price, volume, OFI, OBV, energy, book ratio, funding, liquidation distance, and BTC fields.',
-        chips: ['price','OFI','OBV','energy','liq','BTC'],
+        title: 'Market Snapshot',
+        desc: 'Build one compact frame from price, liquidity distance, OFI, agg, energy, volume, book pressure, funding, BTC, and ratio telemetry.',
+        chips: ['price','liq','OFI','agg','BTC','ratios'],
         sub: [
-            { type: 'detect', text: 'Normalize raw market and distance data.' },
-            { type: 'detect', text: 'Mark nearest long/short liquidation pools.' }
+            { type: 'detect', text: 'Normalize altcoin, BTC, and long/short ratio data.' },
+            { type: 'detect', text: 'Mark nearest long-liq and short-liq magnets.' }
         ]
     },
     {
@@ -966,12 +966,12 @@ const plStages = [
         color: '#57a6d9',
         tagBg: 'rgba(87,166,217,0.12)',
         tag: 'BTC',
-        title: 'BTC Anchor',
-        desc: 'Classify BTC dump, hidden distribution, local oversold bounce, and pump support before altcoin logic.',
-        chips: ['1m','15m','1h','4h','RSI','energy'],
+        title: 'BTC Psychology Anchor',
+        desc: 'Separate active dump, local relief, dead-cat pump, and capitulation bid-reload before trusting altcoin bias.',
+        chips: ['1m','15m','1h','4h','dump','relief'],
         sub: [
-            { type: 'gate', text: 'BTC dump active can block fragile LONG setups.' },
-            { type: 'gate', text: 'BTC local oversold can block late SHORT flips.' }
+            { type: 'gate', text: 'BTC active dump can block fragile alt LONG traps.' },
+            { type: 'new', text: 'Capitulation bid-reload can override BTC dump shorts.' }
         ]
     },
     {
@@ -980,11 +980,11 @@ const plStages = [
         tagBg: 'rgba(139,127,221,0.12)',
         tag: 'Context',
         title: 'Regime Lens',
-        desc: 'Read LIQ_HUNT, ACCUMULATION, MANIPULATION, DISTRIBUTION, BAIT, KILL, and PREP before interpreting signals.',
-        chips: ['regime','phase','Greeks','Hawkes'],
+        desc: 'Interpret each signal by regime first: LIQ_HUNT, ACCUMULATION, MANIPULATION, DISTRIBUTION, BAIT, KILL, or UNKNOWN.',
+        chips: ['regime','phase','bait','kill','unknown'],
         sub: [
-            { type: 'gate', text: 'Each regime changes what crowded, ghost, and Hawkes mean.' },
-            { type: 'guard', text: 'Greeks and Hawkes cannot decide alone.' }
+            { type: 'gate', text: 'Crowded, ghost, and Hawkes mean different things by regime.' },
+            { type: 'guard', text: 'Lecturer cannot read a signal without context.' }
         ]
     },
     {
@@ -992,12 +992,12 @@ const plStages = [
         color: '#c050c8',
         tagBg: 'rgba(192,80,200,0.12)',
         tag: 'Hard',
-        title: 'No-Override Gates',
-        desc: 'Smart block, Greeks contradiction, hidden distribution, Markov veto, and BTC danger stop overrides first.',
-        chips: ['blocked','contradict','hidden','markov'],
+        title: 'Hard Seals',
+        desc: 'Apply absolute blockers first: smart-confidence block, hidden distribution, Markov veto, Greeks contradiction, and HMM hard states.',
+        chips: ['smart','hidden','markov','Greeks','HMM'],
         sub: [
-            { type: 'guard', text: 'Toxic setups return early before lecturer logic.' },
-            { type: 'guard', text: 'Lecturer cannot reopen a sealed hard block.' }
+            { type: 'guard', text: 'Toxic setups seal before lecturer can reopen them.' },
+            { type: 'new', text: 'Directional HMM blocks can upgrade to SHORT only with dump evidence.' }
         ]
     },
     {
@@ -1005,12 +1005,12 @@ const plStages = [
         color: '#1d9e75',
         tagBg: 'rgba(29,158,117,0.12)',
         tag: 'Sweep',
-        title: 'Sweep Matrix',
-        desc: 'Separate pre-sweep, at-magnet, post-sweep, long_swept, short_liq, and long_liq timing.',
-        chips: ['pre-kill','magnet','swept','post'],
+        title: 'Liquidation Lifecycle',
+        desc: 'Separate pre-sweep, at-magnet, consumed magnet, post-sweep dump, and capitulation bid-reload timing.',
+        chips: ['pre-kill','magnet','swept','reload'],
         sub: [
-            { type: 'detect', text: 'Pending short-liq can protect LONG from fake SHORT.' },
-            { type: 'detect', text: 'Consumed magnets reopen post-sweep reversal checks.' }
+            { type: 'detect', text: 'Near short-liq can protect LONG before squeeze.' },
+            { type: 'new', text: 'Near long-liq can become SHORT unless genuine reload appears.' }
         ]
     },
     {
@@ -1018,12 +1018,12 @@ const plStages = [
         color: '#d28c2d',
         tagBg: 'rgba(210,140,45,0.12)',
         tag: 'Flow',
-        title: 'Flow vs Energy',
-        desc: 'Compare OFI, agg, up/down energy, volume ratio, bid/ask stack, and ghost supply.',
-        chips: ['OFI','agg','up','down','ghost'],
+        title: 'Flow + Energy Truth',
+        desc: 'Compare OFI, agg, up/down energy, actual volume, bid/ask stack, ghost flow, and real execution.',
+        chips: ['OFI','agg','energy','volume','book'],
         sub: [
-            { type: 'detect', text: 'Spot phantom pump, quiet accumulation, and hidden distribution.' },
-            { type: 'guard', text: 'Executed flow beats spoofed book pressure.' }
+            { type: 'detect', text: 'Spot phantom pump, hidden distribution, and quiet accumulation.' },
+            { type: 'new', text: 'Genuine flow at capitulation can override BTC dump shorts.' }
         ]
     },
     {
@@ -1031,12 +1031,12 @@ const plStages = [
         color: '#9c82ff',
         tagBg: 'rgba(156,130,255,0.12)',
         tag: 'Hawkes',
-        title: 'Freshness Check',
-        desc: 'Trust fresh multi-TF pressure, downgrade residual macro, pyramid echo, and 4h versus 1h conflicts.',
-        chips: ['fresh','echo','4h','1h','pyramid'],
+        title: 'Hawkes Freshness',
+        desc: 'Trust fresh pressure, downgrade echo, macro residue, inverted pyramids, and 1m/4h conflicts.',
+        chips: ['fresh','echo','macro','micro','pyramid'],
         sub: [
             { type: 'guard', text: 'Echo is not a fresh ignition signal.' },
-            { type: 'guard', text: 'Macro pressure must survive timing checks.' }
+            { type: 'guard', text: 'Macro pressure must survive lifecycle timing.' }
         ]
     },
     {
@@ -1044,12 +1044,12 @@ const plStages = [
         color: '#d85a30',
         tagBg: 'rgba(216,90,48,0.12)',
         tag: 'Traps',
-        title: 'Trap Fingerprints',
-        desc: 'Patch BTC sweep-dump, dead-cat bounce, ghost reload, terminal blowoff, VETO_TO_SHORT_FLIP, and spoof walls.',
-        chips: ['sweep-dump','dead-cat','reload','blowoff'],
+        title: 'Adversarial Fingerprints',
+        desc: 'Match narrow traps: BTC long trap, HMM continuation short, Greeks ratio squeeze, ghost early squeeze, and capitulation reload.',
+        chips: ['BTC trap','HMM','ratio','ghost','reload'],
         sub: [
-            { type: 'guard', text: 'Latest losses become narrow fingerprints.' },
-            { type: 'guard', text: 'Opposite traps stay scoped by regime and timing.' }
+            { type: 'new', text: 'Recent LA, NFP, CLO, and IN rescues live here.' },
+            { type: 'guard', text: 'Opposite traps stay scoped by regime, phase, and timing.' }
         ]
     },
     {
@@ -1058,11 +1058,11 @@ const plStages = [
         tagBg: 'rgba(201,138,26,0.12)',
         tag: 'Risk',
         title: 'Risk Sizing',
-        desc: 'Size only after structure passes. Kelly, RoR, caps, probe-only, reduce-only, and hard block decide exposure.',
-        chips: ['Kelly','RoR','probe','reduce','block'],
+        desc: 'Size only after structure passes. Kelly, RoR, caps, probe-only, reduce-only, and hard-block states decide exposure.',
+        chips: ['Kelly','RoR','0.01','0.02','block'],
         sub: [
             { type: 'risk', text: 'Bad edge blocks or shrinks exposure.' },
-            { type: 'risk', text: 'High certainty exceptions still stay controlled.' }
+            { type: 'new', text: 'Ghost squeeze and capitulation reload use controlled size.' }
         ]
     },
     {
@@ -1070,12 +1070,12 @@ const plStages = [
         color: '#d4a84b',
         tagBg: 'rgba(212,168,75,0.12)',
         tag: 'Output',
-        title: 'Atomic JSON',
-        desc: 'Emit final bias, confidence, entry_allowed, position_multiplier, guard source, reasons, and BTC context.',
-        chips: ['bias','size','source','reason','JSON'],
+        title: 'Final JSON Sync',
+        desc: 'Emit one canonical decision: bias, bias_display, final lock, confidence, entry state, size, guard source, reasons, BTC, and ratios.',
+        chips: ['bias','locked','size','source','JSON'],
         sub: [
-            { type: 'detect', text: 'Final render applies the sealed gate stack.' },
-            { type: 'guard', text: 'Regression memory protects old wins.' }
+            { type: 'detect', text: 'Final render syncs bias fields before JSON output.' },
+            { type: 'guard', text: 'Regression replay protects old wins before release.' }
         ]
     }
 ];
