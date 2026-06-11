@@ -295,14 +295,14 @@
             <div class="pipeline-wrap">
                 <div class="pl-header"><span class="pl-header-label">Latest refined guard stack</span><div class="pl-header-line"></div></div>
                 <div class="pl-stats">
-                    <div class="pl-stat"><span class="pl-stat-val">180+</span><span class="pl-stat-lbl">Rules</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">220+</span><span class="pl-stat-lbl">Rules</span></div>
                     <div class="pl-stat"><span class="pl-stat-val">10</span><span class="pl-stat-lbl">Stages</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">70+</span><span class="pl-stat-lbl">Traps</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">90+</span><span class="pl-stat-lbl">Guards</span></div>
                     <div class="pl-stat"><span class="pl-stat-val">BTC+LS</span><span class="pl-stat-lbl">Anchor</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">SYNC</span><span class="pl-stat-lbl">JSON</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">REPLAY</span><span class="pl-stat-lbl">JSON</span></div>
                 </div>
                 <div class="pl-list" id="plList"></div>
-                <div class="pl-footer"><span class="pulse-dot" style="background:#57d977;"></span>Latest replay-sealed stack active &mdash; tap a stage</div>
+                <div class="pl-footer"><span class="pulse-dot" style="background:#57d977;"></span>Bayes + BTC + ratio guard stack active &mdash; tap a stage</div>
             </div>
         </section>
 
@@ -953,12 +953,12 @@ const plStages = [
         color: '#378ADD',
         tagBg: 'rgba(55,138,221,0.12)',
         tag: 'Input',
-        title: 'Unified Tape Frame',
-        desc: 'Merge price action, liq map, OFI, agg, energy, volume quality, book skew, funding, BTC context, and long/short ratios.',
-        chips: ['price','liq','OFI','energy','BTC','ratio'],
+        title: 'Unified Tape Snapshot',
+        desc: 'Merge price action, liq map, OFI, agg, energy, volume quality, book skew, funding, BTC, ratios, and guard source.',
+        chips: ['price','liq','flow','energy','source'],
         sub: [
-            { type: 'detect', text: 'Normalize altcoin, BTC, ratio, and participation telemetry into one frame.' },
-            { type: 'detect', text: 'Mark live magnets, trust_flow, ghost tape, book skew, and sweep timing.' }
+            { type: 'detect', text: 'Normalize altcoin, BTC, ratio, participation, and final-bias telemetry into one frame.' },
+            { type: 'detect', text: 'Mark live magnets, trust_flow, ghost tape, book skew, guard source, and sweep timing.' }
         ]
     },
     {
@@ -967,10 +967,10 @@ const plStages = [
         tagBg: 'rgba(87,166,217,0.12)',
         tag: 'Anchor',
         title: 'BTC + Ratio Anchor',
-        desc: 'Use BTC multi-TF plus global, top-account, and top-position ratios before accepting any altcoin trap label.',
-        chips: ['BTC 1m','15m','1h','4h','top pos'],
+        desc: 'Use BTC multi-TF plus global, top-account, and top-position ratios before trusting any isolated altcoin signal.',
+        chips: ['BTC 15m','1h','4h','top pos','Bayes'],
         sub: [
-            { type: 'gate', text: 'BTC dump, reclaim, dead-cat, and micro pump states can block, cap, or rearm entries.' },
+            { type: 'gate', text: 'BTC active dump, local dump, rebound, dead-cat, and decoupling states can block, cap, or rearm entries.' },
             { type: 'new', text: 'Top-position divergence separates real squeeze support from exit-liquidity traps.' }
         ]
     },
@@ -979,12 +979,12 @@ const plStages = [
         color: '#8b7fdd',
         tagBg: 'rgba(139,127,221,0.12)',
         tag: 'Context',
-        title: 'Regime First Lens',
-        desc: 'Read regime and phase before trusting RSI, Hawkes, Greeks, OFI, exchange direction, or Lecturer anchors.',
-        chips: ['accum','liq hunt','manip','prep','kill'],
+        title: 'Regime + Phase Lens',
+        desc: 'Read accumulation, liquidation hunt, manipulation, distribution, PREP, BAIT, KILL, and skip states before any override.',
+        chips: ['accum','liq hunt','manip','dist','kill'],
         sub: [
             { type: 'gate', text: 'The same signal can mean ignition, trap, or continuation depending on phase.' },
-            { type: 'guard', text: 'Manipulation PREP, accumulation bait, distribution pressure, and KILL states stay separated.' }
+            { type: 'guard', text: 'Regime skip, PREP, BAIT, distribution pressure, and KILL states keep guards scoped.' }
         ]
     },
     {
@@ -992,12 +992,12 @@ const plStages = [
         color: '#c050c8',
         tagBg: 'rgba(192,80,200,0.12)',
         tag: 'Hard',
-        title: 'Hard Veto Layer',
-        desc: 'Seal non-overridable states before Lecturer: smart block, hidden distribution, Markov veto, Greeks contradiction, and pre-kill blocks.',
-        chips: ['smart','hidden','Greeks','prekill','HMM'],
+        title: 'Non-Override Gates',
+        desc: 'Seal smart blocks, hidden distribution, Markov veto, Greeks contradiction, VETO flip invalidation, and pre-kill blocks before Lecturer.',
+        chips: ['smart','hidden','Markov','Greeks','flip'],
         sub: [
             { type: 'guard', text: 'Toxic states seal before no-neutral, reverse, or flip logic can reopen them.' },
-            { type: 'new', text: 'Tier-0 and critical veto states now rearm direction only when timing is still live.' }
+            { type: 'new', text: 'Hidden distribution can be final, or demoted only by tightly matched squeeze and rebound fingerprints.' }
         ]
     },
     {
@@ -1005,12 +1005,12 @@ const plStages = [
         color: '#1d9e75',
         tagBg: 'rgba(29,158,117,0.12)',
         tag: 'Sweep',
-        title: 'Liquidation Lifecycle',
-        desc: 'Separate pre-sweep, Tier-0 magnet, consumed magnet, post-sweep dump, short-liq squeeze, and bid-reload timing.',
+        title: 'Liq Magnet Lifecycle',
+        desc: 'Separate pre-sweep, Tier-0 magnet, critical magnet, consumed magnet, post-sweep dump, short-liq squeeze, and bid reload.',
         chips: ['Tier0','critical','prekill','swept','magnet'],
         sub: [
             { type: 'detect', text: 'Ultra-close short-liq can be live squeeze fuel even when RSI looks terminal.' },
-            { type: 'new', text: 'Critical short-liq veto blocks Greeks SHORT unless the magnet is confirmed consumed.' }
+            { type: 'new', text: 'Ultra-close long-liq can become terminal markdown when fake squeeze, ask wall, BTC drag, and ratios agree.' }
         ]
     },
     {
@@ -1018,12 +1018,12 @@ const plStages = [
         color: '#d28c2d',
         tagBg: 'rgba(210,140,45,0.12)',
         tag: 'Flow',
-        title: 'Flow + Energy Truth',
-        desc: 'Compare OFI, agg, flow, up/down energy, actual volume, ghost tape, spoof walls, and absorption quality.',
-        chips: ['OFI','agg','ghost','spoof','absorb'],
+        title: 'Flow + Energy Reality',
+        desc: 'Compare OFI, agg, flow, up/down energy, actual volume, ghost tape, spoof walls, ask/bid skew, and absorption quality.',
+        chips: ['OFI','agg','ghost','ask/bid','absorb'],
         sub: [
             { type: 'detect', text: 'Spot phantom pumps, quiet accumulation, hidden distribution, and spoof ask-walls.' },
-            { type: 'new', text: 'MM absorption is cancelled when OFI, OBV, Hawkes, and top-position all say continuation.' }
+            { type: 'new', text: 'MM absorption, thin ask, and ask wall reads are checked against top-position ratios and executed flow.' }
         ]
     },
     {
@@ -1031,38 +1031,38 @@ const plStages = [
         color: '#9c82ff',
         tagBg: 'rgba(156,130,255,0.12)',
         tag: 'Hawkes',
-        title: 'Hawkes Freshness Check',
-        desc: 'Trust fresh pressure only after checking echo, macro residue, inverted pyramids, BTC timing, and flow confirmation.',
-        chips: ['macro','micro','fresh','echo','reclaim'],
+        title: 'Hawkes Freshness Arbiter',
+        desc: 'Trust fresh pressure only after checking echo, macro residue, inverted pyramids, BTC timing, ratios, and flow confirmation.',
+        chips: ['macro','micro','fresh','echo','terminal'],
         sub: [
             { type: 'guard', text: 'Macro pressure must survive lifecycle, BTC, ratio, and executed-flow checks.' },
-            { type: 'new', text: 'Fresh all-TF Hawkes can rearm manipulation PREP when ask-wall supply is spoofable.' }
+            { type: 'new', text: 'All-TF positive Hawkes can still be terminal markdown when fake squeeze and BTC drag confirm.' }
         ]
     },
     {
         num: '08',
         color: '#d85a30',
         tagBg: 'rgba(216,90,48,0.12)',
-        tag: 'Traps',
-        title: 'Adversarial Rescue Stack',
-        desc: 'Match narrow fingerprints: Lecturer leak, Tier-0 rearm, spoof-wall ignition, ghost no-flow, dry pump, and MM flush continuation.',
-        chips: ['Tier0','spoof','MM flush','ghost','dry pump'],
+        tag: 'Bayes',
+        title: 'Exchange-Safe Probability',
+        desc: 'Score when final bias is likely the crowded side, then reduce, neutralize, or reverse only when the fingerprint is complete.',
+        chips: ['Bayes','crowd','funding','liq','reverse'],
         sub: [
-            { type: 'new', text: 'Latest guards cover critical short-liq rearm, spoof ask-wall ignition, and false absorption.' },
-            { type: 'guard', text: 'Opposite traps stay scoped by regime, phase, BTC, ratios, flow, and magnet timing.' }
+            { type: 'detect', text: 'Estimate exchange-safe direction from liq distance, funding, crowd ratio, BTC state, flow, and book skew.' },
+            { type: 'risk', text: 'The probability score is not proof; it only arms replay-safe reverse, cap, wait, or neutral logic.' }
         ]
     },
     {
         num: '09',
         color: '#c98a1a',
         tagBg: 'rgba(201,138,26,0.12)',
-        tag: 'Risk',
-        title: 'Risk + Probe Control',
-        desc: 'Size only after structure passes. Kelly, RoR, caps, neutral, probe-only, reduce-only, wait-first, and hard-block states decide exposure.',
-        chips: ['Kelly','RoR','probe','wait','cap'],
+        tag: 'Traps',
+        title: 'Adversarial Rescue Stack',
+        desc: 'Match narrow fingerprints: pre-kill rearm, lowcap sniper, BTC trap, ghost no-flow, terminal markdown, spoof ignition, and rebound reclaim.',
+        chips: ['prekill','sniper','BTC trap','ghost','rearm'],
         sub: [
-            { type: 'risk', text: 'Bad edge blocks, shrinks, or converts to probe instead of forcing size.' },
-            { type: 'new', text: 'Terminal toxicity can be ignored only when Tier-0 sweep timing is still live.' }
+            { type: 'new', text: 'Latest guards split terminal markdown SHORT from rebound-reclaim LONG without replacing older winners.' },
+            { type: 'guard', text: 'Opposite traps stay scoped by regime, phase, BTC, ratios, flow, and magnet timing.' }
         ]
     },
     {
@@ -1071,8 +1071,8 @@ const plStages = [
         tagBg: 'rgba(212,168,75,0.12)',
         tag: 'Output',
         title: 'Guarded JSON Sync',
-        desc: 'Emit one canonical decision: bias, display bias, confidence, entry state, size, guard source, reasons, BTC context, and ratio telemetry.',
-        chips: ['bias','entry','guard','replay','JSON'],
+        desc: 'Emit one canonical decision: bias, display bias, confidence, entry state, size, rescue source, BTC context, ratio telemetry, and replay notes.',
+        chips: ['bias','entry','size','rescue','JSON'],
         sub: [
             { type: 'detect', text: 'Final render syncs bias fields before JSON output and UI display.' },
             { type: 'guard', text: 'Replay scan protects old wins before release while keeping guard names feature-only.' }
