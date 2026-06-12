@@ -97,6 +97,11 @@
         .scanner-title-row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
         .scanner-title-row h4 { margin: 0; font-size: 13px; font-weight: 500; color: var(--text-main); letter-spacing: 0.2px; }
         .scanner-title-row span { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; }
+        .scanner-actions { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 6px; }
+        .scanner-mini-btn { background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 999px; padding: 5px 10px; font-size: 10px; cursor: pointer; color: var(--text-muted); transition: all 0.2s ease; font-family: var(--font-main); white-space: nowrap; }
+        .scanner-mini-btn:hover { background: rgba(255,255,255,0.12); color: var(--text-main); border-color: var(--border2); }
+        .scanner-mini-btn.primary { background: rgba(212,168,75,0.14); border-color: var(--border-gold); color: var(--accent-gold); }
+        .scanner-mini-btn.primary:hover { background: rgba(212,168,75,0.22); color: #f2cf7c; }
         .hot-coins-list { background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; max-height: 500px; overflow-y: auto; }
         .hot-coins-list::-webkit-scrollbar { width: 3px; }
         .hot-coins-list::-webkit-scrollbar-thumb { background: var(--border2); }
@@ -215,7 +220,7 @@
         @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
         @media (max-width: 768px) { .quote-section { margin: 50px auto 40px; } .signal-quote { font-size: 18px; } .premium-section { margin: 34px auto; padding: 0 14px; } .section-title { font-size: 22px; margin-bottom: 18px; } .cards-grid { flex-direction: column; align-items: center; } .glass-card { min-width: auto; width: 100%; max-width: 300px; } .stats-grid { flex-direction: column; align-items: center; } .stat-item { width: 100%; max-width: 260px; } .pl-stats { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 5px; } .pl-stat { padding: 8px 4px; } .pl-matrix { display: none; } }
         @media (max-width: 860px) { #hotCoinsPanel { max-width: 700px; } .hot-scanner-grid { grid-template-columns: 1fr; } .aligned-meta { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-        @media (max-width: 520px) { .aligned-meta { grid-template-columns: 1fr; } .aligned-top { align-items: flex-start; flex-direction: column; } .scanner-title-row { align-items: flex-start; flex-direction: column; gap: 3px; } }
+        @media (max-width: 520px) { .aligned-meta { grid-template-columns: 1fr; } .aligned-top { align-items: flex-start; flex-direction: column; } .scanner-title-row { align-items: flex-start; flex-direction: column; gap: 6px; } .scanner-actions { justify-content: flex-start; width: 100%; } }
         @media (max-width: 480px) { .brand h1 { font-size: 28px; } .brand-logo { width: 80px; } .search-container { flex-direction: column; padding: 16px; } .btn-group { width: 100%; margin-top: 12px; } .btn-group button { width: 100%; } .card-header { flex-direction: column; gap: 10px; } .action-buttons { width: 100%; justify-content: center; } .sidebar { width: 100%; max-width: 320px; } .tabs { gap: 6px; } .tab-btn { padding: 6px 14px; font-size: 13px; } .pl-header { margin-bottom: 1rem; } .pl-header-label { font-size: 9px; letter-spacing: 1.8px; } .pl-stats { gap: 4px; } .pl-stat { padding: 7px 2px; border-radius: 8px; } .pl-stat-val { font-size: 14px; } .pl-stat-lbl { font-size: 7px; letter-spacing: .6px; } .pl-spine { width: 34px; } .pl-node { width: 26px; height: 26px; font-size: 9px; } .pl-body { padding-left: 8px; padding-bottom: 9px; } .pl-card { padding: 10px 11px; } .pl-card-header { align-items: flex-start; gap: 8px; } .pl-title { font-size: 12px; line-height: 1.3; } .pl-badge { font-size: 8px; padding: 2px 7px; } .pl-desc { font-size: 10px; line-height: 1.45; } .pl-chip { font-size: 8px; padding: 2px 6px; } .pl-sub { display: none; } .pl-footer { font-size: 10px; } }
     </style>
 </head>
@@ -284,10 +289,13 @@
                 <div class="scanner-column">
                     <div class="scanner-title-row">
                         <h4>Three Independent Signals Aligned</h4>
-                        <span>Liq + Flow + BTC</span>
+                        <div class="scanner-actions">
+                            <button class="scanner-mini-btn primary" id="scanAlignedBtn">Scan 3-Layer</button>
+                            <button class="scanner-mini-btn" id="downloadAlignedBtn">Download JSON</button>
+                        </div>
                     </div>
                     <div id="alignedSetupsList" class="aligned-list">
-                        <div class="empty-hot">Scanning aligned setups...</div>
+                        <div class="empty-hot">Manual scan only. Click Scan 3-Layer when you want a fresh snapshot.</div>
                     </div>
                 </div>
             </div>
@@ -405,12 +413,14 @@ const hotCoinsListDiv = document.getElementById('hotCoinsList');
 const lastUpdatedSpan = document.getElementById('lastUpdated');
 const alignedSetupsListDiv = document.getElementById('alignedSetupsList');
 const alignedUpdatedSpan = document.getElementById('alignedUpdated');
+const scanAlignedBtn = document.getElementById('scanAlignedBtn');
+const downloadAlignedBtn = document.getElementById('downloadAlignedBtn');
 
 /* ================================================================
    STATE
 ================================================================ */
 let lastSymbol = '', lastTerminalOutput = '', lastJSONData = null;
-let currentView = 'terminal', refreshInterval = null, hotCoinsData = null, alignedSetupsData = null;
+let currentView = 'terminal', refreshInterval = null, hotCoinsData = null, alignedSetupsData = null, alignedSetupsPayload = null;
 
 /* ================================================================
    HELPERS
@@ -590,6 +600,12 @@ async function fetchAlignedSetups() {
         const r = await fetch(`${BASE_URL}/api/three_layer_aligned?limit=14`);
         const d = await r.json();
         if (d.success) {
+            alignedSetupsPayload = {
+                downloaded_from: 'three_independent_signals_aligned',
+                downloaded_at: new Date().toISOString(),
+                hot_coins_snapshot: hotCoinsData || [],
+                ...d
+            };
             alignedSetupsData = d.data || [];
             renderAlignedSetups(alignedSetupsData);
             if (d.last_updated && alignedUpdatedSpan) {
@@ -603,6 +619,21 @@ async function fetchAlignedSetups() {
         alignedSetupsListDiv.innerHTML = '<div class="empty-hot">Error scanning aligned setups.</div>';
         return false;
     }
+}
+
+function downloadAlignedSetupsJson() {
+    if (!alignedSetupsPayload) {
+        showToast('Scan 3-Layer first, then download JSON.', 'error');
+        return;
+    }
+    const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+    const blob = new Blob([JSON.stringify(alignedSetupsPayload, null, 2)], {type: 'application/json'});
+    const a = document.createElement('a');
+    a.download = `DylPredict_three_layer_aligned_${stamp}.json`;
+    a.href = URL.createObjectURL(blob);
+    a.click();
+    URL.revokeObjectURL(a.href);
+    showToast('Three Independent JSON downloaded');
 }
 
 function renderAlignedSetups(items) {
@@ -758,7 +789,6 @@ function switchToHotCoins() {
     tabHotCoins.classList.add('active'); tabAnalyzer.classList.remove('active');
     analyzerPanel.classList.add('hidden'); hotCoinsPanel.classList.remove('hidden');
     if (!hotCoinsData) fetchHotCoins();
-    if (!alignedSetupsData) fetchAlignedSetups();
 }
 
 /* ================================================================
@@ -770,7 +800,6 @@ function startAutoRefresh() {
         fetchGlobalHistory();
         if (!hotCoinsPanel.classList.contains('hidden')) {
             fetchHotCoins();
-            fetchAlignedSetups();
         }
     }, 12000);
 }
@@ -1285,8 +1314,9 @@ copyBtn.addEventListener('click', copyResult);
 downloadBtn.addEventListener('click', downloadResult);
 refreshHotBtn.addEventListener('click', () => {
     fetchHotCoins();
-    fetchAlignedSetups();
 });
+scanAlignedBtn?.addEventListener('click', fetchAlignedSetups);
+downloadAlignedBtn?.addEventListener('click', downloadAlignedSetupsJson);
 tabAnalyzer.addEventListener('click', switchToAnalyzer);
 tabHotCoins.addEventListener('click', switchToHotCoins);
 window.toggleSidebar = toggleSidebar;
