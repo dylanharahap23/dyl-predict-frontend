@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="api-base" content="https://spotty-lizzie-dylpredict-2b047c63.koyeb.app">
     <title>DylPredict Premium | Neural Signals</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@600&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -92,7 +93,7 @@
         .refresh-hot-btn { background: rgba(255,255,255,0.08); border: 1px solid var(--border); border-radius: 30px; padding: 6px 16px; font-size: 12px; cursor: pointer; color: var(--text-muted); transition: all 0.2s; font-family: var(--font-main); }
         .refresh-hot-btn:hover { background: rgba(255,255,255,0.14); color: var(--text-main); }
         #hotCoinsPanel { max-width: 980px; }
-        .hot-scanner-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 16px; align-items: start; }
+        .hot-scanner-grid { display: grid; grid-template-columns: 1fr; gap: 16px; align-items: start; }
         .scanner-column { min-width: 0; }
         .scanner-title-row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
         .scanner-title-row h4 { margin: 0; font-size: 13px; font-weight: 500; color: var(--text-main); letter-spacing: 0.2px; }
@@ -262,7 +263,11 @@
         <div id="analyzerPanel" class="panel">
             <div class="search-area">
                 <div class="search-container">
-                    <input type="text" id="symbol" placeholder="Analyze a symbol..." value="">
+                    <input type="text" id="symbol" list="symbolSuggestions" placeholder="Search BTCUSDT or XAUUSDT..." value="" autocomplete="off">
+                    <datalist id="symbolSuggestions">
+                        <option value="XAUUSDT">Gold perpetual</option>
+                        <option value="BTCUSDT">Bitcoin perpetual</option>
+                    </datalist>
                     <div class="btn-group">
                         <button class="btn-analyze" id="analyzeBtn">Analyze</button>
                     </div>
@@ -286,21 +291,8 @@
                         <div class="empty-hot">Loading hot coins...</div>
                     </div>
                 </div>
-                <div class="scanner-column">
-                    <div class="scanner-title-row">
-                        <h4>Three Independent Signals Aligned</h4>
-                        <div class="scanner-actions">
-                            <button class="scanner-mini-btn primary" id="scanAlignedBtn">Scan 3-Layer</button>
-                            <button class="scanner-mini-btn" id="downloadAlignedBtn">Download JSON</button>
-                        </div>
-                    </div>
-                    <div id="alignedSetupsList" class="aligned-list">
-                        <div class="empty-hot">Manual scan only. Click Scan 3-Layer when you want a fresh snapshot.</div>
-                    </div>
-                </div>
             </div>
             <div id="lastUpdated" class="last-updated"></div>
-            <div id="alignedUpdated" class="last-updated"></div>
         </div>
 
         <!-- Quote -->
@@ -320,7 +312,7 @@
         <section class="premium-section reveal" id="how-it-works">
             <h2 class="section-title">How It Works</h2>
             <div class="cards-grid">
-                <div class="glass-card"><span class="card-icon">🔍</span><span class="card-title">Scan Market</span>500+ crypto assets tracked live</div>
+                <div class="glass-card"><span class="card-icon">🔍</span><span class="card-title">Scan Market</span>BTCUSDT and XAUUSDT tracked live</div>
                 <div class="glass-card"><span class="card-icon">⚡</span><span class="card-title">Analyze Pattern</span>Neural engine detects bias</div>
                 <div class="glass-card"><span class="card-icon">📡</span><span class="card-title">Generate Signal</span>Clear LONG / SHORT output</div>
             </div>
@@ -334,7 +326,7 @@
             <div class="stats-grid">
                 <div class="stat-item"><span class="stat-number">24/7</span>Monitoring</div>
                 <div class="stat-item"><span class="stat-number">98.3%</span>Uptime</div>
-                <div class="stat-item"><span class="stat-number">500+</span>Assets Tracked</div>
+                <div class="stat-item"><span class="stat-number">2</span>Focused Markets</div>
             </div>
         </section>
 
@@ -346,14 +338,14 @@
             <div class="pipeline-wrap">
                 <div class="pl-header"><span class="pl-header-label">Latest refined guard stack</span><div class="pl-header-line"></div></div>
                 <div class="pl-stats">
-                    <div class="pl-stat"><span class="pl-stat-val">240+</span><span class="pl-stat-lbl">Rules</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">10</span><span class="pl-stat-lbl">Stages</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">100+</span><span class="pl-stat-lbl">Guards</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">BTC+LS</span><span class="pl-stat-lbl">Anchor</span></div>
-                    <div class="pl-stat"><span class="pl-stat-val">3-LYR</span><span class="pl-stat-lbl">JSON</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">40+</span><span class="pl-stat-lbl">Factors</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">8</span><span class="pl-stat-lbl">Stages</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">12+</span><span class="pl-stat-lbl">Validators</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">BTC+XAU</span><span class="pl-stat-lbl">Markets</span></div>
+                    <div class="pl-stat"><span class="pl-stat-val">L/S</span><span class="pl-stat-lbl">No Neutral</span></div>
                 </div>
                 <div class="pl-list" id="plList"></div>
-                <div class="pl-footer"><span class="pulse-dot" style="background:#57d977;"></span>Three-layer + BTC + ratio invalidators active &mdash; tap a stage</div>
+                <div class="pl-footer"><span class="pulse-dot" style="background:#57d977;"></span>Liquidity-first adversarial resolver active &mdash; tap a stage</div>
             </div>
         </section>
 
@@ -389,7 +381,10 @@
 /* ================================================================
    CONFIG & DOM
 ================================================================ */
-const BASE_URL = 'https://spotty-lizzie-dylpredict-2b047c63.koyeb.app';
+const configuredApiBase = document.querySelector('meta[name="api-base"]')?.content?.replace(/\/$/, '');
+const BASE_URL = (location.protocol.startsWith('http') && location.pathname === '/')
+    ? location.origin
+    : (window.DYLPREDICT_API_BASE || configuredApiBase);
 
 const wrapper       = document.getElementById('wrapper');
 const resultArea    = document.getElementById('resultArea');
@@ -411,16 +406,12 @@ const hotCoinsPanel = document.getElementById('hotCoinsPanel');
 const refreshHotBtn = document.getElementById('refreshHotBtn');
 const hotCoinsListDiv = document.getElementById('hotCoinsList');
 const lastUpdatedSpan = document.getElementById('lastUpdated');
-const alignedSetupsListDiv = document.getElementById('alignedSetupsList');
-const alignedUpdatedSpan = document.getElementById('alignedUpdated');
-const scanAlignedBtn = document.getElementById('scanAlignedBtn');
-const downloadAlignedBtn = document.getElementById('downloadAlignedBtn');
 
 /* ================================================================
    STATE
 ================================================================ */
 let lastSymbol = '', lastTerminalOutput = '', lastJSONData = null;
-let currentView = 'terminal', refreshInterval = null, hotCoinsData = null, alignedSetupsData = null, alignedSetupsPayload = null;
+let currentView = 'terminal', refreshInterval = null, hotCoinsData = null;
 
 /* ================================================================
    HELPERS
@@ -442,12 +433,41 @@ function escapeHtml(str) {
 
 function toggleSidebar() { sidebar.classList.toggle('open'); }
 
+function normalizeClientSymbol(value) {
+    const cleaned = String(value || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const aliases = {
+        BTC: 'BTCUSDT',
+        BTCUSD: 'BTCUSDT',
+        XAU: 'XAUUSDT',
+        XAUUSD: 'XAUUSDT',
+        GOLD: 'XAUUSDT'
+    };
+    return aliases[cleaned] || cleaned;
+}
+
+let symbolSearchTimer = null;
+async function updateSymbolSuggestions(query='') {
+    const list = document.getElementById('symbolSuggestions');
+    if (!list) return;
+    try {
+        const response = await fetch(`${BASE_URL}/symbols/search?q=${encodeURIComponent(query)}`);
+        const payload = await response.json();
+        if (!response.ok || !payload.success) throw new Error(payload.error || 'Search failed');
+        list.innerHTML = (payload.data || []).map(item =>
+            `<option value="${escapeHtml(item.symbol)}">${escapeHtml((item.aliases || []).join(', '))}</option>`
+        ).join('');
+    } catch {
+        list.innerHTML = '<option value="XAUUSDT"><option value="BTCUSDT">';
+    }
+}
+
 function getFinalBiasFromResult(r) {
     const b = r?.bias_display;
     if (b === 'LONG' || b === 'SHORT') return b;
     const l = r?._final_bias_locked;
     if (l === 'LONG' || l === 'SHORT') return l;
-    return r?.bias || 'NEUTRAL';
+    const raw = r?.bias || r?.opinion || r?.recommended_action;
+    return raw === 'SHORT' ? 'SHORT' : 'LONG';
 }
 
 /* ================================================================
@@ -455,7 +475,7 @@ function getFinalBiasFromResult(r) {
 ================================================================ */
 function buildTerminalFromJSON(d) {
     if (!d) return "No data available";
-    const bias = d.bias_display || d._final_bias_locked || d.bias || 'NEUTRAL';
+    const bias = getFinalBiasFromResult(d);
     const icon = bias === 'LONG' ? '🟢' : (bias === 'SHORT' ? '🔴' : '🟡');
     const conf = d.confidence || 'MEDIUM';
     const confIcon = {"ABSOLUTE":"⚡⚡⚡","HIGH":"🔥🔥🔥","MEDIUM":"🔥🔥"}[conf] || "🔥";
@@ -593,89 +613,18 @@ function renderHotCoins(coins) {
 /* ================================================================
    ANALYZE — SATU CALL SAJA (FIX)
 ================================================================ */
-async function fetchAlignedSetups() {
-    if (!alignedSetupsListDiv) return false;
-    alignedSetupsListDiv.innerHTML = '<div class="empty-hot">Scanning hot coins for 3-layer alignment...</div>';
-    try {
-        const r = await fetch(`${BASE_URL}/api/three_layer_aligned?limit=14`);
-        const d = await r.json();
-        if (d.success) {
-            alignedSetupsPayload = {
-                downloaded_from: 'three_independent_signals_aligned',
-                downloaded_at: new Date().toISOString(),
-                hot_coins_snapshot: hotCoinsData || [],
-                ...d
-            };
-            alignedSetupsData = d.data || [];
-            renderAlignedSetups(alignedSetupsData);
-            if (d.last_updated && alignedUpdatedSpan) {
-                alignedUpdatedSpan.textContent = `Aligned scan: ${new Date(d.last_updated).toLocaleString()} · scanned ${d.scanned || 0}/${d.hot_count || 0}`;
-            }
-            return true;
-        }
-        alignedSetupsListDiv.innerHTML = `<div class="empty-hot">${escapeHtml(d.error || 'Aligned scanner failed.')}</div>`;
-        return false;
-    } catch(e) {
-        alignedSetupsListDiv.innerHTML = '<div class="empty-hot">Error scanning aligned setups.</div>';
-        return false;
-    }
-}
-
-function downloadAlignedSetupsJson() {
-    if (!alignedSetupsPayload) {
-        showToast('Scan 3-Layer first, then download JSON.', 'error');
-        return;
-    }
-    const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
-    const blob = new Blob([JSON.stringify(alignedSetupsPayload, null, 2)], {type: 'application/json'});
-    const a = document.createElement('a');
-    a.download = `DylPredict_three_layer_aligned_${stamp}.json`;
-    a.href = URL.createObjectURL(blob);
-    a.click();
-    URL.revokeObjectURL(a.href);
-    showToast('Three Independent JSON downloaded');
-}
-
-function renderAlignedSetups(items) {
-    if (!items?.length) {
-        alignedSetupsListDiv.innerHTML = '<div class="empty-hot">No hot coin has all 3 independent layers aligned yet.</div>';
-        return;
-    }
-    alignedSetupsListDiv.innerHTML = items.map(item => {
-        const direction = item.direction === 'SHORT' ? 'SHORT' : 'LONG';
-        const badgeClass = direction === 'SHORT' ? 'short' : 'long';
-        const change = Number(item.change || 0);
-        const changeText = `${change > 0 ? '+' : ''}${change.toFixed(2)}%`;
-        const engine = item.engine_matches ? 'Engine aligned' : `Engine: ${item.bias || 'N/A'}`;
-        const tags = (item.tags || []).slice(0, 4).map(t => `<span class="aligned-tag">${escapeHtml(t)}</span>`).join('');
-        return `<div class="aligned-item" data-symbol="${escapeHtml(item.symbol)}">
-            <div class="aligned-top">
-                <span class="aligned-symbol">${escapeHtml(item.symbol)}</span>
-                <span class="setup-badge ${badgeClass}">${direction}</span>
-            </div>
-            <div class="aligned-meta">
-                <div class="aligned-metric"><b>${escapeHtml(changeText)}</b><span>1m hot</span></div>
-                <div class="aligned-metric"><b>${Number(item.score || 0).toFixed(2)}</b><span>3-layer</span></div>
-                <div class="aligned-metric"><b>${escapeHtml(engine)}</b><span>bias check</span></div>
-            </div>
-            <div class="aligned-tags">${tags || '<span class="aligned-tag">Liq + Flow + BTC agree</span>'}</div>
-        </div>`;
-    }).join('');
-    document.querySelectorAll('.aligned-item').forEach(el =>
-        el.addEventListener('click', () => { if(el.dataset.symbol) analyzeSymbol(el.dataset.symbol); })
-    );
-}
-
 async function analyzeSymbol(symbol) {
     if (!symbol) return;
-    symbolInput.value = symbol;
-    await handleAnalyze(symbol);
+    const normalized = normalizeClientSymbol(symbol);
+    symbolInput.value = normalized;
+    await handleAnalyze(normalized);
     switchToAnalyzer();
 }
 
 async function handleAnalyze(symbol=null) {
-    const sym = symbol || symbolInput.value.toUpperCase().trim();
+    const sym = normalizeClientSymbol(symbol || symbolInput.value);
     if (!sym) { showToast('Please enter a symbol','error'); return; }
+    symbolInput.value = sym;
     localStorage.setItem('lastAnalyzedSymbol', sym);
     lastSymbol = sym;
     wrapper.classList.add('has-result');
@@ -690,8 +639,7 @@ async function handleAnalyze(symbol=null) {
 
     try {
         // 🔥 SATU KALI FETCH KE /analyze (bukan dua endpoint)
-        const response = await fetch(`${BASE_URL}/analyze/${sym}`);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const response = await fetch(`${BASE_URL}/analyze/${encodeURIComponent(sym)}`);
         const raw = await response.text();
         let jsonData;
         try { jsonData = JSON.parse(raw); }
@@ -699,6 +647,10 @@ async function handleAnalyze(symbol=null) {
             // fallback untuk unicode escape
             try { jsonData = JSON.parse(raw.replace(/\\u[\dA-F]{4}/gi, m => String.fromCharCode(parseInt(m.slice(2),16)))); }
             catch(e2) { throw new Error('Invalid JSON from server'); }
+        }
+
+        if (!response.ok || jsonData.success === false) {
+            throw new Error(jsonData.error || `HTTP ${response.status}`);
         }
 
         lastJSONData = jsonData;
@@ -764,9 +716,13 @@ function showJSON() {
 }
 
 function downloadResult() {
-    const blob = new Blob([outputEl.textContent], {type:'text/plain'});
+    const isJson = currentView === 'json';
+    const blob = new Blob(
+        [outputEl.textContent],
+        {type: isJson ? 'application/json' : 'text/plain'}
+    );
     const a = document.createElement('a');
-    a.download = `DylPredict_${lastSymbol||'analysis'}_${currentView==='json'?'json':'analysis'}_${new Date().toISOString().slice(0,10)}.txt`;
+    a.download = `DylPredict_${lastSymbol||'analysis'}_${isJson?'json':'analysis'}_${new Date().toISOString().slice(0,10)}.${isJson?'json':'txt'}`;
     a.href = URL.createObjectURL(blob); a.click(); URL.revokeObjectURL(a.href);
     showToast(`✅ Downloaded`);
 }
@@ -1077,15 +1033,15 @@ const legacyPipelineStages = [
     }
 ];
 
-const plStages = [
+const legacyPlStages = [
     {
         num: '01',
         color: '#378ADD',
         tagBg: 'rgba(55,138,221,0.12)',
         tag: 'Input',
         title: 'Unified Tape Snapshot',
-        desc: 'Merge price action, liq map, Greeks, OFI, agg, energy, volume quality, book skew, funding, BTC, ratios, and three-layer state.',
-        chips: ['price','liq','Greeks','flow','3-layer'],
+        desc: 'Merge price action, liquidation map, OFI, energy, volume quality, book skew, funding, crowding, and multi-timeframe pressure.',
+        chips: ['price','liq','flow','volume','pressure'],
         sub: [
             { type: 'detect', text: 'Normalize altcoin, BTC, ratio, participation, and final-bias telemetry into one frame.' },
             { type: 'detect', text: 'Mark live magnets, trust_flow, ghost tape, book skew, guard source, engine_matches, invalidators, and sweep timing.' }
@@ -1097,7 +1053,7 @@ const plStages = [
         tagBg: 'rgba(87,166,217,0.12)',
         tag: 'Anchor',
         title: 'BTC + Ratio Anchor',
-        desc: 'Use BTC multi-TF plus global, top-account, and top-position ratios before trusting any isolated altcoin or Three Layer signal.',
+        desc: 'Use multi-timeframe pressure plus account and top-position ratios before trusting any isolated signal.',
         chips: ['BTC 15m','1h','4h','top acct','top pos'],
         sub: [
             { type: 'gate', text: 'BTC active dump, local dump, rebound, dead-cat, and decoupling states can block, cap, or rearm entries.' },
@@ -1123,7 +1079,7 @@ const plStages = [
         tagBg: 'rgba(192,80,200,0.12)',
         tag: 'Hard',
         title: 'Non-Override Gates',
-        desc: 'Seal smart blocks, hidden distribution, Markov veto, Greeks contradiction, VETO flip invalidation, and Three Layer reject labels before Lecturer.',
+        desc: 'Seal invalid exit-liquidity, hidden distribution, crowd contradictions, and spoof-wall conflicts before final resolution.',
         chips: ['smart','hidden','Markov','Greeks','reject'],
         sub: [
             { type: 'guard', text: 'Toxic states seal before no-neutral, reverse, or flip logic can reopen them.' },
@@ -1153,7 +1109,7 @@ const plStages = [
         chips: ['OFI','agg','ghost','ask/bid','no-seller'],
         sub: [
             { type: 'detect', text: 'Spot phantom pumps, quiet accumulation, hidden distribution, spoof ask-walls, and ghost-volume traps.' },
-            { type: 'new', text: 'Ghost top-account squeeze and hidden spoof ask-wall reclaim can neutralize a Three Layer SHORT.' }
+            { type: 'new', text: 'Ghost squeezes and hidden spoof ask-wall reclaim can invalidate premature SHORT signals.' }
         ]
     },
     {
@@ -1201,11 +1157,94 @@ const plStages = [
         tagBg: 'rgba(212,168,75,0.12)',
         tag: 'Output',
         title: 'Guarded JSON Sync',
-        desc: 'Emit one canonical decision: bias, display bias, confidence, entry state, size, rescue source, Three Layer setup, invalidators, and replay notes.',
-        chips: ['bias','entry','3-layer','reject','JSON'],
+        desc: 'Emit one canonical decision: LONG or SHORT, confidence, entry state, size, liquidity target, trap classification, and replay notes.',
+        chips: ['bias','entry','target','trap','JSON'],
         sub: [
             { type: 'detect', text: 'Final render syncs bias, engine_matches, setup, invalidators, BTC context, and ratio telemetry before JSON output.' },
             { type: 'guard', text: 'Replay scan protects old wins before release while keeping guard names feature-only in the UI.' }
+        ]
+    }
+];
+
+const plStages = [
+    {
+        num: '01', color: '#378ADD', tagBg: 'rgba(55,138,221,0.12)',
+        tag: 'Binance', title: 'USD-M Futures Snapshot',
+        desc: 'Fetch BTCUSDT or XAUUSDT price, 1m/5m/15m/1h candles, trade flow, order book, funding, open interest, and crowd ratio directly from Binance.',
+        chips: ['BTCUSDT','XAUUSDT','OHLCV','trades','book'],
+        sub: [
+            { type: 'detect', text: 'Search aliases BTC, XAU, XAUUSD, and GOLD are normalized before analysis.' },
+            { type: 'guard', text: 'ExchangeInfo validates that the selected contract is currently TRADING.' }
+        ]
+    },
+    {
+        num: '02', color: '#57a6d9', tagBg: 'rgba(87,166,217,0.12)',
+        tag: 'Liquidity', title: 'Closest Forced-Liquidation Objective',
+        desc: 'Compare upside short-liquidation distance with downside long-liquidation distance. The nearest pool receives the highest directional weight.',
+        chips: ['short liq','long liq','MTF cluster','distance'],
+        sub: [
+            { type: 'detect', text: 'Closer short liquidations support LONG; closer long liquidations support SHORT.' },
+            { type: 'guard', text: 'Order-book appearance cannot overrule the forced-liquidation objective.' }
+        ]
+    },
+    {
+        num: '03', color: '#8b7fdd', tagBg: 'rgba(139,127,221,0.12)',
+        tag: 'Pressure', title: 'Multi-Timeframe Direction',
+        desc: 'Score 1m, 5m, and 15m trends plus normalized signed event pressure from 1m through 1h.',
+        chips: ['1m','5m','15m','1h','pressure'],
+        sub: [
+            { type: 'detect', text: 'Higher timeframes receive more trend weight.' },
+            { type: 'guard', text: 'Macro pressure must survive disagreement from live micro pressure.' }
+        ]
+    },
+    {
+        num: '04', color: '#1d9e75', tagBg: 'rgba(29,158,117,0.12)',
+        tag: 'Flow', title: 'Executed Flow + OBV Reality',
+        desc: 'Use normalized OFI, buy/sell volume, OBV direction, and buy/sell energy to confirm whether price movement is actually being executed.',
+        chips: ['OFI','volume delta','OBV','energy'],
+        sub: [
+            { type: 'detect', text: 'Flow confirmation raises direction score; disagreement becomes adversarial evidence.' },
+            { type: 'guard', text: 'Zero seller or buyer energy is only trusted with supporting structure.' }
+        ]
+    },
+    {
+        num: '05', color: '#d28c2d', tagBg: 'rgba(210,140,45,0.12)',
+        tag: 'Crowd', title: 'Funding, OI, and Positioning',
+        desc: 'BTC uses funding and crowd ratios strongly. XAUUSDT keeps them secondary to gold structure and swing liquidity.',
+        chips: ['funding','crowd ratio','top position','OI'],
+        sub: [
+            { type: 'detect', text: 'Crowded shorts can fuel LONG; crowded longs can fuel SHORT.' },
+            { type: 'guard', text: 'Funding is confirmation only and can never become the primary direction.' }
+        ]
+    },
+    {
+        num: '06', color: '#d85a30', tagBg: 'rgba(216,90,48,0.12)',
+        tag: 'Adversarial', title: 'Trap + Spoof Validation',
+        desc: 'Evaluate low-volume markup or markdown, spoof-aware book walls, seller/buyer exhaustion, and the strongest counterfactual case.',
+        chips: ['spoof','ghost volume','trap','counterfactual'],
+        sub: [
+            { type: 'guard', text: 'Visible asks can be short bait; visible bids can be long bait.' },
+            { type: 'detect', text: 'Both trap-long and trap-short scenarios are retained in final JSON.' }
+        ]
+    },
+    {
+        num: '07', color: '#c98a1a', tagBg: 'rgba(201,138,26,0.12)',
+        tag: 'Validator', title: 'Strict Exit-Liquidity Proof',
+        desc: 'A reversal requires participation expansion, OBV change, price extension, opposite liquidity target, pressure weakening, and energy deterioration.',
+        chips: ['6 checks','exit liquidity','squeeze','absorption'],
+        sub: [
+            { type: 'guard', text: 'Missing proof invalidates automatic exit-liquidity reversal.' },
+            { type: 'detect', text: 'Independent short-squeeze and long-squeeze scores are computed.' }
+        ]
+    },
+    {
+        num: '08', color: '#d4a84b', tagBg: 'rgba(212,168,75,0.12)',
+        tag: 'Output', title: 'Canonical LONG / SHORT JSON',
+        desc: 'Return one synchronized decision for the API, terminal view, history, and downloaded JSON. Uncertainty reduces confidence and size but never returns NEUTRAL.',
+        chips: ['LONG','SHORT','confidence','size','JSON'],
+        sub: [
+            { type: 'detect', text: 'bias, bias_display, locked bias, recommended_action, and training_label stay synchronized.' },
+            { type: 'risk', text: 'Low score margin produces LOW confidence and micro position size.' }
         ]
     }
 ];
@@ -1308,6 +1347,13 @@ async function loadRecentSignals() {
 ================================================================ */
 analyzeBtn.addEventListener('click', () => handleAnalyze());
 symbolInput.addEventListener('keypress', e => { if(e.key==='Enter') handleAnalyze(); });
+symbolInput.addEventListener('input', () => {
+    clearTimeout(symbolSearchTimer);
+    symbolSearchTimer = setTimeout(
+        () => updateSymbolSuggestions(symbolInput.value),
+        180
+    );
+});
 analysisBtn.addEventListener('click', showAnalysis);
 jsonBtn.addEventListener('click', showJSON);
 copyBtn.addEventListener('click', copyResult);
@@ -1315,8 +1361,6 @@ downloadBtn.addEventListener('click', downloadResult);
 refreshHotBtn.addEventListener('click', () => {
     fetchHotCoins();
 });
-scanAlignedBtn?.addEventListener('click', fetchAlignedSetups);
-downloadAlignedBtn?.addEventListener('click', downloadAlignedSetupsJson);
 tabAnalyzer.addEventListener('click', switchToAnalyzer);
 tabHotCoins.addEventListener('click', switchToHotCoins);
 window.toggleSidebar = toggleSidebar;
@@ -1331,7 +1375,8 @@ window.addEventListener('load', () => {
     historyListDiv.innerHTML='<div class="loading-text">📂 Loading history...</div>';
     if (sidebar.classList.contains('open')) toggleSidebar();
     const saved = localStorage.getItem('lastAnalyzedSymbol');
-    if (saved) symbolInput.value = saved;
+    if (saved) symbolInput.value = normalizeClientSymbol(saved);
+    updateSymbolSuggestions(symbolInput.value);
     loadHistory();
     loadRecentSignals();
     startAutoRefresh();
