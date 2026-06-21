@@ -382,9 +382,13 @@
    CONFIG & DOM
 ================================================================ */
 const configuredApiBase = document.querySelector('meta[name="api-base"]')?.content?.replace(/\/$/, '');
-const BASE_URL = (location.protocol.startsWith('http') && location.pathname === '/')
-    ? location.origin
-    : (window.DYLPREDICT_API_BASE || configuredApiBase);
+const isBackendOrigin = ['localhost', '127.0.0.1'].includes(location.hostname)
+    || location.hostname.endsWith('.koyeb.app');
+const BASE_URL = (
+    window.DYLPREDICT_API_BASE
+    || (isBackendOrigin ? location.origin : configuredApiBase)
+    || location.origin
+).replace(/\/$/, '');
 
 const wrapper       = document.getElementById('wrapper');
 const resultArea    = document.getElementById('resultArea');
@@ -445,14 +449,51 @@ function normalizeClientSymbol(value) {
     return aliases[cleaned] || cleaned;
 }
 
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+async function fetchJSON(path, options={}, retries=1) {
+    let lastError;
+    for (let attempt = 0; attempt <= retries; attempt++) {
+        try {
+            const response = await fetch(`${BASE_URL}${path}`, {
+                cache: 'no-store',
+                ...options
+            });
+            const raw = await response.text();
+            let payload;
+            try {
+                payload = JSON.parse(raw);
+            } catch {
+                const contentType = response.headers.get('content-type') || 'unknown';
+                const preview = raw.trim().replace(/\s+/g, ' ').slice(0, 140);
+                throw new Error(
+                    `Non-JSON response (HTTP ${response.status}, ${contentType})`
+                    + (preview ? `: ${preview}` : ': empty body')
+                );
+            }
+
+            if (!response.ok || payload?.success === false) {
+                const error = new Error(payload?.error || `HTTP ${response.status}`);
+                error.retryable = response.status === 429 || response.status >= 500;
+                throw error;
+            }
+            return payload;
+        } catch (error) {
+            lastError = error;
+            const retryable = error.retryable !== false;
+            if (attempt >= retries || !retryable) break;
+            await delay(900 * (attempt + 1));
+        }
+    }
+    throw lastError || new Error('API request failed');
+}
+
 let symbolSearchTimer = null;
 async function updateSymbolSuggestions(query='') {
     const list = document.getElementById('symbolSuggestions');
     if (!list) return;
     try {
-        const response = await fetch(`${BASE_URL}/symbols/search?q=${encodeURIComponent(query)}`);
-        const payload = await response.json();
-        if (!response.ok || !payload.success) throw new Error(payload.error || 'Search failed');
+        const payload = await fetchJSON(`/symbols/search?q=${encodeURIComponent(query)}`);
         list.innerHTML = (payload.data || []).map(item =>
             `<option value="${escapeHtml(item.symbol)}">${escapeHtml((item.aliases || []).join(', '))}</option>`
         ).join('');
@@ -543,17 +584,7 @@ function renderHistory(history) {
 
 async function fetchGlobalHistory() {
     try {
-        const r = await fetch(`${BASE_URL}/api/history/global?limit=50`);
-        const d = await r.json();
-        if (d.success && d.history?.length) { renderHistory(d.history); return true; }
-        return false;
-    } catch(e) { return false; }
-}
-
-async function fetchDriveHistory() {
-    try {
-        const r = await fetch(`${BASE_URL}/history/all`);
-        const d = await r.json();
+        const d = await fetchJSON('/api/history/global?limit=50');
         if (d.success && d.history?.length) { renderHistory(d.history); return true; }
         return false;
     } catch(e) { return false; }
@@ -561,14 +592,13 @@ async function fetchDriveHistory() {
 
 async function loadHistory() {
     historyListDiv.innerHTML = '<div class="loading-text">📂 Loading history...</div>';
-    if (!await fetchGlobalHistory()) await fetchDriveHistory();
+    if (!await fetchGlobalHistory()) renderHistory([]);
 }
 
 window.deleteHistoryItem = async (fileId) => {
     if (!confirm('Delete this file?')) return;
     try {
-        const r = await fetch(`${BASE_URL}/delete_file/${fileId}`, { method:'DELETE' });
-        const d = await r.json();
+        const d = await fetchJSON(`/delete_file/${encodeURIComponent(fileId)}`, { method:'DELETE' }, 0);
         if (d.success) { showToast('🗑️ Deleted'); loadHistory(); }
         else showToast('Delete failed: '+d.error, 'error');
     } catch(e) { showToast('Error: '+e.message, 'error'); }
@@ -579,8 +609,7 @@ window.deleteHistoryItem = async (fileId) => {
 ================================================================ */
 async function fetchHotCoins() {
     try {
-        const r = await fetch(`${BASE_URL}/api/hot_coins`);
-        const d = await r.json();
+        const d = await fetchJSON('/api/hot_coins', {}, 2);
         if (d.success) {
             hotCoinsData = d.data;
             renderHotCoins(d.data);
@@ -639,19 +668,7 @@ async function handleAnalyze(symbol=null) {
 
     try {
         // 🔥 SATU KALI FETCH KE /analyze (bukan dua endpoint)
-        const response = await fetch(`${BASE_URL}/analyze/${encodeURIComponent(sym)}`);
-        const raw = await response.text();
-        let jsonData;
-        try { jsonData = JSON.parse(raw); }
-        catch {
-            // fallback untuk unicode escape
-            try { jsonData = JSON.parse(raw.replace(/\\u[\dA-F]{4}/gi, m => String.fromCharCode(parseInt(m.slice(2),16)))); }
-            catch(e2) { throw new Error('Invalid JSON from server'); }
-        }
-
-        if (!response.ok || jsonData.success === false) {
-            throw new Error(jsonData.error || `HTTP ${response.status}`);
-        }
+        const jsonData = await fetchJSON(`/analyze/${encodeURIComponent(sym)}`, {}, 2);
 
         lastJSONData = jsonData;
 
@@ -1327,8 +1344,7 @@ function renderPipeline() {
 async function loadRecentSignals() {
     const feed = document.getElementById('signalFeed');
     try {
-        const r = await fetch(`${BASE_URL}/api/history/global?limit=5`);
-        const d = await r.json();
+        const d = await fetchJSON('/api/history/global?limit=5');
         if (d.success && d.history?.length) {
             feed.innerHTML = d.history.map(h => {
                 const c = h.bias==='LONG'?'#57d977': h.bias==='SHORT'?'#ff6b6b':'#d4a84b';
