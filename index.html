@@ -719,6 +719,35 @@ function prepareResultArea(label) {
     jsonBtn.classList.remove('active');
 }
 
+async function watchDriveBackup(analysisId, modeLabel, sym) {
+    if (!analysisId) return;
+    for (let attempt = 0; attempt < 4; attempt++) {
+        await delay(1800);
+        try {
+            const status = await fetchJSON(
+                `/api/drive-backup/${encodeURIComponent(analysisId)}`,
+                {},
+                0
+            );
+            const backup = status.drive_backup || {};
+            if (backup.status === 'uploaded') {
+                if (lastJSONData?.analysis_id === analysisId) {
+                    lastJSONData.drive_backup = backup;
+                }
+                showToast(`✅ ${modeLabel} saved to Drive: ${sym}`);
+                fetchGlobalHistory();
+                return;
+            }
+            if (backup.status === 'error') {
+                showToast('⚠️ Signal ready, Drive backup will retry later', 'error');
+                return;
+            }
+        } catch (_) {
+            return;
+        }
+    }
+}
+
 function applyAnalysisResult(jsonData, sym, modeLabel='Analysis') {
     lastSymbol = sym;
     lastJSONData = jsonData;
@@ -738,6 +767,9 @@ function applyAnalysisResult(jsonData, sym, modeLabel='Analysis') {
 
     if (jsonData.drive_backup?.status === 'uploaded') {
         showToast(`✅ ${modeLabel} saved to Drive: ${sym}`);
+    } else if (['queued', 'uploading'].includes(jsonData.drive_backup?.status)) {
+        showToast(`⚡ ${modeLabel} ready — Drive saving in background`);
+        watchDriveBackup(jsonData.analysis_id, modeLabel, sym);
     } else if (jsonData.drive_backup?.status === 'error') {
         showToast(`⚠️ ${modeLabel} complete, Drive backup failed`, 'error');
     } else {
@@ -895,11 +927,11 @@ function switchToManual() {
 function startAutoRefresh() {
     if (refreshInterval) clearInterval(refreshInterval);
     refreshInterval = setInterval(() => {
-        fetchGlobalHistory();
+        if (sidebar.classList.contains('open')) fetchGlobalHistory();
         if (!hotCoinsPanel.classList.contains('hidden')) {
             fetchHotCoins();
         }
-    }, 12000);
+    }, 60000);
 }
 function stopAutoRefresh() { if(refreshInterval){clearInterval(refreshInterval);refreshInterval=null;} }
 
