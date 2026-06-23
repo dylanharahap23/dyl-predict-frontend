@@ -97,7 +97,7 @@
         .manual-card { background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--border); border-radius: 22px; padding: 22px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
         .manual-card h3 { margin: 0 0 6px; font-size: 18px; color: var(--text-main); }
         .manual-card > p { margin: 0 0 18px; color: var(--text-muted); font-size: 12px; line-height: 1.55; }
-        .manual-grid { display: grid; grid-template-columns: 170px 1fr; gap: 14px; margin-bottom: 14px; }
+        .manual-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-bottom: 14px; }
         .manual-field { display: flex; flex-direction: column; gap: 7px; }
         .manual-field.full { grid-column: 1 / -1; }
         .manual-field label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-mono); }
@@ -272,7 +272,7 @@
         <div class="tabs">
             <button class="tab-btn active" id="tabAnalyzerBtn">🔍 Analyzer</button>
             <button class="tab-btn" id="tabHotCoinsBtn">🔥 Hot Coins</button>
-            <button class="tab-btn" id="tabManualBtn">🧪 Modify Analyze</button>
+            <button class="tab-btn" id="tabManualBtn">🧪 Historical Analyze</button>
         </div>
 
         <!-- Analyzer Panel -->
@@ -311,28 +311,28 @@
             <div id="lastUpdated" class="last-updated"></div>
         </div>
 
-        <!-- Manual Market JSON Panel -->
+        <!-- Historical Binance Replay Panel -->
         <div id="manualPanel" class="panel hidden">
             <div class="manual-card">
-                <h3>🧪 Analyze Market JSON at a Specific Time</h3>
-                <p>Paste a complete DylPredict JSON or normalized telemetry. The chosen market time is embedded in the analysis and the generated JSON must be saved to Google Drive.</p>
+                <h3>🧪 Analyze Binance Chart at a Specific Time</h3>
+                <p>Choose the Jakarta date and time. DylPredict fetches the historical XAUUSDT or BTCUSDT chart directly from Binance, runs your liquidation-hunter logic, and saves the generated JSON to Google Drive.</p>
                 <div class="manual-grid">
                     <div class="manual-field">
+                        <label for="manualDate">Market date (Jakarta)</label>
+                        <input id="manualDate" type="date">
+                    </div>
+                    <div class="manual-field">
                         <label for="manualTime">Market time</label>
-                        <input id="manualTime" type="time" step="1" value="04:11:00">
+                        <input id="manualTime" type="time" step="1" value="06:09:00">
                     </div>
                     <div class="manual-field">
                         <label for="manualSymbol">Symbol</label>
                         <input id="manualSymbol" type="text" value="XAUUSDT" placeholder="XAUUSDT or BTCUSDT">
                     </div>
-                    <div class="manual-field full">
-                        <label for="manualMarketJson">Market JSON</label>
-                        <textarea id="manualMarketJson" spellcheck="false" placeholder='Paste JSON here. A full snapshot containing "normalized_telemetry" is detected automatically.'></textarea>
-                    </div>
                 </div>
                 <div class="manual-actions">
-                    <span class="manual-note">Drive backup is mandatory for this mode. OAuth or folder-access errors stop the request instead of silently losing the JSON.</span>
-                    <button class="manual-submit" id="manualAnalyzeBtn">Analyze + Save JSON</button>
+                    <span class="manual-note">Anti-lookahead: only candles fully closed before the selected time are used. Binance does not expose historical REST order books, so that input is neutralized; funding/OI/positioning are used when available. Drive backup remains mandatory.</span>
+                    <button class="manual-submit" id="manualAnalyzeBtn">Fetch Binance + Analyze + Save</button>
                 </div>
             </div>
         </div>
@@ -451,9 +451,9 @@ const tabManual     = document.getElementById('tabManualBtn');
 const analyzerPanel = document.getElementById('analyzerPanel');
 const hotCoinsPanel = document.getElementById('hotCoinsPanel');
 const manualPanel   = document.getElementById('manualPanel');
+const manualDateInput = document.getElementById('manualDate');
 const manualTimeInput = document.getElementById('manualTime');
 const manualSymbolInput = document.getElementById('manualSymbol');
-const manualMarketJson = document.getElementById('manualMarketJson');
 const manualAnalyzeBtn = document.getElementById('manualAnalyzeBtn');
 const refreshHotBtn = document.getElementById('refreshHotBtn');
 const hotCoinsListDiv = document.getElementById('hotCoinsList');
@@ -768,50 +768,40 @@ async function handleAnalyze(symbol=null) {
 }
 
 async function handleManualAnalyze() {
+    const marketDate = manualDateInput.value;
     const marketTime = manualTimeInput.value;
-    const rawJson = manualMarketJson.value.trim();
+    if (!marketDate) {
+        showToast('Market date is required', 'error');
+        return;
+    }
     if (!marketTime) {
         showToast('Market time is required', 'error');
         return;
     }
-    if (!rawJson) {
-        showToast('Paste market JSON first', 'error');
-        return;
-    }
-
-    let marketData;
-    try {
-        marketData = JSON.parse(rawJson);
-    } catch (error) {
-        showToast(`Invalid market JSON: ${error.message}`, 'error');
-        return;
-    }
-    if (!marketData || Array.isArray(marketData) || typeof marketData !== 'object') {
-        showToast('Market JSON must be an object', 'error');
-        return;
-    }
-
-    const inferredSymbol = marketData.normalized_telemetry?.symbol || marketData.symbol;
-    const sym = normalizeClientSymbol(manualSymbolInput.value || inferredSymbol);
+    const sym = normalizeClientSymbol(manualSymbolInput.value);
     if (!sym) {
         showToast('Symbol is required', 'error');
         return;
     }
     manualSymbolInput.value = sym;
-    prepareResultArea(`Replaying ${sym} at ${marketTime}...`);
+    prepareResultArea(`Fetching Binance ${sym} chart at ${marketDate} ${marketTime} WIB...`);
 
     try {
-        const jsonData = await fetchJSON('/api/analyze/manual', {
+        const jsonData = await fetchJSON('/api/analyze/historical', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 symbol: sym,
+                market_date: marketDate,
                 market_time: marketTime,
-                market_data: marketData,
                 require_drive: true
             })
         }, 0);
-        applyAnalysisResult(jsonData, sym, `Manual ${jsonData.input_market_time || marketTime}`);
+        applyAnalysisResult(
+            jsonData,
+            sym,
+            `Historical ${jsonData.input_market_date || marketDate} ${jsonData.input_market_time || marketTime}`
+        );
     } catch (error) {
         outputEl.textContent = `❌ Error: ${error.message}`;
         cardEl.style.borderTop = '4px solid #ff6b6b';
@@ -1519,6 +1509,17 @@ tabManual.addEventListener('click', switchToManual);
 window.toggleSidebar = toggleSidebar;
 
 window.addEventListener('load', () => {
+    const jakartaParts = Object.fromEntries(
+        new Intl.DateTimeFormat('en-US', {
+            timeZone: 'Asia/Jakarta',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        }).formatToParts(new Date()).map(part => [part.type, part.value])
+    );
+    const jakartaToday = `${jakartaParts.year}-${jakartaParts.month}-${jakartaParts.day}`;
+    manualDateInput.value = jakartaToday;
+    manualDateInput.max = jakartaToday;
     symbolInput.value = ''; lastSymbol=''; lastTerminalOutput=''; lastJSONData=null; currentView='terminal';
     wrapper.classList.remove('has-result');
     resultArea.style.opacity='0'; resultArea.style.transform='translateY(30px)'; resultArea.style.display='none';
