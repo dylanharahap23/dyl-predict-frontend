@@ -449,6 +449,12 @@ function normalizeClientSymbol(value) {
     return aliases[cleaned] || cleaned;
 }
 
+function resolveApiUrl(value) {
+    if (!value) return '';
+    if (/^https?:\/\//i.test(value)) return value;
+    return `${BASE_URL}${value.startsWith('/') ? value : `/${value}`}`;
+}
+
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 async function fetchJSON(path, options={}, retries=1) {
@@ -574,8 +580,8 @@ function renderHistory(history) {
             <div class="filename"><b>${escapeHtml(item.symbol)}</b> · ${escapeHtml(item.bias||'NEUTRAL')}</div>
             <div class="timestamp">${date}</div>
             <div class="actions">
-                ${item.downloadUrl?`<a href="${item.downloadUrl}" target="_blank">📥 Download</a>`:''}
-                ${item.viewUrl?`<a href="${item.viewUrl}" target="_blank">👁️ View</a>`:''}
+                ${item.downloadUrl?`<a href="${escapeHtml(resolveApiUrl(item.downloadUrl))}" target="_blank">📥 Download</a>`:''}
+                ${item.viewUrl?`<a href="${escapeHtml(resolveApiUrl(item.viewUrl))}" target="_blank">👁️ View</a>`:''}
                 <button onclick="deleteHistoryItem('${item.id}')">🗑️ Delete</button>
             </div>
         </div>`;
@@ -691,7 +697,13 @@ async function handleAnalyze(symbol=null) {
             cardEl.style.borderColor = 'var(--border)';
         }
 
-        showToast(`✅ Analysis complete: ${sym}`);
+        if (jsonData.drive_backup?.status === 'uploaded') {
+            showToast(`✅ Analysis complete & saved to Drive: ${sym}`);
+        } else if (jsonData.drive_backup?.status === 'error') {
+            showToast(`⚠️ Analysis complete, Drive backup failed`, 'error');
+        } else {
+            showToast(`✅ Analysis complete: ${sym}`);
+        }
         setTimeout(() => { loadHistory(); if (!sidebar.classList.contains('open')) toggleSidebar(); }, 1000);
     } catch(e) {
         outputEl.textContent = `❌ Error: ${e.message}`;
