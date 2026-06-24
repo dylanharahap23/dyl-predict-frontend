@@ -74,7 +74,7 @@
         .has-result .brand { transform: scale(0.8); margin-bottom: 20px; }
         .brand-logo { width: 100px; height: auto; max-width: 120px; display: block; margin-bottom: 12px; filter: drop-shadow(0 2px 12px rgba(212,168,75,0.15)); transition: all 0.2s ease; }
         .brand h1 { font-family: 'Source Serif Pro', serif; font-size: 40px; margin: 0; letter-spacing: -0.02em; color: var(--text-main); font-weight: 600; line-height: 1.2; animation: glitch 5s infinite linear alternate-reverse; }
-        .tabs { display: flex; justify-content: center; gap: 12px; margin-bottom: 30px; background: transparent; border-bottom: 1px solid var(--border); padding-bottom: 8px; width: 100%; max-width: 700px; }
+        .tabs { display: flex; justify-content: center; gap: 12px; margin-bottom: 30px; background: transparent; border-bottom: 1px solid var(--border); padding-bottom: 8px; width: 100%; max-width: 900px; }
         .tab-btn { background: transparent; border: none; font-size: 15px; font-weight: 500; padding: 8px 20px; cursor: pointer; color: var(--text-muted); transition: all 0.2s ease; border-radius: 30px; }
         .tab-btn.active { background: rgba(255,255,255,0.08); color: var(--text-main); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
         .tab-btn:hover:not(.active) { background: rgba(255,255,255,0.04); color: var(--accent-gold); }
@@ -273,6 +273,7 @@
             <button class="tab-btn active" id="tabAnalyzerBtn">🔍 Analyzer</button>
             <button class="tab-btn" id="tabHotCoinsBtn">🔥 Hot Coins</button>
             <button class="tab-btn" id="tabManualBtn">🧪 Historical Analyze</button>
+            <button class="tab-btn" id="tabSignalBtn">⚡ Signal</button>
         </div>
 
         <!-- Analyzer Panel -->
@@ -333,6 +334,24 @@
                 <div class="manual-actions">
                     <span class="manual-note">Anti-lookahead: only candles fully closed before the selected time are used. Binance does not expose historical REST order books, so that input is neutralized; funding/OI/positioning are used when available. Drive backup remains mandatory.</span>
                     <button class="manual-submit" id="manualAnalyzeBtn">Fetch Binance + Analyze + Save</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Realtime Signal Panel -->
+        <div id="signalPanel" class="panel hidden">
+            <div class="manual-card">
+                <h3>⚡ Realtime Safe Signal</h3>
+                <p>Fetch the live Binance chart right now, match it against the strongest DylPredict state, then show whether XAUUSDT is safe to take LONG/SHORT or should wait for confirmation.</p>
+                <div class="manual-grid">
+                    <div class="manual-field">
+                        <label for="signalSymbol">Symbol</label>
+                        <input id="signalSymbol" type="text" value="XAUUSDT" placeholder="XAUUSDT or BTCUSDT">
+                    </div>
+                </div>
+                <div class="manual-actions">
+                    <span class="manual-note">Strict 400x gate: the engine still outputs LONG/SHORT, but Signal only marks TAKE when entry_allowed, confidence, score margin, trap risk, and counterfactual checks all pass.</span>
+                    <button class="manual-submit" id="signalAnalyzeBtn">Generate Realtime Signal</button>
                 </div>
             </div>
         </div>
@@ -448,13 +467,17 @@ const historyListDiv= document.getElementById('historyListSidebar');
 const tabAnalyzer   = document.getElementById('tabAnalyzerBtn');
 const tabHotCoins   = document.getElementById('tabHotCoinsBtn');
 const tabManual     = document.getElementById('tabManualBtn');
+const tabSignal     = document.getElementById('tabSignalBtn');
 const analyzerPanel = document.getElementById('analyzerPanel');
 const hotCoinsPanel = document.getElementById('hotCoinsPanel');
 const manualPanel   = document.getElementById('manualPanel');
+const signalPanel   = document.getElementById('signalPanel');
 const manualDateInput = document.getElementById('manualDate');
 const manualTimeInput = document.getElementById('manualTime');
 const manualSymbolInput = document.getElementById('manualSymbol');
 const manualAnalyzeBtn = document.getElementById('manualAnalyzeBtn');
+const signalSymbolInput = document.getElementById('signalSymbol');
+const signalAnalyzeBtn = document.getElementById('signalAnalyzeBtn');
 const refreshHotBtn = document.getElementById('refreshHotBtn');
 const hotCoinsListDiv = document.getElementById('hotCoinsList');
 const lastUpdatedSpan = document.getElementById('lastUpdated');
@@ -841,6 +864,37 @@ async function handleManualAnalyze() {
     }
 }
 
+async function handleRealtimeSignal() {
+    const sym = normalizeClientSymbol(signalSymbolInput.value || 'XAUUSDT');
+    if (!sym) {
+        showToast('Symbol is required', 'error');
+        return;
+    }
+    signalSymbolInput.value = sym;
+    symbolInput.value = sym;
+    localStorage.setItem('lastAnalyzedSymbol', sym);
+    prepareResultArea(`Generating realtime safe signal for ${sym}...`);
+
+    try {
+        const jsonData = await fetchJSON(
+            `/api/signal/realtime?symbol=${encodeURIComponent(sym)}&force=true`,
+            {},
+            2
+        );
+        const gate = jsonData.live_signal || {};
+        applyAnalysisResult(jsonData, sym, `Realtime Signal ${gate.execution_action || ''}`.trim());
+        if (gate.safe_to_enter) {
+            showToast(`⚡ ${gate.execution_action}: ${sym}`);
+        } else {
+            showToast(`⚠️ ${gate.execution_action || 'WAIT'}: confirmation required`, 'error');
+        }
+    } catch (error) {
+        outputEl.textContent = `❌ Error: ${error.message}`;
+        cardEl.style.borderTop = '4px solid #ff6b6b';
+        showToast(`❌ ${error.message}`, 'error');
+    }
+}
+
 /* ================================================================
    VIEW TOGGLES (menggunakan data yang sudah di-cache)
 ================================================================ */
@@ -899,26 +953,42 @@ function switchToAnalyzer() {
     tabAnalyzer.classList.add('active');
     tabHotCoins.classList.remove('active');
     tabManual.classList.remove('active');
+    tabSignal.classList.remove('active');
     analyzerPanel.classList.remove('hidden');
     hotCoinsPanel.classList.add('hidden');
     manualPanel.classList.add('hidden');
+    signalPanel.classList.add('hidden');
 }
 function switchToHotCoins() {
     tabHotCoins.classList.add('active');
     tabAnalyzer.classList.remove('active');
     tabManual.classList.remove('active');
+    tabSignal.classList.remove('active');
     analyzerPanel.classList.add('hidden');
     hotCoinsPanel.classList.remove('hidden');
     manualPanel.classList.add('hidden');
+    signalPanel.classList.add('hidden');
     if (!hotCoinsData) fetchHotCoins();
 }
 function switchToManual() {
     tabManual.classList.add('active');
     tabAnalyzer.classList.remove('active');
     tabHotCoins.classList.remove('active');
+    tabSignal.classList.remove('active');
     analyzerPanel.classList.add('hidden');
     hotCoinsPanel.classList.add('hidden');
     manualPanel.classList.remove('hidden');
+    signalPanel.classList.add('hidden');
+}
+function switchToSignal() {
+    tabSignal.classList.add('active');
+    tabAnalyzer.classList.remove('active');
+    tabHotCoins.classList.remove('active');
+    tabManual.classList.remove('active');
+    analyzerPanel.classList.add('hidden');
+    hotCoinsPanel.classList.add('hidden');
+    manualPanel.classList.add('hidden');
+    signalPanel.classList.remove('hidden');
 }
 
 /* ================================================================
@@ -1520,7 +1590,9 @@ async function loadRecentSignals() {
 ================================================================ */
 analyzeBtn.addEventListener('click', () => handleAnalyze());
 manualAnalyzeBtn.addEventListener('click', handleManualAnalyze);
+signalAnalyzeBtn.addEventListener('click', handleRealtimeSignal);
 symbolInput.addEventListener('keypress', e => { if(e.key==='Enter') handleAnalyze(); });
+signalSymbolInput.addEventListener('keypress', e => { if(e.key==='Enter') handleRealtimeSignal(); });
 symbolInput.addEventListener('input', () => {
     clearTimeout(symbolSearchTimer);
     symbolSearchTimer = setTimeout(
@@ -1538,6 +1610,7 @@ refreshHotBtn.addEventListener('click', () => {
 tabAnalyzer.addEventListener('click', switchToAnalyzer);
 tabHotCoins.addEventListener('click', switchToHotCoins);
 tabManual.addEventListener('click', switchToManual);
+tabSignal.addEventListener('click', switchToSignal);
 window.toggleSidebar = toggleSidebar;
 
 window.addEventListener('load', () => {
